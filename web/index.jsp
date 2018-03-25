@@ -17,7 +17,7 @@
         <div class="container">
             <h1>Host funcionando!</h1>
             <br/>
-            <button class="btn btn-primary">Bootstrap funcionando!</button>
+            <button class="btn btn-primary">Bootstrap 4 funcionando!</button>
             <br/><br/>
             
             <input class="form-control" type="text" ng-model="testeAngular" placeholder="Insira um texto para testar o AngularJS!">
