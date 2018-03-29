@@ -16,6 +16,12 @@ public class Conexao {
         Connection conexao = DriverManager.getConnection(
                     "jdbc:mysql://200.147.61.75/semi_database","semi_dba","admin1@");
         System.out.println("Conectado!");
+        PreparedStatement st = conexao.prepareStatement("INSERT INTO USUARIO (cd_cpf_usuario, nm_nome_usuario, cd_senha_usuario, cd_tipo_usuario) VALUES (?,?,?,?)");
+        st.setInt(1, 1234);
+        st.setString(2, "Vinícius");
+        st.setString(3, "betinholixo");
+        st.setInt(4, 0);
+        st.executeUpdate();
         conexao.close();
     }
 }
