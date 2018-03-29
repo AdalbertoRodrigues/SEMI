@@ -1,0 +1,51 @@
+/* 
+    Created on : Mar 29, 2018, 9:16:33 AM
+    Author     : Vinícius
+*/
+html, body {
+    height: 100%;
+    
+}
+body {
+    background-color: #F7F7F7 !important;
+}
+.main {
+    height: 70%;
+    width: 100%;
+    display: table;
+}
+.wrapper {
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.card-login {
+    position: static;
+    width: 18rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: #43281D;
+}
+
+#form-login-senha:focus, #form-login-email:focus {
+    border-color: #886D5C;
+    box-shadow: 0 0 0 0.2rem rgba(136,109,92,.25);
+}
+
+#btn-login {
+    background-color: #43281D;
+    color: #FFFFFF;
+    width: 100%;
+}
+
+.btn-login {
+    
+    text-align: center;
+}
+
+.navbar {
+    background-color: #C2BCB0;
+}
+
