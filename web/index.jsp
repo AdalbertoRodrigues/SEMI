@@ -8,8 +8,6 @@
         <link href="res/styles/styles.css" rel="stylesheet" type="text/css"/>        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-
-
     </head>
     <body>
         <nav class="navbar">
@@ -18,9 +16,7 @@
             </a>
         </nav>
         <div class="main">
-
             <div class="wrapper">
-
                 <div class="card card-login">
                     <div class="card-body">
                         <h5 class="card-title">Faça seu login</h5>
@@ -34,13 +30,12 @@
                             <div class="btn-login">
                                 <button type="submit" class="btn" id="btn-login">Entrar</button>
                             </div>
+                            <a><span>Esqueci minha senha</span></a>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
-
         <%@include file="/WEB-INF/jspf/footer.jspf"%>
     </body>
 </html>
