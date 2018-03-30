@@ -4,13 +4,12 @@
 */
 html, body {
     height: 100%;
-    
 }
 body {
     background-color: #F7F7F7 !important;
 }
 .main {
-    height: 70%;
+    height: 80%;
     width: 100%;
     display: table;
 }
@@ -28,21 +27,57 @@ body {
     margin-right: auto;
     color: #43281D;
 }
+.card-body-senha, .msg-senha-enviada{
+    display: none;
+}
 
-#form-login-senha:focus, #form-login-email:focus {
+.msg-senha-enviada {
+    margin: auto;
+    text-align: center;
+    color: #886D5C;
+}
+
+#form-login-senha:focus, #form-login-email:focus, #btn-focus:focus {
     border-color: #886D5C;
     box-shadow: 0 0 0 0.2rem rgba(136,109,92,.25);
 }
 
-#btn-login {
+.card {
+    height: 250px;
+}
+
+.btn-login {
     background-color: #43281D;
+    color: #FFFFFF;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-login:hover, .btn-senha:hover {
+    background-color: #6d4231;
+}
+
+.btn-senha {
+    background-color: #43281D;
+    color: #FFFFFF;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-recuperar {
+    background-color: #727272;
+    text-align: center;
     color: #FFFFFF;
     width: 100%;
 }
 
-.btn-login {
-    
-    text-align: center;
+.btn-recuperar:hover {
+    background-color: #545454;
+}
+
+.form-login-link:hover {
+    cursor: pointer;
+    border-bottom: 1px solid #43281D; 
 }
 
 .navbar {
@@ -59,3 +94,18 @@ body {
   background-color: #C2BCB0;
 }
 
+.loader {
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #886D5C; 
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1.5s linear infinite;
+    display: none;
+    margin: auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
