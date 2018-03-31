@@ -2,12 +2,14 @@
     Created on : Mar 29, 2018, 9:16:33 AM
     Author     : Vinícius
 */
+
 html, body {
     height: 100%;
 }
 body {
     background-color: #F7F7F7 !important;
 }
+/*LOGIN PAGE START*/ /*LOGIN PAGE START*/ /*LOGIN PAGE START*/ /*LOGIN PAGE START*/ /*LOGIN PAGE START*/
 .main {
     height: 80%;
     width: 100%;
@@ -37,9 +39,9 @@ body {
     color: #886D5C;
 }
 
-#form-login-senha:focus, #form-login-email:focus, #btn-focus:focus {
-    border-color: #886D5C;
-    box-shadow: 0 0 0 0.2rem rgba(136,109,92,.25);
+#form-login-senha:focus, #form-login-email:focus, #btn-focus:focus, #form-senha-email:focus, .btn-menu-admin:focus, input:focus, select:focus {
+    border-color: #886D5C !important;
+    box-shadow: 0 0 0 0.2rem rgba(136,109,92,.25) !important;
 }
 
 .card {
@@ -80,18 +82,18 @@ body {
     border-bottom: 1px solid #43281D; 
 }
 
-.navbar {
+#nav-login {
     background-color: #C2BCB0;
 }
 
 .footer {
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  background-color: #C2BCB0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: #C2BCB0;
 }
 
 .loader {
@@ -108,4 +110,107 @@ body {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/*LOGIN PAGE END*/ /*LOGIN PAGE END*/ /*LOGIN PAGE END*/ /*LOGIN PAGE END*/ /*LOGIN PAGE END*/
+#nav-bg {
+    background-color: rgba(194,188, 176, 0.3);
+    border-bottom: 1px solid rgba(194,188, 176, 0.5);
+
+}
+
+.nav-admin {
+
+}
+
+.fa-power-off {
+    font-size: 14px;
+}
+
+#nav-btn { 
+    color: #43281D;
+    border-bottom: 1px solid rgba(194,188, 176, 0.5);
+    display: block;
+    text-decoration: none;
+}
+
+#nav-btn:active { 
+}
+
+#nav-toggle {
+    background-color: rgba(194,188, 176, 0.5);
+}
+
+.row-nav {
+    text-align: center;
+}
+
+.row-btn-admin {
+    text-align: center;
+}
+.btn-menu-admin {
+    border: 1px solid rgba(194,188, 176, 0.8);
+    background-color: rgba(194,188, 176, 0.5);
+    padding: 5px 15px;
+    border-radius: 4px;
+    color: #43281D;
+    cursor: pointer;
+}
+
+.btn-admin-active {
+    background-color: #886D5C;
+    color: #F7F7F7;
+}
+
+button:focus {
+    outline:0;
+}
+
+#form-admin-usuario-filtro {
+   padding: 2px;
+}
+
+#form-admin-usuario-tipo {
+    height: 1.9rem;
+    padding: 0;
+}
+
+#table-admin-usuario {
+    text-align: center;
+}
+
+#btn-admin-adicionar-usuario{
+    color: #60875b;
+}
+
+#btn-admin-remover-usuario {
+    color: #c94c4c;
+}
+
+#btn-admin-alterar-usuario {
+    color: #4b78c6;
+}
+
+.btn-admin-adicionar-usuario{
+    background-color: #95c48f;
+    border-radius: 20px;
+    color: white;
+    
+}
+
+.btn-admin-remover-usuario {
+    background-color: #d38585;
+    border-radius: 20px;
+    color: white;
+}
+
+.btn-admin-alterar-usuario {
+    background-color: #92b1e8;
+    border-radius: 20px;
+    color: white;
+    
+}
+
+.font-menor {
+    font-size: 15px;
 }
