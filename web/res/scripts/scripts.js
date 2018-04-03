@@ -16,10 +16,30 @@ function corNav() {
     ;
 }
 ;
-
+//Botões de admin (usuario, caminhão, viagem)
 $(".btn-usuario-admin").click(function () {
-   $(this).addClass('btn-admin-active');
-   $('.row-btn-menu').children().not($(this)).removeClass('btn-admin-active');
+    $(this).addClass('btn-admin-active');
+    $('.row-btn-menu').children().not($(this)).removeClass('btn-admin-active');
+
+});
+
+//Aparecer tela de cadastro
+$("#btn-admin-adicionar-usuario").click(function () {
+    $(".body-admin-menu").find(".secao-ativa").addClass('animated fadeOutRight').on('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
+        $(".secao-admin-usuario").removeClass('secao-ativa').hide();
+        $(".secao-admin-usuario-incluir").show().addClass('animated fadeInLeft');
+    });
+});
+
+//Botoões de Motorista/Funcionário
+$(".btn-admin-incluir-usuario-tipo").click(function () {
+    $(this).addClass('btn-admin-tipo-active');
+    $(".row-admin-tipo").children().not($(this)).removeClass('btn-admin-tipo-active');
+    
+    if($("#btn-tipo-funcionario").hasClass("btn-admin-tipo-active")) {
+        $("#label-usuario-cnh").text('CNH');
+        $("#form-incluir-usuario-cpf").attr('id','form-incluir-usuario-cnh');
+    };
 });
 
 //Serviço que pode ser chamado em qualquer controller

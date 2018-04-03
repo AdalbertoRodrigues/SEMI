@@ -134,9 +134,6 @@ body {
     text-decoration: none;
 }
 
-#nav-btn:active { 
-}
-
 #nav-toggle {
     background-color: rgba(194,188, 176, 0.5);
 }
@@ -179,20 +176,16 @@ button:focus {
     text-align: center;
 }
 
-#btn-admin-adicionar-usuario{
-    color: #60875b;
-}
-
-#btn-admin-remover-usuario {
-    color: #c94c4c;
-}
-
-#btn-admin-alterar-usuario {
-    color: #4b78c6;
-}
-
 .btn-admin-adicionar-usuario{
     background-color: #95c48f;
+    border: 1px solid #95c48f;
+    border-radius: 20px;
+    color: white;
+}
+
+.btn-admin-ver-usuario{
+    background-color: #edc810;
+    border: 1px solid #edc810;
     border-radius: 20px;
     color: white;
     
@@ -200,17 +193,51 @@ button:focus {
 
 .btn-admin-remover-usuario {
     background-color: #d38585;
+    border: 1px solid #d38585;
     border-radius: 20px;
     color: white;
 }
 
-.btn-admin-alterar-usuario {
-    background-color: #92b1e8;
+.btn-admin-alterar-usuario {    
+    background-color: #99b5e5;
+    border: 1px solid #99b5e5;
     border-radius: 20px;
     color: white;
-    
 }
 
 .font-menor {
     font-size: 15px;
+}
+
+.secao-admin-usuario-incluir, secao-admin-usuario {
+    display: none;
+}
+
+.secao-ativa {
+    display: block;
+}
+
+.inactive {
+    background: none;
+    color: #43281D;
+}
+
+.btn-admin-incluir-usuario-tipo {
+    text-align: center;
+}
+
+#btn-tipo-motorista {
+    border: 1px solid #243F50;
+    border-top-left-radius: 10px 10px;
+    border-bottom-left-radius: 10px 10px;
+}
+#btn-tipo-funcionario {
+    border: 1px solid #243F50;
+    border-top-right-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+}
+
+.btn-admin-tipo-active {
+    background-color: #243F50;
+    color: #FFFFFF;
 }
