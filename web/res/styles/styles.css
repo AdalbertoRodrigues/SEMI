@@ -8,6 +8,7 @@ html, body {
 }
 body {
     background-color: #F7F7F7 !important;
+    overflow-x:hidden; 
 }
 /*LOGIN PAGE START*/ /*LOGIN PAGE START*/ /*LOGIN PAGE START*/ /*LOGIN PAGE START*/ /*LOGIN PAGE START*/
 .main {
@@ -119,10 +120,6 @@ body {
 
 }
 
-.nav-admin {
-
-}
-
 .fa-power-off {
     font-size: 14px;
 }
@@ -141,6 +138,8 @@ body {
 .row-nav {
     text-align: center;
 }
+
+/* MENU ADMIN START */ /* MENU ADMIN START */ /* MENU ADMIN START */ /* MENU ADMIN START */
 
 .row-btn-admin {
     text-align: center;
@@ -240,4 +239,25 @@ button:focus {
 .btn-admin-tipo-active {
     background-color: #243F50;
     color: #FFFFFF;
+}
+
+.col-mopp {
+}
+
+.btn-crud-usuario:not(.active), .btn-admin-incluir-usuario-tipo {
+    cursor: pointer;
+}
+
+.row-admin-tipo {
+    margin-bottom: 10px;
+}
+
+.row-crud-admin {
+    border-bottom: 1px solid #DEDEDE;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+#seta-voltar {
+    cursor: pointer;
 }

@@ -13,9 +13,9 @@ function corNav() {
     } else {
         $(".nav-admin").attr('id', 'nav');
     }
-    ;
 }
 ;
+
 //Botões de admin (usuario, caminhão, viagem)
 $(".btn-usuario-admin").click(function () {
     $(this).addClass('btn-admin-active');
@@ -23,24 +23,10 @@ $(".btn-usuario-admin").click(function () {
 
 });
 
-//Aparecer tela de cadastro
-$("#btn-admin-adicionar-usuario").click(function () {
-    $(".body-admin-menu").find(".secao-ativa").addClass('animated fadeOutRight').on('webkitAnimationEnd oanimationend msAnimationEnd animationend', function () {
-        $(".secao-admin-usuario").removeClass('secao-ativa').hide();
-        $(".secao-admin-usuario-incluir").show().addClass('animated fadeInLeft');
-    });
-});
+//Botoões de Motorista/Funcionário na aba Incluir
 
-//Botoões de Motorista/Funcionário
-$(".btn-admin-incluir-usuario-tipo").click(function () {
-    $(this).addClass('btn-admin-tipo-active');
-    $(".row-admin-tipo").children().not($(this)).removeClass('btn-admin-tipo-active');
-    
-    if($("#btn-tipo-funcionario").hasClass("btn-admin-tipo-active")) {
-        $("#label-usuario-cnh").text('CNH');
-        $("#form-incluir-usuario-cpf").attr('id','form-incluir-usuario-cnh');
-    };
-});
+
+
 
 //Serviço que pode ser chamado em qualquer controller
 app.service('dataService', function ($location) {
@@ -72,7 +58,7 @@ app.controller("loginController", function ($scope, dataService, $timeout) {
             $(".card-body-login").fadeTo(400, 1);
         });
     };
-    //Faz a animação de loader e sucesso (aqui que irá a requisição de login)
+    //Faz a animação de loader e sucesso
     $scope.recuperarSenha = function () {
         $(".card-body-senha").fadeTo(300, 0, function () {
             $(".card-body-senha").hide();
@@ -93,4 +79,42 @@ app.controller("loginController", function ($scope, dataService, $timeout) {
         });
     };
 
+});
+
+app.controller("menuAdminController", function ($scope, dataService, $timeout) {
+    eventoAnimacao = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
+    $scope.mostrarIncluirUsuario = function () {
+        ativa = $(".body-admin-menu").find(".secao-ativa");
+
+        ativa.addClass('animated fadeOutRight').one(eventoAnimacao, function () {
+            ativa.removeClass('secao-ativa');
+            ativa.removeClass('animated fadeOutRight').hide();
+            $(".secao-admin-usuario-incluir").show().addClass('animated fadeInLeft secao-ativa').one(eventoAnimacao, function () {
+                $(".secao-admin-usuario-incluir").removeClass('animated fadeInLeft');
+            });
+        });
+    };
+});
+
+app.controller("incluirUsuarioAdminController", function ($scope, dataService, $timeout) {
+    $scope.voltarMenu = function () {
+        ativa = $(".body-admin-menu").find(".secao-ativa");
+        ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
+            ativa.removeClass('animated fadeOutLeft secao-ativa').hide();
+            $(".secao-admin-usuario").show().addClass('animated fadeInRight secao-ativa').one(eventoAnimacao, function () {
+                $(".secao-admin-usuario").removeClass('animated fadeInRight');
+            });
+        });
+    };
+
+    $(".btn-admin-incluir-usuario-tipo").click(function () {
+        $(this).addClass('btn-admin-tipo-active');
+        $(".row-admin-tipo").children().not($(this)).removeClass('btn-admin-tipo-active');
+
+        if ($("#btn-tipo-funcionario").hasClass("btn-admin-tipo-active")) {
+            $(".form-motorista").fadeOut();
+        } else {
+            $(".form-motorista").fadeIn();
+        }
+    });
 });
