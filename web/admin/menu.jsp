@@ -69,10 +69,10 @@
                         <div ng-click="mostrarIncluirUsuario()" class="btn-admin-adicionar-usuario btn-crud-usuario"><i class="fas fa-user-plus font-menor"></i></div>
                     </div>
                     <!--                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-crud-admin" id="btn-admin-remover-usuario">
-                                            <div class="btn-admin-remover-usuario btn-crud-usuario inactive"><i class="fas fa-trash"></i></div>
+                                            <div class="btn-admin-remover-usuario btn-crud-usuario btn-crud-extra"><i class="fas fa-trash"></i></div>
                                         </div>
                                         <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-crud-admin" id="btn-admin-alterar-usuario">
-                                            <div class="btn-admin-alterar-usuario btn-crud-usuario inactive"><i class="fas fa-edit"></i></div>
+                                            <div class="btn-admin-alterar-usuario btn-crud-usuario btn-crud-extra"><i class="fas fa-edit"></i></div>
                                         </div>-->
                 </div>
 
@@ -94,19 +94,30 @@
 
                     <!-- TABELA DE USUÁRIOS -->
                     <div class="row">
-                        <table class="table table-sm table-bordered" id="table-admin-usuario">
+                        <table class="table table-sm table-bordered table-striped" id="table-admin-usuario">
                             <thead>
                                 <tr>
-                                    <th scope="col"></th>
                                     <th scope="col">NOME</th>
                                     <th scope="col">CPF/CNH</th>
+                                    <th scope="col">DETALHES</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td><div class="form-check"><input class="form-check-input" type="checkbox" value=""></div></td>
+                                <tr class="linha-tabela-admin-usuario">
                                     <td>Ekwueme Linford</td>
                                     <td>680.993.700-58</td>
+                                    <td class="col-admin-detalhes-usuario" ng-click="mostrarDetalhesUsuario()" ><i class="fas fa-eye"></i></td>
+                                </tr>
+                                <tr class="linha-tabela-admin-usuario">
+                                    <td>Ekwueme Linford</td>
+                                    <td>680.993.700-58</td>
+                                    <td class="col-admin-detalhes-usuario" ng-click="mostrarDetalhesUsuario()" ><i class="fas fa-eye"></i></td>
+                                </tr>
+                                <tr class="linha-tabela-admin-usuario">
+                                    <td>Ekwueme Linford</td>
+                                    <td>680.993.700-58</td>
+                                    <td class="col-admin-detalhes-usuario" ng-click="mostrarDetalhesUsuario()" ><i class="fas fa-eye"></i></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -127,7 +138,6 @@
                         <div class="col-4 btn-admin-incluir-usuario-tipo" id="btn-tipo-funcionario">
                             Funcionário
                         </div>
-
                     </div>
                     <div class="form-group row">
                         <label for="form-incluir-usuario-nome" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
@@ -171,11 +181,72 @@
                     </div>
                     <div class="row">
                         <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
-                            <button class="btn btn-login" type="submit">Cadastrar</button>
+                            <button class="btn btn-admin-adicionar-usuario" type="submit">Cadastrar</button>
                         </div>
                     </div>
                 </form>
 
+            </div>
+
+            <!--SEÇÃO ADMIN - VER DETALHES DO USUARIO-->
+            <div ng-controller="detalhesUsuarioAdminController" class="secao-admin-usuario-detalhes">
+                <div class="form group row align-items-center row-admin-tipo">
+                    <div ng-click="voltarMenu()" class="col-2">
+                        <i class="fas fa-arrow-left fa-2x" id="seta-voltar"></i>
+                    </div>
+                    <div class="col-6">
+                        &nbsp;
+                    </div>
+                    <div class="col-4 btn-admin-remover-usuario">
+                        <i class="fas fa-trash"></i> Excluir
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="form-incluir-usuario-nome" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
+                    <div class="col-12 col-sm-12    ">
+                        <input type="text" class="form-control form-control-sm" id="form-incluir-usuario-nome" value="Nome do usuário">
+                    </div> 
+                </div>
+                <div class="form-group row form-group-cpf">
+                    <label for="form-incluir-usuario-cpf" id="label-usuario-cpf" class="col-sm-2 col-form-label col-form-label-sm">CPF</label>
+                    <div class="col-12 col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="form-incluir-usuario-cpf" value="XX-XX-XX-XX-XX">
+                    </div> 
+                </div>
+                <div class="form-motorista">
+                    <div class="form-group row form-group-cnh">
+                        <label for="form-incluir-usuario-cnh" id="label-usuario-cnh" class="col-sm-2 col-form-label col-form-label-sm">CNH</label>
+                        <div class="col-12 col-sm-12">
+                            <input type="text" class="form-control form-control-sm" id="form-incluir-usuario-cnh" value="XX-XX-XX-XX-XX">
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="form-check">
+                            <div class="col-4 my-auto">
+                                <label for="form-incluir-usuario-mopp" class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" ng-model="checkMopp" id="form-incluir-usuario-mopp" value="mopp">
+                                    MOPP
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-8 col-mopp">
+                            Validade:
+                            <input class="form-control form-control-sm" ng-disabled="!checkMopp" type="date" id="form-incluir-usuario-validade">
+                        </div>    
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="form-incluir-usuario-senha" class="col-sm-2 col-form-label col-form-label-sm">Senha</label>
+                    <div class="col-12 col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="form-incluir-usuario-senha">
+                    </div> 
+                </div>
+                <div class="row">
+                    <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
+                        <button class="btn btn-admin-alterar-usuario" type="submit"><i class="fas fa-edit"></i> Salvar Alterações</button>
+                    </div>
+                </div>
             </div>
         </div>
 

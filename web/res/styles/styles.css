@@ -163,7 +163,7 @@ button:focus {
 }
 
 #form-admin-usuario-filtro {
-   padding: 2px;
+    padding: 2px;
 }
 
 #form-admin-usuario-tipo {
@@ -175,11 +175,20 @@ button:focus {
     text-align: center;
 }
 
+.col-admin-detalhes-usuario:hover {
+    cursor: pointer;
+}
+
+
 .btn-admin-adicionar-usuario{
     background-color: #95c48f;
-    border: 1px solid #95c48f;
     border-radius: 20px;
     color: white;
+    width: 100%;
+}
+
+.btn-admin-adicionar-usuario:hover {
+    background-color: #76bc6d;
 }
 
 .btn-admin-ver-usuario{
@@ -187,28 +196,39 @@ button:focus {
     border: 1px solid #edc810;
     border-radius: 20px;
     color: white;
-    
+
 }
 
 .btn-admin-remover-usuario {
+    text-align: center;
     background-color: #d38585;
     border: 1px solid #d38585;
     border-radius: 20px;
     color: white;
+    cursor: pointer;
+}
+
+.btn-admin-remover-usuario:hover {
+    background-color: #c97070;
 }
 
 .btn-admin-alterar-usuario {    
     background-color: #99b5e5;
-    border: 1px solid #99b5e5;
     border-radius: 20px;
     color: white;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-admin-alterar-usuario:hover {
+    background-color: #759ad6
 }
 
 .font-menor {
     font-size: 15px;
 }
 
-.secao-admin-usuario-incluir, secao-admin-usuario {
+.secao-admin-usuario-incluir, secao-admin-usuario, .secao-admin-usuario-detalhes {
     display: none;
 }
 
@@ -261,3 +281,4 @@ button:focus {
 #seta-voltar {
     cursor: pointer;
 }
+

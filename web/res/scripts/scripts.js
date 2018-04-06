@@ -36,7 +36,18 @@ app.service('dataService', function ($location) {
         getUrl_local: function () {
             //Retorna o context path
             return url_local;
+        },
+
+        voltarMenuAdmin: function () {
+            ativa = $(".body-admin-menu").find(".secao-ativa");
+            ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
+                ativa.removeClass('animated fadeOutLeft secao-ativa').hide();
+                $(".secao-admin-usuario").show().addClass('animated fadeInRight secao-ativa').one(eventoAnimacao, function () {
+                    $(".secao-admin-usuario").removeClass('animated fadeInRight');
+                });
+            });
         }
+
     };
 });
 
@@ -83,6 +94,8 @@ app.controller("loginController", function ($scope, dataService, $timeout) {
 
 app.controller("menuAdminController", function ($scope, dataService, $timeout) {
     eventoAnimacao = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
+
+    //Some a tela de menu e aparece a de INCLUIR usuário
     $scope.mostrarIncluirUsuario = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
 
@@ -94,19 +107,31 @@ app.controller("menuAdminController", function ($scope, dataService, $timeout) {
             });
         });
     };
+
+    //Some a tela de menu e aparece a de DETALHES do usuário
+    $scope.mostrarDetalhesUsuario = function () {
+        ativa = $(".body-admin-menu").find(".secao-ativa");
+
+        ativa.addClass('animated fadeOutRight').one(eventoAnimacao, function () {
+            ativa.removeClass('secao-ativa');
+            ativa.removeClass('animated fadeOutRight').hide();
+
+            $(".secao-admin-usuario-detalhes").show().addClass('animated fadeInLeft secao-ativa').one(eventoAnimacao, function () {
+                $(".secao-admin-usuario-detalhes").removeClass('animated fadeInLeft');
+            });
+        });
+
+
+    };
 });
 
 app.controller("incluirUsuarioAdminController", function ($scope, dataService, $timeout) {
+    //Chama o dataService e executa a função de voltar para o menu
     $scope.voltarMenu = function () {
-        ativa = $(".body-admin-menu").find(".secao-ativa");
-        ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
-            ativa.removeClass('animated fadeOutLeft secao-ativa').hide();
-            $(".secao-admin-usuario").show().addClass('animated fadeInRight secao-ativa').one(eventoAnimacao, function () {
-                $(".secao-admin-usuario").removeClass('animated fadeInRight');
-            });
-        });
+        dataService.voltarMenuAdmin();
     };
 
+    //Alterna o tipo de usuário, fazendo ou não aparecer o form do MOPP
     $(".btn-admin-incluir-usuario-tipo").click(function () {
         $(this).addClass('btn-admin-tipo-active');
         $(".row-admin-tipo").children().not($(this)).removeClass('btn-admin-tipo-active');
@@ -117,4 +142,12 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
             $(".form-motorista").fadeIn();
         }
     });
+});
+
+app.controller("detalhesUsuarioAdminController", function ($scope, dataService, $timeout) {
+    $scope.voltarMenu = function () {
+        dataService.voltarMenuAdmin();
+    };
+
+
 });
