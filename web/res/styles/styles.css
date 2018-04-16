@@ -153,6 +153,10 @@ body {
     cursor: pointer;
 }
 
+.btn-menu-admin:hover:not(.btn-admin-active) {
+    background-color: rgba(194,188, 176, 0.7);
+}
+
 .btn-admin-active {
     background-color: #886D5C;
     color: #F7F7F7;
@@ -162,11 +166,15 @@ button:focus {
     outline:0;
 }
 
-#form-admin-usuario-filtro {
+#form-admin-usuario-filtro, #form-admin-veiculo-filtro, #form-detalhes-veiculo-filtro{
     padding: 2px;
 }
 
-#form-admin-usuario-tipo {
+#label-select-marca {
+    padding: 5px;
+}
+
+#form-admin-usuario-tipo, #form-admin-veiculo-tipo, #form-incluir-veiculo-marca, #form-detalhes-veiculo-marca {
     height: 1.9rem;
     padding: 0;
 }
@@ -175,10 +183,9 @@ button:focus {
     text-align: center;
 }
 
-.col-admin-detalhes-usuario:hover {
+.col-admin-detalhes:hover {
     cursor: pointer;
 }
-
 
 .btn-admin-adicionar-usuario{
     background-color: #95c48f;
@@ -228,7 +235,7 @@ button:focus {
     font-size: 15px;
 }
 
-.secao-admin-usuario-incluir, secao-admin-usuario, .secao-admin-usuario-detalhes {
+.secao-admin-usuario-incluir, secao-admin-usuario, .secao-admin-usuario-detalhes, .secao-admin-veiculo, .secao-admin-veiculo-incluir, .secao-admin-veiculo-detalhes {
     display: none;
 }
 
@@ -282,3 +289,24 @@ button:focus {
     cursor: pointer;
 }
 
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.item-lista-capacitacao {
+    position: relative;
+    display: block;
+    padding: .4rem .9rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.item-lista-capacitacao-ativo {
+    background-color: #b8e0b3;
+}

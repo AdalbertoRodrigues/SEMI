@@ -23,11 +23,6 @@ $(".btn-usuario-admin").click(function () {
 
 });
 
-//Botoões de Motorista/Funcionário na aba Incluir
-
-
-
-
 //Serviço que pode ser chamado em qualquer controller
 app.service('dataService', function ($location) {
     var url_local = $location.path();
@@ -37,17 +32,48 @@ app.service('dataService', function ($location) {
             //Retorna o context path
             return url_local;
         },
+        voltarMenuAdminUsuario: function () {
+            ativa = $(".body-admin-menu").find(".secao-ativa");
+            if (ativa.hasClass('secao-admin-usuario') || ativa.hasClass('secao-admin-usuario-incluir') || ativa.hasClass('secao-admin-usuario-detalhes')) {
+                animacaoEntrada = 'fadeInLeft';
+                animacaoSaida = 'fadeOutRight';
+            } else {
+                animacaoSaida = 'fadeOutRight';
+                animacaoEntrada = 'fadeInLeft';
+            }
+            ativa.addClass('animated ' + animacaoSaida).one(eventoAnimacao, function () {
+                ativa.removeClass('animated ' + animacaoSaida + ' secao-ativa').hide();
+                $(".secao-admin-usuario").show().addClass('animated ' + animacaoEntrada + ' secao-ativa').one(eventoAnimacao, function () {
+                    $(".secao-admin-usuario").removeClass('animated ' + animacaoEntrada);
+                });
+            });
 
-        voltarMenuAdmin: function () {
+        },
+        voltarMenuAdminVeiculo: function () {
+            ativa = $(".body-admin-menu").find(".secao-ativa");
+            if (ativa.hasClass('secao-admin-veiculo') || ativa.hasClass('secao-admin-veiculo-incluir') || ativa.hasClass('secao-admin-veiculo-detalhes')) {
+                animacaoEntrada = 'fadeInLeft';
+                animacaoSaida = 'fadeOutRight';
+            } else if (ativa.hasClass('secao-admin-usuario') || ativa.hasClass('secao-admin-usuario-incluir') || ativa.hasClass('secao-usuario-veiculo-detalhes')){
+                animacaoSaida = 'fadeOutLeft';
+                animacaoEntrada = 'fadeInRight';
+            }
+            ativa.addClass('animated ' + animacaoSaida).one(eventoAnimacao, function () {
+                ativa.removeClass('animated '+ animacaoSaida +' secao-ativa').hide();
+                $(".secao-admin-veiculo").show().addClass('animated '+ animacaoEntrada +' secao-ativa').one(eventoAnimacao, function () {
+                    $(".secao-admin-veiculo").removeClass('animated ' + animacaoEntrada);
+                });
+            });
+        },
+        voltarMenuAdminViagem: function () {
             ativa = $(".body-admin-menu").find(".secao-ativa");
             ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
                 ativa.removeClass('animated fadeOutLeft secao-ativa').hide();
-                $(".secao-admin-usuario").show().addClass('animated fadeInRight secao-ativa').one(eventoAnimacao, function () {
-                    $(".secao-admin-usuario").removeClass('animated fadeInRight');
+                $(".secao-admin-viagem").show().addClass('animated fadeInRight secao-ativa').one(eventoAnimacao, function () {
+                    $(".secao-admin-viagem").removeClass('animated fadeInRight');
                 });
             });
         }
-
     };
 });
 
@@ -86,24 +112,22 @@ app.controller("loginController", function ($scope, dataService, $timeout) {
                     }, 2000);
                 });
             }, 2000);
-
         });
     };
-
 });
 
-app.controller("menuAdminController", function ($scope, dataService, $timeout) {
+app.controller("menuAdminUsuarioController", function ($scope) {
     eventoAnimacao = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
 
     //Some a tela de menu e aparece a de INCLUIR usuário
     $scope.mostrarIncluirUsuario = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
 
-        ativa.addClass('animated fadeOutRight').one(eventoAnimacao, function () {
+        ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
             ativa.removeClass('secao-ativa');
-            ativa.removeClass('animated fadeOutRight').hide();
-            $(".secao-admin-usuario-incluir").show().addClass('animated fadeInLeft secao-ativa').one(eventoAnimacao, function () {
-                $(".secao-admin-usuario-incluir").removeClass('animated fadeInLeft');
+            ativa.removeClass('animated fadeOutLeft').hide();
+            $(".secao-admin-usuario-incluir").show().addClass('animated fadeInRight secao-ativa').one(eventoAnimacao, function () {
+                $(".secao-admin-usuario-incluir").removeClass('animated fadeInRight');
             });
         });
     };
@@ -112,23 +136,21 @@ app.controller("menuAdminController", function ($scope, dataService, $timeout) {
     $scope.mostrarDetalhesUsuario = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
 
-        ativa.addClass('animated fadeOutRight').one(eventoAnimacao, function () {
+        ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
             ativa.removeClass('secao-ativa');
-            ativa.removeClass('animated fadeOutRight').hide();
+            ativa.removeClass('animated fadeOutLeft').hide();
 
-            $(".secao-admin-usuario-detalhes").show().addClass('animated fadeInLeft secao-ativa').one(eventoAnimacao, function () {
-                $(".secao-admin-usuario-detalhes").removeClass('animated fadeInLeft');
+            $(".secao-admin-usuario-detalhes").show().addClass('animated fadeInRight secao-ativa').one(eventoAnimacao, function () {
+                $(".secao-admin-usuario-detalhes").removeClass('animated fadeInRight');
             });
         });
-
-
     };
 });
 
-app.controller("incluirUsuarioAdminController", function ($scope, dataService, $timeout) {
+app.controller("incluirUsuarioAdminController", function ($scope, dataService) {
     //Chama o dataService e executa a função de voltar para o menu
     $scope.voltarMenu = function () {
-        dataService.voltarMenuAdmin();
+        dataService.voltarMenuAdminUsuario();
     };
 
     //Alterna o tipo de usuário, fazendo ou não aparecer o form do MOPP
@@ -144,10 +166,60 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
     });
 });
 
-app.controller("detalhesUsuarioAdminController", function ($scope, dataService, $timeout) {
+app.controller("detalhesUsuarioAdminController", function ($scope, dataService) {
     $scope.voltarMenu = function () {
-        dataService.voltarMenuAdmin();
+        dataService.voltarMenuAdminUsuario();
+    };
+});
+
+app.controller("menuAdminVeiculoController", function ($scope) {
+    $scope.mostrarIncluirVeiculo = function () {
+        ativa = $(".body-admin-menu").find(".secao-ativa");
+
+        ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
+            ativa.removeClass('secao-ativa');
+            ativa.removeClass('animated fadeOutLeft').hide();
+            $(".secao-admin-veiculo-incluir").show().addClass('animated fadeInRight secao-ativa').one(eventoAnimacao, function () {
+                $(".secao-admin-veiculo-incluir").removeClass('animated fadeInRight');
+            });
+        });
     };
 
+    $scope.mostrarDetalhesVeiculo = function () {
+        ativa = $(".body-admin-menu").find(".secao-ativa");
 
+        ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
+            ativa.removeClass('secao-ativa');
+            ativa.removeClass('animated fadeOutLeft').hide();
+            $(".secao-admin-veiculo-detalhes").show().addClass('animated fadeInRight secao-ativa').one(eventoAnimacao, function () {
+                $(".secao-admin-veiculo-detalhes").removeClass('animated fadeInRight');
+            });
+        });
+    };
+});
+
+app.controller("abasAdminController", function ($scope, dataService) {
+    $scope.irSecaoAdminUsuario = function () {
+        dataService.voltarMenuAdminUsuario();
+    };
+
+    $scope.irSecaoAdminVeiculo = function () {
+        dataService.voltarMenuAdminVeiculo();
+    };
+
+    $scope.irSecaoAdminViagem = function () {
+        dataService.voltarMenuAdminViagem();
+    };
+});
+
+app.controller("incluirVeiculoAdminController", function ($scope, dataService) {
+    $scope.voltarMenu = function () {
+        dataService.voltarMenuAdminVeiculo();
+    };
+});
+
+app.controller("detalhesVeiculoAdminController", function ($scope, dataService) {
+    $scope.voltarMenu = function () {
+        dataService.voltarMenuAdminVeiculo();
+    };
 });
