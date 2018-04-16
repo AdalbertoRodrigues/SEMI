@@ -22,18 +22,14 @@
             String atual = "";
             
             Conexao con = new Conexao();
-            
-            
-            
+
             ResultSet rs = con.conexao.prepareStatement("SELECT * FROM usuario").executeQuery();
         
             while(rs.next()) {
                 usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
                 if(rs.isLast())
-                    //atual = "{\"cpf\":\"" + usuario.getCpf() + "\",\"nome\":\"" + usuario.getNome() + "\",\"senha\":\"" + usuario.getSenha() + "\",\"tipo\":\"" + usuario.getTipo() + "\"}";
                     atual = Json_encoder.encode(usuario);
                 else
-                    //atual = "{\"cpf\":\"" + usuario.getCpf() + "\",\"nome\":\"" + usuario.getNome() + "\",\"senha\":\"" + usuario.getSenha() + "\",\"tipo\":\"" + usuario.getTipo() + "\"},";
                     atual = Json_encoder.encode(usuario) + ",";
                 
                 json += atual;
@@ -52,24 +48,72 @@
     }
     else if(action.equals("selectByCpf")) {
        try {
+            Usuario usuario;
+            String json = "{\"usuario\":[";
+            String atual = "";
+            
+            Conexao con = new Conexao();
+            
+            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM usuario WHERE cd_cpf_usuario = " + request.getParameter("cpf")).executeQuery();
+        
+            while(rs.next()) {
+                usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
+                if(rs.isLast())
+                    atual = Json_encoder.encode(usuario);
+                else
+                    atual = Json_encoder.encode(usuario) + ",";
+                
+                json += atual;
+            }
+            
+            con.conexao.close();
+            out.println(json + "]}");
+            
+        }
+        catch(Exception ex) {
+            out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    else if(action.equals("insert")) {
+       try {
            Conexao con = new Conexao();
-           PreparedStatement ps = con.conexao.prepareStatement("INSERTO INTO usuario VALUES('nm_nome_usuario' = ?, 'cd_senha_usuario' = ?, 'cd_tipo_usuario' = ?)");
-           ps.setString(1, "");
-           ps.setString(2, "");
-           ps.setString(3, "");
+           PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO usuario(cd_cpf_usuario, nm_nome_usuario, cd_senha_usuario, cd_tipo_usuario) VALUES( ?, ?, ?, ?)");
+           ps.setString(1, request.getParameter("cpf"));
+           ps.setString(2, request.getParameter("nome"));
+           ps.setString(3, request.getParameter("senha"));
+           ps.setString(4, request.getParameter("tipo"));
            ps.execute();
+           out.println("SUCCESS");
        }
        catch(Exception ex) {
+           out.println("ERROR");
            out.println(ex.getMessage());
        }
     }
-    else if(action.equals("insert")) {
-       
-    }
-    else if(action.equals("update")) {
-       
+    else if(action.equals("updateNome")) {
+       try {
+           Conexao con = new Conexao();
+           PreparedStatement ps = con.conexao.prepareStatement("UPDATE usuario SET nm_nome_usuario = ? WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
+           ps.setString(1, request.getParameter("nome"));
+           ps.execute();
+           out.println("SUCCESS");
+       }
+       catch(Exception ex) {
+           out.println("ERROR");
+           out.println(ex.getMessage());
+       }
     }
     else if(action.equals("delete")) {
-       
+       try {
+           Conexao con = new Conexao();
+           PreparedStatement ps = con.conexao.prepareStatement("DELETE FROM usuario WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
+           ps.execute();
+           out.println("SUCCESS");
+       }
+       catch(Exception ex) {
+           out.println("ERROR");
+           out.println(ex.getMessage());
+       }
     }
 %>
