@@ -104,6 +104,32 @@
            out.println(ex.getMessage());
        }
     }
+    else if(action.equals("updateSenha")) {
+       try {
+           Conexao con = new Conexao();
+           PreparedStatement ps = con.conexao.prepareStatement("UPDATE USUARIO SET cd_senha_usuario = ? WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
+           ps.setString(1, request.getParameter("senha"));
+           ps.execute();
+           out.println("SUCCESS");
+       }
+       catch(Exception ex) {
+           out.println("ERROR");
+           out.println(ex.getMessage());
+       }
+    }
+    else if(action.equals("updateTipo")) {
+       try {
+           Conexao con = new Conexao();
+           PreparedStatement ps = con.conexao.prepareStatement("UPDATE USUARIO SET cd_tipo_usuario = ? WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
+           ps.setString(1, request.getParameter("tipo"));
+           ps.execute();
+           out.println("SUCCESS");
+       }
+       catch(Exception ex) {
+           out.println("ERROR");
+           out.println(ex.getMessage());
+       }
+    }
     else if(action.equals("delete")) {
        try {
            Conexao con = new Conexao();
