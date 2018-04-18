@@ -107,8 +107,9 @@
 
                             
                         </tbody>
-                        <dir-pagination-controls></dir-pagination-controls>
+                        
                     </table>
+                    <dir-pagination-controls></dir-pagination-controls>
                 </div>
             </div>
             <!-- SEÇÃO ADMIN - ADICIONAR USUARIO -->
