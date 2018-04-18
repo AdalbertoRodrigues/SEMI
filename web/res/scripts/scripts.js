@@ -1,11 +1,11 @@
 //Declarando o app
-var app = angular.module("semi", [], function ($locationProvider) {
+var app = angular.module("semi", ['angularUtils.directives.dirPagination'], function ($locationProvider) {
     $locationProvider.html5Mode({
         enabled: true,
         requireBase: false
     });
 });
-
+var ctx;
 //Muda a cor da nav-bar ao clicar no botão
 function corNav() {
     if ($("#nav-toggle").attr('aria-expanded') === 'false') {
@@ -54,13 +54,13 @@ app.service('dataService', function ($location) {
             if (ativa.hasClass('secao-admin-veiculo') || ativa.hasClass('secao-admin-veiculo-incluir') || ativa.hasClass('secao-admin-veiculo-detalhes')) {
                 animacaoEntrada = 'fadeInLeft';
                 animacaoSaida = 'fadeOutRight';
-            } else if (ativa.hasClass('secao-admin-usuario') || ativa.hasClass('secao-admin-usuario-incluir') || ativa.hasClass('secao-usuario-veiculo-detalhes')){
+            } else if (ativa.hasClass('secao-admin-usuario') || ativa.hasClass('secao-admin-usuario-incluir') || ativa.hasClass('secao-usuario-veiculo-detalhes')) {
                 animacaoSaida = 'fadeOutLeft';
                 animacaoEntrada = 'fadeInRight';
             }
             ativa.addClass('animated ' + animacaoSaida).one(eventoAnimacao, function () {
-                ativa.removeClass('animated '+ animacaoSaida +' secao-ativa').hide();
-                $(".secao-admin-veiculo").show().addClass('animated '+ animacaoEntrada +' secao-ativa').one(eventoAnimacao, function () {
+                ativa.removeClass('animated ' + animacaoSaida + ' secao-ativa').hide();
+                $(".secao-admin-veiculo").show().addClass('animated ' + animacaoEntrada + ' secao-ativa').one(eventoAnimacao, function () {
                     $(".secao-admin-veiculo").removeClass('animated ' + animacaoEntrada);
                 });
             });
@@ -78,7 +78,7 @@ app.service('dataService', function ($location) {
 });
 
 //Controller da tela de login
-app.controller("loginController", function ($scope, dataService, $timeout) {
+app.controller("loginController", function ($scope, dataService, $timeout, $http) {
     //Chamando o serviço e retornando a URL local
     console.log(dataService.getUrl_local());
     //Alterna pro conteúdo de recuperar senha
@@ -116,8 +116,18 @@ app.controller("loginController", function ($scope, dataService, $timeout) {
     };
 });
 
-app.controller("menuAdminUsuarioController", function ($scope) {
+app.controller("menuAdminUsuarioController", function ($scope, dataService, $http, $window) {
     eventoAnimacao = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
+    $http({
+        method: 'GET',
+        url: ctx + '/Usuario.jsp?action=select'
+    }).then(function successCallback(response) {
+        console.log(response.data.usuarios);
+        $scope.usuarios = response.data.usuarios;
+
+    }, function errorCallback(response) {
+        console.log('Error');
+    });
 
     //Some a tela de menu e aparece a de INCLUIR usuário
     $scope.mostrarIncluirUsuario = function () {
@@ -143,6 +153,19 @@ app.controller("menuAdminUsuarioController", function ($scope) {
             $(".secao-admin-usuario-detalhes").show().addClass('animated fadeInRight secao-ativa').one(eventoAnimacao, function () {
                 $(".secao-admin-usuario-detalhes").removeClass('animated fadeInRight');
             });
+        });
+    };
+
+    $scope.testeReq = function () {
+        $http({
+            method: 'GET',
+            url: ctx + '/Usuario.jsp?action=select'
+        }).then(function successCallback(response) {
+            console.log(response.data.usuarios);
+            $scope.usuarios = response.data.usuarios;
+
+        }, function errorCallback(response) {
+            console.log('Error');
         });
     };
 });

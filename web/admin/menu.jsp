@@ -87,6 +87,7 @@
                         </select>
                     </div>
                 </div>
+                <button ng-click="testeReq()">TESTE</button>
                 <div class="row">
                     <table class="table table-sm table-bordered table-striped" id="table-admin-usuario">
                         <thead>
@@ -98,22 +99,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="linha-tabela-admin">
-                                <td>Ekwueme Linford</td>
-                                <td>680.993.700-58</td>
+                            <tr dir-paginate="usuarios in usuarios | itemsPerPage: 10" class="linha-tabela-admin">
+                                <td>{{usuarios.nome}}</td>
+                                <td>{{usuarios.cpf}}</td>
                                 <td class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario()" ><i class="fas fa-eye"></i></td>
                             </tr>
-                            <tr class="linha-tabela-admin">
-                                <td>Ekwueme Linford</td>
-                                <td>680.993.700-58</td>
-                                <td class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario()" ><i class="fas fa-eye"></i></td>
-                            </tr>
-                            <tr class="linha-tabela-admin">
-                                <td>Ekwueme Linford</td>
-                                <td>680.993.700-58</td>
-                                <td class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario()" ><i class="fas fa-eye"></i></td>
-                            </tr>
+
+                            
                         </tbody>
+                        <dir-pagination-controls></dir-pagination-controls>
                     </table>
                 </div>
             </div>
@@ -512,5 +506,6 @@
 
 
         <%@include file="../WEB-INF/jspf/footer.jspf"%>
+        <script>var ctx = "<%=request.getContextPath()%>"</script>
     </body>
 </html>

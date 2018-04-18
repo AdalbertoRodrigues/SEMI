@@ -23,7 +23,7 @@
             
             Conexao con = new Conexao();
 
-            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM usuario").executeQuery();
+            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO").executeQuery();
         
             while(rs.next()) {
                 usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
@@ -54,7 +54,7 @@
             
             Conexao con = new Conexao();
             
-            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM usuario WHERE cd_cpf_usuario = " + request.getParameter("cpf")).executeQuery();
+            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_cpf_usuario = " + request.getParameter("cpf")).executeQuery();
         
             while(rs.next()) {
                 usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
@@ -78,7 +78,7 @@
     else if(action.equals("insert")) {
        try {
            Conexao con = new Conexao();
-           PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO usuario(cd_cpf_usuario, nm_nome_usuario, cd_senha_usuario, cd_tipo_usuario) VALUES( ?, ?, ?, ?)");
+           PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO USUARIO(cd_cpf_usuario, nm_nome_usuario, cd_senha_usuario, cd_tipo_usuario) VALUES( ?, ?, ?, ?)");
            ps.setString(1, request.getParameter("cpf"));
            ps.setString(2, request.getParameter("nome"));
            ps.setString(3, request.getParameter("senha"));
@@ -94,7 +94,7 @@
     else if(action.equals("updateNome")) {
        try {
            Conexao con = new Conexao();
-           PreparedStatement ps = con.conexao.prepareStatement("UPDATE usuario SET nm_nome_usuario = ? WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
+           PreparedStatement ps = con.conexao.prepareStatement("UPDATE USUARIO SET nm_nome_usuario = ? WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
            ps.setString(1, request.getParameter("nome"));
            ps.execute();
            out.println("SUCCESS");
@@ -107,7 +107,7 @@
     else if(action.equals("delete")) {
        try {
            Conexao con = new Conexao();
-           PreparedStatement ps = con.conexao.prepareStatement("DELETE FROM usuario WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
+           PreparedStatement ps = con.conexao.prepareStatement("DELETE FROM USUARIO WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
            ps.execute();
            out.println("SUCCESS");
        }
