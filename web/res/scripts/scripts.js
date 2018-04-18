@@ -6,6 +6,10 @@ var app = angular.module("semi", ['angularUtils.directives.dirPagination'], func
     });
 });
 var ctx;
+
+app.config(function(paginationTemplateProvider) {
+    paginationTemplateProvider.setPath(ctx + '/res/scripts/dirPagination.tpl.html');
+});
 //Muda a cor da nav-bar ao clicar no botão
 function corNav() {
     if ($("#nav-toggle").attr('aria-expanded') === 'false') {

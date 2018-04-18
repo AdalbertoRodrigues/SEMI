@@ -87,7 +87,6 @@
                         </select>
                     </div>
                 </div>
-                <button ng-click="testeReq()">TESTE</button>
                 <div class="row">
                     <table class="table table-sm table-bordered table-striped" id="table-admin-usuario">
                         <thead>
@@ -99,18 +98,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr dir-paginate="usuarios in usuarios | itemsPerPage: 10" class="linha-tabela-admin">
+                            <tr dir-paginate="usuarios in usuarios | itemsPerPage: 5" class="linha-tabela-admin">
                                 <td>{{usuarios.nome}}</td>
                                 <td>{{usuarios.cpf}}</td>
                                 <td class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario()" ><i class="fas fa-eye"></i></td>
                             </tr>
 
-                            
+
                         </tbody>
-                        
+
                     </table>
-                    <dir-pagination-controls></dir-pagination-controls>
+
                 </div>
+                <dir-pagination-controls max-size="10" boundary-links="true"></dir-pagination-controls>
             </div>
             <!-- SEÇÃO ADMIN - ADICIONAR USUARIO -->
             <div ng-controller="incluirUsuarioAdminController" class="secao-admin-usuario-incluir">
