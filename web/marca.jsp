@@ -4,6 +4,9 @@
     Author     : adalb
 --%>
 
+<%@page import="br.com.uhapp.semi.Marca"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="br.com.uhapp.semi.Json_encoder"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="br.com.uhapp.semi.Conexao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,7 +14,67 @@
 <%
     String action = request.getParameter("action");
     
-    if(action.equals("insert")) {
+    
+    
+    if(action.equals("select")) {
+        try {
+            Marca marca;
+            String json = "{\"marcas\":[";
+            String atual = "";
+            
+            Conexao con = new Conexao();
+
+            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM MARCA").executeQuery();
+        
+            while(rs.next()) {
+                marca = new Marca(rs.getInt("cd_id_marca"), rs.getString("nm_marca"));
+                if(rs.isLast())
+                    atual = Json_encoder.encode(marca);
+                else
+                    atual = Json_encoder.encode(marca) + ",";
+                
+                json += atual;
+            }
+            
+            con.conexao.close();
+            out.println(json + "]}");
+            
+        }
+        catch(Exception ex) {
+            out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    else if(action.equals("selectById")) {
+        try {
+            Marca marca;
+            String json = "{\"marca\":[";
+            String atual = "";
+            
+            Conexao con = new Conexao();
+
+            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM MARCA WHERE cd_id_marca = '" + request.getParameter("idmarca") + "'").executeQuery();
+        
+            while(rs.next()) {
+                marca = new Marca(rs.getInt("cd_id_marca"), rs.getString("nm_marca"));
+                if(rs.isLast())
+                    atual = Json_encoder.encode(marca);
+                else
+                    atual = Json_encoder.encode(marca) + ",";
+                
+                json += atual;
+            }
+            
+            con.conexao.close();
+            out.println(json + "]}");
+            
+        }
+        catch(Exception ex) {
+            out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    else if(action.equals("insert")) {
        try {
            Conexao con = new Conexao();
            PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO MARCA(nm_marca) VALUES(?)");

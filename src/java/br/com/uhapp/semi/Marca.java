@@ -10,20 +10,20 @@ package br.com.uhapp.semi;
  * @author adalberto
  */
 public class Marca {
+    private int id;
     private String nome;
-    private String img;
 
-    public Marca(String nome, String img) {
+    public Marca(int id, String nome) {
+        this.id = id;
         this.nome = nome;
-        this.img = img;
     }
 
-    public String getImg() {
-        return img;
+    public int getId() {
+        return id;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -32,6 +32,5 @@ public class Marca {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-    
+    }    
 }
