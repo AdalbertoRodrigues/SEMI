@@ -13,7 +13,7 @@ import java.sql.*;
 
 public class Conexao {
 
-    private String host = "localhost:3306"; //200.147.61.75
+    private String host = "200.147.61.75"; //200.147.61.75
     private String dataBase = "semi_database"; //semi_databse
     private String login = "semi_dba"; //semi_dba
     private String senha = "admin1@"; // admin1@

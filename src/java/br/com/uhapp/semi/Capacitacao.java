@@ -10,5 +10,32 @@ package br.com.uhapp.semi;
  * @author adalberto
  */
 public class Capacitacao {
-    String categoria;
+    
+    private int id;
+    private String categoria;
+    
+    public Capacitacao(int id, String categoria) {
+        this.id = id;
+        this.categoria = categoria;
+        
+    }
+
+    
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
 }
