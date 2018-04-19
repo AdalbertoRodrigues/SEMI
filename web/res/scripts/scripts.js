@@ -7,7 +7,7 @@ var app = angular.module("semi", ['angularUtils.directives.dirPagination'], func
 });
 var ctx;
 
-app.config(function(paginationTemplateProvider) {
+app.config(function (paginationTemplateProvider) {
     paginationTemplateProvider.setPath(ctx + '/res/scripts/dirPagination.tpl.html');
 });
 //Muda a cor da nav-bar ao clicar no botão
@@ -24,7 +24,6 @@ function corNav() {
 $(".btn-usuario-admin").click(function () {
     $(this).addClass('btn-admin-active');
     $('.row-btn-menu').children().not($(this)).removeClass('btn-admin-active');
-
 });
 
 //Serviço que pode ser chamado em qualquer controller
@@ -58,9 +57,12 @@ app.service('dataService', function ($location) {
             if (ativa.hasClass('secao-admin-veiculo') || ativa.hasClass('secao-admin-veiculo-incluir') || ativa.hasClass('secao-admin-veiculo-detalhes')) {
                 animacaoEntrada = 'fadeInLeft';
                 animacaoSaida = 'fadeOutRight';
-            } else if (ativa.hasClass('secao-admin-usuario') || ativa.hasClass('secao-admin-usuario-incluir') || ativa.hasClass('secao-usuario-veiculo-detalhes')) {
+            } else if (ativa.hasClass('secao-admin-usuario') || ativa.hasClass('secao-admin-usuario-incluir') || ativa.hasClass('secao-usuario-detalhes')) {
                 animacaoSaida = 'fadeOutLeft';
                 animacaoEntrada = 'fadeInRight';
+            } else if (ativa.hasClass('secao-admin-viagem') || ativa.hasClass('secao-admin-viagem-incluir') || ativa.hasClass('secao-admin-viagem-detalhes')) {
+                animacaoSaida = 'fadeOutRight';
+                animacaoEntrada = 'fadeInLeft'
             }
             ativa.addClass('animated ' + animacaoSaida).one(eventoAnimacao, function () {
                 ativa.removeClass('animated ' + animacaoSaida + ' secao-ativa').hide();
@@ -71,10 +73,17 @@ app.service('dataService', function ($location) {
         },
         voltarMenuAdminViagem: function () {
             ativa = $(".body-admin-menu").find(".secao-ativa");
-            ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
-                ativa.removeClass('animated fadeOutLeft secao-ativa').hide();
-                $(".secao-admin-viagem").show().addClass('animated fadeInRight secao-ativa').one(eventoAnimacao, function () {
-                    $(".secao-admin-viagem").removeClass('animated fadeInRight');
+            if (ativa.hasClass('secao-admin-viagem')) {
+                animacaoEntrada = 'fadeInRight';
+                animacaoSaida = 'fadeOutLeft';
+            } else {
+                animacaoSaida = 'fadeOutLeft';
+                animacaoEntrada = 'fadeInRight';
+            }
+            ativa.addClass('animated ' + animacaoSaida).one(eventoAnimacao, function () {
+                ativa.removeClass('animated ' + animacaoSaida + ' secao-ativa').hide();
+                $(".secao-admin-viagem").show().addClass('animated ' + animacaoEntrada + ' secao-ativa').one(eventoAnimacao, function () {
+                    $(".secao-admin-viagem").removeClass('animated ' + animacaoEntrada);
                 });
             });
         }
@@ -83,8 +92,6 @@ app.service('dataService', function ($location) {
 
 //Controller da tela de login
 app.controller("loginController", function ($scope, dataService, $timeout, $http) {
-    //Chamando o serviço e retornando a URL local
-    console.log(dataService.getUrl_local());
     //Alterna pro conteúdo de recuperar senha
     $scope.mostrarRecuperarSenha = function () {
         $(".card-body-login").fadeTo(400, 0, function () {
@@ -126,7 +133,6 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $htt
         method: 'GET',
         url: ctx + '/Usuario.jsp?action=select'
     }).then(function successCallback(response) {
-        console.log(response.data.usuarios);
         $scope.usuarios = response.data.usuarios;
 
     }, function errorCallback(response) {
@@ -249,4 +255,31 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService) 
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminVeiculo();
     };
+});
+
+app.controller("viagemAdminController", function ($scope, dataService) {
+    $scope.mostrarIncluirViagem = function () {
+        ativa = $(".body-admin-menu").find(".secao-ativa");
+
+        ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
+            ativa.removeClass('secao-ativa');
+            ativa.removeClass('animated fadeOutLeft').hide();
+            $(".secao-admin-viagem-incluir").show().addClass('animated fadeInRight secao-ativa').one(eventoAnimacao, function () {
+                $(".secao-admin-viagem-incluir").removeClass('animated fadeInRight');
+            });
+        });
+    };
+});
+
+app.controller("incluirViagemAdminController", function ($scope, dataService) {
+    $(".btn-admin-incluir-viagem-tipo").click(function () {
+        $(this).addClass('btn-admin-tipo-active');
+        $(".row-admin-viagem").children().not($(this)).removeClass('btn-admin-tipo-active');
+
+        if ($("#btn-viagem-carga").hasClass("btn-admin-tipo-active")) {
+
+        } else {
+
+        }
+    });
 });

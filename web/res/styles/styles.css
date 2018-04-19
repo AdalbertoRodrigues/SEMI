@@ -174,12 +174,12 @@ button:focus {
     padding: 5px;
 }
 
-#form-admin-usuario-tipo, #form-admin-veiculo-tipo, #form-incluir-veiculo-marca, #form-detalhes-veiculo-marca {
+#form-admin-usuario-tipo, #form-admin-veiculo-tipo, #form-incluir-veiculo-marca, #form-detalhes-veiculo-marca, #form-incluir-viagem-tpeso {
     height: 1.9rem;
     padding: 0;
 }
 
-#table-admin-usuario {
+#table-admin-usuario, #table-admin-viagem {
     text-align: center;
 }
 
@@ -235,7 +235,7 @@ button:focus {
     font-size: 15px;
 }
 
-.secao-admin-usuario-incluir, secao-admin-usuario, .secao-admin-usuario-detalhes, .secao-admin-veiculo, .secao-admin-veiculo-incluir, .secao-admin-veiculo-detalhes {
+.secao-admin-usuario-incluir, .secao-admin-usuario, .secao-admin-usuario-detalhes, .secao-admin-veiculo, .secao-admin-veiculo-incluir, .secao-admin-veiculo-detalhes, .secao-admin-viagem, .secao-admin-viagem-incluir, .secao-admin-viagem-detalhes {
     display: none;
 }
 
@@ -248,20 +248,24 @@ button:focus {
     color: #43281D;
 }
 
-.btn-admin-incluir-usuario-tipo {
+.btn-admin-incluir-usuario-tipo, .btn-admin-incluir-viagem-tipo {
     text-align: center;
 }
 
-#btn-tipo-motorista {
+#btn-tipo-motorista, #btn-viagem-carga {
     border: 1px solid #243F50;
     border-top-left-radius: 10px 10px;
     border-bottom-left-radius: 10px 10px;
 }
-#btn-tipo-funcionario {
+#btn-tipo-funcionario, #btn-viagem-endereco{
     border: 1px solid #243F50;
     border-top-right-radius: 10px 10px;
     border-bottom-right-radius: 10px 10px;
 }
+
+.btn-disabled {}
+
+
 
 .btn-admin-tipo-active {
     background-color: #243F50;
@@ -271,11 +275,11 @@ button:focus {
 .col-mopp {
 }
 
-.btn-crud-usuario:not(.active), .btn-admin-incluir-usuario-tipo {
+.btn-crud-usuario:not(.active), .btn-admin-incluir-usuario-tipo, .btn-admin-incluir-viagem-tipo {
     cursor: pointer;
 }
 
-.row-admin-tipo {
+.row-admin-tipo, .row-admin-viagem {
     margin-bottom: 10px;
 }
 

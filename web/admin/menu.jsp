@@ -83,7 +83,6 @@
                             <option >Todos</option>
                             <option>Funcionários</option>
                             <option>Motoristas</option>
-
                         </select>
                     </div>
                 </div>
@@ -101,7 +100,7 @@
                             <tr dir-paginate="usuarios in usuarios | itemsPerPage: 5" class="linha-tabela-admin">
                                 <td>{{usuarios.nome}}</td>
                                 <td>{{usuarios.cpf}}</td>
-                                <td class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario()" ><i class="fas fa-eye"></i></td>
+                                <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario()" ><i class="fas fa-eye"></i></td>
                             </tr>
 
 
@@ -275,17 +274,7 @@
                             <tr class="linha-tabela-admin">
                                 <td>Volks 24250</td>
                                 <td>AJO-3996</td>
-                                <td ng-click='mostrarDetalhesVeiculo()' class="col-admin-detalhes"><i class="fas fa-eye"></i></td>
-                            </tr>
-                            <tr class="linha-tabela-admin">
-                                <td>Mercedes 710</td>
-                                <td>IBS-5908</td>
-                                <td ng-click='mostrarDetalhesVeiculo()' class="col-admin-detalhes"><i class="fas fa-eye"></i></td>
-                            </tr>
-                            <tr class="linha-tabela-admin">
-                                <td>Volvo FH 460</td>
-                                <td>DRP-4995</td>
-                                <td ng-click='mostrarDetalhesVeiculo()' class="col-admin-detalhes"><i class="fas fa-eye"></i></td>
+                                <td width="10%" ng-click='mostrarDetalhesVeiculo()' class="col-admin-detalhes"><i class="fas fa-eye"></i></td>
                             </tr>
                         </tbody>
                     </table>
@@ -503,6 +492,126 @@
                 </form>
             </div>
             <!-- SEÇÃO DE ADMIN VEÍCULO END -->
+
+            <!-- SEÇÃO DE ADMIN VIAGEM START -->
+            <div class="secao-admin-viagem" ng-controller="viagemAdminController">
+                <div class="row row-btn-admin row-crud-admin">
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-crud-admin" id="btn-admin-adicionar-usuario">
+                        <div ng-click="mostrarIncluirViagem()" class="btn-admin-adicionar-usuario btn-crud-usuario"><i class="fas fa-clipboard "></i> Incluir</div>
+                    </div>
+                </div>
+
+                <table class="table table-sm table-bordered table-striped" id="table-admin-viagem">
+                    <thead>
+                        <tr>
+                            <th width="3%" scope="col">ID</th>
+                            <th scope="col">ENDEREÇO CHEGADA</th>
+                            <th scope="col">MERCADORIA</th>
+                            <th width="10%" scope="col">DETALHES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="linha-tabela-admin">
+                            <td>1234</td>
+                            <td>Santos/SP</td>
+                            <td>Laranja</td>
+                            <td ng-click='mostrarDetalhesViagem()' class="col-admin-detalhes"><i class="fas fa-eye"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SEÇÃO ADMIN - INCLUIR VIAGEM -->
+            <div class="secao-admin-viagem-incluir" ng-controller="incluirViagemAdminController">
+                <div class="form group row align-items-center row-admin-viagem">
+                    <div ng-click="voltarMenu()" class="col-2">
+                        <i class="fas fa-arrow-left fa-2x" id="seta-voltar"></i>
+                    </div>
+
+                    <div class="col-4 btn-admin-incluir-viagem-tipo btn-admin-tipo-active" id="btn-viagem-carga">
+                        Carga
+                    </div>
+                    <div class="col-4 btn-admin-incluir-viagem-tipo" id="btn-viagem-endereco">
+                        Endereços
+                    </div>
+                </div>
+                
+                <div class="secao-admin-viagem-incluir-carga">
+                    <div class="form-row">
+                        <div class="form-group col-6 col-sm-6">
+                            <label for="form-incluir-viagem-tipo" class="col-form-label-sm">Tipo: </label>
+                            <input type="number" class="form-control form-control-sm" id="form-incluir-viagem-tipo" value="">
+                        </div>
+                        <div class="form-group col-6 col-sm-6">
+                            <label for="form-incluir-viagem-conteudo" class="col-form-label-sm">Conteúdo: </label>
+                            <input type="text" class="form-control form-control-sm" id="form-incluir-viagem-conteudo" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-2 col-sm-2">
+                            <label for="form-incluir-viagem-peso" class="col-form-label-sm">Peso: </label>
+                            <input type="number" class="form-control form-control-sm" id="form-detalhes-viagem-peso" value="">
+                        </div>
+                        <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                            <label for="form-incluir-viagem-tpeso" class="col-form-label-sm">&nbsp;</label>
+                            <select class="form-control" id="form-incluir-viagem-tpeso">
+                                <option>kg</option>
+                                <option>ton</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                            &nbsp;
+                        </div>
+                        <div class="form-group col-2 col-sm-2">
+                            <label for="form-incluir-viagem-altura" class="col-form-label-sm">Dimensões: </label>
+                            <input type="number" class="form-control form-control-sm" id="form-incluir-viagem-altura" value="">
+                        </div>
+                        <div class="form-group col-2 col-sm-2">
+                            <label for="form-incluir-viagem-altura" class="col-form-label-sm">&nbsp; </label>
+                            Altura
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6 col-sm-6">
+                            &nbsp;
+                        </div>
+                        <div class="form-group col-2 col-sm-2">
+                            <input type="number" class="form-control form-control-sm" id="form-incluir-viagem-largura" value="">
+                        </div>
+                        <div class="form-group col-2 col-sm-2">
+                            Largura
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6 col-sm-6">
+                            &nbsp;
+                        </div>
+                        <div class="form-group col-2 col-sm-2">
+                            <input type="number" class="form-control form-control-sm" id="form-incluir-viagem-comprimento" value="">
+                        </div>
+                        <div class="form-group col-2 col-sm-2">
+                            Comprimento
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
+                        <!-- BOTÃO INSERT VIAGEM -->
+                        <button class="btn btn-admin-adicionar-usuario" type="submit"><i class="fas fa-clipboard"></i> Adicionar Viagem</button>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <!-- SEÇÃO ADMIN - EDITAR VIAGEM -->
+            <div class="secao-admin-viagem-detalhes">
+
+
+            </div>
+            <!-- SEÇÃO DE ADMIN VIAGEM END -->
         </div>
 
 
