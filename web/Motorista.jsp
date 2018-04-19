@@ -23,12 +23,45 @@
             
             Conexao con = new Conexao();
 
-            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM MOTORISTA").executeQuery();
+            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO, MOTORISTA WHERE MOTORISTA.cd_cpf_usuario = USUARIO.cd_cpf_usuario").executeQuery();
         
             while(rs.next()) {
-                motorista = new Motorista(rs.getString("cd_cnh_motorista"), rs.getBoolean("ic_mopp_possui_naopossui_motorista"), rs.getDate("dt_validade_mopp"), 
-                                          rs.getString("cd_cpf_motorista"), rs.getString("nm_nome_motorista"),rs.getString("cd_senha_motorista"),
-                                          rs.getString("cd_tipo_usuario"));
+                motorista = new Motorista(rs.getString("cd_cnh_motorista"), rs.getBoolean("ic_mopp_possui_naopossui_motorista"), rs.getDate("dt_validade_mopp_motorista"), 
+                                          rs.getString("cd_cpf_usuario"), rs.getString("USUARIO.nm_nome_usuario"),rs.getString("USUARIO.cd_senha_usuario"),
+                                          rs.getString("USUARIO.cd_tipo_usuario"));
+                if(rs.isLast())
+                    atual = Json_encoder.encode(motorista);
+                else
+                    atual = Json_encoder.encode(motorista) + ",";
+                
+                json += atual;
+            }
+            
+            con.conexao.close();
+            out.println(json + "]}");
+            
+        }
+        catch(Exception ex) {
+            out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        
+       
+    }
+    if(action.equals("selectByCnh")) {
+       try {
+            Motorista motorista;
+            String json = "{\"motorista\":[";
+            String atual = "";
+            
+            Conexao con = new Conexao();
+
+            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM MOTORISTA, USUARIO WHERE MOTORISTA.cd_cpf_usuario = USUARIO.cd_cpf_usuario AND MOTORISTA.cd_cnh_motorista = " + request.getParameter("cnh")).executeQuery();
+        
+            while(rs.next()) {
+                motorista = new Motorista(rs.getString("cd_cnh_motorista"), rs.getBoolean("ic_mopp_possui_naopossui_motorista"), rs.getDate("dt_validade_mopp_motorista"), 
+                                          rs.getString("cd_cpf_usuario"), rs.getString("USUARIO.nm_nome_usuario"),rs.getString("USUARIO.cd_senha_usuario"),
+                                          rs.getString("USUARIO.cd_tipo_usuario"));
                 if(rs.isLast())
                     atual = Json_encoder.encode(motorista);
                 else
