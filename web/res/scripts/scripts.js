@@ -6,7 +6,12 @@ var app = angular.module("semi", ['angularUtils.directives.dirPagination'], func
     });
 });
 var ctx;
-
+$('.cpf').mask('000.000.000-00');
+$('.cnh').mask('00000000000');
+$('.placa').mask('AAA-0000');
+$('.ano').mask('0000');
+$('.medida').mask('0#');
+$('cep').mask('00000-000');
 app.config(function (paginationTemplateProvider) {
     paginationTemplateProvider.setPath(ctx + '/res/scripts/dirPagination.tpl.html');
 });
@@ -73,12 +78,12 @@ app.service('dataService', function ($location) {
         },
         voltarMenuAdminViagem: function () {
             ativa = $(".body-admin-menu").find(".secao-ativa");
-            if (ativa.hasClass('secao-admin-viagem')) {
-                animacaoEntrada = 'fadeInRight';
+            if (ativa.hasClass('secao-admin-viagem') || ativa.hasClass('secao-admin-usuario') || ativa.hasClass('secao-admin-veiculo')) {
                 animacaoSaida = 'fadeOutLeft';
+                animacaoEntrada = 'fadeInRight';
             } else {
-                animacaoSaida = 'fadeOutLeft';
-                animacaoEntrada = 'fadeInRight';
+                animacaoSaida = 'fadeOutRight';
+                animacaoEntrada = 'fadeInLeft';
             }
             ativa.addClass('animated ' + animacaoSaida).one(eventoAnimacao, function () {
                 ativa.removeClass('animated ' + animacaoSaida + ' secao-ativa').hide();
@@ -257,7 +262,7 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService) 
     };
 });
 
-app.controller("viagemAdminController", function ($scope, dataService) {
+app.controller("viagemAdminController", function ($scope) {
     $scope.mostrarIncluirViagem = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
 
@@ -272,14 +277,25 @@ app.controller("viagemAdminController", function ($scope, dataService) {
 });
 
 app.controller("incluirViagemAdminController", function ($scope, dataService) {
+    $scope.voltarMenu = function () {
+        dataService.voltarMenuAdminViagem();
+    };
+
     $(".btn-admin-incluir-viagem-tipo").click(function () {
         $(this).addClass('btn-admin-tipo-active');
         $(".row-admin-viagem").children().not($(this)).removeClass('btn-admin-tipo-active');
 
         if ($("#btn-viagem-carga").hasClass("btn-admin-tipo-active")) {
+            $(".secao-admin-viagem-incluir-endereco").fadeTo(100, 0, function () {
+                $(".secao-admin-viagem-incluir-endereco").hide();
+                $(".secao-admin-viagem-incluir-carga").fadeTo(100, 1);
+            });
 
         } else {
-
+            $(".secao-admin-viagem-incluir-carga").fadeTo(100, 0, function () {
+                $(".secao-admin-viagem-incluir-carga").hide();
+                $(".secao-admin-viagem-incluir-endereco").fadeTo(100, 1);
+            });
         }
     });
 });

@@ -174,7 +174,7 @@ button:focus {
     padding: 5px;
 }
 
-#form-admin-usuario-tipo, #form-admin-veiculo-tipo, #form-incluir-veiculo-marca, #form-detalhes-veiculo-marca, #form-incluir-viagem-tpeso {
+#form-admin-usuario-tipo, #form-admin-veiculo-tipo, #form-incluir-veiculo-marca, #form-detalhes-veiculo-marca, #form-incluir-viagem-tpeso, #form-incluir-viagem-pais-partida, #form-incluir-viagem-estado-partida, #form-incluir-viagem-cidade-partida, #form-incluir-viagem-pais-destino, #form-incluir-viagem-cidade-destino, #form-incluir-viagem-estado-destino, #form-incluir-viagem-tipo {
     height: 1.9rem;
     padding: 0;
 }
@@ -235,7 +235,7 @@ button:focus {
     font-size: 15px;
 }
 
-.secao-admin-usuario-incluir, .secao-admin-usuario, .secao-admin-usuario-detalhes, .secao-admin-veiculo, .secao-admin-veiculo-incluir, .secao-admin-veiculo-detalhes, .secao-admin-viagem, .secao-admin-viagem-incluir, .secao-admin-viagem-detalhes {
+.secao-admin-usuario-incluir, .secao-admin-usuario, .secao-admin-usuario-detalhes, .secao-admin-veiculo, .secao-admin-veiculo-incluir, .secao-admin-veiculo-detalhes, .secao-admin-viagem, .secao-admin-viagem-incluir, .secao-admin-viagem-detalhes, .secao-admin-viagem-incluir-endereco {
     display: none;
 }
 
@@ -330,4 +330,22 @@ input::-webkit-inner-spin-button {
 }
 #pagination-semi .page-link:focus {
     box-shadow: 0 0 0 0 white;
+}
+
+.secao-admin-viagem-txt-partida {
+    width: 100%;
+    text-align: center;
+/*    border-bottom: 1px solid black;*/
+}
+
+.secao-endereco-partida {
+    border: 1px solid #c4c4c4;
+    padding: 5px;
+    background-color: rgba(194,188,176, 0.3);
+}
+
+.secao-endereco-destino {
+    border: 1px solid #c4c4c4;
+    padding: 5px;
+    background-color: rgba(114,114,114, 0.3);
 }
