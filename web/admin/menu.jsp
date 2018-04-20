@@ -319,7 +319,7 @@
                         </div>
                         <div class="form-group col-2 col-sm-2">
                             <label for="form-incluir-veiculo-eixo" class="col-form-label-sm">Eixos</label>
-                            <input type="number" class="form-control form-control-sm" id="form-incluir-veiculo-eixo" value="">
+                            <input type="text" class="form-control form-control-sm medida" id="form-incluir-veiculo-eixo" value="">
                         </div>
                         <div class="form-group col-8 col-sm-8">
                             <label for="form-incluir-veiculo-motoristaPreferencial" class="col-form-label-sm">Motorista Preferencial</label>
@@ -430,11 +430,11 @@
                     <div class="form-row">
                         <div class="form-group col-2 col-sm-2">
                             <label for="form-detalhes-veiculo-ano" class="col-form-label-sm">Ano</label>
-                            <input type="number" class="form-control form-control-sm ano" id="form-detalhes-veiculo-ano" value="">
+                            <input type="text" class="form-control form-control-sm ano" id="form-detalhes-veiculo-ano" value="">
                         </div>
                         <div class="form-group col-2 col-sm-2">
                             <label for="form-detalhes-veiculo-eixo" class="col-form-label-sm">Eixos</label>
-                            <input type="number" class="form-control form-control-sm" id="form-detalhes-veiculo-eixo" value="">
+                            <input type="text" class="form-control form-control-sm medida" id="form-detalhes-veiculo-eixo" value="">
                         </div>
                         <div class="form-group col-8 col-sm-8">
                             <label for="form-detalhes-veiculo-motoristaPreferencial" class="col-form-label-sm">Motorista Preferencial</label>
@@ -619,17 +619,17 @@
                         <div class="form-row align-items-center">
                             <div class="form-group col-4 col-sm-4">
                                 <label for="form-incluir-viagem-cep-partida" class="col-form-label-sm">CEP: </label>
-                                <input type="number" class="form-control form-control-sm cep" id="form-incluir-viagem-cep-partida" value="">
+                                <input type="text" class="form-control form-control-sm cep" id="form-incluir-viagem-cep-partida" value="">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-6 col-sm-6">
                                 <label for="form-incluir-viagem-rua-partida" class="col-form-label-sm">Rua/Avenida: </label>
-                                <input type="number" class="form-control form-control-sm" id="form-incluir-viagem-rua-partida" value="">
+                                <input type="text" class="form-control form-control-sm" id="form-incluir-viagem-rua-partida" value="">
                             </div>
                             <div class="form-group col-2 col-sm-2">
                                 <label for="form-incluir-viagem-rua-numero-partida" class="col-form-label-sm">Nº: </label>
-                                <input type="number" class="form-control form-control-sm" id="form-incluir-viagem-rua-numero-partida" value="">
+                                <input type="text" class="form-control form-control-sm medida" id="form-incluir-viagem-rua-numero-partida" value="">
                             </div>
                             <div class="form-group col-2 col-sm-2">
                                 <label for="form-incluir-viagem-rua-complemento-partida" class="col-form-label-sm">Complemento: </label>
@@ -677,17 +677,17 @@
                         <div class="form-row align-items-center">
                             <div class="form-group col-4 col-sm-4">
                                 <label for="form-incluir-viagem-cep-destino" class="col-form-label-sm">CEP: </label>
-                                <input type="number" class="form-control form-control-sm" id="form-incluir-viagem-cep-destino" value="">
+                                <input type="text" class="form-control form-control-sm" id="form-incluir-viagem-cep-destino" value="">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-6 col-sm-6">
                                 <label for="form-incluir-viagem-rua-destino" class="col-form-label-sm">Rua/Avenida: </label>
-                                <input type="number" class="form-control form-control-sm" id="form-incluir-viagem-rua-destino" value="">
+                                <input type="text" class="form-control form-control-sm" id="form-incluir-viagem-rua-destino" value="">
                             </div>
                             <div class="form-group col-2 col-sm-2">
                                 <label for="form-incluir-viagem-rua-numero-destino" class="col-form-label-sm">Nº: </label>
-                                <input type="number" class="form-control form-control-sm" id="form-incluir-viagem-rua-numero-destino" value="">
+                                <input type="text" class="form-control form-control-sm medida" id="form-incluir-viagem-rua-numero-destino" value="">
                             </div>
                             <div class="form-group col-2 col-sm-2">
                                 <label for="form-incluir-viagem-rua-complemento-destino" class="col-form-label-sm">Complemento: </label>
@@ -748,14 +748,226 @@
                         <button class="btn btn-admin-adicionar-usuario" type="submit"><i class="fas fa-clipboard"></i> Adicionar Viagem</button>
                     </div>
                 </div>
+            </div>
 
-                <!-- SEÇÃO ADMIN - EDITAR VIAGEM -->
-                <div class="secao-admin-viagem-detalhes">
+            <!-- SEÇÃO ADMIN - EDITAR VIAGEM -->
+            <div class="secao-admin-viagem-detalhes" ng-controller="detalhesViagemAdminController">
+                <div class="form group row align-items-center row-admin-detalhes-viagem">
+                    <div ng-click="voltarMenu()" class="col-2">
+                        <i class="fas fa-arrow-left fa-2x" id="seta-voltar"></i>
+                    </div>
 
+                    <div class="col-4 btn-admin-detalhes-viagem-tipo btn-admin-tipo-active" id="btn-viagem-detalhes-carga">
+                        Carga
+                    </div>
+                    <div class="col-4 btn-admin-detalhes-viagem-tipo" id="btn-viagem-detalhes-endereco">
+                        Endereços
+                    </div>
+                </div>
 
+                <div class="secao-admin-viagem-detalhes-carga">
+                    <div class="form-row">
+                        <div class="form-group col-6 col-sm-6">
+                            <label for="form-detalhes-viagem-tipo" class="col-form-label-sm">Tipo </label>
+                            <select class="form-control" id="form-detalhes-viagem-tipo">
+                                <option>T1</option>
+                                <option>T2</option>
+                                <option>Tn</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-6 col-sm-6">
+                            <label for="form-detalhes-viagem-conteudo" class="col-form-label-sm">Conteúdo </label>
+                            <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-conteudo" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-2 col-sm-2">
+                            <label for="form-detalhes-viagem-peso" class="col-form-label-sm">Peso </label>
+                            <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-peso" value="">
+                        </div>
+                        <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                            <label for="form-detalhes-viagem-tpeso" class="col-form-label-sm">&nbsp;</label>
+                            <select class="form-control" id="form-detalhes-viagem-tpeso">
+                                <option>kg</option>
+                                <option>ton</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                            &nbsp;
+                        </div>
+                        <div class="form-group col-2 col-sm-2">
+                            <label for="form-detalhes-viagem-altura" class="col-form-label-sm">Dimensões </label>
+                            <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-altura" value="">
+                        </div>
+                        <div class="form-group col-2 col-sm-2">
+                            <label class="col-form-label-sm">&nbsp; </label>
+                            <br>Altura
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6 col-sm-6">
+                            &nbsp;
+                        </div>
+                        <div class="form-group col-2 col-sm-2">
+                            <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-largura" value="">
+                        </div>
+                        <div class="form-group col-2 col-sm-2">
+                            Largura
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6 col-sm-6">
+                            &nbsp;
+                        </div>
+                        <div class="form-group col-2 col-sm-2">
+                            <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-comprimento" value="">
+                        </div>
+                        <div class="form-group col-2 col-sm-2">
+                            Comprimento
+                        </div>
+                    </div>
+                </div>
+
+                <div class="secao-admin-viagem-detalhes-endereco">
+                    <div class="secao-endereco-partida">
+                        <div class="secao-admin-viagem-txt-partida">
+                            <h4>PARTIDA</h4>
+                        </div>
+                        <div class="form-row align-items-center">
+                            <div class="form-group col-4 col-sm-4">
+                                <label for="form-detalhes-viagem-cep-partida" class="col-form-label-sm">CEP </label>
+                                <input type="text" class="form-control form-control-sm cep" id="form-detalhes-viagem-cep-partida" value="">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6 col-sm-6">
+                                <label for="form-detalhes-viagem-rua-partida" class="col-form-label-sm">Rua/Avenida </label>
+                                <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-partida" value="">
+                            </div>
+                            <div class="form-group col-2 col-sm-2">
+                                <label for="form-detalhes-viagem-rua-numero-partida" class="col-form-label-sm">Nº </label>
+                                <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-rua-numero-partida" value="">
+                            </div>
+                            <div class="form-group col-2 col-sm-2">
+                                <label for="form-detalhes-viagem-rua-complemento-partida" class="col-form-label-sm">Complemento </label>
+                                <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-complemento-partida" value="">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                                <label for="form-detalhes-viagem-pais-partida" class="col-form-label-sm">País </label>
+                                <select class="form-control" id="form-detalhes-viagem-pais-partida">
+                                    <option>P1</option>
+                                    <option>P2</option>
+                                    <option>Pn</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-1 col-sm-1">
+                                &nbsp;
+                            </div>
+                            <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <label for="form-detalhes-viagem-estado-partida" class="col-form-label-sm">Distrito </label>
+                                <select class="form-control" id="form-detalhes-viagem-estado-partida">
+                                    <option>E1</option>
+                                    <option>E2</option>
+                                    <option>En</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-1 col-sm-1">
+                                &nbsp;
+                            </div>
+                            <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                                <label for="form-detalhes-viagem-cidade-partida" class="col-form-label-sm">Cidade </label>
+                                <select class="form-control" id="form-detalhes-viagem-cidade-partida">
+                                    <option>C1</option>
+                                    <option>C2</option>
+                                    <option>Cn</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="secao-endereco-destino">
+                        <div class="secao-admin-viagem-txt-partida">
+                            <h4>DESTINO</h4>
+                        </div>
+                        <div class="form-row align-items-center">
+                            <div class="form-group col-4 col-sm-4">
+                                <label for="form-detalhes-viagem-cep-destino" class="col-form-label-sm">CEP </label>
+                                <input type="text" class="form-control form-control-sm cep" id="form-detalhes-viagem-cep-destino" value="">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6 col-sm-6">
+                                <label for="form-detalhes-viagem-rua-destino" class="col-form-label-sm">Rua/Avenida </label>
+                                <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-destino" value="">
+                            </div>
+                            <div class="form-group col-2 col-sm-2">
+                                <label for="form-detalhes-viagem-rua-numero-destino" class="col-form-label-sm">Nº </label>
+                                <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-rua-numero-destino" value="">
+                            </div>
+                            <div class="form-group col-2 col-sm-2">
+                                <label for="form-detalhes-viagem-rua-complemento-destino" class="col-form-label-sm">Complemento </label>
+                                <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-complemento-destino" value="">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                                <label for="form-detalhes-viagem-pais-destino" class="col-form-label-sm">País </label>
+                                <select class="form-control" id="form-detalhes-viagem-pais-destino">
+                                    <option>P1</option>
+                                    <option>P2</option>
+                                    <option>Pn</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-1 col-sm-1">
+                                &nbsp;
+                            </div>
+                            <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <label for="form-detalhes-viagem-estado-destino" class="col-form-label-sm">Distrito </label>
+                                <select class="form-control" id="form-detalhes-viagem-estado-destino">
+                                    <option>E1</option>
+                                    <option>E2</option>
+                                    <option>En</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-1 col-sm-1">
+                                &nbsp;
+                            </div>
+                            <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                                <label for="form-detalhes-viagem-cidade-destino" class="col-form-label-sm">Cidade </label>
+                                <select class="form-control" id="form-detalhes-viagem-cidade-destino">
+                                    <option>C1</option>
+                                    <option>C2</option>
+                                    <option>Cn</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-4 col-sm-4">
+                            &nbsp;
+                        </div>
+                        <div class="form-group col-4 col-sm-4">
+                            <label for="form-detalhes-viagem-prazo" class="col-form-label-sm">Prazo de entrega </label>
+                            <input type="date" class="form-control form-control-sm" id="form-detalhes-viagem-prazo" value="">
+                        </div>
+                        <div class="form-group col-4 col-sm-4">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <br>
+
+                </div>
+                <div class="row">
+                    <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
+                        <!-- BOTÃO INSERT VIAGEM -->
+                        <button class="btn btn-admin-alterar-usuario" type="submit"><i class="fas fa-edit"></i> Salvar alterações</button>
+                    </div>
                 </div>
                 <!-- SEÇÃO DE ADMIN VIAGEM END -->
             </div>
+
         </div>
 
 

@@ -174,7 +174,7 @@ button:focus {
     padding: 5px;
 }
 
-#form-admin-usuario-tipo, #form-admin-veiculo-tipo, #form-incluir-veiculo-marca, #form-detalhes-veiculo-marca, #form-incluir-viagem-tpeso, #form-incluir-viagem-pais-partida, #form-incluir-viagem-estado-partida, #form-incluir-viagem-cidade-partida, #form-incluir-viagem-pais-destino, #form-incluir-viagem-cidade-destino, #form-incluir-viagem-estado-destino, #form-incluir-viagem-tipo {
+#form-admin-usuario-tipo, #form-admin-veiculo-tipo, #form-incluir-veiculo-marca, #form-detalhes-veiculo-marca, #form-incluir-viagem-tpeso, #form-incluir-viagem-pais-partida, #form-incluir-viagem-estado-partida, #form-incluir-viagem-cidade-partida, #form-incluir-viagem-pais-destino, #form-incluir-viagem-cidade-destino, #form-incluir-viagem-estado-destino, #form-incluir-viagem-tipo, #form-detalhes-viagem-tpeso, #form-detalhes-viagem-pais-partida, #form-detalhes-viagem-estado-partida, #form-detalhes-viagem-cidade-partida, #form-detalhes-viagem-pais-destino, #form-detalhes-viagem-cidade-destino, #form-detalhes-viagem-estado-destino, #form-detalhes-viagem-tipo {
     height: 1.9rem;
     padding: 0;
 }
@@ -235,7 +235,7 @@ button:focus {
     font-size: 15px;
 }
 
-.secao-admin-usuario-incluir, .secao-admin-usuario, .secao-admin-usuario-detalhes, .secao-admin-veiculo, .secao-admin-veiculo-incluir, .secao-admin-veiculo-detalhes, .secao-admin-viagem, .secao-admin-viagem-incluir, .secao-admin-viagem-detalhes, .secao-admin-viagem-incluir-endereco {
+.secao-admin-usuario-incluir, .secao-admin-usuario, .secao-admin-usuario-detalhes, .secao-admin-veiculo, .secao-admin-veiculo-incluir, .secao-admin-veiculo-detalhes, .secao-admin-viagem, .secao-admin-viagem-incluir, .secao-admin-viagem-detalhes, .secao-admin-viagem-incluir-endereco, .secao-admin-viagem-detalhes-endereco {
     display: none;
 }
 
@@ -248,16 +248,16 @@ button:focus {
     color: #43281D;
 }
 
-.btn-admin-incluir-usuario-tipo, .btn-admin-incluir-viagem-tipo {
+.btn-admin-incluir-usuario-tipo, .btn-admin-incluir-viagem-tipo, .btn-admin-detalhes-viagem-tipo {
     text-align: center;
 }
 
-#btn-tipo-motorista, #btn-viagem-carga {
+#btn-tipo-motorista, #btn-viagem-carga, #btn-viagem-detalhes-carga {
     border: 1px solid #243F50;
     border-top-left-radius: 10px 10px;
     border-bottom-left-radius: 10px 10px;
 }
-#btn-tipo-funcionario, #btn-viagem-endereco{
+#btn-tipo-funcionario, #btn-viagem-endereco, #btn-viagem-detalhes-endereco{
     border: 1px solid #243F50;
     border-top-right-radius: 10px 10px;
     border-bottom-right-radius: 10px 10px;
@@ -275,11 +275,11 @@ button:focus {
 .col-mopp {
 }
 
-.btn-crud-usuario:not(.active), .btn-admin-incluir-usuario-tipo, .btn-admin-incluir-viagem-tipo {
+.btn-crud-usuario:not(.active), .btn-admin-incluir-usuario-tipo, .btn-admin-incluir-viagem-tipo, .btn-admin-detalhes-viagem-tipo, .btn-admin-detalhes-viagem-tipo {
     cursor: pointer;
 }
 
-.row-admin-tipo, .row-admin-viagem {
+.row-admin-tipo, .row-admin-viagem, .row-admin-detalhes-viagem {
     margin-bottom: 10px;
 }
 
@@ -335,16 +335,18 @@ input::-webkit-inner-spin-button {
 .secao-admin-viagem-txt-partida {
     width: 100%;
     text-align: center;
-/*    border-bottom: 1px solid black;*/
+    /*    border-bottom: 1px solid black;*/
 }
 
 .secao-endereco-partida {
+    border-radius: 5px;
     border: 1px solid #c4c4c4;
     padding: 5px;
     background-color: rgba(194,188,176, 0.3);
 }
 
 .secao-endereco-destino {
+    border-radius: 5px;
     border: 1px solid #c4c4c4;
     padding: 5px;
     background-color: rgba(114,114,114, 0.3);
