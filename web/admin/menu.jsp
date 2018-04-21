@@ -128,20 +128,20 @@
                     <div class="form-group row">
                         <label for="form-incluir-usuario-nome" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
                         <div class="col-12 col-sm-12    ">
-                            <input value="" type="text" ng-model="incluir_usuario_nome" required class="form-control form-control-sm input-incluir-usuario" id="form-incluir-usuario-nome">
+                            <input value="" type="text" ng-model="incluir_usuario_nome" ng-model-options='{debounce: 1000}' ng-change="checkValido()" required class="form-control form-control-sm input-incluir-usuario" id="form-incluir-usuario-nome">
                         </div> 
                     </div>
                     <div class="form-group row form-group-cpf">
                         <label for="form-incluir-usuario-cpf" id="label-usuario-cpf" class="col-sm-2 col-form-label col-form-label-sm">CPF</label>
                         <div class="col-12 col-sm-12">
-                            <input value="" type="text" ng-model="incluir_usuario_cpf" required class="form-control form-control-sm cpf input-incluir-usuario" id="form-incluir-usuario-cpf">
+                            <input value="" type="text" ng-model="incluir_usuario_cpf" ng-model-options='{debounce: 500}' ng-change="checkCpf()" required class="form-control form-control-sm cpf input-incluir-usuario" id="form-incluir-usuario-cpf">
                         </div> 
                     </div>
                     <div class="form-motorista">
                         <div class="form-group row form-group-cnh">
                             <label for="form-incluir-usuario-cnh" id="label-usuario-cnh" class="col-sm-2 col-form-label col-form-label-sm">CNH</label>
                             <div class="col-12 col-sm-12">
-                                <input value="" type="text"ng-model="incluir_usuario_cnh" class="form-control form-control-sm cnh input-incluir-usuario" id="form-incluir-usuario-cnh">
+                                <input value="" type="text"ng-model="incluir_usuario_cnh" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-control form-control-sm cnh input-incluir-usuario" id="form-incluir-usuario-cnh">
                             </div> 
                         </div>
                         <div class="row">
@@ -162,7 +162,7 @@
                     <div class="form-group row">
                         <label for="form-incluir-usuario-senha" class="col-sm-2 col-form-label col-form-label-sm">Senha</label>
                         <div class="col-12 col-sm-12">
-                            <input value="" type="text" class="form-control form-control-sm input-incluir-usuario" required ng-model="incluir_usuario_senha" id="form-incluir-usuario-senha">
+                            <input value="" type="text" class="form-control form-control-sm input-incluir-usuario" required ng-model-options='{debounce: 1000}' ng-change="checkValido()" ng-model="incluir_usuario_senha" id="form-incluir-usuario-senha">
                         </div> 
                     </div>
                     <div class="row">

@@ -206,62 +206,72 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $htt
 });
 
 app.controller("incluirUsuarioAdminController", function ($scope, dataService) {
-    //Chama o dataService e executa a função de voltar para o menu
+//Chama o dataService e executa a função de voltar para o menu
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminUsuario();
     };
 
+    $scope.checkCpf = function () {
+        if (!dataService.testarCpf($("#form-incluir-usuario-cpf").cleanVal())) {
+            $("#form-incluir-usuario-cpf").addClass('error-input');
+            $scope.cpfValido = false;
+            $scope.checkValido();
+        } else {
+            $("#form-incluir-usuario-cpf").removeClass('error-input');
+            $scope.cpfValido = true;
+            $scope.checkValido();
+        }
+    }
+
+    $scope.checkValido = function () {
+        if ($("#btn-tipo-motorista").hasClass('btn-admin-tipo-active')) {
+            if (!$scope.cpfValido || $scope.incluir_usuario_nome == null || $scope.incluir_usuario_cpf == null || $scope.incluir_usuario_cnh == null || $scope.incluir_usuario_senha == null) {
+                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').attr('disabled', 'true').css('cursor', 'not-allowed');
+            } else {
+                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').attr('disabled', 'false').css('cursor', 'pointer');
+            }
+        } else {
+            if (!$scope.cpfValido || $scope.incluir_usuario_nome == null || $scope.incluir_usuario_cpf == null || $scope.incluir_usuario_senha == null) {
+                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').attr('disabled', 'true').css('cursor', 'not-allowed');
+            } else {
+                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').attr('disabled', 'false').css('cursor', 'pointer');
+            }
+        }
+    };
     //Alterna o tipo de usuário, fazendo ou não aparecer o form do MOPP
     $(".btn-admin-incluir-usuario-tipo").click(function () {
         $(this).addClass('btn-admin-tipo-active');
         $(".row-admin-tipo").children().not($(this)).removeClass('btn-admin-tipo-active');
-
         if ($("#btn-tipo-funcionario").hasClass("btn-admin-tipo-active")) {
             $(".form-motorista").fadeOut();
-            $("#form-incluir-usuario-cnh").val(null);
+            $("#form-incluir-usuario-cnh").val('');
+            $scope.incluir_usuario_cnh = null;
         } else {
             $(".form-motorista").fadeIn();
         }
     });
-
-    $("#form-incluir-usuario-cpf").blur(function () {
-        if (!dataService.testarCpf($("#form-incluir-usuario-cpf").cleanVal())) {
-            $("#form-incluir-usuario-cpf").addClass('error-input');
-        } else {
-            $("#form-incluir-usuario-cpf").removeClass('error-input');
-        }
+//    $("#form-incluir-usuario-cpf").blur(function () {
+//        if (!dataService.testarCpf($("#form-incluir-usuario-cpf").cleanVal())) {
+//            $("#form-incluir-usuario-cpf").addClass('error-input');
+//        } else {
+//            $("#form-incluir-usuario-cpf").removeClass('error-input');
+//        }
+//    });
+//    $(".input-incluir-usuario").blur(function () {
+//        $scope.checkValido()
+//    });
+    $(".btn-admin-incluir-usuario-tipo").click(function () {
+        $scope.checkValido()
     });
-
-    $(".input-incluir-usuario").blur(function () {
-        if ($("#btn-tipo-motorista").hasClass('btn-admin-tipo-active')) {
-            ;
-            if ($("#form-incluir-usuario-cpf").hasClass('error-input') || $scope.incluir_usuario_nome == null || $scope.incluir_usuario_cpf == null || $scope.incluir_usuario_cnh == null || $scope.incluir_usuario_cnh == '' || $scope.incluir_usuario_senha == null) {
-                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').attr('disabled', 'true').css('cursor','not-allowed');
-            } else {
-                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').attr('disabled', 'false').css('cursor','pointer');
-            }
-        } else {
-            if ($("#form-incluir-usuario-cpf").hasClass('error-input') || $scope.incluir_usuario_nome == null || $scope.incluir_usuario_cpf == null || $scope.incluir_usuario_senha == null) {
-                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').attr('disabled', 'true').css('cursor','not-allowed');
-            } else {
-                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').attr('disabled', 'false').css('cursor','pointer');
-            }
-        }
-    });
-
-
 });
-
 app.controller("detalhesUsuarioAdminController", function ($scope, dataService) {
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminUsuario();
     };
 });
-
 app.controller("menuAdminVeiculoController", function ($scope) {
     $scope.mostrarIncluirVeiculo = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
-
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
             ativa.removeClass('secao-ativa');
             ativa.removeClass('animated fadeOutLeft').hide();
@@ -270,10 +280,8 @@ app.controller("menuAdminVeiculoController", function ($scope) {
             });
         });
     };
-
     $scope.mostrarDetalhesVeiculo = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
-
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
             ativa.removeClass('secao-ativa');
             ativa.removeClass('animated fadeOutLeft').hide();
@@ -283,37 +291,30 @@ app.controller("menuAdminVeiculoController", function ($scope) {
         });
     };
 });
-
 app.controller("abasAdminController", function ($scope, dataService) {
     $scope.irSecaoAdminUsuario = function () {
         dataService.voltarMenuAdminUsuario();
     };
-
     $scope.irSecaoAdminVeiculo = function () {
         dataService.voltarMenuAdminVeiculo();
     };
-
     $scope.irSecaoAdminViagem = function () {
         dataService.voltarMenuAdminViagem();
     };
 });
-
 app.controller("incluirVeiculoAdminController", function ($scope, dataService) {
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminVeiculo();
     };
 });
-
 app.controller("detalhesVeiculoAdminController", function ($scope, dataService) {
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminVeiculo();
     };
 });
-
 app.controller("viagemAdminController", function ($scope) {
     $scope.mostrarIncluirViagem = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
-
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
             ativa.removeClass('secao-ativa');
             ativa.removeClass('animated fadeOutLeft').hide();
@@ -322,10 +323,8 @@ app.controller("viagemAdminController", function ($scope) {
             });
         });
     };
-
     $scope.mostrarDetalhesViagem = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
-
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
             ativa.removeClass('secao-ativa');
             ativa.removeClass('animated fadeOutLeft').hide();
@@ -335,22 +334,18 @@ app.controller("viagemAdminController", function ($scope) {
         });
     };
 });
-
 app.controller("incluirViagemAdminController", function ($scope, dataService) {
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminViagem();
     };
-
     $(".btn-admin-incluir-viagem-tipo").click(function () {
         $(this).addClass('btn-admin-tipo-active');
         $(".row-admin-viagem").children().not($(this)).removeClass('btn-admin-tipo-active');
-
         if ($("#btn-viagem-carga").hasClass("btn-admin-tipo-active")) {
             $(".secao-admin-viagem-incluir-endereco").fadeTo(100, 0, function () {
                 $(".secao-admin-viagem-incluir-endereco").hide();
                 $(".secao-admin-viagem-incluir-carga").fadeTo(100, 1);
             });
-
         } else {
             $(".secao-admin-viagem-incluir-carga").fadeTo(100, 0, function () {
                 $(".secao-admin-viagem-incluir-carga").hide();
@@ -359,22 +354,18 @@ app.controller("incluirViagemAdminController", function ($scope, dataService) {
         }
     });
 });
-
 app.controller("detalhesViagemAdminController", function ($scope, dataService) {
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminViagem();
     };
-
     $(".btn-admin-detalhes-viagem-tipo").click(function () {
         $(this).addClass('btn-admin-tipo-active');
         $(".row-admin-detalhes-viagem").children().not($(this)).removeClass('btn-admin-tipo-active');
-
         if ($("#btn-viagem-detalhes-carga").hasClass("btn-admin-tipo-active")) {
             $(".secao-admin-viagem-detalhes-endereco").fadeTo(100, 0, function () {
                 $(".secao-admin-viagem-detalhes-endereco").hide();
                 $(".secao-admin-viagem-detalhes-carga").fadeTo(100, 1);
             });
-
         } else {
             $(".secao-admin-viagem-detalhes-carga").fadeTo(100, 0, function () {
                 $(".secao-admin-viagem-detalhes-carga").hide();
