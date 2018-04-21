@@ -331,7 +331,7 @@ app.controller("viagemAdminController", function ($scope) {
         });
     };
 });
-app.controller("incluirViagemAdminController", function ($scope, dataService) {
+app.controller("incluirViagemAdminController", function ($scope, dataService, $http) {
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminViagem();
     };
@@ -350,8 +350,25 @@ app.controller("incluirViagemAdminController", function ($scope, dataService) {
             });
         }
     });
+    
+    $http({
+        method: 'GET',
+        url: ctx + '/marca.jsp?action=select'
+    }).then(function successCallback(response) {
+        $scope.marcas = response.data.marcas;
+
+        for(i = 0; i < $scope.marcas.length; i++)  {
+            
+            $("#form-incluir-veiculo-lista").append("<option value=" + $scope.marcas[i].nome + ">");
+        }
+
+    }, function errorCallback(response) {
+        console.log('Error');
+    });
+    
+    
 });
-app.controller("detalhesViagemAdminController", function ($scope, dataService) {
+app.controller("detalhesViagemAdminController", function ($scope, dataService, $http) {
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminViagem();
     };
@@ -370,4 +387,20 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService) {
             });
         }
     });
+    
+    $http({
+        method: 'GET',
+        url: ctx + '/marca.jsp?action=select'
+    }).then(function successCallback(response) {
+        $scope.marcas = response.data.marcas;
+
+        for(i = 0; i < $scope.marcas.length; i++)  {
+            
+            $("#form-detalhes-veiculo-lista").append("<option value=" + $scope.marcas[i].nome + ">");
+        }
+
+    }, function errorCallback(response) {
+        console.log('Error');
+    });
 });
+

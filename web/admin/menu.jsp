@@ -297,17 +297,7 @@
                             <label id="label-select-marca" class="col-form-label-sm" for="form-incluir-veiculo-marca">Marca</label>
                             <input list="form-incluir-veiculo-lista" type="text" class="form-control form-control-sm" id="form-incluir-veiculo-marca" value="">
                             <datalist id="form-incluir-veiculo-lista">
-                                <option>Marca</option>
-                                <option>MAN (VW)</option>
-                                <option>Ford</option>
-                                <option>Volvo</option>
-                                <option>Scania</option>
-                                <option>Iveco</option>
-                                <option>DAF</option>
-                                <option>Agrale</option>
-                                <option>International</option>
-                                <option>Hyundai</option>
-                                <option>Foton</option>
+                                
                             </datalist>
                         </div>
                     </div>
@@ -410,19 +400,9 @@
                         </div>
                         <div class="form-group col-4 col-sm-4">
                             <label id="label-select-marca" class="col-form-label-sm" for="form-detalhes-veiculo-marca">Marca</label>
-                            <input list="form-incluir-veiculo-lista" type="text" class="form-control form-control-sm" id="form-detalhes-veiculo-marca" value="">
-                            <datalist id="form-incluir-veiculo-lista">
-                                <option>Marca</option>
-                                <option>MAN (VW)</option>
-                                <option>Ford</option>
-                                <option>Volvo</option>
-                                <option>Scania</option>
-                                <option>Iveco</option>
-                                <option>DAF</option>
-                                <option>Agrale</option>
-                                <option>International</option>
-                                <option>Hyundai</option>
-                                <option>Foton</option>
+                            <input list="form-detalhes-veiculo-lista" type="text" class="form-control form-control-sm" id="form-detalhes-veiculo-marca" value="">
+                            <datalist id="form-detalhes-veiculo-lista">
+                                
                             </datalist>
                         </div>
                     </div>
