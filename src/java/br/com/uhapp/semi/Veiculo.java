@@ -12,20 +12,21 @@ import java.util.ArrayList;
  * @author adalberto
  */
 public class Veiculo {
+    private String placa;
     private Marca marca;
     private String modelo;
     private int ano;
-    private Motorista motoristaPreferencial;
+    private String cnhMotoristaPreferencial;
     private int qtdEixos;
     private ArrayList<Capacitacao> capacitacao;
 
-    public Veiculo(Marca marca, String modelo, int ano, Motorista motoristaPreferencial, int qtdEixos, ArrayList<Capacitacao> capacitacao) {
+    public Veiculo(String placa, Marca marca, String modelo, int ano, String cnhMotoristaPreferencial, int qtdEixos) {
+        this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
-        this.motoristaPreferencial = motoristaPreferencial;
+        this.cnhMotoristaPreferencial = cnhMotoristaPreferencial;
         this.qtdEixos = qtdEixos;
-        this.capacitacao = capacitacao;
     }
 
     public ArrayList<Capacitacao> getCapacitacao() {
@@ -60,12 +61,12 @@ public class Veiculo {
         this.ano = ano;
     }
 
-    public Motorista getMotoristaPreferencial() {
-        return motoristaPreferencial;
+    public String getCnhMotoristaPreferencial() {
+        return cnhMotoristaPreferencial;
     }
 
-    public void setMotoristaPreferencial(Motorista motoristaPreferencial) {
-        this.motoristaPreferencial = motoristaPreferencial;
+    public void setCnhMotoristaPreferencial(String cnhMotoristaPreferencial) {
+        this.cnhMotoristaPreferencial = cnhMotoristaPreferencial;
     }
 
     public int getQtdEixos() {

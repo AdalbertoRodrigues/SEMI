@@ -4,6 +4,8 @@
     Author     : Henrique
 --%>
 
+<%@page import="br.com.uhapp.semi.Motorista"%>
+<%@page import="br.com.uhapp.semi.Marca"%>
 <%@page import="br.com.uhapp.semi.Json_encoder"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="br.com.uhapp.semi.Veiculo"%>
@@ -13,26 +15,25 @@
  
 <%
     String action = request.getParameter("action");
+ 
    
     if(action.equals("select")) {
        try {
             Veiculo veiculo;
+            
             String json = "{\"veiculos\":[";
             String atual = "";
             
             Conexao con = new Conexao();
 
             ResultSet rs = con.conexao.prepareStatement("SELECT * FROM VEICULO").executeQuery();
-        
             while(rs.next()) {
-                veiculo = new Veiculo(rs.getString("nm_marca_veiculo"), rs.getString("nm_modelo_veiculo"),
-                rs.getInt("aa_ano_veiculo"), rs.getString("cd_cnh_motorista_preferencial_veiculo"), rs.getInt("qt_eixos_veiculo")
-                );
+                veiculo = new Veiculo(rs.getString("cd_placa_veiculo"), new Marca("nm_marca_veiculo"), rs.getString("nm_modelo_veiculo"),rs.getInt("aa_ano_veiculo"), rs.getString("cd_cnh_motorista_preferencial_veiculo"),rs.getInt("qt_eixos_veiculo"));
+                
                 if(rs.isLast())
                     atual = Json_encoder.encode(veiculo);
                 else
                     atual = Json_encoder.encode(veiculo) + ",";
-                
                 json += atual;
             }
             
@@ -46,44 +47,16 @@
         }
         
        
-    }
-    else if(action.equals("selectByCpf")) {
-       try {
-            Usuario usuario;
-            String json = "{\"usuario\":[";
-            String atual = "";
-            
-            Conexao con = new Conexao();
-            
-            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_cpf_usuario = " + request.getParameter("cpf")).executeQuery();
-        
-            while(rs.next()) {
-                usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
-                if(rs.isLast())
-                    atual = Json_encoder.encode(usuario);
-                else
-                    atual = Json_encoder.encode(usuario) + ",";
-                
-                json += atual;
-            }
-            
-            con.conexao.close();
-            out.println(json + "]}");
-            
-        }
-        catch(Exception ex) {
-            out.println(ex.getMessage());
-            ex.printStackTrace();
-        }
-    }
-    else if(action.equals("insert")) {
+    }else if(action.equals("insert")) {
        try {
            Conexao con = new Conexao();
-           PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO USUARIO(cd_cpf_usuario, nm_nome_usuario, cd_senha_usuario, cd_tipo_usuario) VALUES( ?, ?, ?, ?)");
-           ps.setString(1, request.getParameter("cpf"));
-           ps.setString(2, request.getParameter("nome"));
-           ps.setString(3, request.getParameter("senha"));
-           ps.setString(4, request.getParameter("tipo"));
+           PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO VEICULO VALUES( ?, ?, ?, ?, ?, ?)");
+           ps.setString(1, request.getParameter("placa"));
+           ps.setString(2, request.getParameter("marca"));
+           ps.setString(3, request.getParameter("modelo"));
+           ps.setInt(4, Integer.parseInt(request.getParameter("ano")));
+           ps.setString(5, request.getParameter("cnhMotorista"));
+           ps.setInt(6, Integer.parseInt(request.getParameter("eixos")));
            ps.execute();
            out.println("SUCCESS");
        }
@@ -92,11 +65,11 @@
            out.println(ex.getMessage());
        }
     }
-    else if(action.equals("updateNome")) {
+    else if(action.equals("updateMarca")) {
        try {
            Conexao con = new Conexao();
-           PreparedStatement ps = con.conexao.prepareStatement("UPDATE USUARIO SET nm_nome_usuario = ? WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
-           ps.setString(1, request.getParameter("nome"));
+           PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET nm_marca_veiculo = ? WHERE cd_placa_veiculo = " + request.getParameter("placa"));
+           ps.setString(1, request.getParameter("marca"));
            ps.execute();
            out.println("SUCCESS");
        }
@@ -105,11 +78,11 @@
            out.println(ex.getMessage());
        }
     }
-    else if(action.equals("updateSenha")) {
+    else if(action.equals("updateModelo")) {
        try {
            Conexao con = new Conexao();
-           PreparedStatement ps = con.conexao.prepareStatement("UPDATE USUARIO SET cd_senha_usuario = ? WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
-           ps.setString(1, request.getParameter("senha"));
+           PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET nm_modelo_veiculo = ? WHERE cd_placa_veiculo = " + request.getParameter("placa"));
+           ps.setString(1, request.getParameter("modelo"));
            ps.execute();
            out.println("SUCCESS");
        }
@@ -118,11 +91,36 @@
            out.println(ex.getMessage());
        }
     }
-    else if(action.equals("updateTipo")) {
+    else if(action.equals("updateAno")) {
        try {
            Conexao con = new Conexao();
-           PreparedStatement ps = con.conexao.prepareStatement("UPDATE USUARIO SET cd_tipo_usuario = ? WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
-           ps.setString(1, request.getParameter("tipo"));
+           PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET aa_ano_veiculo = ? WHERE cd_placa_veiculo = " + request.getParameter("placa"));
+           ps.setString(1, request.getParameter("ano"));
+           ps.execute();
+           out.println("SUCCESS");
+       }
+       catch(Exception ex) {
+           out.println("ERROR");
+           out.println(ex.getMessage());
+       }
+    }
+    else if(action.equals("updateMotoristaPreferencial")) {
+       try {
+           Conexao con = new Conexao();
+           PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET qt_eixos_veiculo = ? WHERE cd_placa_veiculo = " + request.getParameter("placa"));
+           ps.setString(1, request.getParameter("eixos"));
+           ps.execute();
+           out.println("SUCCESS");
+       }
+       catch(Exception ex) {
+           out.println("ERROR");
+           out.println(ex.getMessage());
+       }
+    }else if(action.equals("updateQtdEixos")) {
+       try {
+           Conexao con = new Conexao();
+           PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET cd_cnh_motorista_preferencial_veiculo = ? WHERE cd_placa_veiculo = " + request.getParameter("placa"));
+           ps.setString(1, request.getParameter("motoristaPreferencial"));
            ps.execute();
            out.println("SUCCESS");
        }
@@ -134,7 +132,7 @@
     else if(action.equals("delete")) {
        try {
            Conexao con = new Conexao();
-           PreparedStatement ps = con.conexao.prepareStatement("DELETE FROM USUARIO WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
+           PreparedStatement ps = con.conexao.prepareStatement("DELETE FROM VEICULOS WHERE cd_placa_veiculo = " + request.getParameter("placa"));
            ps.execute();
            out.println("SUCCESS");
        }
@@ -142,5 +140,6 @@
            out.println("ERROR");
            out.println(ex.getMessage());
        }
-    }
+    }   
+    
 %>

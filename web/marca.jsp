@@ -27,7 +27,7 @@
             ResultSet rs = con.conexao.prepareStatement("SELECT * FROM MARCA").executeQuery();
         
             while(rs.next()) {
-                marca = new Marca(rs.getInt("cd_id_marca"), rs.getString("nm_marca"));
+                marca = new Marca(rs.getString("nm_marca"));
                 if(rs.isLast())
                     atual = Json_encoder.encode(marca);
                 else

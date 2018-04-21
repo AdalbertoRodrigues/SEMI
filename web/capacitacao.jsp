@@ -42,6 +42,38 @@ if(action.equals("select")) {
             out.println(ex.getMessage());
             ex.printStackTrace();
         }
+    }else if(action.equals("selectbyVeiculo")) {
+        try {
+            Capacitacao capacitacao;
+            String json = "{\"capacitacao\":[";
+            String atual = "";
+            
+            Conexao con = new Conexao();
+            
+            ResultSet rs = con.conexao.prepareStatement("SELECT CAPACITACAO.cd_id_capacitacao , nm_tipo_capacitacao "
+                    + "FROM CAPACITACAO, CAPACITACAO_VEICULO, VEICULO "
+                    + "WHERE CAPACITACAO_VEICULO.cd_placa_veiculo = VEICULO.cd_placa_veiculo "
+                    + "AND CAPACITACAO_VEICULO.cd_id_capacitacao = CAPACITACAO.cd_id_CAPACITACAO "
+                    + "AND CAPACITACAO_VEICULO.cd_placa_veiculo = '" + request.getParameter("placaVeiculo") + "'").executeQuery();
+            
+            while(rs.next()) {
+                capacitacao = new Capacitacao(rs.getInt("CAPACITACAO.cd_id_capacitacao"), rs.getString("nm_tipo_capacitacao"));
+                if(rs.isLast())
+                    atual = Json_encoder.encode(capacitacao);
+                else
+                    atual = Json_encoder.encode(capacitacao) + ",";
+                
+                json += atual;
+            }
+            
+            con.conexao.close();
+            out.println(json + "]}");
+            
+        }
+        catch(Exception ex) {
+            out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
     }
     else if(action.equals("insert")) {
        try {
