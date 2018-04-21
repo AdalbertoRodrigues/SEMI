@@ -100,7 +100,7 @@
                             <tr dir-paginate="usuarios in usuarios | itemsPerPage: 5" class="linha-tabela-admin">
                                 <td>{{usuarios.nome}}</td>
                                 <td>{{usuarios.cpf}}</td>
-                                <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario()" ><i class="fas fa-eye"></i></td>
+                                <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario(usuarios)" ><i class="fas fa-eye"></i></td>
                             </tr>
 
 
@@ -190,43 +190,43 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="form-incluir-usuario-nome" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
+                    <label for="form-detalhes-usuario-nome" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
                     <div class="col-12 col-sm-12    ">
-                        <input type="text" class="form-control form-control-sm" id="form-incluir-usuario-nome" value="Nome do usuário">
+                        <input type="text" class="form-control form-control-sm" ng-model="detalhes_usuario_nome" id="form-detalhes-usuario-nome" value="">
                     </div> 
                 </div>
                 <div class="form-group row form-group-cpf">
-                    <label for="form-incluir-usuario-cpf" id="label-usuario-cpf" class="col-sm-2 col-form-label col-form-label-sm">CPF</label>
+                    <label for="form-detalhes-usuario-cpf" id="label-usuario-cpf" class="col-sm-2 col-form-label col-form-label-sm">CPF</label>
                     <div class="col-12 col-sm-12">
-                        <input type="text" class="form-control form-control-sm cpf" id="form-incluir-usuario-cpf" value="XX-XX-XX-XX-XX">
+                        <input type="text" class="form-control form-control-sm cpf" id="form-detalhes-usuario-cpf" value="XX-XX-XX-XX-XX">
                     </div> 
                 </div>
                 <div class="form-motorista">
                     <div class="form-group row form-group-cnh">
-                        <label for="form-incluir-usuario-cnh" id="label-usuario-cnh" class="col-sm-2 col-form-label col-form-label-sm">CNH</label>
+                        <label for="form-detalhes-usuario-cnh" id="label-usuario-cnh" class="col-sm-2 col-form-label col-form-label-sm">CNH</label>
                         <div class="col-12 col-sm-12">
-                            <input type="text" class="form-control form-control-sm cnh" id="form-incluir-usuario-cnh" value="XX-XX-XX-XX-XX">
+                            <input type="text" class="form-control form-control-sm cnh" id="form-detalhes-usuario-cnh" value="XX-XX-XX-XX-XX">
                         </div> 
                     </div>
                     <div class="row">
                         <div class="form-check">
                             <div class="col-4 my-auto">
-                                <label for="form-incluir-usuario-mopp" class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" ng-model="checkMopp" id="form-incluir-usuario-mopp" value="mopp">
+                                <label for="form-detalhes-usuario-mopp" class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" ng-model="detalhes_usuario_mopp" id="form-detalhes-usuario-mopp" value="mopp">
                                     MOPP
                                 </label>
                             </div>
                         </div>
                         <div class="col-8 col-mopp">
                             Validade:
-                            <input class="form-control form-control-sm" ng-disabled="!checkMopp" type="date" id="form-incluir-usuario-validade">
+                            <input class="form-control form-control-sm" ng-disabled="!detalhes_usuario_mopp" type="date" id="form-detalhes-usuario-validade">
                         </div>    
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="form-incluir-usuario-senha" class="col-sm-2 col-form-label col-form-label-sm">Senha</label>
+                    <label for="form-detalhes-usuario-senha" class="col-sm-2 col-form-label col-form-label-sm">Senha</label>
                     <div class="col-12 col-sm-12">
-                        <input type="text" class="form-control form-control-sm" id="form-incluir-usuario-senha">
+                        <input type="text" class="form-control form-control-sm" id="form-detalhes-usuario-senha">
                     </div> 
                 </div>
                 <div class="row">

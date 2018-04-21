@@ -191,7 +191,7 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $htt
     };
 
     //Some a tela de menu e aparece a de DETALHES do usuário
-    $scope.mostrarDetalhesUsuario = function () {
+    $scope.mostrarDetalhesUsuario = function (usuario) {
         ativa = $(".body-admin-menu").find(".secao-ativa");
 
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
@@ -202,6 +202,12 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $htt
                 $(".secao-admin-usuario-detalhes").removeClass('animated fadeInRight');
             });
         });
+
+        $("#form-detalhes-usuario-nome").val(usuario.nome).trigger('input');
+        $("#form-detalhes-usuario-cpf").val(usuario.cpf).trigger('input');
+        $("#form-detalhes-usuario-cnh").val(usuario.cnh).trigger('input');
+        $("#form-detalhes-usuario-senha").val(usuario.senha).trigger('input');
+
     };
 });
 
@@ -250,16 +256,7 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService) {
             $(".form-motorista").fadeIn();
         }
     });
-//    $("#form-incluir-usuario-cpf").blur(function () {
-//        if (!dataService.testarCpf($("#form-incluir-usuario-cpf").cleanVal())) {
-//            $("#form-incluir-usuario-cpf").addClass('error-input');
-//        } else {
-//            $("#form-incluir-usuario-cpf").removeClass('error-input');
-//        }
-//    });
-//    $(".input-incluir-usuario").blur(function () {
-//        $scope.checkValido()
-//    });
+
     $(".btn-admin-incluir-usuario-tipo").click(function () {
         $scope.checkValido()
     });
@@ -280,7 +277,7 @@ app.controller("menuAdminVeiculoController", function ($scope) {
             });
         });
     };
-    $scope.mostrarDetalhesVeiculo = function () {
+    $scope.mostrarDetalhesVeiculo = function (usuario) {
         ativa = $(".body-admin-menu").find(".secao-ativa");
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
             ativa.removeClass('secao-ativa');
