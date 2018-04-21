@@ -45,7 +45,7 @@
             ex.printStackTrace();
         }
     }
-    else if(action.equals("selectById")) {
+    else if(action.equals("selectByName")) {
         try {
             Marca marca;
             String json = "{\"marca\":[";
@@ -53,10 +53,10 @@
             
             Conexao con = new Conexao();
 
-            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM MARCA WHERE cd_id_marca = '" + request.getParameter("idmarca") + "'").executeQuery();
+            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM MARCA WHERE nm_marca = '" + request.getParameter("nm_marca") + "'").executeQuery();
         
             while(rs.next()) {
-                marca = new Marca(rs.getInt("cd_id_marca"), rs.getString("nm_marca"));
+                marca = new Marca(rs.getString("nm_marca"));
                 if(rs.isLast())
                     atual = Json_encoder.encode(marca);
                 else
