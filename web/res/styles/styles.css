@@ -192,6 +192,16 @@ button:focus {
     border-radius: 20px;
     color: white;
     width: 100%;
+    cursor: pointer !important;
+}
+
+.btn-admin-adicionar-usuario-disabled {
+    background-color: transparent;
+    border-radius: 20px;
+    border: 1px solid #95c48f !important;
+    color: black;
+    width: 100%;
+    cursor: not-allowed;
 }
 
 .btn-admin-adicionar-usuario:hover {
@@ -350,4 +360,13 @@ input::-webkit-inner-spin-button {
     border: 1px solid #c4c4c4;
     padding: 5px;
     background-color: rgba(114,114,114, 0.3);
+}
+
+.error-input {
+    border: 1px solid rgba(200, 35, 51, 1);
+    box-shadow: 0 0 0 0.2rem rgba(200, 35, 51, 0.5) !important;
+}
+.error-input:focus {
+    border: 1px solid rgba(200, 35, 51, 1);
+    box-shadow: 0 0 0 0.2rem rgba(200, 35, 51, 0.5) !important;
 }

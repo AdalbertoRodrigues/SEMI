@@ -118,7 +118,6 @@
                         <div ng-click="voltarMenu()" class="col-2">
                             <i class="fas fa-arrow-left fa-2x" id="seta-voltar"></i>
                         </div>
-
                         <div class="col-4 btn-admin-incluir-usuario-tipo btn-admin-tipo-active" id="btn-tipo-motorista">
                             Motorista
                         </div>
@@ -129,47 +128,47 @@
                     <div class="form-group row">
                         <label for="form-incluir-usuario-nome" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
                         <div class="col-12 col-sm-12    ">
-                            <input type="text" class="form-control form-control-sm" id="form-incluir-usuario-nome">
+                            <input value="" type="text" ng-model="incluir_usuario_nome" required class="form-control form-control-sm input-incluir-usuario" id="form-incluir-usuario-nome">
                         </div> 
                     </div>
                     <div class="form-group row form-group-cpf">
                         <label for="form-incluir-usuario-cpf" id="label-usuario-cpf" class="col-sm-2 col-form-label col-form-label-sm">CPF</label>
                         <div class="col-12 col-sm-12">
-                            <input type="text" class="form-control form-control-sm cpf" id="form-incluir-usuario-cpf">
+                            <input value="" type="text" ng-model="incluir_usuario_cpf" required class="form-control form-control-sm cpf input-incluir-usuario" id="form-incluir-usuario-cpf">
                         </div> 
                     </div>
                     <div class="form-motorista">
                         <div class="form-group row form-group-cnh">
                             <label for="form-incluir-usuario-cnh" id="label-usuario-cnh" class="col-sm-2 col-form-label col-form-label-sm">CNH</label>
                             <div class="col-12 col-sm-12">
-                                <input type="text" class="form-control form-control-sm cnh" id="form-incluir-usuario-cnh">
+                                <input value="" type="text"ng-model="incluir_usuario_cnh" class="form-control form-control-sm cnh input-incluir-usuario" id="form-incluir-usuario-cnh">
                             </div> 
                         </div>
                         <div class="row">
                             <div class="form-check">
                                 <div class="col-4 my-auto">
                                     <label for="form-incluir-usuario-mopp" class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" ng-model="checkMopp" id="form-incluir-usuario-mopp" value="mopp">
+                                        <input type="checkbox" class="form-check-input input-incluir-usuario" ng-model="checkMopp" id="form-incluir-usuario-mopp" value="mopp">
                                         MOPP
                                     </label>
                                 </div>
                             </div>
                             <div class="col-8 col-mopp">
                                 Validade:
-                                <input class="form-control form-control-sm" ng-disabled="!checkMopp" type="date" id="form-incluir-usuario-validade">
+                                <input class="form-control form-control-sm input-incluir-usuario" ng-model="incluir_usuario_validade" ng-disabled="!checkMopp" type="date" id="form-incluir-usuario-validade">
                             </div>    
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="form-incluir-usuario-senha" class="col-sm-2 col-form-label col-form-label-sm">Senha</label>
                         <div class="col-12 col-sm-12">
-                            <input type="text" class="form-control form-control-sm" id="form-incluir-usuario-senha">
+                            <input value="" type="text" class="form-control form-control-sm input-incluir-usuario" required ng-model="incluir_usuario_senha" id="form-incluir-usuario-senha">
                         </div> 
                     </div>
                     <div class="row">
                         <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
                             <!-- BOTÃO INSERT USUARIO -->
-                            <button class="btn btn-admin-adicionar-usuario" type="submit">Cadastrar</button>
+                            <button class="btn btn-admin-adicionar-usuario-disabled" disabled id="btn-inserir-usuario" type="submit">Cadastrar</button>
                         </div>
                     </div>
                 </form>
@@ -961,7 +960,7 @@
                 </div>
                 <div class="row">
                     <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
-                        <!-- BOTÃO INSERT VIAGEM -->
+                        <!-- BOTÃO UPDATE VIAGEM -->
                         <button class="btn btn-admin-alterar-usuario" type="submit"><i class="fas fa-edit"></i> Salvar alterações</button>
                     </div>
                 </div>
