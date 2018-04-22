@@ -27,7 +27,7 @@
         
             while(rs.next()) {
                 carga = new Carga(rs.getString("nm_tipo_carga"), rs.getDouble("qt_peso_carga"), rs.getString("ds_conteudo_carga"), 
-                                          rs.getString("qt_altura_carga"));
+                                          rs.getString("qt_altura_carga") + "x" + rs.getString("qt_largura_carga") + "x" + rs.getString("qt_comprimento_carga"));
                 if(rs.isLast())
                     atual = Json_encoder.encode(carga);
                 else
@@ -59,7 +59,7 @@
         
             while(rs.next()) {
                 carga = new Carga(rs.getString("nm_tipo_carga"), rs.getDouble("qt_peso_carga"), rs.getString("ds_conteudo_carga"), 
-                                         "Altura: " + rs.getString("qt_altura_carga") + " Largura: " + rs.getString("qt_largura_carga") + " Comprimento: " + rs.getString("qt_comprimento_carga"));
+                                         rs.getString("qt_altura_carga") + "x" + rs.getString("qt_largura_carga") + "x" + rs.getString("qt_comprimento_carga"));
                 if(rs.isLast())
                     atual = Json_encoder.encode(carga);
                 else
