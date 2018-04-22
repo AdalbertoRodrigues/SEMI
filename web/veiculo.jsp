@@ -28,7 +28,7 @@
 
             ResultSet rs = con.conexao.prepareStatement("SELECT * FROM VEICULO").executeQuery();
             while(rs.next()) {
-                veiculo = new Veiculo(rs.getString("cd_placa_veiculo"), new Marca("nm_marca_veiculo"), rs.getString("nm_modelo_veiculo"),rs.getInt("aa_ano_veiculo"), rs.getString("cd_cnh_motorista_preferencial_veiculo"),rs.getInt("qt_eixos_veiculo"));
+                veiculo = new Veiculo(rs.getString("cd_placa_veiculo"), new Marca(rs.getString("nm_marca_veiculo")), rs.getString("nm_modelo_veiculo"),rs.getInt("aa_ano_veiculo"), rs.getString("cd_cnh_motorista_preferencial_veiculo"),rs.getInt("qt_eixos_veiculo"));
                 
                 if(rs.isLast())
                     atual = Json_encoder.encode(veiculo);
