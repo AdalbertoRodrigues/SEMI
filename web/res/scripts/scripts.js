@@ -211,7 +211,7 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $htt
     };
 });
 
-app.controller("incluirUsuarioAdminController", function ($scope, dataService) {
+app.controller("incluirUsuarioAdminController", function ($scope, dataService, $http) {
 //Chama o dataService e executa a função de voltar para o menu
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminUsuario();
@@ -260,6 +260,24 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService) {
     $(".btn-admin-incluir-usuario-tipo").click(function () {
         $scope.checkValido()
     });
+    
+    //incluir usuário
+    $scope.cadastrarUsuario = function () {
+        if ($("#btn-tipo-funcionario").hasClass("btn-admin-tipo-active")) {
+
+            $http({
+                method: 'POST',
+                url: ctx + '/Usuario.jsp?action=insert',
+                data: {"cpf" : $("#form-incluir-usuario-cpf").val().replace(".", "").replace("-", "").replace(".", ""), "nome" : $("#form-incluir-usuario-nome").val(), "senha" : $("#form-incluir-usuario-senha").val(), "tipo" : "0"}
+            }).then(function successCallback(response) {
+                alert(response.data);
+
+            }, function errorCallback(response) {
+                console.log('Error');
+            });
+        }
+    };
+    
 });
 app.controller("detalhesUsuarioAdminController", function ($scope, dataService) {
     $scope.voltarMenu = function () {

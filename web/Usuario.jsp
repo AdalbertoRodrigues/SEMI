@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="java.util.stream.Collectors"%>
 <%@page import="br.com.uhapp.semi.Json_encoder"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="br.com.uhapp.semi.Usuario"%>
@@ -79,12 +80,26 @@
        try {
            Conexao con = new Conexao();
            PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO USUARIO(cd_cpf_usuario, nm_nome_usuario, cd_senha_usuario, cd_tipo_usuario) VALUES( ?, ?, ?, ?)");
-           ps.setString(1, request.getParameter("cpf"));
-           ps.setString(2, request.getParameter("nome"));
-           ps.setString(3, request.getParameter("senha"));
-           ps.setString(4, request.getParameter("tipo"));
+           
+           String requestData = request.getReader().lines().collect(Collectors.joining());
+           
+           requestData = requestData.replace("{", "").replace("}", "");
+           
+           String cpf = requestData.split(",")[0].split(":")[1].replace("\"", "");
+           
+           String nome = requestData.split(",")[1].split(":")[1].replace("\"", "");
+           
+           String senha = requestData.split(",")[2].split(":")[1].replace("\"", "");
+           
+           String tipo = requestData.split(",")[3].split(":")[1].replace("\"", "");
+           
+
+           ps.setString(1, cpf);
+           ps.setString(2, nome);
+           ps.setString(3, senha);
+           ps.setString(4, tipo);
            ps.execute();
-           out.println("SUCCESS");
+           out.println("{\"status\" : [\"status\":\"SUCCESS\"]}");
        }
        catch(Exception ex) {
            out.println("ERROR");

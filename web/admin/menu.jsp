@@ -168,7 +168,7 @@
                     <div class="row">
                         <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
                             <!-- BOTÃO INSERT USUARIO -->
-                            <button class="btn btn-admin-adicionar-usuario-disabled" disabled id="btn-inserir-usuario" type="submit">Cadastrar</button>
+                            <button class="btn btn-admin-adicionar-usuario-disabled" disabled id="btn-inserir-usuario" type="submit" ng-click="cadastrarUsuario()">Cadastrar</button>
                         </div>
                     </div>
                 </form>
