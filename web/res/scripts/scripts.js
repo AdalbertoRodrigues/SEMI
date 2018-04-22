@@ -203,12 +203,12 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $htt
             });
         });
 
+
         $("#form-detalhes-usuario-nome").val(usuario.nome).trigger('input');
         $("#form-detalhes-usuario-cpf").val(usuario.cpf).trigger('input');
         $("#form-detalhes-usuario-cnh").val(usuario.cnh).trigger('input');
         $("#form-detalhes-usuario-senha").val(usuario.senha).trigger('input');
-
-    };
+    }
 });
 
 app.controller("incluirUsuarioAdminController", function ($scope, dataService, $http) {
@@ -232,15 +232,15 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
     $scope.checkValido = function () {
         if ($("#btn-tipo-motorista").hasClass('btn-admin-tipo-active')) {
             if (!$scope.cpfValido || $scope.incluir_usuario_nome == null || $scope.incluir_usuario_cpf == null || $scope.incluir_usuario_cnh == null || $scope.incluir_usuario_senha == null) {
-                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').attr('disabled', 'true').css('cursor', 'not-allowed');
+                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
             } else {
-                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').attr('disabled', 'false').css('cursor', 'pointer');
+                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
             }
         } else {
             if (!$scope.cpfValido || $scope.incluir_usuario_nome == null || $scope.incluir_usuario_cpf == null || $scope.incluir_usuario_senha == null) {
-                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').attr('disabled', 'true').css('cursor', 'not-allowed');
+                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
             } else {
-                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').attr('disabled', 'false').css('cursor', 'pointer');
+                $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
             }
         }
     };
@@ -258,9 +258,9 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
     });
 
     $(".btn-admin-incluir-usuario-tipo").click(function () {
-        $scope.checkValido()
+        $scope.checkValido();
     });
-    
+
     //incluir usuário
     $scope.cadastrarUsuario = function () {
         if ($("#btn-tipo-funcionario").hasClass("btn-admin-tipo-active")) {
@@ -268,7 +268,7 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
             $http({
                 method: 'POST',
                 url: ctx + '/Usuario.jsp?action=insert',
-                data: {"cpf" : $("#form-incluir-usuario-cpf").val().replace(".", "").replace("-", "").replace(".", ""), "nome" : $("#form-incluir-usuario-nome").val(), "senha" : $("#form-incluir-usuario-senha").val(), "tipo" : "0"}
+                data: {"cpf": $("#form-incluir-usuario-cpf").cleanVal(), "nome": $("#form-incluir-usuario-nome").val(), "senha": $("#form-incluir-usuario-senha").val(), "tipo": "0"}
             }).then(function successCallback(response) {
                 alert(response.data);
 
@@ -277,12 +277,57 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
             });
         }
     };
-    
+
 });
 app.controller("detalhesUsuarioAdminController", function ($scope, dataService) {
+    $scope.cpfValido = true;
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminUsuario();
     };
+    $scope.checkCpf = function () {
+        if (!dataService.testarCpf($("#form-detalhes-usuario-cpf").cleanVal())) {
+            $("#form-detalhes-usuario-cpf").addClass('error-input');
+            $("#btn-admin-remover-usuario").removeClass('btn-admin-remover-usuario').addClass('btn-admin-remover-usuario-disabled').prop('disabled', true);
+            $scope.cpfValido = false;
+            $scope.checkValido();
+        } else {
+            $("#form-detalhes-usuario-cpf").removeClass('error-input');
+            $("#btn-admin-remover-usuario").removeClass('btn-admin-remover-usuario-disabled').addClass('btn-admin-remover-usuario').prop('disabled', false);
+            $scope.cpfValido = true;
+            $scope.checkValido();
+        }
+    };
+    $scope.checkValido = function () {
+        console.log($scope.cpfValido);
+        console.log($scope.detalhes_usuario_nome);
+        console.log($scope.detalhes_usuario_cpf);
+        console.log($scope.detalhes_usuario_senha);
+        $scope.detalhes_usuario_nome = $("#form-detalhes-usuario-nome").val();
+        $scope.detalhes_usuario_cpf = $("#form-detalhes-usuario-cpf").val();
+        $scope.detalhes_usuario_senha = $("#form-detalhes-usuario-senha").val();
+        $scope.detalhes_usuario_cnh = $("#form-detalhes-usuario-cnh").val();
+
+        console.log('-------');
+        console.log($scope.cpfValido);
+        console.log($scope.detalhes_usuario_nome);
+        console.log($scope.detalhes_usuario_cpf);
+        console.log($scope.detalhes_usuario_senha);
+
+        if ($scope.cpfValido == false || $scope.detalhes_usuario_nome == '' || $scope.detalhes_usuario_cpf == '' || $scope.detalhes_usuario_senha == '') {
+            $("#btn-admin-alterar-usuario").addClass('btn-admin-alterar-usuario-disabled').removeClass('btn-admin-alterar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
+        } else {
+            $("#btn-admin-alterar-usuario").addClass('btn-admin-alterar-usuario').removeClass('btn-admin-alterar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
+        }
+    };
+
+    $scope.updateUsuario = function () {
+        alert('Aqui irá a função de requisição p/ update');
+    };
+
+    $scope.deleteUsuario = function () {
+        alert('Aqui irá a função de requisição p/ deletar');
+    };
+
 });
 app.controller("menuAdminVeiculoController", function ($scope) {
     $scope.mostrarIncluirVeiculo = function () {
@@ -368,23 +413,23 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
             });
         }
     });
-    
+
     $http({
         method: 'GET',
         url: ctx + '/marca.jsp?action=select'
     }).then(function successCallback(response) {
         $scope.marcas = response.data.marcas;
 
-        for(i = 0; i < $scope.marcas.length; i++)  {
-            
+        for (i = 0; i < $scope.marcas.length; i++) {
+
             $("#form-incluir-veiculo-lista").append("<option value=" + $scope.marcas[i].nome + ">");
         }
 
     }, function errorCallback(response) {
         console.log('Error');
     });
-    
-    
+
+
 });
 app.controller("detalhesViagemAdminController", function ($scope, dataService, $http) {
     $scope.voltarMenu = function () {
@@ -405,15 +450,15 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
             });
         }
     });
-    
+
     $http({
         method: 'GET',
         url: ctx + '/marca.jsp?action=select'
     }).then(function successCallback(response) {
         $scope.marcas = response.data.marcas;
 
-        for(i = 0; i < $scope.marcas.length; i++)  {
-            
+        for (i = 0; i < $scope.marcas.length; i++) {
+
             $("#form-detalhes-veiculo-lista").append("<option value=" + $scope.marcas[i].nome + ">");
         }
 

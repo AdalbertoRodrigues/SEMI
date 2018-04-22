@@ -204,6 +204,7 @@ button:focus {
     cursor: not-allowed;
 }
 
+
 .btn-admin-adicionar-usuario:hover {
     background-color: #76bc6d;
 }
@@ -225,6 +226,16 @@ button:focus {
     cursor: pointer;
 }
 
+.btn-admin-remover-usuario-disabled {
+    text-align: center;
+    background-color: transparent;
+    border-radius: 20px;
+    border: 1px solid #d38585 !important;
+    color: #575757;
+    width: 100%;
+    cursor: not-allowed;
+}
+
 .btn-admin-remover-usuario:hover {
     background-color: #c97070;
 }
@@ -235,6 +246,16 @@ button:focus {
     color: white;
     width: 100%;
     text-align: center;
+    cursor: pointer;
+}
+
+.btn-admin-alterar-usuario-disabled {
+    background-color: transparent;
+    border-radius: 20px;
+    border: 1px solid #99b5e5 !important;
+    color: black;
+    width: 100%;
+    cursor: not-allowed;
 }
 
 .btn-admin-alterar-usuario:hover {

@@ -183,7 +183,7 @@
                     <div class="col-6">
                         &nbsp;
                     </div>
-                    <div class="col-4 btn-admin-remover-usuario">
+                    <div ng-click="!cpfValido||deleteUsuario()" id="btn-admin-remover-usuario" class="col-4 btn-admin-remover-usuario">
                         <!-- BOTÃO DELETE USUARIO -->
                         <i class="fas fa-trash"></i> Excluir
                     </div>
@@ -192,20 +192,20 @@
                 <div class="form-group row">
                     <label for="form-detalhes-usuario-nome" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
                     <div class="col-12 col-sm-12    ">
-                        <input type="text" class="form-control form-control-sm" ng-model="detalhes_usuario_nome" id="form-detalhes-usuario-nome" value="">
+                        <input type="text" class="form-control form-control-sm" ng-change="checkValido()" ng-model-options='{debounce: 500}' ng-model="detalhes_usuario_nome" id="form-detalhes-usuario-nome" value="">
                     </div> 
                 </div>
                 <div class="form-group row form-group-cpf">
                     <label for="form-detalhes-usuario-cpf" id="label-usuario-cpf" class="col-sm-2 col-form-label col-form-label-sm">CPF</label>
                     <div class="col-12 col-sm-12">
-                        <input type="text" class="form-control form-control-sm cpf" id="form-detalhes-usuario-cpf" value="XX-XX-XX-XX-XX">
+                        <input type="text" class="form-control form-control-sm cpf" ng-change="checkCpf()" ng-model-options='{debounce: 500}' ng-model="detalhes_usuario_cpf" id="form-detalhes-usuario-cpf" value="">
                     </div> 
                 </div>
                 <div class="form-motorista">
                     <div class="form-group row form-group-cnh">
                         <label for="form-detalhes-usuario-cnh" id="label-usuario-cnh" class="col-sm-2 col-form-label col-form-label-sm">CNH</label>
                         <div class="col-12 col-sm-12">
-                            <input type="text" class="form-control form-control-sm cnh" id="form-detalhes-usuario-cnh" value="XX-XX-XX-XX-XX">
+                            <input type="text" class="form-control form-control-sm cnh" ng-change="checkValido()" ng-model-options='{debounce: 500}' ng-model="detalhes_usuario_cnh" id="form-detalhes-usuario-cnh" value="">
                         </div> 
                     </div>
                     <div class="row">
@@ -226,13 +226,13 @@
                 <div class="form-group row">
                     <label for="form-detalhes-usuario-senha" class="col-sm-2 col-form-label col-form-label-sm">Senha</label>
                     <div class="col-12 col-sm-12">
-                        <input type="text" class="form-control form-control-sm" id="form-detalhes-usuario-senha">
+                        <input type="text" class="form-control form-control-sm" required ng-change="checkValido()" ng-model-options='{debounce: 500}' ng-model="detalhes_usuario_senha" id="form-detalhes-usuario-senha">
                     </div> 
                 </div>
                 <div class="row">
                     <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
                         <!-- BOTÃO ALTERAR USUARIO -->
-                        <button class="btn btn-admin-alterar-usuario" type="submit"><i class="fas fa-edit"></i> Salvar Alterações</button>
+                        <button class="btn btn-admin-alterar-usuario" id="btn-admin-alterar-usuario" ng-click="updateUsuario()" type="submit"><i class="fas fa-edit"></i> Salvar Alterações</button>
                     </div>
                 </div>
             </div>
