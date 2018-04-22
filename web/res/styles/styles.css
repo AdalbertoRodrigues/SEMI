@@ -177,6 +177,7 @@ button:focus {
 #form-admin-usuario-tipo, #form-admin-veiculo-tipo, #form-incluir-veiculo-marca, #form-detalhes-veiculo-marca, #form-incluir-viagem-tpeso, #form-incluir-viagem-pais-partida, #form-incluir-viagem-estado-partida, #form-incluir-viagem-cidade-partida, #form-incluir-viagem-pais-destino, #form-incluir-viagem-cidade-destino, #form-incluir-viagem-estado-destino, #form-incluir-viagem-tipo, #form-detalhes-viagem-tpeso, #form-detalhes-viagem-pais-partida, #form-detalhes-viagem-estado-partida, #form-detalhes-viagem-cidade-partida, #form-detalhes-viagem-pais-destino, #form-detalhes-viagem-cidade-destino, #form-detalhes-viagem-estado-destino, #form-detalhes-viagem-tipo {
     height: 1.9rem;
     padding: 0;
+    padding-left: 10px;
 }
 
 #table-admin-usuario, #table-admin-viagem {

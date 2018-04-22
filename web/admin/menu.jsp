@@ -168,7 +168,7 @@
                     <div class="row">
                         <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
                             <!-- BOTÃO INSERT USUARIO -->
-                            <button class="btn btn-admin-adicionar-usuario-disabled" disabled id="btn-inserir-usuario" type="submit" ng-click="cadastrarUsuario()">Cadastrar</button>
+                            <button class="btn btn-admin-adicionar-usuario-disabled" disabled id="btn-inserir-usuario" type="submit" ng-click="cadastrarUsuario()"><i class="fas fa-user-plus font-menor"></i> Cadastrar</button>
                         </div>
                     </div>
                 </form>
@@ -183,7 +183,7 @@
                     <div class="col-6">
                         &nbsp;
                     </div>
-                    <div ng-click="!cpfValido||deleteUsuario()" id="btn-admin-remover-usuario" class="col-4 btn-admin-remover-usuario">
+                    <div ng-click="!cpfValido || deleteUsuario()" id="btn-admin-remover-usuario" class="col-4 btn-admin-remover-usuario">
                         <!-- BOTÃO DELETE USUARIO -->
                         <i class="fas fa-trash"></i> Excluir
                     </div>
@@ -270,10 +270,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="linha-tabela-admin">
-                                <td>Volks 24250</td>
-                                <td>AJO-3996</td>
-                                <td width="10%" ng-click='mostrarDetalhesVeiculo()' class="col-admin-detalhes"><i class="fas fa-eye"></i></td>
+                            <tr dir-paginate="veiculos in veiculos | itemsPerPage: 5" class="linha-tabela-admin">
+                                <td>{{veiculos.marca}}</td>
+                                <td>{{veiculos.placa}}</td>
+                                <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesVeiculo(veiculos)"><i class="fas fa-eye"></i></td>
                             </tr>
                         </tbody>
                     </table>
@@ -291,76 +291,76 @@
                     <div class="form-row"> 
                         <div class="form-group col-8 col-sm-8">
                             <label for="form-incluir-veiculo-modelo" class="col-form-label-sm">Modelo</label>
-                            <input type="text" class="form-control form-control-sm" id="form-incluir-veiculo-modelo" value="Modelo do veículo">
+                            <input required type="text" class="form-control form-control-sm" ng-model="incluir_veiculo_modelo" ng-change="checkValido()" ng-model-options="{debounce: 500}" id="form-incluir-veiculo-modelo">
                         </div>
                         <div class="form-group col-4 col-sm-4">
                             <label id="label-select-marca" class="col-form-label-sm" for="form-incluir-veiculo-marca">Marca</label>
-                            <input list="form-incluir-veiculo-lista" type="text" class="form-control form-control-sm" id="form-incluir-veiculo-marca" value="">
+                            <input required list="form-incluir-veiculo-lista" type="text" ng-model="incluir_veiculo_marca" ng-change="checkValido()" ng-model-options="{debounce: 500}" class="form-control form-control-sm" id="form-incluir-veiculo-marca" value="">
                             <datalist id="form-incluir-veiculo-lista">
-                                
+
                             </datalist>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-2 col-sm-2">
                             <label for="form-incluir-veiculo-ano" class="col-form-label-sm">Ano</label>
-                            <input type="text" class="form-control form-control-sm ano" id="form-incluir-veiculo-ano" value="">
+                            <input required type="text" class="form-control form-control-sm ano" ng-model="incluir_veiculo_ano" ng-change="checkValido()" ng-model-options="{debounce: 500}" id="form-incluir-veiculo-ano" value="">
                         </div>
                         <div class="form-group col-2 col-sm-2">
                             <label for="form-incluir-veiculo-eixo" class="col-form-label-sm">Eixos</label>
-                            <input type="text" class="form-control form-control-sm medida" id="form-incluir-veiculo-eixo" value="">
+                            <input required type="text" class="form-control form-control-sm medida" ng-model="incluir_veiculo_eixos" ng-change="checkValido()" ng-model-options="{debounce: 500}" id="form-incluir-veiculo-eixo" value="">
                         </div>
                         <div class="form-group col-8 col-sm-8">
                             <label for="form-incluir-veiculo-motoristaPreferencial" class="col-form-label-sm">Motorista Preferencial</label>
-                            <input type="text" class="form-control form-control-sm" id="form-incluir-veiculo-motoristaPreferencial" value="">
+                            <input type="text" class="form-control form-control-sm" ng-model="incuir_veiculo_motorista" id="form-incluir-veiculo-motoristaPreferencial" value="">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-4 col-sm-4">
                             <label for="form-incluir-veiculo-placa" class="col-form-label-sm">Placa</label>
-                            <input type="text" class="form-control form-control-sm placa" id="form-incluir-veiculo-placa" value="">
+                            <input required type="text" class="form-control form-control-sm placa" ng-model="incluir_veiculo_placa" ng-change="checkValido()" ng-model-options="{debounce: 500}" id="form-incluir-veiculo-placa" value="">
                         </div>  
                     </div>
                     <div class="row">
                         <div class="col-10">
                             Capacitações do veículo:<br><br>
                             <ul class="list-group">
-                                <li ng-class="{'item-lista-capacitacao-ativo' : capacitacao_a}" class="item-lista-capacitacao">
+                                <li ng-class="{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_a}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="capacitacao_a" class="form-check-input" type="checkbox" value="">
+                                            <input ng-model="incluir_veiculo_capacitacao_a" class="form-check-input" type="checkbox" value="">
                                             Transporte de explosivos
                                         </label>
                                     </div>
                                 </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : capacitacao_b}" class="item-lista-capacitacao">
+                                <li ng-class="{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_b}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="capacitacao_b" class="form-check-input" type="checkbox" value="">
+                                            <input ng-model="incluir_veiculo_capacitacao_b" class="form-check-input" type="checkbox" value="">
                                             Transporte de explosivos
                                         </label>
                                     </div>
                                 </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : capacitacao_c}" class="item-lista-capacitacao">
+                                <li ng-class="{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_c}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="capacitacao_c" class="form-check-input" type="checkbox" value="">
+                                            <input ng-model="incluir_veiculo_capacitacao_c" class="form-check-input" type="checkbox" value="">
                                             Transporte de explosivos
                                         </label>
                                     </div>
                                 </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : capacitacao_d}" class="item-lista-capacitacao">
+                                <li ng-class="{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_d}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="capacitacao_d" class="form-check-input" type="checkbox" value="">
+                                            <input ng-model="incluir_veiculo_capacitacao_d" class="form-check-input" type="checkbox" value="">
                                             Transporte de explosivos
                                         </label>
                                     </div>
                                 </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : capacitacao_e}" class="item-lista-capacitacao">
+                                <li ng-class="{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_e}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="capacitacao_e" class="form-check-input" type="checkbox" value="">
+                                            <input ng-model="incluir_veiculo_capacitacao_e" class="form-check-input" type="checkbox" value="">
                                             Transporte de explosivos
                                         </label>
                                     </div>
@@ -372,7 +372,7 @@
                     <div class="row">
                         <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
                             <!-- BOTÃO INSERT CAMINHÃO -->
-                            <button class="btn btn-admin-adicionar-usuario" type="submit"><i class="fas fa-edit"></i> Salvar Alterações</button>
+                            <button class="btn btn-admin-adicionar-usuario-disabled" id="btn-admin-incluir-veiculo" ng-click="insertVeiculo()" disabled type="submit"><i class="fas fa-truck"></i> Cadastrar</button>
                         </div>
                     </div>
                 </form>
@@ -388,7 +388,7 @@
                         <div class="col-6">
                             &nbsp;
                         </div>
-                        <div class="col-4 btn-admin-remover-usuario">
+                        <div id="btn-admin-remover-veiculo" ng-click="!placaValida || deleteVeiculo()" class="col-4 btn-admin-remover-usuario">
                             <!-- BOTÃO DELETE CAMINHÃO -->
                             <i class="fas fa-trash"></i> Excluir
                         </div>
@@ -396,76 +396,76 @@
                     <div class="form-row"> 
                         <div class="form-group col-8 col-sm-8">
                             <label for="form-detalhes-veiculo-modelo" class="col-form-label-sm">Modelo</label>
-                            <input type="text" class="form-control form-control-sm" id="form-detalhes-veiculo-modelo" value="">
+                            <input type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_veiculo_modelo" id="form-detalhes-veiculo-modelo" value="">
                         </div>
                         <div class="form-group col-4 col-sm-4">
                             <label id="label-select-marca" class="col-form-label-sm" for="form-detalhes-veiculo-marca">Marca</label>
-                            <input list="form-detalhes-veiculo-lista" type="text" class="form-control form-control-sm" id="form-detalhes-veiculo-marca" value="">
+                            <input list="form-detalhes-veiculo-lista" type="text" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_veiculo_marca" class="form-control form-control-sm" id="form-detalhes-veiculo-marca" value="">
                             <datalist id="form-detalhes-veiculo-lista">
-                                
+
                             </datalist>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-2 col-sm-2">
                             <label for="form-detalhes-veiculo-ano" class="col-form-label-sm">Ano</label>
-                            <input type="text" class="form-control form-control-sm ano" id="form-detalhes-veiculo-ano" value="">
+                            <input type="text" class="form-control form-control-sm ano" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_veiculo_ano" id="form-detalhes-veiculo-ano" value="">
                         </div>
                         <div class="form-group col-2 col-sm-2">
                             <label for="form-detalhes-veiculo-eixo" class="col-form-label-sm">Eixos</label>
-                            <input type="text" class="form-control form-control-sm medida" id="form-detalhes-veiculo-eixo" value="">
+                            <input type="text" class="form-control form-control-sm medida" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_veiculo_eixos" id="form-detalhes-veiculo-eixo" value="">
                         </div>
                         <div class="form-group col-8 col-sm-8">
                             <label for="form-detalhes-veiculo-motoristaPreferencial" class="col-form-label-sm">Motorista Preferencial</label>
-                            <input type="text" class="form-control form-control-sm" id="form-detalhes-veiculo-motoristaPreferencial" value="">
+                            <input type="text" class="form-control form-control-sm" ng-model="detalhes_veiculo_motorista" id="form-detalhes-veiculo-motoristaPreferencial" value="">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-4 col-sm-4">
                             <label for="form-detalhes-veiculo-placa" class="col-form-label-sm">Placa</label>
-                            <input type="text" class="form-control form-control-sm placa" id="form-detalhes-veiculo-placa" value="">
+                            <input type="text" class="form-control form-control-sm placa" ng-model-options='{debounce: 500}' ng-change="checkPlaca()" ng-model="detalhes_veiculo_placa" id="form-detalhes-veiculo-placa" value="">
                         </div>  
                     </div>
                     <div class="row">
                         <div class="col-10">
                             Capacitações do veículo:<br><br>
                             <ul class="list-group">
-                                <li ng-class="{'item-lista-capacitacao-ativo' : capacitacao_a}" class="item-lista-capacitacao">
+                                <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_a}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="capacitacao_a" class="form-check-input" type="checkbox" value="">
+                                            <input ng-model="detalhes_veiculo_capacitacao_a" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
                                             Transporte de explosivos
                                         </label>
                                     </div>
                                 </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : capacitacao_b}" class="item-lista-capacitacao">
+                                <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_b}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="capacitacao_b" class="form-check-input" type="checkbox" value="">
+                                            <input ng-model="detalhes_veiculo_capacitacao_b" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
                                             Transporte de explosivos
                                         </label>
                                     </div>
                                 </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : capacitacao_c}" class="item-lista-capacitacao">
+                                <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_c}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="capacitacao_c" class="form-check-input" type="checkbox" value="">
+                                            <input ng-model="detalhes_veiculo_capacitacao_c" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
                                             Transporte de explosivos
                                         </label>
                                     </div>
                                 </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : capacitacao_d}" class="item-lista-capacitacao">
+                                <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_d}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="capacitacao_d" class="form-check-input" type="checkbox" value="">
+                                            <input ng-model="detalhes_veiculo_capacitacao_d" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
                                             Transporte de explosivos
                                         </label>
                                     </div>
                                 </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : capacitacao_e}" class="item-lista-capacitacao">
+                                <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_e}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="capacitacao_e" class="form-check-input" type="checkbox" value="">
+                                            <input ng-model="detalhes_veiculo_capacitacao_e" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
                                             Transporte de explosivos
                                         </label>
                                     </div>
@@ -477,7 +477,7 @@
                     <div class="row">
                         <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
                             <!-- BOTÃO UPDATE CAMINHÃO -->
-                            <button class="btn btn-admin-alterar-usuario" type="submit"><i class="fas fa-edit"></i> Salvar Alterações</button>
+                            <button class="btn btn-admin-alterar-usuario" id="btn-admin-alterar-veiculo" ng-click="updateVeiculo()" type="submit"><i class="fas fa-edit"></i> Salvar Alterações</button>
                         </div>
                     </div>
                 </form>

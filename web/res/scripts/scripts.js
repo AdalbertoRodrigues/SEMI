@@ -37,7 +37,7 @@ app.service('dataService', function ($location) {
 
     return {
         getUrl_local: function () {
-            //Retorna o context path
+            //Retorna o url atual
             return url_local;
         },
         voltarMenuAdminUsuario: function () {
@@ -165,7 +165,7 @@ app.controller("loginController", function ($scope, dataService, $timeout, $http
     };
 });
 
-app.controller("menuAdminUsuarioController", function ($scope, dataService, $http, $window) {
+app.controller("menuAdminUsuarioController", function ($scope, dataService, $http) {
     eventoAnimacao = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
     $http({
         method: 'GET',
@@ -180,7 +180,6 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $htt
     //Some a tela de menu e aparece a de INCLUIR usuário
     $scope.mostrarIncluirUsuario = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
-
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
             ativa.removeClass('secao-ativa');
             ativa.removeClass('animated fadeOutLeft').hide();
@@ -193,7 +192,6 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $htt
     //Some a tela de menu e aparece a de DETALHES do usuário
     $scope.mostrarDetalhesUsuario = function (usuario) {
         ativa = $(".body-admin-menu").find(".secao-ativa");
-
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
             ativa.removeClass('secao-ativa');
             ativa.removeClass('animated fadeOutLeft').hide();
@@ -202,13 +200,11 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $htt
                 $(".secao-admin-usuario-detalhes").removeClass('animated fadeInRight');
             });
         });
-
-
         $("#form-detalhes-usuario-nome").val(usuario.nome).trigger('input');
         $("#form-detalhes-usuario-cpf").val(usuario.cpf).trigger('input');
         $("#form-detalhes-usuario-cnh").val(usuario.cnh).trigger('input');
         $("#form-detalhes-usuario-senha").val(usuario.senha).trigger('input');
-    }
+    };
 });
 
 app.controller("incluirUsuarioAdminController", function ($scope, dataService, $http) {
@@ -227,7 +223,7 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
             $scope.cpfValido = true;
             $scope.checkValido();
         }
-    }
+    };
 
     $scope.checkValido = function () {
         if ($("#btn-tipo-motorista").hasClass('btn-admin-tipo-active')) {
@@ -298,21 +294,10 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService) 
         }
     };
     $scope.checkValido = function () {
-        console.log($scope.cpfValido);
-        console.log($scope.detalhes_usuario_nome);
-        console.log($scope.detalhes_usuario_cpf);
-        console.log($scope.detalhes_usuario_senha);
         $scope.detalhes_usuario_nome = $("#form-detalhes-usuario-nome").val();
         $scope.detalhes_usuario_cpf = $("#form-detalhes-usuario-cpf").val();
         $scope.detalhes_usuario_senha = $("#form-detalhes-usuario-senha").val();
         $scope.detalhes_usuario_cnh = $("#form-detalhes-usuario-cnh").val();
-
-        console.log('-------');
-        console.log($scope.cpfValido);
-        console.log($scope.detalhes_usuario_nome);
-        console.log($scope.detalhes_usuario_cpf);
-        console.log($scope.detalhes_usuario_senha);
-
         if ($scope.cpfValido == false || $scope.detalhes_usuario_nome == '' || $scope.detalhes_usuario_cpf == '' || $scope.detalhes_usuario_senha == '') {
             $("#btn-admin-alterar-usuario").addClass('btn-admin-alterar-usuario-disabled').removeClass('btn-admin-alterar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
         } else {
@@ -329,7 +314,20 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService) 
     };
 
 });
-app.controller("menuAdminVeiculoController", function ($scope) {
+app.controller("menuAdminVeiculoController", function ($scope, $http) {
+    $http({
+        method: 'GET',
+        url: ctx + '/veiculo.jsp?action=select'
+    }).then(function successCallback(response) {
+        $scope.veiculos = response.data.veiculos;
+        console.log(response.data.veiculos);
+
+    }, function errorCallback(response) {
+        console.log('Error');
+    });
+
+
+
     $scope.mostrarIncluirVeiculo = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
@@ -340,7 +338,7 @@ app.controller("menuAdminVeiculoController", function ($scope) {
             });
         });
     };
-    $scope.mostrarDetalhesVeiculo = function (usuario) {
+    $scope.mostrarDetalhesVeiculo = function (veiculo) {
         ativa = $(".body-admin-menu").find(".secao-ativa");
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
             ativa.removeClass('secao-ativa');
@@ -349,6 +347,15 @@ app.controller("menuAdminVeiculoController", function ($scope) {
                 $(".secao-admin-veiculo-detalhes").removeClass('animated fadeInRight');
             });
         });
+
+        $("#form-detalhes-veiculo-modelo").val(veiculo.modelo).trigger('input');
+        $("#form-detalhes-veiculo-marca").val(veiculo.marca.nome).trigger('input');
+        $("#form-detalhes-veiculo-ano").val(veiculo.ano).trigger('input');
+        $("#form-detalhes-veiculo-eixos").val(veiculo.qtdEixos).trigger('input');
+        $("#form-detalhes-veiculo-placa").val(veiculo.placa).trigger('input');
+        $("#form-detalhes-veiculo-motorista").val(veiculo.motorista).trigger('input');
+
+
     };
 });
 app.controller("abasAdminController", function ($scope, dataService) {
@@ -366,10 +373,61 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService) {
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminVeiculo();
     };
+
+    $scope.checkValido = function () {
+        if ($scope.incluir_veiculo_modelo == null || $scope.incluir_veiculo_marca == null || $scope.incluir_veiculo_placa == null || $scope.incluir_veiculo_placa.length < 8 || $scope.incluir_veiculo_eixos == null || $scope.incluir_veiculo_ano == null) {
+            $("#btn-admin-incluir-veiculo").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
+        } else {
+            $("#btn-admin-incluir-veiculo").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
+        }
+    };
+
+    $scope.insertVeiculo = function () {
+        alert('Aqui vai a função p/ inserir veiculo');
+    };
+
 });
 app.controller("detalhesVeiculoAdminController", function ($scope, dataService) {
+    $scope.placaValida = true;
+
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminVeiculo();
+    };
+
+    $scope.checkPlaca = function () {
+        if ($scope.detalhes_veiculo_placa == '' || $scope.detalhes_veiculo_placa.length < 8) {
+            $("#form-detalhes-veiculo-placa").addClass('error-input');
+            $("#btn-admin-remover-veiculo").removeClass('btn-admin-remover-usuario').addClass('btn-admin-remover-usuario-disabled').prop('disabled', true);
+            $scope.placaValida = false;
+            $scope.checkValido();
+        } else {
+            $("#form-detalhes-veiculo-placa").removeClass('error-input');
+            $("#btn-admin-remover-veiculo").removeClass('btn-admin-remover-usuario-disabled').addClass('btn-admin-remover-usuario').prop('disabled', false);
+            $scope.placaValida = true;
+            $scope.checkValido();
+        }
+    };
+
+    $scope.checkValido = function () {
+        $scope.detalhes_veiculo_modelo = $("#form-detalhes-veiculo-modelo").val();
+        $scope.detalhes_veiculo_marca = $("#form-detalhes-veiculo-marca").val();
+        $scope.detalhes_veiculo_ano = $("#form-detalhes-veiculo-ano").val();
+        $scope.detalhes_veiculo_eixos = $("#form-detalhes-veiculo-eixos").val();
+        $scope.detalhes_veiculo_motorista = $("#form-detalhes-veiculo-motorista").val();
+
+        if ($scope.detalhes_veiculo_modelo == '' || $scope.detalhes_veiculo_marca == '' || $scope.detalhes_veiculo_placa == '' || $scope.detalhes_veiculo_ano == '' || $scope.detalhes_veiculo_eixos == '' || $scope.placaValida == false || $scope.detalhes_veiculo_placa.length < 8) {
+            $("#btn-admin-alterar-veiculo").addClass('btn-admin-alterar-usuario-disabled').removeClass('btn-admin-alterar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
+        } else {
+            $("#btn-admin-alterar-veiculo").addClass('btn-admin-alterar-usuario').removeClass('btn-admin-alterar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
+        }
+    };
+
+    $scope.deleteVeiculo = function () {
+        alert("Aqui vai a função p/ deletar veiculo");
+    };
+
+    $scope.updateVeiculo = function () {
+        alert("Aqui vai a função p/ atualizar veiculo");
     };
 });
 app.controller("viagemAdminController", function ($scope) {
