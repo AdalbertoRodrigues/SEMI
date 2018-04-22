@@ -9,7 +9,7 @@ package br.com.uhapp.semi;
  *
  * @author adalberto
  */
-class Carga {
+public class Carga {
     private String tipo;
     private double peso;
     private String conteudo;
