@@ -23,7 +23,7 @@ public class Json_encoder {
                 for (Field declaredField : o.getClass().getDeclaredFields()) {
                     
                     if (declaredField.getName().toLowerCase().equals(method.getName().substring(3, method.getName().length()).toLowerCase())) {
-                        if (declaredField.getClass().isPrimitive() || declaredField.getType().getSimpleName().equals("String")) {
+                        if (declaredField.getClass().isPrimitive() || declaredField.getType().getSimpleName().equals("String") || declaredField.getType().getSimpleName().equals("int")) {
                             json += "\"" + declaredField.getName() + "\":\"" + method.invoke(o) + "\",";
                         }
                         else if(!declaredField.getClass().isPrimitive()) {
@@ -54,34 +54,5 @@ public class Json_encoder {
 
         
         return json;
-    }
-    public static void main(String args[]) throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        Usuario usuario = new Usuario("123", "aaa", "1234", "0");
-        Carga carga = new Carga("0", 20, "xxx", "20x20");
-        
-        
-        Motorista motorista = new Motorista("123", true, new Date(2018, 1, 1), "123", "nome", "1234", "1");
-        Endereco endereco = new Endereco("11700", "Praia Grande", "SP", "BR", "rua", "pontoDeReferencia", "complemento");
-        Endereco endereco2 = new Endereco("11700", "Praia Grande", "SP", "BR", "rua", "pontoDeReferencia", "complemento");
-        Mensagem mensagem = new Mensagem("eae", usuario);
-        Chat chat = new Chat(motorista, usuario, new ArrayList<>());
-        chat.getMensagens().add(mensagem);
-        chat.getMensagens().add(mensagem);
-        chat.getMensagens().add(mensagem);
-        
-        Viagem viagem = new Viagem(endereco, endereco2, new Date(2018, 10, 20), 20, "ok", chat, carga);
-        
-        ArrayList viagens = new ArrayList<Viagem>();
-        viagens.add(viagem);
-        viagens.add(viagem);
-        viagens.add(viagem);
-        motorista.setViagens(viagens);
-        //motorista.getClass().getDeclaredField("viagens").setAccessible(true);
-        Method metodo = motorista.getClass().getDeclaredMethod("getViagens");
-        Object lista = metodo.invoke(motorista);
-        
-        //System.out.println(lista.getClass().getMethod("get").getName());
-        
-        System.out.println(Json_encoder.encode(motorista));
     }
 }

@@ -29,6 +29,15 @@ public class Veiculo {
         this.qtdEixos = qtdEixos;
     }
 
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+    
+
     public ArrayList<Capacitacao> getCapacitacao() {
         return capacitacao;
     }

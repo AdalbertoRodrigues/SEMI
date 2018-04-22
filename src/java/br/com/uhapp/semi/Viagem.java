@@ -9,7 +9,7 @@ import java.util.Date;
  *
  * @author adalberto
  */
-class Viagem {
+public class Viagem {
     private Endereco partida;
     private Endereco destino;
     private Date prazo;
@@ -18,13 +18,12 @@ class Viagem {
     private Chat chat;
     private Carga carga;
 
-    public Viagem(Endereco partida, Endereco destino, Date prazo, int tempoEstimado, String status, Chat chat, Carga carga) {
+    public Viagem(Endereco partida, Endereco destino, Date prazo, int tempoEstimado, String status, Carga carga) {
         this.partida = partida;
         this.destino = destino;
         this.prazo = prazo;
         this.tempoEstimado = tempoEstimado;
         this.status = status;
-        this.chat = chat;
         this.carga = carga;
     }
 
