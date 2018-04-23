@@ -198,7 +198,7 @@
                 </div>
                 <div class="form-motorista">
                     <div class="form-group row form-group-cnh">
-                        <label for="form-detalhes-usuario-cnh" id="label-usuario-cnh" class="col-sm-2 col-form-label col-form-label-sm">CNH</label>
+                        <label for="form-detalhes-usuario-cnh" id="label-detalhes-usuario-cnh" class="col-sm-2 col-form-label col-form-label-sm">CNH</label>
                         <div class="col-12 col-sm-12">
                             <input type="text" class="form-control form-control-sm cnh" ng-change="checkValido()" ng-model-options='{debounce: 500}' ng-model="detalhes_usuario_cnh" id="form-detalhes-usuario-cnh" value="">
                         </div> 
@@ -206,14 +206,14 @@
                     <div class="row">
                         <div class="form-check">
                             <div class="col-4 my-auto">
-                                <label for="form-detalhes-usuario-mopp" class="form-check-label">
+                                <label for="form-detalhes-usuario-mopp" class="form-check-label" id="label-detalhes-usuario-mopp">
                                     <input type="checkbox" class="form-check-input" ng-model="detalhes_usuario_mopp" id="form-detalhes-usuario-mopp" value="mopp">
                                     MOPP
                                 </label>
                             </div>
                         </div>
                         <div class="col-8 col-mopp">
-                            Validade:
+                            <label for="form-detalhes-usuario-validade" id="label-detalhes-usuario-validade" class="col-sm-2 col-form-label col-form-label-sm">Validade</label>
                             <input class="form-control form-control-sm" ng-disabled="!detalhes_usuario_mopp" type="date" id="form-detalhes-usuario-validade">
                         </div>    
                     </div>

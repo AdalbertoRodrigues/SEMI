@@ -232,10 +232,46 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
                 $(".secao-admin-usuario-detalhes").removeClass('animated fadeInRight');
             });
         });
-        $("#form-detalhes-usuario-nome").val(usuario.nome).trigger('input');
-        $("#form-detalhes-usuario-cpf").val(usuario.cpf).trigger('input');
-        $("#form-detalhes-usuario-cnh").val(usuario.cnh).trigger('input');
-        $("#form-detalhes-usuario-senha").val(usuario.senha).trigger('input');
+        if(usuario.tipo == 0) {
+            $("#form-detalhes-usuario-nome").val(usuario.nome).trigger('input');
+            $("#form-detalhes-usuario-cpf").val(usuario.cpf).trigger('input');
+            $("#form-detalhes-usuario-senha").val(usuario.senha).trigger('input');
+            
+            $("#form-detalhes-usuario-cnh").fadeOut().hide();
+            $("#label-detalhes-usuario-cnh").fadeOut().hide();
+            
+            $('#form-detalhes-usuario-mopp').fadeOut().hide();
+            $('#label-detalhes-usuario-mopp').fadeOut().hide();
+            
+            $('#form-detalhes-usuario-validade').fadeOut().hide();
+            $('#label-detalhes-usuario-validade').fadeOut().hide();
+
+        }
+        else if(usuario.tipo == 1) {
+            $http({
+                method: 'GET',
+                url: ctx + '/Motorista.jsp?action=selectByCpf&cpf=' + usuario.cpf,
+                
+            }).then(function successCallback(response) {
+                $("#form-detalhes-usuario-nome").val(usuario.nome).trigger('input');
+                $("#form-detalhes-usuario-cpf").val(usuario.cpf).trigger('input');
+                $("#form-detalhes-usuario-senha").val(usuario.senha).trigger('input');
+                
+                $("#form-detalhes-usuario-cnh").val(response.data.motorista[0].cnh).trigger('input').fadeIn().show();
+                $("#label-detalhes-usuario-cnh").fadeIn().show();
+                
+                $('#label-detalhes-usuario-mopp').fadeIn().show();
+                if(response.data.motorista[0].mopp) {
+                    $('#form-detalhes-usuario-mopp').prop('checked', true);
+                }
+                
+                $("#form-detalhes-usuario-validade").val(response.data.motorista[0].validadeMopp).fadeIn().show();
+                $("#label-detalhes-usuario-validade").val(response.data.motorista[0].validadeMopp).fadeIn().show();
+
+            }, function errorCallback(response) {
+                console.log('Error');
+            });
+        }
     };
 });
 
@@ -319,7 +355,7 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
     };
 
 });
-app.controller("detalhesUsuarioAdminController", function ($scope, dataService) {
+app.controller("detalhesUsuarioAdminController", function ($scope, dataService, $document, $http) {
     $scope.cpfValido = true;
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminUsuario();
@@ -356,6 +392,12 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService) 
     $scope.deleteUsuario = function () {
         alert('Aqui irá a função de requisição p/ deletar');
     };
+    
+    
+   /* $scope.carregarDados = function () {
+        alert("teste");
+    };*/
+    
 
 });
 app.controller("menuAdminVeiculoController", function ($scope, $http, $document) {
