@@ -25,8 +25,9 @@
             Conexao con = new Conexao();
 
             ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO, MOTORISTA WHERE MOTORISTA.cd_cpf_usuario = USUARIO.cd_cpf_usuario").executeQuery();
-        
+            
             while(rs.next()) {
+                
                 motorista = new Motorista(rs.getString("cd_cnh_motorista"), rs.getBoolean("ic_mopp_possui_naopossui_motorista"), rs.getDate("dt_validade_mopp_motorista"), 
                                           rs.getString("cd_cpf_usuario"), rs.getString("USUARIO.nm_nome_usuario"),rs.getString("USUARIO.cd_senha_usuario"),
                                           rs.getString("USUARIO.cd_tipo_usuario"));
