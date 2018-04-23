@@ -12,27 +12,16 @@ import java.util.Date;
 public class Viagem {
     private Endereco partida;
     private Endereco destino;
-    private Date prazo;
+    private String prazo;
     private int tempoEstimado;
     private String status;
-    private Chat chat;
-    private Carga carga;
 
-    public Viagem(Endereco partida, Endereco destino, Date prazo, int tempoEstimado, String status, Carga carga) {
+    public Viagem(Endereco partida, Endereco destino, String prazo, int tempoEstimado, String status) {
         this.partida = partida;
         this.destino = destino;
         this.prazo = prazo;
         this.tempoEstimado = tempoEstimado;
         this.status = status;
-        this.carga = carga;
-    }
-
-    public Carga getCarga() {
-        return carga;
-    }
-
-    public void setCarga(Carga carga) {
-        this.carga = carga;
     }
 
     public Endereco getPartida() {
@@ -51,11 +40,11 @@ public class Viagem {
         this.destino = destino;
     }
 
-    public Date getPrazo() {
+    public String getPrazo() {
         return prazo;
     }
 
-    public void setPrazo(Date prazo) {
+    public void setPrazo(String prazo) {
         this.prazo = prazo;
     }
 
@@ -73,14 +62,6 @@ public class Viagem {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Chat getChat() {
-        return chat;
-    }
-
-    public void setChat(Chat chat) {
-        this.chat = chat;
     }
     
     

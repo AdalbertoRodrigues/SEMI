@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author adalberto
  */
 public class Veiculo {
+
     private String placa;
     private Marca marca;
     private String modelo;
@@ -36,7 +37,6 @@ public class Veiculo {
     public void setPlaca(String placa) {
         this.placa = placa;
     }
-    
 
     public ArrayList<Capacitacao> getCapacitacao() {
         return capacitacao;
@@ -85,6 +85,5 @@ public class Veiculo {
     public void setQtdEixos(int qtdEixos) {
         this.qtdEixos = qtdEixos;
     }
-    
-    
+
 }
