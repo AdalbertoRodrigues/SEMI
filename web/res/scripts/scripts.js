@@ -303,6 +303,19 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
                 console.log('Error');
             });
         }
+        else if ($("#btn-tipo-motorista").hasClass("btn-admin-tipo-active")) {
+            $http({
+                method: 'POST',
+                url: ctx + '/Motorista.jsp?action=insert',
+                data: {"cpf": $("#form-incluir-usuario-cpf").cleanVal(), "nome": $("#form-incluir-usuario-nome").val(), "senha": $("#form-incluir-usuario-senha").val(), "tipo": "1", "cnh" : $("#form-incluir-usuario-cnh").cleanVal(), "MOPP" : $("#form-incluir-usuario-mopp").is(":checked"), "validadeMopp" : $("#form-incluir-usuario-validade").val()}
+            }).then(function successCallback(response) {
+                alert(response.data);
+
+            }, function errorCallback(response) {
+                console.log('Error');
+            });
+        }
+        
     };
 
 });
