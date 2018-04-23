@@ -6,6 +6,15 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    if(session.getAttribute("me.name") == null || !session.getAttribute("me.type").equals("2") || request.getParameter("do-logoff")!= null){
+        session.removeAttribute("me.cpf");
+        session.removeAttribute("me.name");
+        session.removeAttribute("me.pass");
+        session.removeAttribute("me.type");
+        response.sendRedirect(request.getContextPath()+"/index.jsp");
+    }
+%>
 <html ng-app="semi">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -30,6 +39,9 @@
             <div class="collapse navbar-collapse" id="nav-toggle-collapse">
                 <div class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <div class="row row-nav">
+                        <li class="nav-item active col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                            <a class="" id="nav-btn">Bem vindo, <%= session.getAttribute("me.name")%></a>
+                        </li>
                         <li class="nav-item active col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                             <a class="" id="nav-btn" href="#">Home</a>
                         </li>

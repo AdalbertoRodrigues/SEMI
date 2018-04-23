@@ -5,6 +5,10 @@
  */
 package br.com.uhapp.semi;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author adalberto
@@ -20,6 +24,22 @@ public class Usuario {
         this.nome = nome;
         this.senha = senha;
         this.tipo = tipo;
+    }
+    
+    public static Usuario getUsuario(String cpf, String pass) throws SQLException{
+        Conexao con = new Conexao();
+        ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO "
+                + "WHERE cd_cpf_usuario = '"+cpf+"'"
+                + "AND cd_senha_usuario = '"+pass/*.hashCode()*/+"'").executeQuery();
+        Usuario user = null;
+        if(rs.next()){
+            user = new Usuario(rs.getString("cd_cpf_usuario"),
+                     rs.getString("nm_nome_usuario"),
+                     rs.getString("cd_senha_usuario"),
+                     rs.getString("cd_tipo_usuario"));
+        }
+        rs.close();
+        return user;
     }
 
     public String getTipo() {
