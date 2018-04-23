@@ -33,7 +33,7 @@ public class Json_encoder {
                                 //System.out.println(declaredField.get(o).getClass().getDeclaredMethod("get").invoke(declaredField.get(o), 0).getClass().getSimpleName());
                             }
                             else if(declaredField.getType().getSimpleName().equals("Date"))
-                                json += "\"" + declaredField.getName() + "\":\"" + method.invoke(o).toString() + "\",";
+                                json += "\"" + declaredField.getName() + "\":\"" + method.invoke(o) + "\",";
                             else {
                                 declaredField.setAccessible(true);
                                 json += "\"" + declaredField.getName() + "\":" + Json_encoder.encode(declaredField.get(o)) + ",";
