@@ -97,6 +97,16 @@ body {
     background-color: #C2BCB0;
 }
 
+.loader-usuario, .loader-veiculo, .loader-viagem {
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #886D5C; 
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1.5s linear infinite;
+    margin: auto;
+}
+
 .loader {
     border: 10px solid #f3f3f3;
     border-top: 10px solid #886D5C; 
@@ -104,8 +114,16 @@ body {
     width: 60px;
     height: 60px;
     animation: spin 1.5s linear infinite;
-    display: none;
     margin: auto;
+    display: none;
+}
+
+.admin-exibicao-usuario, .admin-exibicao-filtro-usuario, .admin-exibicao-veiculo, #alerta-exibicao-usuario, #alerta-exibicao-veiculo {
+    display: none;
+}
+
+#alerta-exibicao-usuario, #alerta-exibicao-veiculo {
+    text-align: center;
 }
 
 @keyframes spin {
@@ -180,7 +198,7 @@ button:focus {
     padding-left: 10px;
 }
 
-#table-admin-usuario, #table-admin-viagem {
+#table-admin-usuario, #table-admin-viagem, #table-admin-veiculo {
     text-align: center;
 }
 

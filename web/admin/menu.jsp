@@ -34,9 +34,6 @@
                             <a class="" id="nav-btn" href="#">Home</a>
                         </li>
                         <li class="nav-item col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                            <a class="" id="nav-btn" href="#">Link</a>
-                        </li>
-                        <li class="nav-item col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                             <a class="" id="nav-btn" href="#">Sair</a>
                         </li>
 
@@ -73,43 +70,41 @@
                 </div>
 
                 <!-- SEÇÃO ADMIN - VER USUARIOS -->
-
-                <div class="row">
-                    <div class="form-group col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
-                        <input type="text" class="form-control" id="form-admin-usuario-filtro" placeholder="Pesquisar...">
+                <div class="admin-exibicao-usuario">
+                    <div class="row admin-exibicao-filtro-usuario">
+                        <div class="form-group col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+                            <input type="text" ng-model="pesquisarPor" ng-change="getUsuarios(pesquisarPor, filtrarPor)" ng-model-options="{debounce: 500}" class="form-control" id="form-admin-usuario-filtro" placeholder="Pesquisar...">
+                        </div>
+                        <div class="form-group col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                            <select ng-change="getUsuarios(pesquisarPor, filtrarPor)" ng-model="filtrarPor" class="form-control" id="form-admin-usuario-tipo">
+                                <option value="">Todos</option>
+                                <option value="0">Funcionários</option>
+                                <option value="1">Motoristas</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
-                        <select class="form-control" id="form-admin-usuario-tipo">
-                            <option >Todos</option>
-                            <option>Funcionários</option>
-                            <option>Motoristas</option>
-                        </select>
+                    <div class="row">
+                        <table class="table table-sm table-bordered table-striped" id="table-admin-usuario">
+                            <thead>
+                                <tr>
+                                    <th scope="col">NOME</th>
+                                    <th scope="col">CPF/CNH</th>
+                                    <th scope="col">DETALHES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="usuarios in usuarios | itemsPerPage: 5" pagination-id="usuario" class="linha-tabela-admin">
+                                    <td>{{usuarios.nome}}</td>
+                                    <td>{{usuarios.cpf}}</td>
+                                    <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario(usuarios)" ><i class="fas fa-eye"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+                    <dir-pagination-controls max-size="10" boundary-links="true" pagination-id="usuario"></dir-pagination-controls>
                 </div>
-                <div class="row">
-                    <table class="table table-sm table-bordered table-striped" id="table-admin-usuario">
-                        <thead>
-                            <tr>
-                                <th scope="col">NOME</th>
-                                <th scope="col">CPF/CNH</th>
-                                <th scope="col">DETALHES</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr dir-paginate="usuarios in usuarios | itemsPerPage: 5" class="linha-tabela-admin">
-                                <td>{{usuarios.nome}}</td>
-                                <td>{{usuarios.cpf}}</td>
-                                <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario(usuarios)" ><i class="fas fa-eye"></i></td>
-                            </tr>
-
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-                <dir-pagination-controls max-size="10" boundary-links="true"></dir-pagination-controls>
+                <div class="loader-usuario" id="loader-tabela-usuario"></div>
+                <div class="alert alert-danger" id="alerta-exibicao-usuario" role="alert">{{erro_usuario}}</div>
             </div>
             <!-- SEÇÃO ADMIN - ADICIONAR USUARIO -->
             <div ng-controller="incluirUsuarioAdminController" class="secao-admin-usuario-incluir">
@@ -247,37 +242,41 @@
                 </div>
 
                 <!-- SEÇÃO ADMIN - VER VEICULOS -->
-                <div class="row">
-                    <div class="form-group col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
-                        <input type="text" class="form-control" id="form-admin-veiculo-filtro" placeholder="Pesquisar...">
+                <div class="admin-exibicao-veiculo">
+                    <div class="row">
+                        <div class="form-group col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+                            <input type="text" class="form-control" id="form-admin-veiculo-filtro" placeholder="Pesquisar...">
+                        </div>
+                        <div class="form-group col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                            <select class="form-control" id="form-admin-veiculo-tipo">
+                                <option >Todos</option>
+                                <option>Pequeno Porte</option>
+                                <option>Grande Porte</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
-                        <select class="form-control" id="form-admin-veiculo-tipo">
-                            <option >Todos</option>
-                            <option>Pequeno Porte</option>
-                            <option>Grande Porte</option>
-                        </select>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <table class="table table-sm table-bordered table-striped" id="table-admin-usuario">
-                        <thead>
-                            <tr>
-                                <th scope="col">MARCA/MODELO</th>
-                                <th scope="col">PLACA</th>
-                                <th scope="col">DETALHES</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr dir-paginate="veiculos in veiculos | itemsPerPage: 5" class="linha-tabela-admin">
-                                <td>{{veiculos.marca}}</td>
-                                <td>{{veiculos.placa}}</td>
-                                <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesVeiculo(veiculos)"><i class="fas fa-eye"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="row">
+                        <table class="table table-sm table-bordered table-striped" id="table-admin-veiculo">
+                            <thead>
+                                <tr>
+                                    <th scope="col">MARCA/MODELO</th>
+                                    <th scope="col">PLACA</th>
+                                    <th scope="col">DETALHES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="veiculos in veiculos | itemsPerPage: 5" class="linha-tabela-admin">
+                                    <td>{{veiculos.marca}}</td>
+                                    <td>{{veiculos.placa}}</td>
+                                    <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesVeiculo(veiculos)"><i class="fas fa-eye"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <div class="loader-veiculo" id="loader-tabela-veiculo"></div>
+                <div class="alert alert-danger" id="alerta-exibicao-veiculo" role="alert">Ocorreu um erro ao acessar os veículos.<br> Atualize a página e, se o erro persistir, contate o suporte.</div>
             </div>
 
             <!-- SEÇÃO ADMIN - INCLUIR VEICULOS -->

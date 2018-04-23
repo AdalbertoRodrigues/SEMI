@@ -165,17 +165,47 @@ app.controller("loginController", function ($scope, dataService, $timeout, $http
     };
 });
 
-app.controller("menuAdminUsuarioController", function ($scope, dataService, $http) {
+app.controller("menuAdminUsuarioController", function ($scope, dataService, $document, $http) {
     eventoAnimacao = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
-    $http({
-        method: 'GET',
-        url: ctx + '/Usuario.jsp?action=select'
-    }).then(function successCallback(response) {
-        $scope.usuarios = response.data.usuarios;
-
-    }, function errorCallback(response) {
-        console.log('Error');
+    $document.ready(function () {
+        $scope.getUsuarios();
     });
+
+    $scope.getUsuarios = function (pesquisarPor, filtrarPor) {
+        $(".admin-exibicao-usuario").hide();
+        $(".loader-usuario").show();
+
+        if (filtrarPor == null)
+            filtrarPor = '';
+
+        if (pesquisarPor == null)
+            pesquisarPor = '';
+        $http({
+            method: 'GET',
+            url: ctx + '/Usuario.jsp?action=select&pesquisarPor=' + pesquisarPor + '&filtrarPor=' + filtrarPor
+        }).then(function successCallback(response) {
+            $scope.usuarios = response.data.usuarios;
+            $(".loader-usuario").hide();
+            $(".admin-exibicao-usuario").show();
+            if ($scope.usuarios.length !== 0) {
+                $("#form-admin-usuario-filtro").focus();
+                $("#alerta-exibicao-usuario").hide();
+            } else {
+                $scope.erro_usuario = 'Nenhum usuário encontrado com o respectivo filtro!';
+                $("#alerta-exibicao-usuario").show();
+                $("#form-admin-usuario-filtro").focus();
+                $(".admin-exibicao-filtro-usuario").show();
+            }
+
+        }, function errorCallback(response) {
+            $scope.erro_usuario = 'Ocorreu um erro ao conectar com a base de dados dos usuários.<br> Atualize a página e, se o erro persistir, contate o suporte.';
+            $(".loader-usuario").hide();
+            $(".admin-exibicao-usuario").hide();
+            $("#alerta-exibicao-usuario").show();
+        });
+
+
+    }
 
     //Some a tela de menu e aparece a de INCLUIR usuário
     $scope.mostrarIncluirUsuario = function () {
@@ -315,17 +345,19 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService) 
 
 });
 app.controller("menuAdminVeiculoController", function ($scope, $http) {
+
     $http({
         method: 'GET',
         url: ctx + '/veiculo.jsp?action=select'
     }).then(function successCallback(response) {
         $scope.veiculos = response.data.veiculos;
-        console.log(response.data.veiculos);
+        $(".loader-veiculo").hide();
+        $(".admin-exibicao-veiculo").show();
 
     }, function errorCallback(response) {
-        console.log('Error');
+        $(".loader-veiculo").hide();
+        $("#alerta-exibicao-veiculo").show();
     });
-
 
 
     $scope.mostrarIncluirVeiculo = function () {
