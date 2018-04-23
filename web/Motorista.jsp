@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="java.util.stream.Collectors"%>
 <%@page import="br.com.uhapp.semi.Json_encoder"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="br.com.uhapp.semi.Motorista"%>
@@ -84,13 +85,48 @@
     else if(action.equals("insert")) {
        try {
            Conexao con = new Conexao();
-           PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO MOTORISTA(cd_cnh_motorista, ic_mopp_possui_naopossui_motorista, dt_validade_mopp_motorista, cd_cpf_usuario) VALUES( ?, ?, ?, ?)");
-           ps.setString(1, request.getParameter("cnh"));
-           ps.setString(2, request.getParameter("mopp"));
-           ps.setString(3, request.getParameter("dtvalidademopp"));
-           ps.setString(4, request.getParameter("cpf"));
+           PreparedStatement ps;
+           
+           String requestData = request.getReader().lines().collect(Collectors.joining());
+
+           requestData = requestData.replace("{", "").replace("}", "");
+
+           String cpf = requestData.split(",")[0].split(":")[1].replace("\"", "");
+
+           String nome = requestData.split(",")[1].split(":")[1].replace("\"", "");
+
+           String senha = requestData.split(",")[2].split(":")[1].replace("\"", "");
+
+           String tipo = requestData.split(",")[3].split(":")[1].replace("\"", "");
+           
+           String cnh = requestData.split(",")[4].split(":")[1].replace("\"", "");
+           
+           boolean mopp;
+           if(requestData.split(",")[5].split(":")[1].replace("\"", "").equals("true"))
+               mopp = true;
+           else
+               mopp = false;
+           
+           String validade = requestData.split(",")[6].split(":")[1].replace("\"", "");
+           
+           ps = con.conexao.prepareStatement("INSERT INTO USUARIO(cd_cpf_usuario, nm_nome_usuario, cd_senha_usuario, cd_tipo_usuario) VALUES( ?, ?, ?, ?)");
+           ps.setString(1, cpf);
+           ps.setString(2, nome);
+           ps.setString(3, senha);
+           ps.setString(4, tipo);
            ps.execute();
-           out.println("SUCCESS");
+           
+           ps = con.conexao.prepareStatement("INSERT INTO MOTORISTA(cd_cnh_motorista, ic_mopp_possui_naopossui_motorista, dt_validade_mopp_motorista, cd_cpf_usuario) VALUES( ?, ?, ?, ?)");
+           ps.setString(1, cnh);
+           ps.setBoolean(2, mopp);
+           if(validade.equals(""))
+                ps.setString(3, null);
+           else
+               ps.setString(3, validade);
+           ps.setString(4, cpf);
+           ps.execute();
+           
+           out.println("{\"status\" : [\"status\":\"SUCCESS\"]}");
        }
        catch(Exception ex) {
            out.println("ERROR");
