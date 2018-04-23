@@ -188,7 +188,6 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
             $(".loader-usuario").hide();
             $("#form-admin-usuario-filtro").focus();
             $(".admin-exibicao-usuario").show();
-            console.log($scope.usuarios + "//////////////////")
             if ($scope.usuarios.length !== 0 && $scope.usuarios !== null ) {
                 $("#alerta-exibicao-usuario").hide();
                 $("#form-admin-usuario-filtro").focus();
