@@ -25,8 +25,23 @@
             String atual = "";
 
             Conexao con = new Conexao();
+            if (!pesquisarPor.equals("") && !filtrarPor.equals("")) {
+                pesquisarPor = "'%" + pesquisarPor + "%'";
+                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ") AND cd_tipo_usuario = " + filtrarPor + ";").executeQuery();
+                while (rs.next()) {
+                    usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
+                    if (rs.isLast()) {
+                        atual = Json_encoder.encode(usuario);
+                    } else {
+                        atual = Json_encoder.encode(usuario) + ",";
+                    }
 
-            if (!pesquisarPor.equals("")) {
+                    json += atual;
+                }
+
+                con.conexao.close();
+                out.println(json + "]}");
+            } else if (!pesquisarPor.equals("")) {
                 pesquisarPor = "'%" + pesquisarPor + "%'";
                 ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ");").executeQuery();
                 while (rs.next()) {

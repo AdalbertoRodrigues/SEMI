@@ -73,7 +73,7 @@
                 <div class="admin-exibicao-usuario">
                     <div class="row admin-exibicao-filtro-usuario">
                         <div class="form-group col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
-                            <input type="text" ng-model="pesquisarPor" ng-change="getUsuarios(pesquisarPor, filtrarPor)" ng-model-options="{debounce: 500}" class="form-control" id="form-admin-usuario-filtro" placeholder="Pesquisar...">
+                            <input type="text" ng-model="pesquisarPor" ng-change="getUsuarios(pesquisarPor, filtrarPor)" ng-model-options="{debounce: 500}" class="form-control" id="form-admin-usuario-filtro" placeholder="Digite um NOME ou um CPF...">
                         </div>
                         <div class="form-group col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
                             <select ng-change="getUsuarios(pesquisarPor, filtrarPor)" ng-model="filtrarPor" class="form-control" id="form-admin-usuario-tipo">
@@ -88,7 +88,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">NOME</th>
-                                    <th scope="col">CPF/CNH</th>
+                                    <th scope="col">CPF</th>
                                     <th scope="col">DETALHES</th>
                                 </tr>
                             </thead>
@@ -245,17 +245,17 @@
                 <div class="admin-exibicao-veiculo">
                     <div class="row">
                         <div class="form-group col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
-                            <input type="text" class="form-control" id="form-admin-veiculo-filtro" placeholder="Pesquisar...">
+                            <input type="text" ng-model="pesquisarPor" ng-change="getVeiculos(pesquisarPor)" ng-model-options="{debounce: 500}" class="form-control" id="form-admin-veiculo-filtro" placeholder="Digite um modelo ou marca de veículo...">
                         </div>
-                        <div class="form-group col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+<!--                        <div class="form-group col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
                             <select class="form-control" id="form-admin-veiculo-tipo">
-                                <option >Todos</option>
+                                <option>Todos</option>
                                 <option>Pequeno Porte</option>
                                 <option>Grande Porte</option>
                             </select>
-                        </div>
+                        </div>-->
                     </div>
-
+                    
                     <div class="row">
                         <table class="table table-sm table-bordered table-striped" id="table-admin-veiculo">
                             <thead>
@@ -267,7 +267,7 @@
                             </thead>
                             <tbody>
                                 <tr dir-paginate="veiculos in veiculos | itemsPerPage: 5" class="linha-tabela-admin">
-                                    <td>{{veiculos.marca}}</td>
+                                    <td>{{veiculos.modelo}}</td>
                                     <td>{{veiculos.placa}}</td>
                                     <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesVeiculo(veiculos)"><i class="fas fa-eye"></i></td>
                                 </tr>
@@ -276,7 +276,7 @@
                     </div>
                 </div>
                 <div class="loader-veiculo" id="loader-tabela-veiculo"></div>
-                <div class="alert alert-danger" id="alerta-exibicao-veiculo" role="alert">Ocorreu um erro ao acessar os veículos.<br> Atualize a página e, se o erro persistir, contate o suporte.</div>
+                <div class="alert alert-danger" id="alerta-exibicao-veiculo" role="alert">{{erro_veiculo}}</div>
             </div>
 
             <!-- SEÇÃO ADMIN - INCLUIR VEICULOS -->

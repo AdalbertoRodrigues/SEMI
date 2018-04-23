@@ -186,19 +186,21 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
         }).then(function successCallback(response) {
             $scope.usuarios = response.data.usuarios;
             $(".loader-usuario").hide();
+            $("#form-admin-usuario-filtro").focus();
             $(".admin-exibicao-usuario").show();
-            if ($scope.usuarios.length !== 0) {
-                $("#form-admin-usuario-filtro").focus();
+            console.log($scope.usuarios + "//////////////////")
+            if ($scope.usuarios.length !== 0 && $scope.usuarios !== null ) {
                 $("#alerta-exibicao-usuario").hide();
+                $("#form-admin-usuario-filtro").focus();
             } else {
                 $scope.erro_usuario = 'Nenhum usuário encontrado com o respectivo filtro!';
                 $("#alerta-exibicao-usuario").show();
-                $("#form-admin-usuario-filtro").focus();
                 $(".admin-exibicao-filtro-usuario").show();
+                $("#form-admin-usuario-filtro").focus();
             }
 
         }, function errorCallback(response) {
-            $scope.erro_usuario = 'Ocorreu um erro ao conectar com a base de dados dos usuários.<br> Atualize a página e, se o erro persistir, contate o suporte.';
+            $scope.erro_usuario = 'Ocorreu um erro ao conectar com a base de dados dos usuários. Atualize a página e, se o erro persistir, contate o suporte.';
             $(".loader-usuario").hide();
             $(".admin-exibicao-usuario").hide();
             $("#alerta-exibicao-usuario").show();
@@ -290,7 +292,6 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
     //incluir usuário
     $scope.cadastrarUsuario = function () {
         if ($("#btn-tipo-funcionario").hasClass("btn-admin-tipo-active")) {
-
             $http({
                 method: 'POST',
                 url: ctx + '/Usuario.jsp?action=insert',
@@ -344,21 +345,37 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService) 
     };
 
 });
-app.controller("menuAdminVeiculoController", function ($scope, $http) {
-
-    $http({
-        method: 'GET',
-        url: ctx + '/veiculo.jsp?action=select'
-    }).then(function successCallback(response) {
-        $scope.veiculos = response.data.veiculos;
-        $(".loader-veiculo").hide();
-        $(".admin-exibicao-veiculo").show();
-
-    }, function errorCallback(response) {
-        $(".loader-veiculo").hide();
-        $("#alerta-exibicao-veiculo").show();
+app.controller("menuAdminVeiculoController", function ($scope, $http, $document) {
+    $document.ready(function () {
+        $scope.getVeiculos();
     });
 
+    $scope.getVeiculos = function (pesquisarPor) {
+        $(".loader-veiculo").show();
+        $("#alerta-exibicao-veiculo").hide();
+        if (pesquisarPor == null)
+            pesquisarPor = '';
+
+        $http({
+            method: 'GET',
+            url: ctx + '/veiculo.jsp?action=select&pesquisarPor=' + pesquisarPor
+        }).then(function successCallback(response) {
+            $scope.veiculos = response.data.veiculos;
+            $(".loader-veiculo").hide();
+            $("#form-admin-veiculo-filtro").focus();
+            $(".admin-exibicao-veiculo").show();
+
+            if ($scope.veiculos.length == 0) {
+                $scope.erro_veiculo = 'Nenhum veículo encontrado com o respectivo filtro!';
+                $("#alerta-exibicao-veiculo").show();
+            }
+
+        }, function errorCallback(response) {
+            $(".loader-veiculo").hide();
+            $scope.erro_veiculo = 'Ocorreu um erro ao conectar com a base de dados dos veículos. Atualize a página e, se o erro persistir, contate o suporte.';
+            $("#alerta-exibicao-veiculo").show();
+        });
+    };
 
     $scope.mostrarIncluirVeiculo = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
