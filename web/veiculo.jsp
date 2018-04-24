@@ -72,7 +72,7 @@
             ps.setString(2, request.getParameter("marca"));
             ps.setString(3, request.getParameter("modelo"));
             ps.setInt(4, Integer.parseInt(request.getParameter("ano")));
-            ps.setString(5, request.getParameter("cnhMotorista"));
+            ps.setString(5, request.getParameter("motoristaPreferencial"));
             ps.setInt(6, Integer.parseInt(request.getParameter("eixos")));
             ps.execute();
             out.println("SUCCESS");
@@ -80,7 +80,19 @@
             out.println("ERROR");
             out.println(ex.getMessage());
         }
-    } else if (action.equals("updateMarca")) {
+    } else if (action.equals("insertCapacitacaoToVeiculo")) {
+        try {
+            Conexao con = new Conexao();
+            PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO CAPACITACAO_VEICULO VALUES(?, ?)");
+            ps.setInt(1, Integer.parseInt(request.getParameter("idCapacitacao")));
+            ps.setString(2, request.getParameter("placa"));
+            ps.execute();
+            out.println("SUCCESS");
+        } catch (Exception ex) {
+            out.println("ERROR");
+            out.println(ex.getMessage());
+        }
+    }else if (action.equals("updateMarca")) {
         try {
             Conexao con = new Conexao();
             PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET nm_marca_veiculo = ? WHERE cd_placa_veiculo = " + request.getParameter("placa"));

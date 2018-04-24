@@ -323,7 +323,7 @@
                         </div>
                         <div class="form-group col-8 col-sm-8">
                             <label for="form-incluir-veiculo-motoristaPreferencial" class="col-form-label-sm">Motorista Preferencial</label>
-                            <input type="text" class="form-control form-control-sm" ng-model="incuir_veiculo_motorista" id="form-incluir-veiculo-motoristaPreferencial" value="">
+                            <input type="text" class="form-control form-control-sm cpf" ng-model="incuir_veiculo_motorista" id="form-incluir-veiculo-motoristaPreferencial" value="">
                         </div>
                     </div>
                     <div class="form-row">
@@ -335,47 +335,8 @@
                     <div class="row">
                         <div class="col-10">
                             Capacitações do veículo:<br><br>
-                            <ul class="list-group">
-                                <li ng-class="{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_a}" class="item-lista-capacitacao">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input ng-model="incluir_veiculo_capacitacao_a" class="form-check-input" type="checkbox" value="">
-                                            Transporte de explosivos
-                                        </label>
-                                    </div>
-                                </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_b}" class="item-lista-capacitacao">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input ng-model="incluir_veiculo_capacitacao_b" class="form-check-input" type="checkbox" value="">
-                                            Transporte de explosivos
-                                        </label>
-                                    </div>
-                                </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_c}" class="item-lista-capacitacao">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input ng-model="incluir_veiculo_capacitacao_c" class="form-check-input" type="checkbox" value="">
-                                            Transporte de explosivos
-                                        </label>
-                                    </div>
-                                </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_d}" class="item-lista-capacitacao">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input ng-model="incluir_veiculo_capacitacao_d" class="form-check-input" type="checkbox" value="">
-                                            Transporte de explosivos
-                                        </label>
-                                    </div>
-                                </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_e}" class="item-lista-capacitacao">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input ng-model="incluir_veiculo_capacitacao_e" class="form-check-input" type="checkbox" value="">
-                                            Transporte de explosivos
-                                        </label>
-                                    </div>
-                                </li>
+                            <ul id="list-capacitacao" class="list-group">
+                                
                             </ul>
                         </div> 
                     </div>

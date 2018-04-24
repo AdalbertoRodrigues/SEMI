@@ -404,7 +404,7 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
             $http({
                 method: 'POST',
                 url: ctx + '/Motorista.jsp?action=update&cpf=' + $("#form-detalhes-usuario-cpf").cleanVal() + '&cnh=' + $("#form-detalhes-usuario-cnh").cleanVal(),
-                data: {"nome": $("#form-detalhes-usuario-nome").val(), "senha": $("#form-incluir-usuario-senha").val(),  "MOPP": $("#form-detalhes-usuario-mopp").is(":checked"), "validadeMopp": $("#form-detalhes-usuario-validade").val()}
+                data: {"nome": $("#form-detalhes-usuario-nome").val(), "senha": $("#form-incluir-usuario-senha").val(), "MOPP": $("#form-detalhes-usuario-mopp").is(":checked"), "validadeMopp": $("#form-detalhes-usuario-validade").val()}
             }).then(function successCallback(response) {
                 alert(response.data);
 
@@ -424,6 +424,7 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
 app.controller("menuAdminVeiculoController", function ($scope, $http, $document) {
     $document.ready(function () {
         $scope.getVeiculos();
+        $scope.getCapacitacao();
     });
 
     $scope.getVeiculos = function (pesquisarPor) {
@@ -450,6 +451,26 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document)
             $(".loader-veiculo").hide();
             $scope.erro_veiculo = 'Ocorreu um erro ao conectar com a base de dados dos veículos. Atualize a página e, se o erro persistir, contate o suporte.';
             $("#alerta-exibicao-veiculo").show();
+        });
+    };
+
+    $scope.getCapacitacao = function () {
+        $.ajax({
+            type: 'POST',
+            url: '../capacitacao.jsp?action=select',
+            async: false,
+            dataType: 'json',
+            success: function (result) {
+                var buffer = "";
+                $.each(result, function (index, val) {
+
+                    for (var i = 0; i < val.length; i++) {
+                        var item = val[i];
+                        buffer += "<li ng-class=\"{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_a}\" class=\"item-lista-capacitacao\"><div class=\"form-check\"><label class=\"form-check-label\"><input ng-model=\"incluir_veiculo_capacitacao_a\" class=\"form-check-input\" type=\"checkbox\" value=" + item.id + ">" + item.categoria + "</label></div></li>";
+                    }
+                    $("#list-capacitacao").html(buffer);
+                });
+            }
         });
     };
 
@@ -494,7 +515,7 @@ app.controller("abasAdminController", function ($scope, dataService) {
         dataService.voltarMenuAdminViagem();
     };
 });
-app.controller("incluirVeiculoAdminController", function ($scope, dataService) {
+app.controller("incluirVeiculoAdminController", function ($scope, dataService, $http) {
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminVeiculo();
     };
@@ -508,7 +529,24 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService) {
     };
 
     $scope.insertVeiculo = function () {
-        alert('Aqui vai a função p/ inserir veiculo');
+        var veiculo = {
+            "placa": $("#form-incluir-veiculo-placa").cleanVal(),
+            "marca": $("#form-incluir-veiculo-marca").val(),
+            "modelo": $("#form-incluir-veiculo-modelo").val(),
+            "ano": $("#form-incluir-veiculo-ano").val(),
+            "motoristaPreferencial": $("#form-incluir-veiculo-motoristaPreferencial").cleanVal(),
+            "eixos": $("#form-incluir-veiculo-eixos").val()
+        };
+        $http({
+            method: 'POST',
+            url: ctx + '/veiculo.jsp?action=insert',
+            data: veiculo
+        }).then(function successCallback(response) {
+            alert(response.data);
+
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
     };
 
 });
