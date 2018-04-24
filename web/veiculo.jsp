@@ -28,7 +28,7 @@
             Conexao con = new Conexao();
 
             if (pesquisarPor.equals("")) {
-                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM VEICULO").executeQuery();
+                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM VEICULO WHERE ic_desativado = 0").executeQuery();
                 while (rs.next()) {
                     veiculo = new Veiculo(rs.getString("cd_placa_veiculo"), new Marca(rs.getString("nm_marca_veiculo")), rs.getString("nm_modelo_veiculo"), rs.getInt("aa_ano_veiculo"), rs.getString("cd_cnh_motorista_preferencial_veiculo"), rs.getInt("qt_eixos_veiculo"));
 
@@ -99,7 +99,7 @@
             out.println("ERROR");
             out.println(ex.getMessage());
         }
-    }else if (action.equals("updateMarca")) {
+    } else if (action.equals("updateMarca")) {
         try {
             Conexao con = new Conexao();
             PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET nm_marca_veiculo = ? WHERE cd_placa_veiculo = " + request.getParameter("placa"));
@@ -154,15 +154,20 @@
             out.println("ERROR");
             out.println(ex.getMessage());
         }
+    } else if (action.equals("update")) {
+        Conexao con = new Conexao();
+        
+        PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET  = ? WHERE cd_placa_veiculo = " + request.getParameter("placa"));
+
     } else if (action.equals("delete")) {
         try {
             Conexao con = new Conexao();
-            PreparedStatement ps = con.conexao.prepareStatement("DELETE FROM VEICULOS WHERE cd_placa_veiculo = " + request.getParameter("placa"));
+            PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET ic_desativado = 1 WHERE cd_placa_veiculo = '" + request.getParameter("placa") + "'");
             ps.execute();
-            out.println("SUCCESS");
+            out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
             out.println("ERROR");
-            out.println(ex.getMessage());
+            out.println("{\"resposta\":\"ERROR\"}");
         }
     }
 

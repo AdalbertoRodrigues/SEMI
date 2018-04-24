@@ -401,7 +401,7 @@
                     <div class="form-row">
                         <div class="form-group col-4 col-sm-4">
                             <label for="form-detalhes-veiculo-placa" class="col-form-label-sm">Placa</label>
-                            <input type="text" class="form-control form-control-sm placa" ng-model-options='{debounce: 500}' ng-change="checkPlaca()" ng-model="detalhes_veiculo_placa" id="form-detalhes-veiculo-placa" value="">
+                            <input type="text" class="form-control form-control-sm placa" ng-model-options='{debounce: 500}' ng-change="checkPlaca()" ng-model="detalhes_veiculo_placa" id="form-detalhes-veiculo-placa" value="" disabled>
                         </div>  
                     </div>
                     <div class="row">

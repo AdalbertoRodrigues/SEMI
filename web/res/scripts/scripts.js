@@ -593,9 +593,9 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document)
         $("#form-detalhes-veiculo-modelo").val(veiculo.modelo).trigger('input');
         $("#form-detalhes-veiculo-marca").val(veiculo.marca.nome).trigger('input');
         $("#form-detalhes-veiculo-ano").val(veiculo.ano).trigger('input');
-        $("#form-detalhes-veiculo-eixos").val(veiculo.qtdEixos).trigger('input');
+        $("#form-detalhes-veiculo-eixo").val(veiculo.qtdEixos);
         $("#form-detalhes-veiculo-placa").val(veiculo.placa).trigger('input');
-        $("#form-detalhes-veiculo-motorista").val(veiculo.motorista).trigger('input');
+        $("#form-detalhes-veiculo-motoristaPreferencial").val(veiculo.cnhMotoristaPreferencial);
 
 
     };
@@ -668,7 +668,7 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
     };
 
 });
-app.controller("detalhesVeiculoAdminController", function ($scope, dataService) {
+app.controller("detalhesVeiculoAdminController", function ($scope, dataService, $http) {
     $scope.placaValida = true;
 
     $scope.voltarMenu = function () {
@@ -704,11 +704,38 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService) 
     };
 
     $scope.deleteVeiculo = function () {
-        alert("Aqui vai a função p/ deletar veiculo");
+        $http({
+                method: 'POST',
+                url: ctx + '/veiculo.jsp?action=delete&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
+            }).then(function successCallback(response) {
+                if(response.data.resposta == "SUCCESS") {
+                    alert("Veiculo removido com sucesso");
+                }
+                else {
+                    alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte")
+                }
+
+            }, function errorCallback(response) {
+                console.log('Error');
+            });
     };
 
     $scope.updateVeiculo = function () {
-        alert("Aqui vai a função p/ atualizar veiculo");
+        $http({
+                method: 'POST',
+                url: ctx + '/veiculo.jsp?action=update&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
+                data: {"modelo" : $("#form-detalhes-veiculo-modelo").val, "marca" : $("#form-detalhes-veiculo-marca").val, "ano" : $("#form-detalhes-veiculo-ano").val, "eixos" : $("$form-detalhes-veiculo-eixo").val, "motoristaPreferencial" : $("#form-detalhes-veiculo-motoristaPreferencial").val()}
+            }).then(function successCallback(response) {
+                if(response.data.resposta == "SUCCESS") {
+                    alert("Veiculo removido com sucesso");
+                }
+                else {
+                    alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte")
+                }
+
+            }, function errorCallback(response) {
+                console.log('Error');
+            });
     };
 });
 app.controller("viagemAdminController", function ($scope) {
