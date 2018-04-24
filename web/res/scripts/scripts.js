@@ -163,6 +163,55 @@ app.controller("loginController", function ($scope, dataService, $timeout, $http
             }, 2000);
         });
     };
+
+    $scope.fazerLogin = function () {
+        if (dataService.testarCpf($("#form-login-cpf").cleanVal()) == true && $("#form-login-senha").val().length > 0) {
+            $(".card-body-login").hide();
+            $(".loader-login").show();
+            $("#form-login-cpf").removeClass('error-input');
+            $("#form-login-senha").removeClass('error-input');
+            $scope.erro_login = "";
+            $http({
+                method: 'GET',
+                url: ctx + '/Usuario.jsp?action=login&cpf=' + $("#form-login-cpf").cleanVal() + '&senha=' + $("#form-login-senha").val()
+            }).then(function successCallback(response) {
+                $scope.resposta = response.data;
+                console.log($scope.resposta);
+                if (($scope.resposta).indexOf("Sucesso") >= 0) {
+                    $(location).attr('href', ctx + '/admin/menu.jsp')
+                } else {
+                    $scope.erro_login = $scope.resposta;
+                }
+                $(".card-body-login").show();
+                $(".loader-login").hide();
+            }, function errorCallback(response) {
+                alert('Erro ao se conectar com o servidor.');
+            });
+        } else if (dataService.testarCpf($("#form-login-cpf").cleanVal()) == false) {
+            $("#form-login-cpf").addClass('error-input');
+            $scope.erro_login = "CPF inválido!";
+        } else if ($("#form-login-senha").val().length < 1) {
+            $("#form-login-cpf").removeClass('error-input');
+            $("#form-login-senha").addClass('error-input');
+            $scope.erro_login = "Preencha a senha"
+        }
+    };
+});
+
+app.controller("navAdminController", function ($scope, dataService, $http) {
+    $scope.fazerLogout = function () {
+        $http({
+            method: 'GET',
+            url: ctx + '/Usuario.jsp?action=logout'
+        }).then(function successCallback(response) {
+            $scope.resposta = response.data;
+            if (($scope.resposta).indexOf("Sucesso") >= 0) {
+                $(location).attr('href', ctx + '/index.jsp')
+            }
+        }, function errorCallback(response) {
+            alert('Falha na conexão com o servidor.');
+        });
+    };
 });
 
 app.controller("menuAdminUsuarioController", function ($scope, dataService, $document, $http) {
@@ -267,10 +316,6 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
                     $('#form-detalhes-usuario-mopp').show().prop('checked', false);
                     $("#form-detalhes-usuario-validade").show().val(response.data.motorista[0].validadeMopp).prop("disabled", true);
                 }
-
-
-
-
 
             }, function errorCallback(response) {
                 console.log('Error');
@@ -547,14 +592,14 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
             type: 'POST',
             url: ctx + '/veiculo.jsp?action=insert',
             data: veiculo
-        }).then(function successCallback(response) { 
-            alert(response.data);            
+        }).then(function successCallback(response) {
+            alert(response.data);
         }, function errorCallback(response) {
             console.log('Error');
         });
-        
-        
-        $('.checkbox-veiculo:checked').each(function (){
+
+
+        $('.checkbox-veiculo:checked').each(function () {
             var capacitacao = {
                 "idCapacitacao": $(this).val(),
                 "placa": $("#form-incluir-veiculo-placa").cleanVal()
@@ -563,8 +608,8 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
                 type: 'POST',
                 url: ctx + '/veiculo.jsp?action=insertCapacitacaoToVeiculo',
                 data: capacitacao
-            }).then(function successCallback(response) { 
-                alert(response.data);            
+            }).then(function successCallback(response) {
+                alert(response.data);
             }, function errorCallback(response) {
                 console.log('Error');
             });
