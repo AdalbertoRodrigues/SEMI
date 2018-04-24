@@ -149,12 +149,11 @@
             out.println("ERROR");
             out.println(ex.getMessage());
         }
-    }
-    else if(action.equals("update")) {
+    } else if (action.equals("update")) {
         try {
             Conexao con = new Conexao();
             PreparedStatement ps = con.conexao.prepareStatement("UPDATE USUARIO SET nm_nome_usuario = ?, cd_senha_usuario  = ? WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
-            
+
             String requestData = request.getReader().lines().collect(Collectors.joining());
 
             requestData = requestData.replace("{", "").replace("}", "");
@@ -162,18 +161,16 @@
             String nome = requestData.split(",")[0].split(":")[1].replace("\"", "");
 
             String senha = requestData.split(",")[1].split(":")[1].replace("\"", "");
-            
+
             ps.setString(1, nome);
             ps.setString(2, senha);
             ps.execute();
             out.println("{\"status\" : [\"status\":\"SUCCESS\"]}");
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             out.println("ERROR");
             out.println(ex.getMessage());
         }
-    }
-    else if (action.equals("updateNome")) {
+    } else if (action.equals("updateNome")) {
         try {
             Conexao con = new Conexao();
             PreparedStatement ps = con.conexao.prepareStatement("UPDATE USUARIO SET nm_nome_usuario = ? WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
@@ -215,6 +212,59 @@
         } catch (Exception ex) {
             out.println("ERROR");
             out.println(ex.getMessage());
+        }
+    }
+
+    if (action.equals("login")) {
+        String loginErrorMessage = null;
+        String cpf = request.getParameter("cpf");
+        String senha = request.getParameter("senha");
+        try {
+            Usuario user = Usuario.getUsuario(cpf, senha);
+            if (user == null) {
+                loginErrorMessage = "Login e/ou senha nao encontrados";
+            } else {
+                switch (user.getTipo()) {
+                    case "0":
+                        session.setAttribute("me.cpf", user.getCpf());
+                        session.setAttribute("me.name", user.getNome());
+                        session.setAttribute("me.login", user.getSenha());
+                        session.setAttribute("me.type", user.getTipo());
+                        loginErrorMessage = "Sucesso";
+                        break;
+                    case "1":
+                        session.setAttribute("me.id", user.getCpf());
+                        session.setAttribute("me.name", user.getNome());
+                        session.setAttribute("me.login", user.getSenha());
+                        session.setAttribute("me.type", user.getTipo());
+                        loginErrorMessage = "Sucesso";
+                        break;
+                    case "2":
+                        session.setAttribute("me.cpf", user.getCpf());
+                        session.setAttribute("me.name", user.getNome());
+                        session.setAttribute("me.pass", user.getSenha());
+                        session.setAttribute("me.type", user.getTipo());
+                        loginErrorMessage = "Sucesso";
+                        break;
+                    case "4":
+                        loginErrorMessage = "Login e/ou senha não encontrados";
+                        break;
+                    case "5":
+                        loginErrorMessage = "Login e/ou senha não encontrados";
+                        break;
+                }
+
+            }
+            out.println(loginErrorMessage);
+        } catch (Exception ex) {
+            loginErrorMessage = ex.getMessage();
+        }
+    }
+
+    if (action.equals("logout")) {
+        if (session != null) {
+            session.invalidate();
+            out.println("Sucesso");
         }
     }
 %>
