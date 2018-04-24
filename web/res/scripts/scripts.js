@@ -337,7 +337,12 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
                 url: ctx + '/Usuario.jsp?action=insert',
                 data: {"cpf": $("#form-incluir-usuario-cpf").cleanVal(), "nome": $("#form-incluir-usuario-nome").val(), "senha": $("#form-incluir-usuario-senha").val(), "tipo": "0"}
             }).then(function successCallback(response) {
-                alert(response.data);
+                if(response.data.resposta == "SUCCESS") {
+                    alert("Funcionário cadastrado com sucesso");
+                }
+                else {
+                    alert("Ocorreu um erro ao cadastrar o funcionário, se persistirem os erros favor relatar ao suporte")
+                }
 
             }, function errorCallback(response) {
                 console.log('Error');
@@ -348,7 +353,12 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
                 url: ctx + '/Motorista.jsp?action=insert',
                 data: {"cpf": $("#form-incluir-usuario-cpf").cleanVal(), "nome": $("#form-incluir-usuario-nome").val(), "senha": $("#form-incluir-usuario-senha").val(), "tipo": "1", "cnh": $("#form-incluir-usuario-cnh").cleanVal(), "MOPP": $("#form-incluir-usuario-mopp").is(":checked"), "validadeMopp": $("#form-incluir-usuario-validade").val()}
             }).then(function successCallback(response) {
-                alert(response.data);
+                if(response.data.resposta == "SUCCESS") {
+                    alert("Motorista cadastrado com sucesso");
+                }
+                else {
+                    alert("Ocorreu um erro ao cadastrar o motorista, se persistirem os erros favor relatar ao suporte")
+                }
 
             }, function errorCallback(response) {
                 console.log('Error');
@@ -395,7 +405,12 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
                 url: ctx + '/Usuario.jsp?action=update&cpf=' + $("#form-detalhes-usuario-cpf").cleanVal(),
                 data: {"nome": $("#form-detalhes-usuario-nome").val(), "senha": $("#form-detalhes-usuario-senha").val()}
             }).then(function successCallback(response) {
-                alert(response.data);
+                if(response.data.resposta == "SUCCESS") {
+                    alert("Funcionário alterado com sucesso");
+                }
+                else {
+                    alert("Ocorreu um erro ao alterar o funcionário, se persistirem os erros favor relatar ao suporte")
+                }
 
             }, function errorCallback(response) {
                 console.log('Error');
@@ -406,7 +421,12 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
                 url: ctx + '/Motorista.jsp?action=update&cpf=' + $("#form-detalhes-usuario-cpf").cleanVal() + '&cnh=' + $("#form-detalhes-usuario-cnh").cleanVal(),
                 data: {"nome": $("#form-detalhes-usuario-nome").val(), "senha": $("#form-incluir-usuario-senha").val(), "MOPP": $("#form-detalhes-usuario-mopp").is(":checked"), "validadeMopp": $("#form-detalhes-usuario-validade").val()}
             }).then(function successCallback(response) {
-                alert(response.data);
+                if(response.data.resposta == "SUCCESS") {
+                    alert("Funcionário alterado com sucesso");
+                }
+                else {
+                    alert("Ocorreu um erro ao alterar o motorista, se persistirem os erros favor relatar ao suporte")
+                }
 
             }, function errorCallback(response) {
                 console.log('Error');
@@ -416,7 +436,38 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
     };
 
     $scope.deleteUsuario = function () {
-        alert('Aqui irá a função de requisição p/ deletar');
+        if ($("#form-detalhes-usuario-cnh").val() == "") {
+            $http({
+                method: 'POST',
+                url: ctx + '/Usuario.jsp?action=delete&cpf=' + $("#form-detalhes-usuario-cpf").cleanVal(),
+            }).then(function successCallback(response) {
+                if(response.data.resposta == "SUCCESS") {
+                    alert("Funcionário removido com sucesso");
+                }
+                else {
+                    alert("Ocorreu um erro ao remover o funcionário, se persistirem os erros favor relatar ao suporte")
+                }
+
+            }, function errorCallback(response) {
+                console.log('Error');
+            });
+        } else {
+            $http({
+                method: 'POST',
+                url: ctx + '/Motorista.jsp?action=delete&cpf=' + $("#form-detalhes-usuario-cpf").cleanVal(),
+            }).then(function successCallback(response) {
+                if(response.data.resposta == "SUCCESS") {
+                    alert("Motorista removido com sucesso");
+                }
+                else {
+                    alert("Ocorreu um erro ao remover o motorista, se persistirem os erros favor relatar ao suporte")
+                }
+
+            }, function errorCallback(response) {
+                console.log('Error');
+            });
+        }
+
     };
 
 
@@ -547,14 +598,14 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
             type: 'POST',
             url: ctx + '/veiculo.jsp?action=insert',
             data: veiculo
-        }).then(function successCallback(response) { 
-            alert(response.data);            
+        }).then(function successCallback(response) {
+            alert(response.data);
         }, function errorCallback(response) {
             console.log('Error');
         });
-        
-        
-        $('.checkbox-veiculo:checked').each(function (){
+
+
+        $('.checkbox-veiculo:checked').each(function () {
             var capacitacao = {
                 "idCapacitacao": $(this).val(),
                 "placa": $("#form-incluir-veiculo-placa").cleanVal()
@@ -563,8 +614,8 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
                 type: 'POST',
                 url: ctx + '/veiculo.jsp?action=insertCapacitacaoToVeiculo',
                 data: capacitacao
-            }).then(function successCallback(response) { 
-                alert(response.data);            
+            }).then(function successCallback(response) {
+                alert(response.data);
             }, function errorCallback(response) {
                 console.log('Error');
             });

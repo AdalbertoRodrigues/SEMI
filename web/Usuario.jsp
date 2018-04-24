@@ -144,9 +144,9 @@
             ps.setString(3, senha);
             ps.setString(4, tipo);
             ps.execute();
-            out.println("{\"status\" : [\"status\":\"SUCCESS\"]}");
+            out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
-            out.println("ERROR");
+            out.println("{\"resposta\":\"ERROR\"}");
             out.println(ex.getMessage());
         }
     }
@@ -166,10 +166,10 @@
             ps.setString(1, nome);
             ps.setString(2, senha);
             ps.execute();
-            out.println("{\"status\" : [\"status\":\"SUCCESS\"]}");
+            out.println("{\"resposta\":\"SUCCESS\"}");
         }
         catch (Exception ex) {
-            out.println("ERROR");
+            out.println("{\"resposta\":\"ERROR\"}");
             out.println(ex.getMessage());
         }
     }
@@ -209,12 +209,12 @@
     } else if (action.equals("delete")) {
         try {
             Conexao con = new Conexao();
-            PreparedStatement ps = con.conexao.prepareStatement("DELETE FROM USUARIO WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
+            PreparedStatement ps = con.conexao.prepareStatement("UPDATE USUARIO SET cd_tipo_usuario = 3 WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
             ps.execute();
-            out.println("SUCCESS");
+            out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
-            out.println("ERROR");
-            out.println(ex.getMessage());
+            out.println("{\"resposta\":\"ERROR\"}");
+            //out.println(ex.getMessage());
         }
     }
 %>
