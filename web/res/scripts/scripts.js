@@ -423,11 +423,11 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
 });
 app.controller("menuAdminVeiculoController", function ($scope, $http, $document) {
     $document.ready(function () {
-        $scope.getVeiculos();
+        getVeiculos();
         $scope.getCapacitacao();
     });
 
-    $scope.getVeiculos = function (pesquisarPor) {
+    getVeiculos = function (pesquisarPor) {
         $(".loader-veiculo").show();
         $("#alerta-exibicao-veiculo").hide();
         if (pesquisarPor == null)
@@ -466,7 +466,7 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document)
 
                     for (var i = 0; i < val.length; i++) {
                         var item = val[i];
-                        buffer += "<li ng-class=\"{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_a}\" class=\"item-lista-capacitacao\"><div class=\"form-check\"><label class=\"form-check-label\"><input ng-model=\"incluir_veiculo_capacitacao_a\" class=\"form-check-input\" type=\"checkbox\" value=" + item.id + ">" + item.categoria + "</label></div></li>";
+                        buffer += "<li ng-class=\"{'item-lista-capacitacao-ativo' : incluir_veiculo_capacitacao_a}\" class=\"item-lista-capacitacao\"><div class=\"form-check\"><label class=\"form-check-label\"><input ng-model=\"incluir_veiculo_capacitacao_a\" class=\"form-check-input checkbox-veiculo\"  type=\"checkbox\" value=" + item.id + ">" + item.categoria + "</label></div></li>";
                     }
                     $("#list-capacitacao").html(buffer);
                 });
@@ -517,6 +517,12 @@ app.controller("abasAdminController", function ($scope, dataService) {
 });
 app.controller("incluirVeiculoAdminController", function ($scope, dataService, $http) {
     $scope.voltarMenu = function () {
+        $("#form-incluir-veiculo-placa").val("");
+        $("#form-incluir-veiculo-marca").val("");
+        $("#form-incluir-veiculo-modelo").val("");
+        $("#form-incluir-veiculo-ano").val("");
+        $("#form-incluir-veiculo-motoristaPreferencial").val("");
+        $("#form-incluir-veiculo-eixo").val("");
         dataService.voltarMenuAdminVeiculo();
     };
 
@@ -535,17 +541,33 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
             "modelo": $("#form-incluir-veiculo-modelo").val(),
             "ano": $("#form-incluir-veiculo-ano").val(),
             "motoristaPreferencial": $("#form-incluir-veiculo-motoristaPreferencial").cleanVal(),
-            "eixos": $("#form-incluir-veiculo-eixos").val()
+            "eixos": $("#form-incluir-veiculo-eixo").val()
         };
-        $http({
-            method: 'POST',
+        $.ajax({
+            type: 'POST',
             url: ctx + '/veiculo.jsp?action=insert',
             data: veiculo
-        }).then(function successCallback(response) {
-            alert(response.data);
-
+        }).then(function successCallback(response) { 
+            alert(response.data);            
         }, function errorCallback(response) {
             console.log('Error');
+        });
+        
+        
+        $('.checkbox-veiculo:checked').each(function (){
+            var capacitacao = {
+                "idCapacitacao": $(this).val(),
+                "placa": $("#form-incluir-veiculo-placa").cleanVal()
+            };
+            $.ajax({
+                type: 'POST',
+                url: ctx + '/veiculo.jsp?action=insertCapacitacaoToVeiculo',
+                data: capacitacao
+            }).then(function successCallback(response) { 
+                alert(response.data);            
+            }, function errorCallback(response) {
+                console.log('Error');
+            });
         });
     };
 

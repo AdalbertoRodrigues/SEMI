@@ -68,12 +68,18 @@
         try {
             Conexao con = new Conexao();
             PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO VEICULO VALUES( ?, ?, ?, ?, ?, ?)");
-            ps.setString(1, request.getParameter("placa"));
-            ps.setString(2, request.getParameter("marca"));
-            ps.setString(3, request.getParameter("modelo"));
-            ps.setInt(4, Integer.parseInt(request.getParameter("ano")));
-            ps.setString(5, request.getParameter("motoristaPreferencial"));
-            ps.setInt(6, Integer.parseInt(request.getParameter("eixos")));
+            String placa = request.getParameter("placa");
+            String marca = request.getParameter("marca");
+            String modelo = request.getParameter("modelo");
+            String ano = request.getParameter("ano");
+            String motoristaPreferencial = request.getParameter("motoristaPreferencial");
+            String eixos = request.getParameter("eixos");
+            ps.setString(1, placa);
+            ps.setString(2, marca);
+            ps.setString(3, modelo);
+            ps.setInt(4, Integer.parseInt(ano));
+            ps.setString(5, motoristaPreferencial);
+            ps.setInt(6, Integer.parseInt(eixos));
             ps.execute();
             out.println("SUCCESS");
         } catch (Exception ex) {
