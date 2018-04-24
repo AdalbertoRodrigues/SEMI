@@ -11,6 +11,7 @@
 <%@page import="br.com.uhapp.semi.Veiculo"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="br.com.uhapp.semi.Conexao"%>
+<%@page import="br.com.uhapp.semi.Usuario"%>
 <%@page contentType="json" pageEncoding="UTF-8"%>
 
 <%

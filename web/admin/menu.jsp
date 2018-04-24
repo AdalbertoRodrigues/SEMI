@@ -7,12 +7,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    if(session.getAttribute("me.name") == null || !session.getAttribute("me.type").equals("2") || request.getParameter("do-logoff")!= null){
-        session.removeAttribute("me.cpf");
-        session.removeAttribute("me.name");
-        session.removeAttribute("me.pass");
-        session.removeAttribute("me.type");
-        response.sendRedirect(request.getContextPath()+"/index.jsp");
+//    if(session.getAttribute("me.name") == null || !session.getAttribute("me.type").equals("2") || request.getParameter("do-logoff")!= null){
+//        session.removeAttribute("me.cpf");
+//        session.removeAttribute("me.name");
+//        session.removeAttribute("me.pass");
+//        session.removeAttribute("me.type");
+//        response.sendRedirect(request.getContextPath()+"/index.jsp");
+//    }
+%>
+
+<%
+    if (session.getAttribute("me.name") == null) {
+        response.sendRedirect(request.getContextPath() + "/erro/erro.jsp");
     }
 %>
 <html ng-app="semi">
@@ -36,19 +42,19 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="nav-toggle-collapse">
-                <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <div class="collapse navbar-collapse" ng-controller="navAdminController" id="nav-toggle-collapse">
+                <div class="navbar-nav mr-auto">
                     <div class="row row-nav">
-                        <li class="nav-item active col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                            <a class="" id="nav-btn">Bem vindo, <%= session.getAttribute("me.name")%></a>
-                        </li>
-                        <li class="nav-item active col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                            <a class="" id="nav-btn" href="#">Home</a>
-                        </li>
-                        <li class="nav-item col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                            <a class="" id="nav-btn" href="#">Sair</a>
-                        </li>
-
+                        <div> 
+                            <li class="nav-item active">
+                                <a class="" id="nav-btn">Bem vindo, <%= session.getAttribute("me.name")%></a>
+                            </li>
+                        </div>
+                        <div>
+                            <li class="nav-item ">
+                                <a class="" ng-click="fazerLogout()" id="nav-btn" href="#">Sair</a>
+                            </li>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -259,15 +265,15 @@
                         <div class="form-group col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
                             <input type="text" ng-model="pesquisarPor" ng-change="getVeiculos(pesquisarPor)" ng-model-options="{debounce: 500}" class="form-control" id="form-admin-veiculo-filtro" placeholder="Digite um modelo ou marca de veículo...">
                         </div>
-<!--                        <div class="form-group col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
-                            <select class="form-control" id="form-admin-veiculo-tipo">
-                                <option>Todos</option>
-                                <option>Pequeno Porte</option>
-                                <option>Grande Porte</option>
-                            </select>
-                        </div>-->
+                        <!--                        <div class="form-group col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                                                    <select class="form-control" id="form-admin-veiculo-tipo">
+                                                        <option>Todos</option>
+                                                        <option>Pequeno Porte</option>
+                                                        <option>Grande Porte</option>
+                                                    </select>
+                                                </div>-->
                     </div>
-                    
+
                     <div class="row">
                         <table class="table table-sm table-bordered table-striped" id="table-admin-veiculo">
                             <thead>
@@ -336,7 +342,7 @@
                         <div class="col-10">
                             Capacitações do veículo:<br><br>
                             <ul id="list-capacitacao" class="list-group">
-                                
+
                             </ul>
                         </div> 
                     </div>
@@ -921,7 +927,7 @@
 
         </div>
 
-
+        <br><br>
         <%@include file="../WEB-INF/jspf/footer.jspf"%>
         <script>var ctx = "<%=request.getContextPath()%>"</script>
     </body>

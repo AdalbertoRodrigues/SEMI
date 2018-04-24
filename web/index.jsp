@@ -1,55 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="br.com.uhapp.semi.Usuario"%>
 <!DOCTYPE html>
-<%  
-    String loginErrorMessage = null;
-    if(request.getParameter("do-login")!= null){
-        String login = request.getParameter("cpf_login");
-        String pass = request.getParameter("sen_login");
-        try{
-            Usuario user = Usuario.getUsuario(login, pass);
-            if(user==null){
-                loginErrorMessage = "Login e/ou senha não encontrados";
-            }else{
-                switch(user.getTipo()){
-                    case "0":
-                        loginErrorMessage = "Sessão indisponivel, por favor entre como administrador";
-                        session.setAttribute("me.id", user.getCpf());
-                        session.setAttribute("me.name", user.getNome());
-                        session.setAttribute("me.login", user.getSenha());
-                        session.setAttribute("me.passwordHash", user.getTipo());
-                        response.sendRedirect(request.getContextPath()+"/admin/menu.jsp");
-                        
-                        break;
-                    case "1":
-                        loginErrorMessage = "Sessão indisponivel, por favor entre como administrador";
-                        /*session.setAttribute("me.id", user.getCpf());
-                        session.setAttribute("me.name", user.getNome());
-                        session.setAttribute("me.login", user.getSenha());
-                        session.setAttribute("me.passwordHash", user.getTipo());*/
-                        break;
-                    case "2":
-                        session.setAttribute("me.cpf", user.getCpf());
-                        session.setAttribute("me.name", user.getNome());
-                        session.setAttribute("me.pass", user.getSenha());
-                        session.setAttribute("me.type", user.getTipo());
-                        response.sendRedirect(request.getContextPath()+"/admin/menu.jsp");
-                        break;
-                    case "4":
-                        loginErrorMessage = "Login e/ou senha não encontrados";
-                        break;
-                    case "5":
-                        loginErrorMessage = "Login e/ou senha não encontrados";
-                        break;
-                }
-                
-                
-            }
-        }catch(Exception ex){
-            loginErrorMessage = ex.getMessage();
-        }
-    }
-%>
 <html ng-app="semi">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -73,23 +24,22 @@
                         <h5 class="card-title">Faça seu login</h5>
                         <form method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control cpf" name="cpf_login" id="form-login-email" placeholder="CPF">
+                                <input type="text" class="form-control cpf" name="cpf_login" id="form-login-cpf" placeholder="CPF">
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" name="sen_login" id="form-login-senha" placeholder="Senha">
                             </div>
                             <div style="margin-bottom: 10px;">
-                                <input type="submit" id="btn-focus" class="btn btn-login" name="do-login" value="Entrar">
+                                <input type="submit" ng-click="fazerLogin()" id="btn-login" class="btn btn-login" name="do-login" value="Entrar">
                             </div>
-                            
-                            <a class="form-login-link" ng-click="mostrarRecuperarSenha()"><span>Esqueci minha senha</span></a>
+
+                            <span ng-cloak style="color: red;">{{erro_login}}</span>
+                            <!--                            <a class="form-login-link" ng-click="mostrarRecuperarSenha()"><span>Esqueci minha senha</span></a>-->
                         </form>
-                        <%if(loginErrorMessage!=null){%>
-                            <div style="color: red;"><%=loginErrorMessage%></div>
-                        <%}%>
                     </div>
+                    <div class="loader-login" id="loader-login"></div>
                     <div class="card-body card-body-senha">
-                        
+
                         <h5 class="card-title">Recupere sua senha</h5>
                         <span class="form-senha-desc">Insira seu e-mail e receberá uma senha nova.</span><br><br>
                         <form>
@@ -98,10 +48,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 col-6 col-md-6 col-lg-6 col-xl-6" style="margin-bottom: 5px;">
-                                    <button ng-click="mostrarLogin()" id="btn-focus" class="btn btn-recuperar"><i class="fas fa-arrow-left"></i> Voltar</button>
+                                    <button ng-click="mostrarLogin()"  class="btn btn-recuperar"><i class="fas fa-arrow-left"></i> Voltar</button>
                                 </div>
                                 <div class="col-sm-6 col-6 col-md-6 col-lg-6 col-xl-6" style="margin-bottom: 5px;">
-                                    <button type="submit" ng-click="recuperarSenha()" id="btn-focus" class="btn btn-senha">Recuperar</button>
+                                    <button type="submit" ng-click="recuperarSenha()"  class="btn btn-senha">Recuperar</button>
                                 </div>
                             </div>
                         </form>
@@ -115,5 +65,6 @@
             </div>
         </div>
         <%@include file="/WEB-INF/jspf/footer.jspf"%>
+        <script>var ctx = "<%=request.getContextPath()%>"</script>
     </body>
 </html>
