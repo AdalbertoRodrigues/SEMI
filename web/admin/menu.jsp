@@ -205,14 +205,14 @@
                 <div class="form-group row form-group-cpf">
                     <label for="form-detalhes-usuario-cpf" id="label-usuario-cpf" class="col-sm-2 col-form-label col-form-label-sm">CPF</label>
                     <div class="col-12 col-sm-12">
-                        <input type="text" class="form-control form-control-sm cpf" ng-change="checkCpf()" ng-model-options='{debounce: 500}' ng-model="detalhes_usuario_cpf" id="form-detalhes-usuario-cpf" value="">
+                        <input type="text" class="form-control form-control-sm cpf" ng-change="checkCpf()" ng-model-options='{debounce: 500}' ng-model="detalhes_usuario_cpf" id="form-detalhes-usuario-cpf" value="" disabled>
                     </div> 
                 </div>
                 <div class="form-motorista">
                     <div class="form-group row form-group-cnh">
                         <label for="form-detalhes-usuario-cnh" id="label-detalhes-usuario-cnh" class="col-sm-2 col-form-label col-form-label-sm">CNH</label>
                         <div class="col-12 col-sm-12">
-                            <input type="text" class="form-control form-control-sm cnh" ng-change="checkValido()" ng-model-options='{debounce: 500}' ng-model="detalhes_usuario_cnh" id="form-detalhes-usuario-cnh" value="">
+                            <input type="text" class="form-control form-control-sm cnh" ng-change="checkValido()" ng-model-options='{debounce: 500}' ng-model="detalhes_usuario_cnh" id="form-detalhes-usuario-cnh" value="" disabled>
                         </div> 
                     </div>
                     <div class="row">

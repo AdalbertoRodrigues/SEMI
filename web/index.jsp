@@ -14,10 +14,12 @@
                 switch(user.getTipo()){
                     case "0":
                         loginErrorMessage = "Sessão indisponivel, por favor entre como administrador";
-                        /*session.setAttribute("me.id", user.getCpf());
+                        session.setAttribute("me.id", user.getCpf());
                         session.setAttribute("me.name", user.getNome());
                         session.setAttribute("me.login", user.getSenha());
-                        session.setAttribute("me.passwordHash", user.getTipo());*/
+                        session.setAttribute("me.passwordHash", user.getTipo());
+                        response.sendRedirect(request.getContextPath()+"/admin/menu.jsp");
+                        
                         break;
                     case "1":
                         loginErrorMessage = "Sessão indisponivel, por favor entre como administrador";

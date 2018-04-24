@@ -149,7 +149,31 @@
             out.println("ERROR");
             out.println(ex.getMessage());
         }
-    } else if (action.equals("updateNome")) {
+    }
+    else if(action.equals("update")) {
+        try {
+            Conexao con = new Conexao();
+            PreparedStatement ps = con.conexao.prepareStatement("UPDATE USUARIO SET nm_nome_usuario = ?, cd_senha_usuario  = ? WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
+            
+            String requestData = request.getReader().lines().collect(Collectors.joining());
+
+            requestData = requestData.replace("{", "").replace("}", "");
+
+            String nome = requestData.split(",")[0].split(":")[1].replace("\"", "");
+
+            String senha = requestData.split(",")[1].split(":")[1].replace("\"", "");
+            
+            ps.setString(1, nome);
+            ps.setString(2, senha);
+            ps.execute();
+            out.println("{\"status\" : [\"status\":\"SUCCESS\"]}");
+        }
+        catch (Exception ex) {
+            out.println("ERROR");
+            out.println(ex.getMessage());
+        }
+    }
+    else if (action.equals("updateNome")) {
         try {
             Conexao con = new Conexao();
             PreparedStatement ps = con.conexao.prepareStatement("UPDATE USUARIO SET nm_nome_usuario = ? WHERE cd_cpf_usuario = " + request.getParameter("cpf"));
