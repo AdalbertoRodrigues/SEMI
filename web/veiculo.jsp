@@ -4,6 +4,7 @@
     Author     : Henrique
 --%>
 
+<%@page import="java.util.stream.Collectors"%>
 <%@page import="br.com.uhapp.semi.Motorista"%>
 <%@page import="br.com.uhapp.semi.Marca"%>
 <%@page import="br.com.uhapp.semi.Json_encoder"%>
@@ -155,9 +156,40 @@
             out.println(ex.getMessage());
         }
     } else if (action.equals("update")) {
-        Conexao con = new Conexao();
-        
-        PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET  = ? WHERE cd_placa_veiculo = " + request.getParameter("placa"));
+        try {
+            Conexao con = new Conexao();
+
+            PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET nm_modelo_veiculo = ?, nm_marca_veiculo = ?, aa_ano_veiculo = ?, qt_eixos_veiculo = ?, cd_cnh_motorista_preferencial_veiculo = ? WHERE cd_placa_veiculo = '" + request.getParameter("placa") + "'");
+            String requestData = request.getReader().lines().collect(Collectors.joining());
+
+            requestData = requestData.replace("{", "").replace("}", "");
+
+            String modelo = requestData.split(",")[0].split(":")[1].replace("\"", "");
+            String marca = requestData.split(",")[1].split(":")[1].replace("\"", "");
+            String ano = requestData.split(",")[2].split(":")[1].replace("\"", "");
+            String qtdEixos = requestData.split(",")[3].split(":")[1].replace("\"", "");
+            String cnhMotoristaPreferencial = requestData.split(",")[4].split(":")[1].replace("\"", "");
+            
+            
+            ps.setString(1, modelo);
+            ps.setString(2, marca);
+            ps.setInt(3, Integer.parseInt(ano));
+            ps.setInt(4, Integer.parseInt(qtdEixos));
+            ps.setString(5, cnhMotoristaPreferencial);
+            ps.execute();
+            
+            
+            
+            //update das capacitações
+            ps = con.conexao.prepareStatement("DELETE FROM CAPACITACAO_VEICULO WHERE cd_placa_veiculo = '" + request.getParameter("placa") + "'");
+            ps.execute();
+            
+            
+            out.println("{\"resposta\":\"SUCCESS\"}");
+        } catch (Exception ex) {
+            out.println("{\"resposta\":\"ERROR\"}");
+            out.println(ex.getMessage());
+        }
 
     } else if (action.equals("delete")) {
         try {

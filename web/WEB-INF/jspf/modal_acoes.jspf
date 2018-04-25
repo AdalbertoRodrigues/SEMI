@@ -1,0 +1,25 @@
+<div class="modal fade" id="modal-acao" tabindex="-1" role="dialog" aria-labelledby="modal-acao" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Ação concluída!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-acoes-body">
+                <div id="modal-acoes-body-sucesso">
+                    <p id="texto-erro-modal">O <span id="item-acao"></span> foi <span id="acao"></span> com sucesso!</p>
+                </div>
+                <div id="modal-acoes-body-erro">
+                    <p id="texto-erro-modal"></p>
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
