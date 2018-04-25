@@ -779,23 +779,37 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
             });
         }
     });
+    
 
-    $http({
-        method: 'GET',
-        url: ctx + '/marca.jsp?action=select'
-    }).then(function successCallback(response) {
-        $scope.marcas = response.data.marcas;
-
-        for (i = 0; i < $scope.marcas.length; i++) {
-
-            $("#form-incluir-veiculo-lista").append("<option value=" + $scope.marcas[i].nome + ">");
-        }
-
-    }, function errorCallback(response) {
-        console.log('Error');
-    });
-
-
+    $scope.insertViagem = function () {
+        var carga = {
+            
+        };
+        var viagem = {
+            "prazo": $("#").val(),
+            "tempoEstimado": $("#").val(),
+            "status": $("#").val(),
+            "carga": $("#").val()
+        };
+        var enderecoPartida = {
+            "cepPartida": $("#").val(),
+            "numeroPartida": $("#").val(),
+            "ruaPartida": $("#").val(),
+            "bairroPartida": $("#").val()
+        };
+        var endereçoDestino = {
+            
+        };
+        $.ajax({
+            type: 'POST',
+            url: ctx + '/veiculo.jsp?action=insert',
+            data: veiculo
+        }).then(function successCallback(response) {
+            alert(response.data);
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
+    };
 });
 app.controller("detalhesViagemAdminController", function ($scope, dataService, $http) {
     $scope.voltarMenu = function () {
