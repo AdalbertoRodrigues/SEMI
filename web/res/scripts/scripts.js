@@ -774,7 +774,10 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
         });
     };
 });
-app.controller("viagemAdminController", function ($scope) {
+app.controller("viagemAdminController", function ($scope, $rootScope, $document) {
+    $document.ready(function () {
+        $rootScope.getTiposCarga();
+    });
     $scope.mostrarIncluirViagem = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
@@ -795,9 +798,31 @@ app.controller("viagemAdminController", function ($scope) {
             });
         });
     };
+    
+    
+    $rootScope.getTiposCarga = function(){
+        $.ajax({
+            type: 'POST',
+            url: '../capacitacao.jsp?action=select',
+            async: false,
+            dataType: 'json',
+            success: function (result) {
+                var buffer = "";
+                $.each(result, function (index, val) {
+
+                    for (var i = 0; i < val.length; i++) {
+                        var tipoCarga = val[i];
+                        buffer += "<option value=\""+ tipoCarga.categoria +"\">"+ tipoCarga.categoria +"</option>";
+                    }
+                    $("#form-incluir-viagem-tipo").html(buffer);
+                });
+            }
+        });
+    };
 });
-app.controller("incluirViagemAdminController", function ($scope, dataService, $http) {
+app.controller("incluirViagemAdminController", function ($scope, dataService, $http, $rootScope) {
     $scope.voltarMenu = function () {
+
         dataService.voltarMenuAdminViagem();
     };
     $(".btn-admin-incluir-viagem-tipo").click(function () {
@@ -816,39 +841,67 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         }
     });
     
+    
+
 
     $scope.insertViagem = function () {
         var carga = {
-            
+            "tipocarga": $("#form-incluir-viagem-tipo").val(),
+            "pesocarga": ($("#form-detalhes-viagem-peso").val())*($("#form-incluir-viagem-tpeso").val()),
+            "alturacarga": $("#form-incluir-viagem-altura").val(),
+            "larguracarga": $("#form-incluir-viagem-largura").val(),
+            "comprimentocarga": $("#form-incluir-viagem-comprimento").val(),
+            "conteudo": $("#form-incluir-viagem-conteudo").val()
         };
         var viagem = {
             "prazo": $("#").val(),
-            "tempoEstimado": $("#").val(),
-            "status": $("#").val(),
+            "status": "Em Espera",
             "carga": $("#").val()
         };
         var enderecoPartida = {
             "cepPartida": $("#").val(),
             "numeroPartida": $("#").val(),
             "ruaPartida": $("#").val(),
-            "bairroPartida": $("#").val()
+            "cidadePartida": $("#").val(),
+            "estadoPartida": $("#").val(),
+            "paisPartida": $("#").val(),
+            "complementoPartida": $("#").val(),
+            "pontoReferenciaPartida": $("#").val()
         };
-        var endereçoDestino = {
-            
+        var enderecoDestino = {
+            "cepDestino": $("#").val(),
+            "numeroDestino": $("#").val(),
+            "ruaDestino": $("#").val(),
+            "cidadeDestino": $("#").val(),
+            "estadoDestino": $("#").val(),
+            "paisDestino": $("#").val(),
+            "complementoDestino": $("#").val(),
+            "pontoReferenciaDestino": $("#").val()
         };
         $.ajax({
             type: 'POST',
-            url: ctx + '/veiculo.jsp?action=insert',
-            data: veiculo
+            url: ctx + '/carga.jsp?action=insert',
+            data: carga
         }).then(function successCallback(response) {
             alert(response.data);
         }, function errorCallback(response) {
             console.log('Error');
         });
+        $.ajax({
+            type: 'POST',
+            url: ctx + '/viagem.jsp?action=insert',
+            data: {viagem, enderecoPartida, enderecoDestino}
+        }).then(function successCallback(response) {
+            alert(response.data);
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
+
     };
 });
 app.controller("detalhesViagemAdminController", function ($scope, dataService, $http) {
     $scope.voltarMenu = function () {
+
         dataService.voltarMenuAdminViagem();
     };
     $(".btn-admin-detalhes-viagem-tipo").click(function () {

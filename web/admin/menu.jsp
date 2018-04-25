@@ -513,9 +513,6 @@
                         <div class="form-group col-6 col-sm-6">
                             <label for="form-incluir-viagem-tipo" class="col-form-label-sm">Tipo: </label>
                             <select class="form-control" id="form-incluir-viagem-tipo">
-                                <option>T1</option>
-                                <option>T2</option>
-                                <option>Tn</option>
                             </select>
                         </div>
                         <div class="form-group col-6 col-sm-6">
@@ -531,8 +528,8 @@
                         <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                             <label for="form-incluir-viagem-tpeso" class="col-form-label-sm">&nbsp;</label>
                             <select class="form-control" id="form-incluir-viagem-tpeso">
-                                <option>kg</option>
-                                <option>ton</option>
+                                <option value="1">kg</option>
+                                <option value="1000">ton</option>
                             </select>
                         </div>
                         <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">

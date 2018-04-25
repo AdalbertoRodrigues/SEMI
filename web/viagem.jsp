@@ -32,16 +32,16 @@
                     + " JOIN ENDERECO AS EF ON V.cd_id_endereco_final_viagem = EF.cd_id_endereco;").executeQuery();
             while (rs.next()) {
                 enderecoPartida = new Endereco(rs.getString("EP.cd_cep_endereco"), rs.getInt("EP.cd_numero_endereco"),
-                        rs.getString("EP.nm_rua_endereco"), rs.getString("EP.nm_bairro_endereco"),
+                        rs.getString("EP.nm_rua_endereco"), 
                         rs.getString("EP.nm_cidade_endereco"), rs.getString("EP.nm_estado_endereco"),
                         rs.getString("EP.nm_pais_endereco"), rs.getString("EP.ds_complemento_endereco"),
                         rs.getString("EP.ds_ponto_referencia_endereco"));
                 enderecoDestino = new Endereco(rs.getString("EF.cd_cep_endereco"), rs.getInt("EF.cd_numero_endereco"),
-                        rs.getString("EF.nm_rua_endereco"), rs.getString("EF.nm_bairro_endereco"),
+                        rs.getString("EF.nm_rua_endereco"),
                         rs.getString("EF.nm_cidade_endereco"), rs.getString("EF.nm_estado_endereco"),
                         rs.getString("EF.nm_pais_endereco"), rs.getString("EF.ds_complemento_endereco"),
                         rs.getString("EF.ds_ponto_referencia_endereco"));
-                viagem = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getInt("V.qt_tempo_estimado_viagem"), rs.getString("V.ds_status_viagem"));
+                viagem = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getString("V.ds_status_viagem"));
                 if (rs.isLast()) {
                     atual = Json_encoder.encode(viagem);
                 } else {
@@ -111,13 +111,12 @@
                 out.println(ex.getMessage());
             }
             //Viagem
-            PreparedStatement psViagem = con.conexao.prepareStatement("INSERT INTO VIAGEM VALUES(DEFAULT, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement psViagem = con.conexao.prepareStatement("INSERT INTO VIAGEM VALUES(DEFAULT, ?, ?, ?, ?, ?)");
             psViagem.setInt(1, idPartida);
             psViagem.setInt(2, idDestino);
             psViagem.setString(3, request.getParameter("prazo"));
-            psViagem.setInt(4, Integer.parseInt(request.getParameter("tempoEstimado")));
-            psViagem.setString(5, request.getParameter("status"));
-            psViagem.setInt(6, Integer.parseInt(request.getParameter("carga")));
+            psViagem.setString(4, request.getParameter("status"));
+            psViagem.setInt(5, Integer.parseInt(request.getParameter("carga")));
             psViagem.execute();
 
             out.println("SUCCESS");

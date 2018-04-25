@@ -13,14 +13,12 @@ public class Viagem {
     private Endereco partida;
     private Endereco destino;
     private String prazo;
-    private int tempoEstimado;
     private String status;
 
-    public Viagem(Endereco partida, Endereco destino, String prazo, int tempoEstimado, String status) {
+    public Viagem(Endereco partida, Endereco destino, String prazo, String status) {
         this.partida = partida;
         this.destino = destino;
         this.prazo = prazo;
-        this.tempoEstimado = tempoEstimado;
         this.status = status;
     }
 
@@ -46,14 +44,6 @@ public class Viagem {
 
     public void setPrazo(String prazo) {
         this.prazo = prazo;
-    }
-
-    public int getTempoEstimado() {
-        return tempoEstimado;
-    }
-
-    public void setTempoEstimado(int tempoEstimado) {
-        this.tempoEstimado = tempoEstimado;
     }
 
     public String getStatus() {

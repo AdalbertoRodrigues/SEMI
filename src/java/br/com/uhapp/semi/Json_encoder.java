@@ -23,7 +23,7 @@ public class Json_encoder {
                 for (Field declaredField : o.getClass().getDeclaredFields()) {
                     
                     if (declaredField.getName().toLowerCase().equals(method.getName().substring(3, method.getName().length()).toLowerCase())) {
-                        if (declaredField.getClass().isPrimitive() || declaredField.getType().getSimpleName().equals("String") || declaredField.getType().getSimpleName().equals("int")) {
+                        if (declaredField.getClass().isPrimitive() || declaredField.getType().getSimpleName().equals("String") || declaredField.getType().getSimpleName().equals("int") || declaredField.getType().getSimpleName().equals("double")) {
                             json += "\"" + declaredField.getName() + "\":\"" + method.invoke(o) + "\",";
                         }
                         else if(!declaredField.getClass().isPrimitive()) {

@@ -82,14 +82,13 @@
     else if(action.equals("insert")) {
        try {
            Conexao con = new Conexao();
-           PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO CARGA(cd_id_carga, nm_tipo_carga, qt_peso_carga, qt_altura_carga, qt_largura_carga, qt_comprimento_carga, ds_conteudo_carga) VALUES( ?, ?, ?, ?, ?, ?, ?)");
-           ps.setString(1, request.getParameter("idcarga"));
-           ps.setString(2, request.getParameter("tipocarga"));
-           ps.setString(3, request.getParameter("pesocarga"));
-           ps.setString(4, request.getParameter("alturacarga"));
-           ps.setString(5, request.getParameter("larguracarga"));
-           ps.setString(6, request.getParameter("comprimentocarga"));
-           ps.setString(7, request.getParameter("conteudo"));
+           PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO CARGA(cd_id_carga, nm_tipo_carga, qt_peso_carga, qt_altura_carga, qt_largura_carga, qt_comprimento_carga, ds_conteudo_carga) VALUES(DEFAULT, ?, ?, ?, ?, ?, ?)");
+           ps.setString(1, request.getParameter("tipocarga"));
+           ps.setString(2, request.getParameter("pesocarga"));
+           ps.setString(3, request.getParameter("alturacarga"));
+           ps.setString(4, request.getParameter("larguracarga"));
+           ps.setString(5, request.getParameter("comprimentocarga"));
+           ps.setString(6, request.getParameter("conteudo"));
            ps.execute();
            out.println("SUCCESS");
        }
