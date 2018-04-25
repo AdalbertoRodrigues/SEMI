@@ -630,17 +630,17 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document,
                 method: 'GET',
                 url: ctx + '/capacitacao.jsp?action=selectByVeiculo&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
             }).then(function successCallback(response) {
-                   $scope.capacitacaoAtual = response.data.capacitacao;
-                   for(i = 0; i < $scope.capacitacaoAtual.lenght; i++) {
-                        if($scope.capacitacaoAtual[0].categoria == 1)
-                            $scope.detalhes_veiculo_capacitacao_1.prop("checked", true);
-                        if($scope.capacitacaoAtual[0].categoria == 2)
-                            $scope.detalhes_veiculo_capacitacao_2.prop("checked", true);
-                        if($scope.capacitacaoAtual[0].categora == 3)
-                            $scope.detalhes_veiculo_capacitacao_3.prop("checked", true);
-                        if($scope.capacitacaoAtual[0].categoria == 4)
-                            $scope.detalhes_veiculo_capacitacao_4.prop("checked", true);
-                   }
+                    $scope.capacitacaoAtual = response.data.capacitacao;
+                   for(i = 0; i < $scope.capacitacaoAtual.length; i++) {
+                        if($scope.capacitacaoAtual[i].id == 1)
+                            $("#form-detalhes-capacitacao-1").prop("checked", true);
+                        if($scope.capacitacaoAtual[i].id == 2)
+                            $("#form-detalhes-capacitacao-2").prop("checked", true);
+                        if($scope.capacitacaoAtual[i].id == 3)
+                            $("#form-detalhes-capacitacao-3").prop("checked", true);
+                        if($scope.capacitacaoAtual[i].id == 4)
+                            $("#form-detalhes-capacitacao-4").prop("checked", true);
+                   } 
 
             }, function errorCallback(response) {
                 console.log('Error');
@@ -780,7 +780,7 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
         $http({
             method: 'POST',
             url: ctx + '/veiculo.jsp?action=update&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
-            data: {"modelo": $("#form-detalhes-veiculo-modelo").val, "marca": $("#form-detalhes-veiculo-marca").val, "ano": $("#form-detalhes-veiculo-ano").val, "eixos": $("$form-detalhes-veiculo-eixo").val, "motoristaPreferencial": $("#form-detalhes-veiculo-motoristaPreferencial").val()}
+            data: {"modelo": $("#form-detalhes-veiculo-modelo").val(), "marca": $("#form-detalhes-veiculo-marca").val(), "ano": $("#form-detalhes-veiculo-ano").val(), "eixos": $("#form-detalhes-veiculo-eixo").val(), "motoristaPreferencial": $("#form-detalhes-veiculo-motoristaPreferencial").val(), "capacitacao1" : $("#form-detalhes-capacitacao-1").is("checked"), "capacitacao2" : $("#form-detalhes-capacitacao-2").is("checked"), "capacitacao3" : $("#form-detalhes-capacitacao-3").is("checked"), "capacitacao4" : $("#form-detalhes-capacitacao-4").is("checked")}
         }).then(function successCallback(response) {
             if (response.data.resposta == "SUCCESS") {
                 dataService.abrirModalAcao('veículo', 'editado');
