@@ -124,6 +124,24 @@ app.service('dataService', function ($location) {
             if (Resto !== parseInt(strCPF.substring(10, 11)))
                 return false;
             return true;
+        },
+        abrirModalAcao: function (item_acao, acao) {
+            $('#item-acao').html(item_acao).removeClass();
+            $('#acao').html(acao).removeClass();
+
+            if (acao == 'editado') {
+                $("#item-acao").addClass('item-editado');
+                $("#acao").addClass('item-editado');
+            } else if (acao == 'incluído') {
+                $("#item-acao").addClass('item-incluido');
+                $("#acao").addClass('item-incluido');
+            } else if (acao == 'removido') {
+                $("#item-acao").addClass('item-removido');
+                $("#acao").addClass('item-removido');
+            }
+
+            $('#modal-acao').modal('toggle');
+
         }
     };
 });
@@ -214,13 +232,18 @@ app.controller("navAdminController", function ($scope, dataService, $http) {
     };
 });
 
-app.controller("menuAdminUsuarioController", function ($scope, dataService, $document, $http) {
+app.controller("menuAdminUsuarioController", function ($scope, dataService, $document, $http, $rootScope) {
     eventoAnimacao = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
     $document.ready(function () {
-        $scope.getUsuarios();
+        $rootScope.getUsuarios();
     });
 
-    $scope.getUsuarios = function (pesquisarPor, filtrarPor) {
+    $rootScope.teste = function () {
+        alert('teste');
+    };
+
+
+    $rootScope.getUsuarios = function (pesquisarPor, filtrarPor) {
         $(".admin-exibicao-usuario").hide();
         $(".loader-usuario").show();
 
@@ -324,7 +347,7 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
     };
 });
 
-app.controller("incluirUsuarioAdminController", function ($scope, dataService, $http) {
+app.controller("incluirUsuarioAdminController", function ($scope, dataService, $http, $rootScope) {
 //Chama o dataService e executa a função de voltar para o menu
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminUsuario();
@@ -382,10 +405,12 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
                 url: ctx + '/Usuario.jsp?action=insert',
                 data: {"cpf": $("#form-incluir-usuario-cpf").cleanVal(), "nome": $("#form-incluir-usuario-nome").val(), "senha": $("#form-incluir-usuario-senha").val(), "tipo": "0"}
             }).then(function successCallback(response) {
-                if(response.data.resposta == "SUCCESS") {
-                    alert("Funcionário cadastrado com sucesso");
-                }
-                else {
+                if (response.data.resposta == "SUCCESS") {
+                    dataService.abrirModalAcao('funcionário', 'inserido');
+                    dataService.voltarMenuAdminUsuario();
+                    $rootScope.getUsuarios();
+
+                } else {
                     alert("Ocorreu um erro ao cadastrar o funcionário, se persistirem os erros favor relatar ao suporte")
                 }
 
@@ -398,10 +423,11 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
                 url: ctx + '/Motorista.jsp?action=insert',
                 data: {"cpf": $("#form-incluir-usuario-cpf").cleanVal(), "nome": $("#form-incluir-usuario-nome").val(), "senha": $("#form-incluir-usuario-senha").val(), "tipo": "1", "cnh": $("#form-incluir-usuario-cnh").cleanVal(), "MOPP": $("#form-incluir-usuario-mopp").is(":checked"), "validadeMopp": $("#form-incluir-usuario-validade").val()}
             }).then(function successCallback(response) {
-                if(response.data.resposta == "SUCCESS") {
-                    alert("Motorista cadastrado com sucesso");
-                }
-                else {
+                if (response.data.resposta == "SUCCESS") {
+                    dataService.abrirModalAcao('motorista', 'inserido');
+                    dataService.voltarMenuAdminUsuario();
+                    $rootScope.getUsuarios();
+                } else {
                     alert("Ocorreu um erro ao cadastrar o motorista, se persistirem os erros favor relatar ao suporte")
                 }
 
@@ -413,7 +439,7 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
     };
 
 });
-app.controller("detalhesUsuarioAdminController", function ($scope, dataService, $http) {
+app.controller("detalhesUsuarioAdminController", function ($scope, dataService, $http, $rootScope) {
     $scope.cpfValido = true;
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminUsuario();
@@ -450,10 +476,11 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
                 url: ctx + '/Usuario.jsp?action=update&cpf=' + $("#form-detalhes-usuario-cpf").cleanVal(),
                 data: {"nome": $("#form-detalhes-usuario-nome").val(), "senha": $("#form-detalhes-usuario-senha").val()}
             }).then(function successCallback(response) {
-                if(response.data.resposta == "SUCCESS") {
-                    alert("Funcionário alterado com sucesso");
-                }
-                else {
+                if (response.data.resposta == "SUCCESS") {
+                    dataService.abrirModalAcao('motorista', 'editado');
+                    dataService.voltarMenuAdminUsuario();
+                    $rootScope.getUsuarios();
+                } else {
                     alert("Ocorreu um erro ao alterar o funcionário, se persistirem os erros favor relatar ao suporte")
                 }
 
@@ -466,10 +493,11 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
                 url: ctx + '/Motorista.jsp?action=update&cpf=' + $("#form-detalhes-usuario-cpf").cleanVal() + '&cnh=' + $("#form-detalhes-usuario-cnh").cleanVal(),
                 data: {"nome": $("#form-detalhes-usuario-nome").val(), "senha": $("#form-incluir-usuario-senha").val(), "MOPP": $("#form-detalhes-usuario-mopp").is(":checked"), "validadeMopp": $("#form-detalhes-usuario-validade").val()}
             }).then(function successCallback(response) {
-                if(response.data.resposta == "SUCCESS") {
-                    alert("Funcionário alterado com sucesso");
-                }
-                else {
+                if (response.data.resposta == "SUCCESS") {
+                    dataService.abrirModalAcao('motorista', 'editado');
+                    dataService.voltarMenuAdminUsuario();
+                    $rootScope.getUsuarios();
+                } else {
                     alert("Ocorreu um erro ao alterar o motorista, se persistirem os erros favor relatar ao suporte")
                 }
 
@@ -486,10 +514,11 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
                 method: 'POST',
                 url: ctx + '/Usuario.jsp?action=delete&cpf=' + $("#form-detalhes-usuario-cpf").cleanVal(),
             }).then(function successCallback(response) {
-                if(response.data.resposta == "SUCCESS") {
-                    alert("Funcionário removido com sucesso");
-                }
-                else {
+                if (response.data.resposta == "SUCCESS") {
+                    dataService.abrirModalAcao('funcionário', 'removido');
+                    dataService.voltarMenuAdminUsuario();
+                    $rootScope.getUsuarios();
+                } else {
                     alert("Ocorreu um erro ao remover o funcionário, se persistirem os erros favor relatar ao suporte")
                 }
 
@@ -501,10 +530,9 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
                 method: 'POST',
                 url: ctx + '/Motorista.jsp?action=delete&cpf=' + $("#form-detalhes-usuario-cpf").cleanVal(),
             }).then(function successCallback(response) {
-                if(response.data.resposta == "SUCCESS") {
-                    alert("Motorista removido com sucesso");
-                }
-                else {
+                if (response.data.resposta == "SUCCESS") {
+                    dataService.abrirModalAcao('motorista', 'removido');
+                } else {
                     alert("Ocorreu um erro ao remover o motorista, se persistirem os erros favor relatar ao suporte")
                 }
 
@@ -517,13 +545,13 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
 
 
 });
-app.controller("menuAdminVeiculoController", function ($scope, $http, $document) {
+app.controller("menuAdminVeiculoController", function ($scope, $http, $document, $rootScope) {
     $document.ready(function () {
-        getVeiculos();
-        $scope.getCapacitacao();
+        $rootScope.getVeiculos();
+        $rootScope.getCapacitacao();
     });
 
-    getVeiculos = function (pesquisarPor) {
+    $rootScope.getVeiculos = function (pesquisarPor) {
         $(".loader-veiculo").show();
         $("#alerta-exibicao-veiculo").hide();
         if (pesquisarPor == null)
@@ -550,7 +578,7 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document)
         });
     };
 
-    $scope.getCapacitacao = function () {
+    $rootScope.getCapacitacao = function () {
         $.ajax({
             type: 'POST',
             url: '../capacitacao.jsp?action=select',
@@ -611,7 +639,7 @@ app.controller("abasAdminController", function ($scope, dataService) {
         dataService.voltarMenuAdminViagem();
     };
 });
-app.controller("incluirVeiculoAdminController", function ($scope, dataService, $http) {
+app.controller("incluirVeiculoAdminController", function ($scope, dataService, $http, $rootScope) {
     $scope.voltarMenu = function () {
         $("#form-incluir-veiculo-placa").val("");
         $("#form-incluir-veiculo-marca").val("");
@@ -644,7 +672,10 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
             url: ctx + '/veiculo.jsp?action=insert',
             data: veiculo
         }).then(function successCallback(response) {
-            alert(response.data);
+            dataService.abrirModalAcao('usuário', 'inserido');
+            dataService.voltarMenuAdminVeiculo();
+            $rootScope.getVeiculo();
+            $rootScope.getCapacitacao();
         }, function errorCallback(response) {
             console.log('Error');
         });
@@ -668,7 +699,7 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
     };
 
 });
-app.controller("detalhesVeiculoAdminController", function ($scope, dataService, $http) {
+app.controller("detalhesVeiculoAdminController", function ($scope, dataService, $http, $rootScope) {
     $scope.placaValida = true;
 
     $scope.voltarMenu = function () {
@@ -705,37 +736,42 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
 
     $scope.deleteVeiculo = function () {
         $http({
-                method: 'POST',
-                url: ctx + '/veiculo.jsp?action=delete&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
-            }).then(function successCallback(response) {
-                if(response.data.resposta == "SUCCESS") {
-                    alert("Veiculo removido com sucesso");
-                }
-                else {
-                    alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte")
-                }
+            method: 'POST',
+            url: ctx + '/veiculo.jsp?action=delete&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
+        }).then(function successCallback(response) {
+            if (response.data.resposta == "SUCCESS") {
+                dataService.abrirModalAcao('veículo', 'removido');
+                dataService.voltarMenuAdminVeiculo();
+                $rootScope.getVeiculo();
+                $rootScope.getCapacitacao();
+            } else {
+                alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte")
+            }
 
-            }, function errorCallback(response) {
-                console.log('Error');
-            });
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
     };
 
     $scope.updateVeiculo = function () {
         $http({
-                method: 'POST',
-                url: ctx + '/veiculo.jsp?action=update&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
-                data: {"modelo" : $("#form-detalhes-veiculo-modelo").val, "marca" : $("#form-detalhes-veiculo-marca").val, "ano" : $("#form-detalhes-veiculo-ano").val, "eixos" : $("$form-detalhes-veiculo-eixo").val, "motoristaPreferencial" : $("#form-detalhes-veiculo-motoristaPreferencial").val()}
-            }).then(function successCallback(response) {
-                if(response.data.resposta == "SUCCESS") {
-                    alert("Veiculo removido com sucesso");
-                }
-                else {
-                    alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte")
-                }
+            method: 'POST',
+            url: ctx + '/veiculo.jsp?action=update&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
+            data: {"modelo": $("#form-detalhes-veiculo-modelo").val, "marca": $("#form-detalhes-veiculo-marca").val, "ano": $("#form-detalhes-veiculo-ano").val, "eixos": $("$form-detalhes-veiculo-eixo").val, "motoristaPreferencial": $("#form-detalhes-veiculo-motoristaPreferencial").val()}
+        }).then(function successCallback(response) {
+            if (response.data.resposta == "SUCCESS") {
+                dataService.abrirModalAcao('veículo', 'editado');
+                dataService.voltarMenuAdminVeiculo();
+                $rootScope.getVeiculo();
+                $rootScope.getCapacitacao();
 
-            }, function errorCallback(response) {
-                console.log('Error');
-            });
+            } else {
+                alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte")
+            }
+
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
     };
 });
 app.controller("viagemAdminController", function ($scope) {
