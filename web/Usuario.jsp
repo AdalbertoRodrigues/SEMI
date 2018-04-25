@@ -27,7 +27,7 @@
             Conexao con = new Conexao();
             if (!pesquisarPor.equals("") && !filtrarPor.equals("")) {
                 pesquisarPor = "'%" + pesquisarPor + "%'";
-                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ") AND cd_tipo_usuario = " + filtrarPor + ";").executeQuery();
+                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ") AND cd_tipo_usuario = " + filtrarPor + ";").executeQuery();
                 while (rs.next()) {
                     usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
                     if (rs.isLast()) {
@@ -43,7 +43,7 @@
                 out.println(json + "]}");
             } else if (!pesquisarPor.equals("")) {
                 pesquisarPor = "'%" + pesquisarPor + "%'";
-                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ");").executeQuery();
+                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2, (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ");").executeQuery();
                 while (rs.next()) {
                     usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
                     if (rs.isLast()) {
@@ -58,7 +58,7 @@
                 con.conexao.close();
                 out.println(json + "]}");
             } else if (filtrarPor.equals("") && pesquisarPor.equals("")) {
-                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO;").executeQuery();
+                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 ;").executeQuery();
                 while (rs.next()) {
                     usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
                     if (rs.isLast()) {
@@ -73,7 +73,7 @@
                 con.conexao.close();
                 out.println(json + "]}");
             } else if (!filtrarPor.equals("")) {
-                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario = " + filtrarPor + ";").executeQuery();
+                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND cd_tipo_usuario = " + filtrarPor + ";").executeQuery();
                 while (rs.next()) {
                     usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
                     if (rs.isLast()) {
@@ -102,7 +102,7 @@
 
             Conexao con = new Conexao();
 
-            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_cpf_usuario = " + request.getParameter("cpf")).executeQuery();
+            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND cd_cpf_usuario = " + request.getParameter("cpf")).executeQuery();
 
             while (rs.next()) {
                 usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
