@@ -77,6 +77,8 @@
         </div>
 
 
+
+
         <div class="container">
             <!-- SEÇÃO DE ADMIN USUÁRIO START -->
             <!-- ABA DE MANTER USUÁRIO -->
@@ -91,7 +93,7 @@
                 <div class="admin-exibicao-usuario">
                     <div class="row admin-exibicao-filtro-usuario">
                         <div class="form-group col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
-                            <input type="text" ng-model="pesquisarPor" ng-change="getUsuarios(pesquisarPor, filtrarPor)" ng-model-options="{debounce: 500}" class="form-control" id="form-admin-usuario-filtro" placeholder="Digite um NOME ou um CPF...">
+                            <input type="text" ng-model="pesquisarPor" ng-change="getUsuarios(pesquisarPor, filtrarPor)" ng-model-options="{debounce: 500}" class="form-control" id="form-admin-usuario-filtro" placeholder="Filtrar NOME ou CPF...">
                         </div>
                         <div class="form-group col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
                             <select ng-change="getUsuarios(pesquisarPor, filtrarPor)" ng-model="filtrarPor" class="form-control" id="form-admin-usuario-tipo">
@@ -107,7 +109,7 @@
                                 <tr>
                                     <th scope="col">NOME</th>
                                     <th scope="col">CPF</th>
-                                    <th scope="col">DETALHES</th>
+                                    <th scope="col">VER</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -119,7 +121,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <dir-pagination-controls max-size="10" boundary-links="true" pagination-id="usuario"></dir-pagination-controls>
+                    <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="usuario"></dir-pagination-controls>
                 </div>
                 <div class="loader-usuario" id="loader-tabela-usuario"></div>
                 <div class="alert alert-danger" id="alerta-exibicao-usuario" role="alert">{{erro_usuario}}</div>
@@ -278,7 +280,7 @@
                         <table class="table table-sm table-bordered table-striped" id="table-admin-veiculo">
                             <thead>
                                 <tr>
-                                    <th scope="col">MARCA/MODELO</th>
+                                    <th scope="col">MODELO</th>
                                     <th scope="col">PLACA</th>
                                     <th scope="col">DETALHES</th>
                                 </tr>
@@ -287,10 +289,11 @@
                                 <tr dir-paginate="veiculos in veiculos | itemsPerPage: 5" class="linha-tabela-admin">
                                     <td>{{veiculos.modelo}}</td>
                                     <td>{{veiculos.placa}}</td>
-                                    <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesVeiculo(veiculos)"><i class="fas fa-eye"></i></td>
+                                    <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesVeiculo(veiculos)" pagination-id="veiculo"><i class="fas fa-eye"></i></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="veiculo"></dir-pagination-controls>
                     </div>
                 </div>
                 <div class="loader-veiculo" id="loader-tabela-veiculo"></div>
@@ -928,6 +931,7 @@
         </div>
 
         <br><br>
+        <%@include file="../WEB-INF/jspf/modal_acoes.jspf"%>
         <%@include file="../WEB-INF/jspf/footer.jspf"%>
         <script>var ctx = "<%=request.getContextPath()%>"</script>
     </body>
