@@ -45,7 +45,7 @@
                 out.println(json + "]}");
             } else if (!pesquisarPor.equals("")) {
                 pesquisarPor = "'%" + pesquisarPor + "%'";
-                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM VEICULO WHERE LOWER(nm_marca_veiculo) LIKE LOWER (" + pesquisarPor + ") OR LOWER(nm_modelo_veiculo) LIKE LOWER (" + pesquisarPor + ");").executeQuery();
+                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM VEICULO WHERE (LOWER(nm_marca_veiculo) LIKE LOWER (" + pesquisarPor + ") OR LOWER(nm_modelo_veiculo) LIKE LOWER (" + pesquisarPor + ")) AND ic_desativado = 0;").executeQuery();
                 while (rs.next()) {
                     veiculo = new Veiculo(rs.getString("cd_placa_veiculo"), new Marca(rs.getString("nm_marca_veiculo")), rs.getString("nm_modelo_veiculo"), rs.getInt("aa_ano_veiculo"), rs.getString("cd_cnh_motorista_preferencial_veiculo"), rs.getInt("qt_eixos_veiculo"));
 

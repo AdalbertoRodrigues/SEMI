@@ -204,6 +204,8 @@ app.controller("loginController", function ($scope, dataService, $timeout, $http
                 $(".loader-login").hide();
             }, function errorCallback(response) {
                 alert('Erro ao se conectar com o servidor.');
+                $scope.erro_login = "Usuário inválido.";
+
             });
         } else if (dataService.testarCpf($("#form-login-cpf").cleanVal()) == false) {
             $("#form-login-cpf").addClass('error-input');
@@ -532,6 +534,8 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
             }).then(function successCallback(response) {
                 if (response.data.resposta == "SUCCESS") {
                     dataService.abrirModalAcao('motorista', 'removido');
+                    dataService.voltarMenuAdminUsuario();
+                    $rootScope.getUsuarios();
                 } else {
                     alert("Ocorreu um erro ao remover o motorista, se persistirem os erros favor relatar ao suporte")
                 }
@@ -696,7 +700,7 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
         }).then(function successCallback(response) {
             dataService.abrirModalAcao('veiculo', 'inserido');
             dataService.voltarMenuAdminVeiculo();
-            $rootScope.getVeiculo();
+            $rootScope.getVeiculos();
             $rootScope.getCapacitacao();
         }, function errorCallback(response) {
             console.log('Error');
@@ -765,7 +769,7 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
             if (response.data.resposta == "SUCCESS") {
                 dataService.abrirModalAcao('veículo', 'removido');
                 dataService.voltarMenuAdminVeiculo();
-                $rootScope.getVeiculo();
+                $rootScope.getVeiculos();
                 $rootScope.getCapacitacao();
             } else {
                 alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte")
@@ -906,8 +910,8 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
             });
         }
     });
-    
-    $rootScope.getIdCarga = function(){
+
+    $rootScope.getIdCarga = function () {
         var resultado;
         $.ajax({
             type: 'POST',
@@ -964,20 +968,20 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         $.ajax({
             type: 'POST',
             url: ctx + '/viagem.jsp?action=insert',
-            data: viagem            
+            data: viagem
         }).then(function successCallback(response) {
             dataService.abrirModalAcao('viagem', 'inserida');
         }, function errorCallback(response) {
             console.log('Error');
         });
-        
+
     };
 });
 app.controller("detalhesViagemAdminController", function ($scope, dataService, $http, $rootScope, $document) {
     $document.ready(function () {
         $scope.getTiposCarga();
     });
-    
+
     $scope.voltarMenu = function () {
         dataService.voltarMenuAdminViagem();
     };
@@ -996,7 +1000,7 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
             });
         }
     });
-    
+
     $scope.getTiposCarga = function () {
         $.ajax({
             type: 'POST',
@@ -1016,7 +1020,7 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
             }
         });
     };
-    
+
     $scope.deleteViagem = function () {
         $http({
             method: 'POST',

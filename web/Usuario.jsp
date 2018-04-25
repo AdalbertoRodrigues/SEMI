@@ -43,7 +43,7 @@
                 out.println(json + "]}");
             } else if (!pesquisarPor.equals("")) {
                 pesquisarPor = "'%" + pesquisarPor + "%'";
-                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2, (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ");").executeQuery();
+                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ");").executeQuery();
                 while (rs.next()) {
                     usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
                     if (rs.isLast()) {
