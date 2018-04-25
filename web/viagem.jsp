@@ -230,12 +230,12 @@
     } else if (action.equals("delete")) {
         try {
             Conexao con = new Conexao();
-            PreparedStatement psViagem = con.conexao.prepareStatement("DELETE FROM VIAGEM WHERE cd_id_viagem = " + request.getParameter("idViagem"));
-            psViagem.execute();
-            out.println("SUCCESS");
+            PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET ic_desativado_viagem = 1 WHERE  = '" + request.getParameter("placa") + "'");
+            ps.execute();
+            out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
             out.println("ERROR");
-            out.println(ex.getMessage());
+            out.println("{\"resposta\":\"ERROR\"}");
         }
     }
 
