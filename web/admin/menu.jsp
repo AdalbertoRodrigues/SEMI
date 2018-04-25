@@ -286,7 +286,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr dir-paginate="veiculos in veiculos | itemsPerPage: 5" class="linha-tabela-admin">
+                                <tr dir-paginate="veiculos in veiculos | itemsPerPage: 5" class="linha-tabela-admin" pagination-id="veiculo">
                                     <td>{{veiculos.modelo}}</td>
                                     <td>{{veiculos.placa}}</td>
                                     <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesVeiculo(veiculos)" pagination-id="veiculo"><i class="fas fa-eye"></i></td>
