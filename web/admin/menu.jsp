@@ -77,8 +77,6 @@
         </div>
 
 
-
-
         <div class="container">
             <!-- SEÇÃO DE ADMIN USUÁRIO START -->
             <!-- ABA DE MANTER USUÁRIO -->
@@ -410,47 +408,40 @@
                     <div class="row">
                         <div class="col-10">
                             Capacitações do veículo:<br><br>
-                            <ul class="list-group">
+                            <ul class="list-group" id="form-detalhes-veiculo-capacitacao">
                                 <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_a}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="detalhes_veiculo_capacitacao_a" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
-                                            Transporte de explosivos
+                                            <input id="form-detalhes-capacitacao-1" ng-model="detalhes_veiculo_capacitacao_1" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
+                                            Carga Comum
                                         </label>
                                     </div>
                                 </li>
                                 <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_b}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="detalhes_veiculo_capacitacao_b" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
-                                            Transporte de explosivos
+                                            <input id="form-detalhes-capacitacao-2" ng-model="detalhes_veiculo_capacitacao_2" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
+                                            Carga Perigosa
                                         </label>
                                     </div>
                                 </li>
                                 <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_c}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="detalhes_veiculo_capacitacao_c" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
-                                            Transporte de explosivos
+                                            <input id="form-detalhes-capacitacao-3" ng-model="detalhes_veiculo_capacitacao_3" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
+                                            Carga Liquida
                                         </label>
                                     </div>
                                 </li>
                                 <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_d}" class="item-lista-capacitacao">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input ng-model="detalhes_veiculo_capacitacao_d" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
-                                            Transporte de explosivos
+                                            <input id="form-detalhes-capacitacao-4" ng-model="detalhes_veiculo_capacitacao_4" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
+                                            Carga Liquida Perigosa
                                         </label>
                                     </div>
                                 </li>
-                                <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_e}" class="item-lista-capacitacao">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input ng-model="detalhes_veiculo_capacitacao_e" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
-                                            Transporte de explosivos
-                                        </label>
-                                    </div>
-                                </li>
+
                             </ul>
                         </div> 
                     </div>

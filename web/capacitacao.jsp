@@ -42,7 +42,7 @@ if(action.equals("select")) {
             out.println(ex.getMessage());
             ex.printStackTrace();
         }
-    }else if(action.equals("selectbyVeiculo")) {
+    }else if(action.equals("selectByVeiculo")) {
         try {
             Capacitacao capacitacao;
             String json = "{\"capacitacao\":[";
@@ -54,7 +54,7 @@ if(action.equals("select")) {
                     + "FROM CAPACITACAO, CAPACITACAO_VEICULO, VEICULO "
                     + "WHERE CAPACITACAO_VEICULO.cd_placa_veiculo = VEICULO.cd_placa_veiculo "
                     + "AND CAPACITACAO_VEICULO.cd_id_capacitacao = CAPACITACAO.cd_id_CAPACITACAO "
-                    + "AND CAPACITACAO_VEICULO.cd_placa_veiculo = '" + request.getParameter("placaVeiculo") + "'").executeQuery();
+                    + "AND CAPACITACAO_VEICULO.cd_placa_veiculo = '" + request.getParameter("placa") + "'").executeQuery();
             
             while(rs.next()) {
                 capacitacao = new Capacitacao(rs.getInt("CAPACITACAO.cd_id_capacitacao"), rs.getString("nm_tipo_capacitacao"));
