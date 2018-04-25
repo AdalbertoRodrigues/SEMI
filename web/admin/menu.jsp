@@ -467,21 +467,24 @@
                 <table class="table table-sm table-bordered table-striped" id="table-admin-viagem">
                     <thead>
                         <tr>
-                            <th width="3%" scope="col">ID</th>
-                            <th scope="col">ENDEREÇO CHEGADA</th>
-                            <th scope="col">MERCADORIA</th>
+                            <th width="3%" scope="col">PARTIDA</th>
+                            <th width="3%" scope="col">DESTINO</th>
+                            <th scope="col">STATUS</th>
                             <th width="10%" scope="col">DETALHES</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="linha-tabela-admin">
-                            <td>1234</td>
-                            <td>Santos/SP</td>
-                            <td>Laranja</td>
-                            <td ng-click='mostrarDetalhesViagem()' class="col-admin-detalhes"><i class="fas fa-eye"></i></td>
+                        <tr dir-paginate="viagens in viagens | itemsPerPage: 5" class="linha-tabela-admin" pagination-id="viagem">
+                            <td width="25%">{{viagens.partida.cidade}}/{{viagens.partida.estado}}</td>
+                            <td width="25%">{{viagens.destino.cidade}}/{{viagens.destino.estado}}</td>
+                            <td width="25%">{{viagens.status}}</td>
+                            <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesViagem(viagens)"><i class="fas fa-eye"></i></td>
                         </tr>
                     </tbody>
                 </table>
+                <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="viagem"></dir-pagination-controls>
+                <div class="loader-viagem" id="loader-tabela-viagem"></div>
+                <div class="alert alert-danger" id="alerta-exibicao-viagem" role="alert">{{erro - viagem}}</div>
             </div>
 
             <!-- SEÇÃO ADMIN - INCLUIR VIAGEM -->

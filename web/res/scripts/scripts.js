@@ -624,29 +624,29 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document,
         $("#form-detalhes-veiculo-eixo").val(veiculo.qtdEixos);
         $("#form-detalhes-veiculo-placa").val(veiculo.placa).trigger('input');
         $("#form-detalhes-veiculo-motoristaPreferencial").val(veiculo.cnhMotoristaPreferencial);
-        
-        
-        $http({
-                method: 'GET',
-                url: ctx + '/capacitacao.jsp?action=selectByVeiculo&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
-            }).then(function successCallback(response) {
-                    $scope.capacitacaoAtual = response.data.capacitacao;
-                   for(i = 0; i < $scope.capacitacaoAtual.length; i++) {
-                        if($scope.capacitacaoAtual[i].id == 1)
-                            $("#form-detalhes-capacitacao-1").prop("checked", true);
-                        if($scope.capacitacaoAtual[i].id == 2)
-                            $("#form-detalhes-capacitacao-2").prop("checked", true);
-                        if($scope.capacitacaoAtual[i].id == 3)
-                            $("#form-detalhes-capacitacao-3").prop("checked", true);
-                        if($scope.capacitacaoAtual[i].id == 4)
-                            $("#form-detalhes-capacitacao-4").prop("checked", true);
-                   } 
 
-            }, function errorCallback(response) {
-                console.log('Error');
-            });
-        
-        
+
+        $http({
+            method: 'GET',
+            url: ctx + '/capacitacao.jsp?action=selectByVeiculo&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
+        }).then(function successCallback(response) {
+            $scope.capacitacaoAtual = response.data.capacitacao;
+            for (i = 0; i < $scope.capacitacaoAtual.length; i++) {
+                if ($scope.capacitacaoAtual[i].id == 1)
+                    $("#form-detalhes-capacitacao-1").prop("checked", true);
+                if ($scope.capacitacaoAtual[i].id == 2)
+                    $("#form-detalhes-capacitacao-2").prop("checked", true);
+                if ($scope.capacitacaoAtual[i].id == 3)
+                    $("#form-detalhes-capacitacao-3").prop("checked", true);
+                if ($scope.capacitacaoAtual[i].id == 4)
+                    $("#form-detalhes-capacitacao-4").prop("checked", true);
+            }
+
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
+
+
 
     };
 });
@@ -780,7 +780,7 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
         $http({
             method: 'POST',
             url: ctx + '/veiculo.jsp?action=update&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
-            data: {"modelo": $("#form-detalhes-veiculo-modelo").val(), "marca": $("#form-detalhes-veiculo-marca").val(), "ano": $("#form-detalhes-veiculo-ano").val(), "eixos": $("#form-detalhes-veiculo-eixo").val(), "motoristaPreferencial": $("#form-detalhes-veiculo-motoristaPreferencial").val(), "capacitacao1" : $("#form-detalhes-capacitacao-1").is("checked"), "capacitacao2" : $("#form-detalhes-capacitacao-2").is("checked"), "capacitacao3" : $("#form-detalhes-capacitacao-3").is("checked"), "capacitacao4" : $("#form-detalhes-capacitacao-4").is("checked")}
+            data: {"modelo": $("#form-detalhes-veiculo-modelo").val(), "marca": $("#form-detalhes-veiculo-marca").val(), "ano": $("#form-detalhes-veiculo-ano").val(), "eixos": $("#form-detalhes-veiculo-eixo").val(), "motoristaPreferencial": $("#form-detalhes-veiculo-motoristaPreferencial").val(), "capacitacao1": $("#form-detalhes-capacitacao-1").is("checked"), "capacitacao2": $("#form-detalhes-capacitacao-2").is("checked"), "capacitacao3": $("#form-detalhes-capacitacao-3").is("checked"), "capacitacao4": $("#form-detalhes-capacitacao-4").is("checked")}
         }).then(function successCallback(response) {
             if (response.data.resposta == "SUCCESS") {
                 dataService.abrirModalAcao('veículo', 'editado');
@@ -797,9 +797,10 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
         });
     };
 });
-app.controller("viagemAdminController", function ($scope, $rootScope, $document) {
+app.controller("viagemAdminController", function ($scope, $rootScope, $document, $http) {
     $document.ready(function () {
         $rootScope.getTiposCarga();
+        $rootScope.getViagens();
     });
     $scope.mostrarIncluirViagem = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
@@ -811,7 +812,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document)
             });
         });
     };
-    $scope.mostrarDetalhesViagem = function () {
+    $scope.mostrarDetalhesViagem = function (viagem) {
         ativa = $(".body-admin-menu").find(".secao-ativa");
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
             ativa.removeClass('secao-ativa');
@@ -820,10 +821,53 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document)
                 $(".secao-admin-viagem-detalhes").removeClass('animated fadeInRight');
             });
         });
+        alert(viagem.partida.rua);
+        $("#form-detalhes-viagem-cep-partida").val(viagem.partida.cep).trigger('input');
+        $("#form-detalhes-viagem-rua-partida").val(viagem.partida.rua).trigger('input');
+        $("#form-detalhes-viagem-rua-numero-partida").val(viagem.partida.numero).trigger('input');
+        $("#form-detalhes-viagem-rua-complemento-partida").val(viagem.partida.complemento).trigger('input');
+        $("#form-detalhes-viagem-pais-partida").val(viagem.partida.pais).trigger('input');
+        $("#form-detalhes-viagem-estado-partida").val(viagem.partida.estado).trigger('input');
+        $("#form-detalhes-viagem-cidade-partida").val(viagem.partida.cidade).trigger('input');
+
+        $("#form-detalhes-viagem-cep-destino").val(viagem.destino.cep).trigger('input');
+        $("#form-detalhes-viagem-rua-destino").val(viagem.destino.rua).trigger('input');
+        $("#form-detalhes-viagem-rua-numero-destino").val(viagem.destino.numero).trigger('input');
+        $("#form-detalhes-viagem-cidade-destino").val(viagem.destino.cidade).trigger('input');
+        $("#form-detalhes-viagem-rua-complemento-destino").val(viagem.destino.complemento).trigger('input');
+        $("#form-detalhes-viagem-pais-destino").val(viagem.destino.pais).trigger('input');
+        $("#form-detalhes-viagem-estado-destino").val(viagem.destino.estado).trigger('input');
+
     };
-    
-    
-    $rootScope.getTiposCarga = function(){
+
+    $rootScope.getViagens = function () {
+        $(".loader-viagem").show();
+        $("#alerta-exibicao-viagem").hide();
+
+        $http({
+            method: 'GET',
+            url: ctx + '/viagem.jsp?action=select'
+        }).then(function successCallback(response) {
+
+            $scope.viagens = response.data.viagens;
+            $(".loader-viagem").hide();
+            $("#form-admin-veiculo-filtro").focus();
+            $(".admin-exibicao-veiculo").show();
+
+            if ($scope.viagens.length == 0) {
+                $scope.erro_viagem = 'Nenhum veículo encontrado com o respectivo filtro!';
+                $("#alerta-exibicao-veiculo").show();
+            }
+
+        }, function errorCallback(response) {
+            $(".loader-veiculo").hide();
+            $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados dos veículos. Atualize a página e, se o erro persistir, contate o suporte.';
+            $("#alerta-exibicao-veiculo").show();
+        });
+    }
+
+
+    $rootScope.getTiposCarga = function () {
         $.ajax({
             type: 'POST',
             url: '../capacitacao.jsp?action=select',
@@ -835,7 +879,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document)
 
                     for (var i = 0; i < val.length; i++) {
                         var tipoCarga = val[i];
-                        buffer += "<option value=\""+ tipoCarga.categoria +"\">"+ tipoCarga.categoria +"</option>";
+                        buffer += "<option value=\"" + tipoCarga.categoria + "\">" + tipoCarga.categoria + "</option>";
                     }
                     $("#form-incluir-viagem-tipo").html(buffer);
                 });
@@ -881,7 +925,7 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         //Inserindo Carga
         var carga = {
             "tipocarga": $("#form-incluir-viagem-tipo").val(),
-            "pesocarga": ($("#form-detalhes-viagem-peso").val())*($("#form-incluir-viagem-tpeso").val()),
+            "pesocarga": ($("#form-detalhes-viagem-peso").val()) * ($("#form-incluir-viagem-tpeso").val()),
             "alturacarga": $("#form-incluir-viagem-altura").val(),
             "larguracarga": $("#form-incluir-viagem-largura").val(),
             "comprimentocarga": $("#form-incluir-viagem-comprimento").val(),
