@@ -64,16 +64,15 @@
             int idDestino = 0;
             Conexao con = new Conexao();
 
-            PreparedStatement psEnderecoPartida = con.conexao.prepareStatement("INSERT INTO ENDERECO VALUES(DEFAULT,?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement psEnderecoPartida = con.conexao.prepareStatement("INSERT INTO ENDERECO VALUES(DEFAULT,?, ?, ?, ?, ?, ?, ?, ?)");
             psEnderecoPartida.setString(1, request.getParameter("cepPartida"));
             psEnderecoPartida.setInt(2, Integer.parseInt(request.getParameter("numeroPartida")));
             psEnderecoPartida.setString(3, request.getParameter("ruaPartida"));
-            psEnderecoPartida.setString(4, request.getParameter("bairroPartida"));
-            psEnderecoPartida.setString(5, request.getParameter("cidadePartida"));
-            psEnderecoPartida.setString(6, request.getParameter("estadoPartida"));
-            psEnderecoPartida.setString(7, request.getParameter("paisPartida"));
-            psEnderecoPartida.setString(8, request.getParameter("complementoPartida"));
-            psEnderecoPartida.setString(9, request.getParameter("pontoReferenciaPartida"));
+            psEnderecoPartida.setString(4, request.getParameter("cidadePartida"));
+            psEnderecoPartida.setString(5, request.getParameter("estadoPartida"));
+            psEnderecoPartida.setString(6, request.getParameter("paisPartida"));
+            psEnderecoPartida.setString(7, request.getParameter("complementoPartida"));
+            psEnderecoPartida.setString(8, request.getParameter("pontoReferenciaPartida"));
             psEnderecoPartida.execute();
             psEnderecoPartida.close();
 
@@ -88,16 +87,15 @@
                 out.println(ex.getMessage());
             }
 
-            PreparedStatement psEnderecoDestino = con.conexao.prepareStatement("INSERT INTO ENDERECO VALUES(DEFAULT,?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement psEnderecoDestino = con.conexao.prepareStatement("INSERT INTO ENDERECO VALUES(DEFAULT,?, ?, ?, ?, ?, ?, ?, ?)");
             psEnderecoDestino.setString(1, request.getParameter("cepDestino"));
             psEnderecoDestino.setInt(2, Integer.parseInt(request.getParameter("numeroDestino")));
             psEnderecoDestino.setString(3, request.getParameter("ruaDestino"));
-            psEnderecoDestino.setString(4, request.getParameter("bairroDestino"));
-            psEnderecoDestino.setString(5, request.getParameter("cidadeDestino"));
-            psEnderecoDestino.setString(6, request.getParameter("estadoDestino"));
-            psEnderecoDestino.setString(7, request.getParameter("paisDestino"));
-            psEnderecoDestino.setString(8, request.getParameter("complementoDestino"));
-            psEnderecoDestino.setString(9, request.getParameter("pontoReferenciaDestino"));
+            psEnderecoDestino.setString(4, request.getParameter("cidadeDestino"));
+            psEnderecoDestino.setString(5, request.getParameter("estadoDestino"));
+            psEnderecoDestino.setString(6, request.getParameter("paisDestino"));
+            psEnderecoDestino.setString(7, request.getParameter("complementoDestino"));
+            psEnderecoDestino.setString(8, request.getParameter("pontoReferenciaDestino"));
             psEnderecoDestino.execute();
             psEnderecoDestino.close();
 
@@ -174,9 +172,11 @@
     } else if (action.equals("updateCep")) {
         try {
             Conexao con = new Conexao();
-            PreparedStatement ps = con.conexao.prepareStatement("UPDATE ENDERECO SET cd_cep_endereco = ?, nm_rua_endereco = ?, nm_bairro_endereco = ?"
+            PreparedStatement ps = con.conexao.prepareStatement("UPDATE ENDERECO SET cd_cep_endereco = ?, nm_rua_endereco = ?, "
                     + "nm_cidade_endereco = ? WHERE cd_id_endereco =" + request.getParameter("idEndereco"));
             ps.setString(1, request.getParameter("updateCepPartida"));
+            ps.setString(2, request.getParameter("updateRuaPartida"));
+            ps.setString(3, request.getParameter("updateCidadePartida"));
             ps.execute();
             out.println("SUCCESS");
         } catch (Exception ex) {
