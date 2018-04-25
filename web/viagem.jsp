@@ -63,23 +63,24 @@
             int idPartida = 0;
             int idDestino = 0;
             Conexao con = new Conexao();
-
+            
+                       
             PreparedStatement psEnderecoPartida = con.conexao.prepareStatement("INSERT INTO ENDERECO VALUES(DEFAULT,?, ?, ?, ?, ?, ?, ?, ?)");
-            psEnderecoPartida.setString(1, request.getParameter("cepPartida"));
-            psEnderecoPartida.setInt(2, Integer.parseInt(request.getParameter("numeroPartida")));
-            psEnderecoPartida.setString(3, request.getParameter("ruaPartida"));
-            psEnderecoPartida.setString(4, request.getParameter("cidadePartida"));
-            psEnderecoPartida.setString(5, request.getParameter("estadoPartida"));
-            psEnderecoPartida.setString(6, request.getParameter("paisPartida"));
-            psEnderecoPartida.setString(7, request.getParameter("complementoPartida"));
-            psEnderecoPartida.setString(8, request.getParameter("pontoReferenciaPartida"));
+            psEnderecoPartida.setString(1, request.getParameter("enderecoCepPartida"));
+            psEnderecoPartida.setInt(2, Integer.parseInt(request.getParameter("enderecoNumeroPartida")));
+            psEnderecoPartida.setString(3, request.getParameter("enderecoRuaPartida"));
+            psEnderecoPartida.setString(4, request.getParameter("enderecoCidadePartida"));
+            psEnderecoPartida.setString(5, request.getParameter("enderecoEstadoPartida"));
+            psEnderecoPartida.setString(6, request.getParameter("enderecoPaisPartida"));
+            psEnderecoPartida.setString(7, request.getParameter("enderecoComplementoPartida"));
+            psEnderecoPartida.setString(8, request.getParameter("enderecoPontoReferenciaPartida"));
             psEnderecoPartida.execute();
             psEnderecoPartida.close();
 
             try {
                 ResultSet rsPartida = con.conexao.prepareStatement("SELECT cd_id_endereco FROM ENDERECO"
-                        + " WHERE cd_cep_endereco = '" + request.getParameter("cepPartida")
-                        + "' AND cd_numero_endereco = " + Integer.parseInt(request.getParameter("numeroPartida"))).executeQuery();
+                        + " WHERE cd_cep_endereco = '" + request.getParameter("enderecoCepPartida")
+                        + "' AND cd_numero_endereco = " + Integer.parseInt(request.getParameter("enderecoNumeroPartida"))).executeQuery();
                 while (rsPartida.next()) {
                     idPartida = rsPartida.getInt("cd_id_endereco");
                 }
@@ -88,21 +89,21 @@
             }
 
             PreparedStatement psEnderecoDestino = con.conexao.prepareStatement("INSERT INTO ENDERECO VALUES(DEFAULT,?, ?, ?, ?, ?, ?, ?, ?)");
-            psEnderecoDestino.setString(1, request.getParameter("cepDestino"));
-            psEnderecoDestino.setInt(2, Integer.parseInt(request.getParameter("numeroDestino")));
-            psEnderecoDestino.setString(3, request.getParameter("ruaDestino"));
-            psEnderecoDestino.setString(4, request.getParameter("cidadeDestino"));
-            psEnderecoDestino.setString(5, request.getParameter("estadoDestino"));
-            psEnderecoDestino.setString(6, request.getParameter("paisDestino"));
-            psEnderecoDestino.setString(7, request.getParameter("complementoDestino"));
-            psEnderecoDestino.setString(8, request.getParameter("pontoReferenciaDestino"));
+            psEnderecoDestino.setString(1, request.getParameter("enderecoCepDestino"));
+            psEnderecoDestino.setInt(2, Integer.parseInt(request.getParameter("enderecoNumeroDestino")));
+            psEnderecoDestino.setString(3, request.getParameter("enderecoRuaDestino"));
+            psEnderecoDestino.setString(4, request.getParameter("enderecoCidadeDestino"));
+            psEnderecoDestino.setString(5, request.getParameter("enderecoEstadoDestino"));
+            psEnderecoDestino.setString(6, request.getParameter("enderecoPaisDestino"));
+            psEnderecoDestino.setString(7, request.getParameter("enderecoComplementoDestino"));
+            psEnderecoDestino.setString(8, request.getParameter("enderecoPontoReferenciaDestino"));
             psEnderecoDestino.execute();
             psEnderecoDestino.close();
 
             try {
                 ResultSet rsDestino = con.conexao.prepareStatement("SELECT cd_id_endereco FROM ENDERECO"
-                        + " WHERE cd_cep_endereco = '" + request.getParameter("cepDestino")
-                        + "' AND cd_numero_endereco = " + Integer.parseInt(request.getParameter("numeroDestino"))).executeQuery();
+                        + " WHERE cd_cep_endereco = '" + request.getParameter("enderecoCepDestino")
+                        + "' AND cd_numero_endereco = " + Integer.parseInt(request.getParameter("enderecoNumeroDestino"))).executeQuery();
                 while (rsDestino.next()) {
                     idDestino = rsDestino.getInt("cd_id_endereco");
                 }

@@ -651,7 +651,7 @@
                             </div>
                             <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label for="form-incluir-viagem-estado-destino" class="col-form-label-sm">Distrito: </label>
-                                <input type="text" class="form-control form-control-sm" id="form-incluir-viagem-cidade-destino" value="">
+                                <input type="text" class="form-control form-control-sm" id="form-incluir-viagem-estado-destino" value="">
                             </div>
                             <div class="form-group col-1 col-sm-1">
                                 &nbsp;

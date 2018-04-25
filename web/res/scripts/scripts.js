@@ -944,32 +944,28 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         var viagem = {
             "prazo": $("#form-incluir-viagem-prazo").val(),
             "status": "Em Espera",
-            "carga": $rootScope.getIdCarga()
-        };
-        var enderecoPartida = {
-            "cepPartida": $("#form-incluir-viagem-cep-partida").val(),
-            "numeroPartida": $("#form-incluir-viagem-rua-numero-partida").val(),
-            "ruaPartida": $("#form-incluir-viagem-rua-partida").val(),
-            "cidadePartida": $("#form-incluir-viagem-cidade-partida").val(),
-            "estadoPartida": $("#form-incluir-viagem-estado-partida").val(),
-            "paisPartida": $("#form-incluir-viagem-pais-partida").val(),
-            "complementoPartida": $("#form-incluir-viagem-rua-complemento-partida").val(),
-            "pontoReferenciaPartida": "-"
-        };
-        var enderecoDestino = {
-            "cepDestino": $("#form-incluir-viagem-cep-destino").val(),
-            "numeroDestino": $("#form-incluir-viagem-rua-numero-destino").val(),
-            "ruaDestino": $("#form-incluir-viagem-rua-destino").val(),
-            "cidadeDestino": $("#form-incluir-viagem-cidade-destino").val(),
-            "estadoDestino": $("#form-incluir-viagem-estado-destino").val(),
-            "paisDestino": $("#form-incluir-viagem-pais-destino").val(),
-            "complementoDestino": $("#form-incluir-viagem-rua-complemento-destino").val(),
-            "pontoReferenciaDestino": "-"
+            "carga": $rootScope.getIdCarga(),
+            "enderecoCepPartida": $("#form-incluir-viagem-cep-partida").val(),
+            "enderecoNumeroPartida": $("#form-incluir-viagem-rua-numero-partida").val(),
+            "enderecoRuaPartida": $("#form-incluir-viagem-rua-partida").val(),
+            "enderecoCidadePartida": $("#form-incluir-viagem-cidade-partida").val(),
+            "enderecoEstadoPartida": $("#form-incluir-viagem-estado-partida").val(),
+            "enderecoPaisPartida": $("#form-incluir-viagem-pais-partida").val(),
+            "enderecoComplementoPartida": "-" + $("#form-incluir-viagem-rua-complemento-partida").val(),
+            "enderecoPontoReferenciaPartida": "-",
+            "enderecoCepDestino": $("#form-incluir-viagem-cep-destino").val(),
+            "enderecoNumeroDestino": $("#form-incluir-viagem-rua-numero-destino").val(),
+            "enderecoRuaDestino": $("#form-incluir-viagem-rua-destino").val(),
+            "enderecoCidadeDestino": $("#form-incluir-viagem-cidade-destino").val(),
+            "enderecoEstadoDestino": $("#form-incluir-viagem-estado-destino").val(),
+            "enderecoPaisDestino": $("#form-incluir-viagem-pais-destino").val(),
+            "enderecoComplementoDestino": "-" + $("#form-incluir-viagem-rua-complemento-destino").val(),
+            "enderecoPontoReferenciaDestino": "-"
         };
         $.ajax({
             type: 'POST',
             url: ctx + '/viagem.jsp?action=insert',
-            data: {viagem, enderecoPartida, enderecoDestino}
+            data: viagem
         }).then(function successCallback(response) {
             alert(response.data);
         }, function errorCallback(response) {
