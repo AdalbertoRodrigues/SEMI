@@ -864,10 +864,21 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         }
     });
     
-    
-
+    $rootScope.getIdCarga = function(){
+        var resultado;
+        $.ajax({
+            type: 'POST',
+            url: '../carga.jsp?action=selectID',
+            async: false,
+            success: function (result) {
+                resultado = result;
+            }
+        });
+        return resultado;
+    };
 
     $scope.insertViagem = function () {
+        //Inserindo Carga
         var carga = {
             "tipocarga": $("#form-incluir-viagem-tipo").val(),
             "pesocarga": ($("#form-detalhes-viagem-peso").val())*($("#form-incluir-viagem-tpeso").val()),
@@ -875,31 +886,6 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
             "larguracarga": $("#form-incluir-viagem-largura").val(),
             "comprimentocarga": $("#form-incluir-viagem-comprimento").val(),
             "conteudo": $("#form-incluir-viagem-conteudo").val()
-        };
-        var viagem = {
-            "prazo": $("#").val(),
-            "status": "Em Espera",
-            "carga": $("#").val()
-        };
-        var enderecoPartida = {
-            "cepPartida": $("#").val(),
-            "numeroPartida": $("#").val(),
-            "ruaPartida": $("#").val(),
-            "cidadePartida": $("#").val(),
-            "estadoPartida": $("#").val(),
-            "paisPartida": $("#").val(),
-            "complementoPartida": $("#").val(),
-            "pontoReferenciaPartida": $("#").val()
-        };
-        var enderecoDestino = {
-            "cepDestino": $("#").val(),
-            "numeroDestino": $("#").val(),
-            "ruaDestino": $("#").val(),
-            "cidadeDestino": $("#").val(),
-            "estadoDestino": $("#").val(),
-            "paisDestino": $("#").val(),
-            "complementoDestino": $("#").val(),
-            "pontoReferenciaDestino": $("#").val()
         };
         $.ajax({
             type: 'POST',
@@ -910,6 +896,32 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         }, function errorCallback(response) {
             console.log('Error');
         });
+        //Inserindo Viagem e Endereço
+        var viagem = {
+            "prazo": $("#form-incluir-viagem-prazo").val(),
+            "status": "Em Espera",
+            "carga": $rootScope.getIdCarga()
+        };
+        var enderecoPartida = {
+            "cepPartida": $("#form-incluir-viagem-cep-partida").val(),
+            "numeroPartida": $("#form-incluir-viagem-rua-numero-partida").val(),
+            "ruaPartida": $("#form-incluir-viagem-rua-partida").val(),
+            "cidadePartida": $("#form-incluir-viagem-cidade-partida").val(),
+            "estadoPartida": $("#form-incluir-viagem-estado-partida").val(),
+            "paisPartida": $("#form-incluir-viagem-pais-partida").val(),
+            "complementoPartida": $("#form-incluir-viagem-rua-complemento-partida").val(),
+            "pontoReferenciaPartida": "-"
+        };
+        var enderecoDestino = {
+            "cepDestino": $("#form-incluir-viagem-cep-destino").val(),
+            "numeroDestino": $("#form-incluir-viagem-rua-numero-destino").val(),
+            "ruaDestino": $("#form-incluir-viagem-rua-destino").val(),
+            "cidadeDestino": $("#form-incluir-viagem-cidade-destino").val(),
+            "estadoDestino": $("#form-incluir-viagem-estado-destino").val(),
+            "paisDestino": $("#form-incluir-viagem-pais-destino").val(),
+            "complementoDestino": $("#form-incluir-viagem-rua-complemento-destino").val(),
+            "pontoReferenciaDestino": "-"
+        };
         $.ajax({
             type: 'POST',
             url: ctx + '/viagem.jsp?action=insert',
@@ -919,7 +931,7 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         }, function errorCallback(response) {
             console.log('Error');
         });
-
+        
     };
 });
 app.controller("detalhesViagemAdminController", function ($scope, dataService, $http) {
