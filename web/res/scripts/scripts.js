@@ -624,7 +624,29 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document,
         $("#form-detalhes-veiculo-eixo").val(veiculo.qtdEixos);
         $("#form-detalhes-veiculo-placa").val(veiculo.placa).trigger('input');
         $("#form-detalhes-veiculo-motoristaPreferencial").val(veiculo.cnhMotoristaPreferencial);
+        
+        
+        $http({
+                method: 'GET',
+                url: ctx + '/capacitacao.jsp?action=selectByVeiculo&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
+            }).then(function successCallback(response) {
+                    $scope.capacitacaoAtual = response.data.capacitacao;
+                   for(i = 0; i < $scope.capacitacaoAtual.length; i++) {
+                        if($scope.capacitacaoAtual[i].id == 1)
+                            $("#form-detalhes-capacitacao-1").prop("checked", true);
+                        if($scope.capacitacaoAtual[i].id == 2)
+                            $("#form-detalhes-capacitacao-2").prop("checked", true);
+                        if($scope.capacitacaoAtual[i].id == 3)
+                            $("#form-detalhes-capacitacao-3").prop("checked", true);
+                        if($scope.capacitacaoAtual[i].id == 4)
+                            $("#form-detalhes-capacitacao-4").prop("checked", true);
+                   } 
 
+            }, function errorCallback(response) {
+                console.log('Error');
+            });
+        
+        
 
     };
 });
@@ -724,8 +746,9 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
         $scope.detalhes_veiculo_modelo = $("#form-detalhes-veiculo-modelo").val();
         $scope.detalhes_veiculo_marca = $("#form-detalhes-veiculo-marca").val();
         $scope.detalhes_veiculo_ano = $("#form-detalhes-veiculo-ano").val();
-        $scope.detalhes_veiculo_eixos = $("#form-detalhes-veiculo-eixos").val();
-        $scope.detalhes_veiculo_motorista = $("#form-detalhes-veiculo-motorista").val();
+        $scope.detalhes_veiculo_eixos = $("#form-detalhes-veiculo-eixo").val();
+        $scope.detalhes_veiculo_motorista = $("#form-detalhes-veiculo-motoristaPreferencial").val();
+        $scope.detalhes_veiculo_placa = $("#form-detalhes-veiculo-placa").val();
 
         if ($scope.detalhes_veiculo_modelo == '' || $scope.detalhes_veiculo_marca == '' || $scope.detalhes_veiculo_placa == '' || $scope.detalhes_veiculo_ano == '' || $scope.detalhes_veiculo_eixos == '' || $scope.placaValida == false || $scope.detalhes_veiculo_placa.length < 8) {
             $("#btn-admin-alterar-veiculo").addClass('btn-admin-alterar-usuario-disabled').removeClass('btn-admin-alterar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
@@ -757,7 +780,7 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
         $http({
             method: 'POST',
             url: ctx + '/veiculo.jsp?action=update&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
-            data: {"modelo": $("#form-detalhes-veiculo-modelo").val, "marca": $("#form-detalhes-veiculo-marca").val, "ano": $("#form-detalhes-veiculo-ano").val, "eixos": $("$form-detalhes-veiculo-eixo").val, "motoristaPreferencial": $("#form-detalhes-veiculo-motoristaPreferencial").val()}
+            data: {"modelo": $("#form-detalhes-veiculo-modelo").val(), "marca": $("#form-detalhes-veiculo-marca").val(), "ano": $("#form-detalhes-veiculo-ano").val(), "eixos": $("#form-detalhes-veiculo-eixo").val(), "motoristaPreferencial": $("#form-detalhes-veiculo-motoristaPreferencial").val(), "capacitacao1" : $("#form-detalhes-capacitacao-1").is("checked"), "capacitacao2" : $("#form-detalhes-capacitacao-2").is("checked"), "capacitacao3" : $("#form-detalhes-capacitacao-3").is("checked"), "capacitacao4" : $("#form-detalhes-capacitacao-4").is("checked")}
         }).then(function successCallback(response) {
             if (response.data.resposta == "SUCCESS") {
                 dataService.abrirModalAcao('veículo', 'editado');

@@ -18,7 +18,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">Ok</button>
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
             </div>
         </div>
     </div>
