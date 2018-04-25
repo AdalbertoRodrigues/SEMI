@@ -78,7 +78,32 @@
         }
         
        
+    }if(action.equals("selectID")) {
+       try {
+            int idCarga = 0;
+            String json = "{\"Cargas\":[";
+            String atual = "";
+            
+            Conexao con = new Conexao();
+
+            ResultSet rs = con.conexao.prepareStatement("SELECT cd_id_carga FROM CARGA").executeQuery();
+        
+            while(rs.next()) {
+                idCarga = rs.getInt("cd_id_carga");
+            }
+            
+            con.conexao.close();
+            out.println(idCarga);
+            
+        }
+        catch(Exception ex) {
+            out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        
+       
     }
+    
     else if(action.equals("insert")) {
        try {
            Conexao con = new Conexao();

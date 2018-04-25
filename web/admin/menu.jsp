@@ -591,9 +591,9 @@
                             <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <label for="form-incluir-viagem-pais-partida" class="col-form-label-sm">País: </label>
                                 <select class="form-control" id="form-incluir-viagem-pais-partida">
-                                    <option>P1</option>
-                                    <option>P2</option>
-                                    <option>Pn</option>
+                                    <option value="Brasil">Brasil</option>
+                                    <option value="Paraguai">Paraguai</option>
+                                    <option value="Argentina">Argentina</option>
                                 </select>
                             </div>
                             <div class="form-group col-1 col-sm-1">
@@ -601,22 +601,14 @@
                             </div>
                             <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label for="form-incluir-viagem-estado-partida" class="col-form-label-sm">Distrito: </label>
-                                <select class="form-control" id="form-incluir-viagem-estado-partida">
-                                    <option>E1</option>
-                                    <option>E2</option>
-                                    <option>En</option>
-                                </select>
+                                <input type="text" class="form-control form-control-sm" id="form-incluir-viagem-estado-partida" value="">
                             </div>
                             <div class="form-group col-1 col-sm-1">
                                 &nbsp;
                             </div>
                             <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <label for="form-incluir-viagem-cidade-partida" class="col-form-label-sm">Cidade: </label>
-                                <select class="form-control" id="form-incluir-viagem-cidade-partida">
-                                    <option>C1</option>
-                                    <option>C2</option>
-                                    <option>Cn</option>
-                                </select>
+                                <input type="text" class="form-control form-control-sm" id="form-incluir-viagem-cidade-partida" value="">
                             </div>
                         </div>
                     </div>
@@ -649,9 +641,9 @@
                             <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <label for="form-incluir-viagem-pais-destino" class="col-form-label-sm">País: </label>
                                 <select class="form-control" id="form-incluir-viagem-pais-destino">
-                                    <option>P1</option>
-                                    <option>P2</option>
-                                    <option>Pn</option>
+                                    <option value="Brasil">Brasil</option>
+                                    <option value="Paraguai">Paraguai</option>
+                                    <option value="Argentina">Argentina</option>
                                 </select>
                             </div>
                             <div class="form-group col-1 col-sm-1">
@@ -659,22 +651,14 @@
                             </div>
                             <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label for="form-incluir-viagem-estado-destino" class="col-form-label-sm">Distrito: </label>
-                                <select class="form-control" id="form-incluir-viagem-estado-destino">
-                                    <option>E1</option>
-                                    <option>E2</option>
-                                    <option>En</option>
-                                </select>
+                                <input type="text" class="form-control form-control-sm" id="form-incluir-viagem-estado-destino" value="">
                             </div>
                             <div class="form-group col-1 col-sm-1">
                                 &nbsp;
                             </div>
                             <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <label for="form-incluir-viagem-cidade-destino" class="col-form-label-sm">Cidade: </label>
-                                <select class="form-control" id="form-incluir-viagem-cidade-destino">
-                                    <option>C1</option>
-                                    <option>C2</option>
-                                    <option>Cn</option>
-                                </select>
+                                <input type="text" class="form-control form-control-sm" id="form-incluir-viagem-cidade-destino" value="">
                             </div>
                         </div>
                     </div>
@@ -696,7 +680,7 @@
                 <div class="row">
                     <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
                         <!-- BOTÃO INSERT VIAGEM -->
-                        <button class="btn btn-admin-adicionar-usuario" type="submit"><i class="fas fa-clipboard"></i> Adicionar Viagem</button>
+                        <button class="btn btn-admin-adicionar-usuario" ng-click="insertViagem()" type="submit"><i class="fas fa-clipboard"></i> Adicionar Viagem</button>
                     </div>
                 </div>
             </div>
@@ -707,12 +691,28 @@
                     <div ng-click="voltarMenu()" class="col-2">
                         <i class="fas fa-arrow-left fa-2x" id="seta-voltar"></i>
                     </div>
+                    <div class="col-6">
+                        &nbsp;
+                    </div>
+                    <div id="btn-admin-remover-veiculo" ng-click="deleteViagem()" class="col-4 btn-admin-remover-usuario">
+                        <!-- BOTÃO DELETE CAMINHÃO -->
+                        <i class="fas fa-trash"></i> Excluir
+                    </div>
 
+
+                </div>
+                <div class="form group row align-items-center row-admin-detalhes-viagem">
+                    <div class="col-2">
+                        &nbsp;
+                    </div>
                     <div class="col-4 btn-admin-detalhes-viagem-tipo btn-admin-tipo-active" id="btn-viagem-detalhes-carga">
                         Carga
                     </div>
                     <div class="col-4 btn-admin-detalhes-viagem-tipo" id="btn-viagem-detalhes-endereco">
                         Endereços
+                    </div>
+                    <div class="col-2">
+                        &nbsp;
                     </div>
                 </div>
 
@@ -721,9 +721,7 @@
                         <div class="form-group col-6 col-sm-6">
                             <label for="form-detalhes-viagem-tipo" class="col-form-label-sm">Tipo </label>
                             <select class="form-control" id="form-detalhes-viagem-tipo">
-                                <option>T1</option>
-                                <option>T2</option>
-                                <option>Tn</option>
+                                
                             </select>
                         </div>
                         <div class="form-group col-6 col-sm-6">
@@ -808,9 +806,9 @@
                             <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <label for="form-detalhes-viagem-pais-partida" class="col-form-label-sm">País </label>
                                 <select class="form-control" id="form-detalhes-viagem-pais-partida">
-                                    <option>P1</option>
-                                    <option>P2</option>
-                                    <option>Pn</option>
+                                    <option value="Brasil">Brasil</option>
+                                    <option value="Paraguai">Paraguai</option>
+                                    <option value="Argentina">Argentina</option>
                                 </select>
                             </div>
                             <div class="form-group col-1 col-sm-1">
@@ -818,22 +816,14 @@
                             </div>
                             <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label for="form-detalhes-viagem-estado-partida" class="col-form-label-sm">Distrito </label>
-                                <select class="form-control" id="form-detalhes-viagem-estado-partida">
-                                    <option>E1</option>
-                                    <option>E2</option>
-                                    <option>En</option>
-                                </select>
+                                <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-estado-partida" value="">
                             </div>
                             <div class="form-group col-1 col-sm-1">
                                 &nbsp;
                             </div>
                             <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <label for="form-detalhes-viagem-cidade-partida" class="col-form-label-sm">Cidade </label>
-                                <select class="form-control" id="form-detalhes-viagem-cidade-partida">
-                                    <option>C1</option>
-                                    <option>C2</option>
-                                    <option>Cn</option>
-                                </select>
+                                <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-cidade-partida" value="">
                             </div>
                         </div>
                     </div>
@@ -866,9 +856,9 @@
                             <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <label for="form-detalhes-viagem-pais-destino" class="col-form-label-sm">País </label>
                                 <select class="form-control" id="form-detalhes-viagem-pais-destino">
-                                    <option>P1</option>
-                                    <option>P2</option>
-                                    <option>Pn</option>
+                                    <option value="Brasil">Brasil</option>
+                                    <option value="Paraguai">Paraguai</option>
+                                    <option value="Argentina">Argentina</option>
                                 </select>
                             </div>
                             <div class="form-group col-1 col-sm-1">
@@ -876,21 +866,14 @@
                             </div>
                             <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                                 <label for="form-detalhes-viagem-estado-destino" class="col-form-label-sm">Distrito </label>
-                                <select class="form-control" id="form-detalhes-viagem-estado-destino">
-                                    <option>E1</option>
-                                    <option>E2</option>
-                                    <option>En</option>
-                                </select>
+                                <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-estado-destino" value="">
                             </div>
                             <div class="form-group col-1 col-sm-1">
                                 &nbsp;
                             </div>
                             <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <label for="form-detalhes-viagem-cidade-destino" class="col-form-label-sm">Cidade </label>
-                                <select class="form-control" id="form-detalhes-viagem-cidade-destino">
-                                    <option>C1</option>
-                                    <option>C2</option>
-                                    <option>Cn</option>
+                                <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-cidade-destino" value="">
                                 </select>
                             </div>
                         </div>
@@ -913,7 +896,7 @@
                 <div class="row">
                     <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
                         <!-- BOTÃO UPDATE VIAGEM -->
-                        <button class="btn btn-admin-alterar-usuario" type="submit"><i class="fas fa-edit"></i> Salvar alterações</button>
+                        <button class="btn btn-admin-alterar-usuario"  type="submit"><i class="fas fa-edit"></i> Salvar alterações</button>
                     </div>
                 </div>
                 <!-- SEÇÃO DE ADMIN VIAGEM END -->

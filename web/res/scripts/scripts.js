@@ -694,7 +694,7 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
             url: ctx + '/veiculo.jsp?action=insert',
             data: veiculo
         }).then(function successCallback(response) {
-            dataService.abrirModalAcao('usuário', 'inserido');
+            dataService.abrirModalAcao('veiculo', 'inserido');
             dataService.voltarMenuAdminVeiculo();
             $rootScope.getVeiculo();
             $rootScope.getCapacitacao();
@@ -821,7 +821,6 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                 $(".secao-admin-viagem-detalhes").removeClass('animated fadeInRight');
             });
         });
-        alert(viagem.partida.rua);
         $("#form-detalhes-viagem-cep-partida").val(viagem.partida.cep).trigger('input');
         $("#form-detalhes-viagem-rua-partida").val(viagem.partida.rua).trigger('input');
         $("#form-detalhes-viagem-rua-numero-partida").val(viagem.partida.numero).trigger('input');
@@ -907,11 +906,22 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
             });
         }
     });
-
-
-
+    
+    $rootScope.getIdCarga = function(){
+        var resultado;
+        $.ajax({
+            type: 'POST',
+            url: '../carga.jsp?action=selectID',
+            async: false,
+            success: function (result) {
+                resultado = result;
+            }
+        });
+        return resultado;
+    };
 
     $scope.insertViagem = function () {
+        //Inserindo Carga
         var carga = {
             "tipocarga": $("#form-incluir-viagem-tipo").val(),
             "pesocarga": ($("#form-detalhes-viagem-peso").val()) * ($("#form-incluir-viagem-tpeso").val()),
@@ -919,31 +929,6 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
             "larguracarga": $("#form-incluir-viagem-largura").val(),
             "comprimentocarga": $("#form-incluir-viagem-comprimento").val(),
             "conteudo": $("#form-incluir-viagem-conteudo").val()
-        };
-        var viagem = {
-            "prazo": $("#").val(),
-            "status": "Em Espera",
-            "carga": $("#").val()
-        };
-        var enderecoPartida = {
-            "cepPartida": $("#").val(),
-            "numeroPartida": $("#").val(),
-            "ruaPartida": $("#").val(),
-            "cidadePartida": $("#").val(),
-            "estadoPartida": $("#").val(),
-            "paisPartida": $("#").val(),
-            "complementoPartida": $("#").val(),
-            "pontoReferenciaPartida": $("#").val()
-        };
-        var enderecoDestino = {
-            "cepDestino": $("#").val(),
-            "numeroDestino": $("#").val(),
-            "ruaDestino": $("#").val(),
-            "cidadeDestino": $("#").val(),
-            "estadoDestino": $("#").val(),
-            "paisDestino": $("#").val(),
-            "complementoDestino": $("#").val(),
-            "pontoReferenciaDestino": $("#").val()
         };
         $.ajax({
             type: 'POST',
@@ -954,21 +939,46 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         }, function errorCallback(response) {
             console.log('Error');
         });
+        //Inserindo Viagem e Endereço
+        var viagem = {
+            "prazo": $("#form-incluir-viagem-prazo").val(),
+            "status": "Em Espera",
+            "carga": $rootScope.getIdCarga(),
+            "enderecoCepPartida": $("#form-incluir-viagem-cep-partida").val(),
+            "enderecoNumeroPartida": $("#form-incluir-viagem-rua-numero-partida").val(),
+            "enderecoRuaPartida": $("#form-incluir-viagem-rua-partida").val(),
+            "enderecoCidadePartida": $("#form-incluir-viagem-cidade-partida").val(),
+            "enderecoEstadoPartida": $("#form-incluir-viagem-estado-partida").val(),
+            "enderecoPaisPartida": $("#form-incluir-viagem-pais-partida").val(),
+            "enderecoComplementoPartida": "-" + $("#form-incluir-viagem-rua-complemento-partida").val(),
+            "enderecoPontoReferenciaPartida": "-",
+            "enderecoCepDestino": $("#form-incluir-viagem-cep-destino").val(),
+            "enderecoNumeroDestino": $("#form-incluir-viagem-rua-numero-destino").val(),
+            "enderecoRuaDestino": $("#form-incluir-viagem-rua-destino").val(),
+            "enderecoCidadeDestino": $("#form-incluir-viagem-cidade-destino").val(),
+            "enderecoEstadoDestino": $("#form-incluir-viagem-estado-destino").val(),
+            "enderecoPaisDestino": $("#form-incluir-viagem-pais-destino").val(),
+            "enderecoComplementoDestino": "-" + $("#form-incluir-viagem-rua-complemento-destino").val(),
+            "enderecoPontoReferenciaDestino": "-"
+        };
         $.ajax({
             type: 'POST',
             url: ctx + '/viagem.jsp?action=insert',
-            data: {viagem, enderecoPartida, enderecoDestino}
+            data: viagem            
         }).then(function successCallback(response) {
-            alert(response.data);
+            dataService.abrirModalAcao('viagem', 'inserida');
         }, function errorCallback(response) {
             console.log('Error');
         });
-
+        
     };
 });
-app.controller("detalhesViagemAdminController", function ($scope, dataService, $http) {
+app.controller("detalhesViagemAdminController", function ($scope, dataService, $http, $rootScope, $document) {
+    $document.ready(function () {
+        $scope.getTiposCarga();
+    });
+    
     $scope.voltarMenu = function () {
-
         dataService.voltarMenuAdminViagem();
     };
     $(".btn-admin-detalhes-viagem-tipo").click(function () {
@@ -986,20 +996,44 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
             });
         }
     });
+    
+    $scope.getTiposCarga = function () {
+        $.ajax({
+            type: 'POST',
+            url: '../capacitacao.jsp?action=select',
+            async: false,
+            dataType: 'json',
+            success: function (result) {
+                var buffer = "";
+                $.each(result, function (index, val) {
 
-    $http({
-        method: 'GET',
-        url: ctx + '/marca.jsp?action=select'
-    }).then(function successCallback(response) {
-        $scope.marcas = response.data.marcas;
+                    for (var i = 0; i < val.length; i++) {
+                        var tipoCarga = val[i];
+                        buffer += "<option value=\"" + tipoCarga.categoria + "\">" + tipoCarga.categoria + "</option>";
+                    }
+                    $("#form-detalhes-viagem-tipo").html(buffer);
+                });
+            }
+        });
+    };
+    
+    $scope.deleteViagem = function () {
+        $http({
+            method: 'POST',
+            url: ctx + '/veiculo.jsp?action=delete&idViagem=' + $("#form-detalhes-viagem-id").val(),
+        }).then(function successCallback(response) {
+            if (response.data.resposta == "SUCCESS") {
+                dataService.abrirModalAcao('viagem', 'removida');
+                dataService.voltarMenuAdminVeiculo();
+                $rootScope.getViagens();
+            } else {
+                alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte")
+            }
 
-        for (i = 0; i < $scope.marcas.length; i++) {
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
+    };
 
-            $("#form-detalhes-veiculo-lista").append("<option value=" + $scope.marcas[i].nome + ">");
-        }
-
-    }, function errorCallback(response) {
-        console.log('Error');
-    });
 });
 
