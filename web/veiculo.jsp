@@ -18,7 +18,6 @@
 <%
     String action = request.getParameter("action");
     String pesquisarPor = request.getParameter("pesquisarPor");
-
     if (action.equals("select")) {
         try {
             Veiculo veiculo;
@@ -69,35 +68,60 @@
     } else if (action.equals("insert")) {
         try {
             Conexao con = new Conexao();
-            PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO VEICULO VALUES( ?, ?, ?, ?, ?, ?)");
-            String placa = request.getParameter("placa");
-            String marca = request.getParameter("marca");
-            String modelo = request.getParameter("modelo");
-            String ano = request.getParameter("ano");
-            String motoristaPreferencial = request.getParameter("motoristaPreferencial");
-            String eixos = request.getParameter("eixos");
+            PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO VEICULO VALUES( ?, ?, ?, ?, ?, ?, 0)");
+
+            String requestData = request.getReader().lines().collect(Collectors.joining());
+
+            requestData = requestData.replace("{", "").replace("}", "");
+
+            String placa = requestData.split(",")[0].split(":")[1].replace("\"", "");
+
+            String marca = requestData.split(",")[1].split(":")[1].replace("\"", "");
+
+            String modelo = requestData.split(",")[2].split(":")[1].replace("\"", "");
+
+            String ano = requestData.split(",")[3].split(":")[1].replace("\"", "");
+
+            String motoristaPreferencial = requestData.split(",")[4].split(":")[1].replace("\"", "");
+            
+            String eixos = requestData.split(",")[5].split(":")[1].replace("\"", "");
+
             ps.setString(1, placa);
             ps.setString(2, marca);
             ps.setString(3, modelo);
             ps.setInt(4, Integer.parseInt(ano));
-            ps.setString(5, motoristaPreferencial);
+            if (motoristaPreferencial.equals("")) {
+                ps.setString(5, null);
+            } else {
+                ps.setString(5, motoristaPreferencial);
+            }
             ps.setInt(6, Integer.parseInt(eixos));
             ps.execute();
-            out.println("SUCCESS");
+
+            out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
-            out.println("ERROR");
+            out.println("{\"resposta\":\"ERROR\"}");
             out.println(ex.getMessage());
         }
     } else if (action.equals("insertCapacitacaoToVeiculo")) {
         try {
             Conexao con = new Conexao();
             PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO CAPACITACAO_VEICULO VALUES(?, ?)");
-            ps.setInt(1, Integer.parseInt(request.getParameter("idCapacitacao")));
-            ps.setString(2, request.getParameter("placa"));
+
+            String requestData = request.getReader().lines().collect(Collectors.joining());
+
+            requestData = requestData.replace("{", "").replace("}", "");
+
+            String idCapacitacao = requestData.split(",")[0].split(":")[1].replace("\"", "");
+            
+            String placa = requestData.split(",")[1].split(":")[1].replace("\"", "");
+
+            ps.setInt(1, Integer.parseInt(idCapacitacao));
+            ps.setString(2, placa);
             ps.execute();
-            out.println("SUCCESS");
+            out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
-            out.println("ERROR");
+            out.println("{\"resposta\":\"ERROR\"}");
             out.println(ex.getMessage());
         }
     } else if (action.equals("updateMarca")) {
@@ -169,17 +193,14 @@
             String ano = requestData.split(",")[2].split(":")[1].replace("\"", "");
             String qtdEixos = requestData.split(",")[3].split(":")[1].replace("\"", "");
             String cnhMotoristaPreferencial = requestData.split(",")[4].split(":")[1].replace("\"", "");
-            
-            
+
             ps.setString(1, modelo);
             ps.setString(2, marca);
             ps.setInt(3, Integer.parseInt(ano));
             ps.setInt(4, Integer.parseInt(qtdEixos));
             ps.setString(5, cnhMotoristaPreferencial);
             ps.execute();
-            
-            
-            
+
             //update das capacitações
             ps = con.conexao.prepareStatement("DELETE FROM CAPACITACAO_VEICULO WHERE cd_placa_veiculo = '" + request.getParameter("placa") + "'");
             ps.execute();

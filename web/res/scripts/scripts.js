@@ -280,7 +280,7 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
         });
 
 
-    }
+    };
 
     //Some a tela de menu e aparece a de INCLUIR usuário
     $scope.mostrarIncluirUsuario = function () {
@@ -553,6 +553,7 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document,
     $document.ready(function () {
         $rootScope.getVeiculos();
         $rootScope.getCapacitacao();
+        $rootScope.getMarcas();
     });
 
     $rootScope.getVeiculos = function (pesquisarPor) {
@@ -573,6 +574,25 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document,
             if ($scope.veiculos.length == 0) {
                 $scope.erro_veiculo = 'Nenhum veículo encontrado com o respectivo filtro!';
                 $("#alerta-exibicao-veiculo").show();
+            }
+
+        }, function errorCallback(response) {
+            $(".loader-veiculo").hide();
+            $scope.erro_veiculo = 'Ocorreu um erro ao conectar com a base de dados dos veículos. Atualize a página e, se o erro persistir, contate o suporte.';
+            $("#alerta-exibicao-veiculo").show();
+        });
+    };
+
+    $rootScope.getMarcas = function () {
+        $http({
+            method: 'GET',
+            url: ctx + '/marca.jsp?action=select'
+        }).then(function successCallback(response) {
+            $scope.marcas = response.data.marcas;
+
+            for (i = 0; i < $scope.marcas.length; i++) {
+                $("#form-incluir-veiculo-lista").append($("<option value='" + $scope.marcas[i].nome + "'></option>"))
+                $("#form-detalhes-veiculo-lista").append($("<option value='" + $scope.marcas[i].nome + "'></option>"))
             }
 
         }, function errorCallback(response) {
@@ -685,23 +705,13 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
     };
 
     $scope.insertVeiculo = function () {
-        var veiculo = {
-            "placa": $("#form-incluir-veiculo-placa").cleanVal(),
-            "marca": $("#form-incluir-veiculo-marca").val(),
-            "modelo": $("#form-incluir-veiculo-modelo").val(),
-            "ano": $("#form-incluir-veiculo-ano").val(),
-            "motoristaPreferencial": $("#form-incluir-veiculo-motoristaPreferencial").cleanVal(),
-            "eixos": $("#form-incluir-veiculo-eixo").val()
-        };
-        $.ajax({
-            type: 'POST',
+
+        $http({
+            method: 'POST',
             url: ctx + '/veiculo.jsp?action=insert',
-            data: veiculo
+            data: {"placa": $("#form-incluir-veiculo-placa").cleanVal(), "marca": $("#form-incluir-veiculo-marca").val(), "modelo": $("#form-incluir-veiculo-modelo").val(), "ano": $("#form-incluir-veiculo-ano").val(), "motoristaPreferencial": $("#form-incluir-veiculo-motoristaPreferencial").cleanVal(), "eixos": $("#form-incluir-veiculo-eixo").val()}
         }).then(function successCallback(response) {
-            dataService.abrirModalAcao('veiculo', 'inserido');
-            dataService.voltarMenuAdminVeiculo();
-            $rootScope.getVeiculos();
-            $rootScope.getCapacitacao();
+
         }, function errorCallback(response) {
             console.log('Error');
         });
@@ -712,12 +722,17 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
                 "idCapacitacao": $(this).val(),
                 "placa": $("#form-incluir-veiculo-placa").cleanVal()
             };
-            $.ajax({
-                type: 'POST',
+            $http({
+                method: 'POST',
                 url: ctx + '/veiculo.jsp?action=insertCapacitacaoToVeiculo',
                 data: capacitacao
             }).then(function successCallback(response) {
-                alert(response.data);
+                if (response.data.resposta == "SUCCESS") {
+                    dataService.abrirModalAcao('veiculo', 'inserido');
+                    dataService.voltarMenuAdminVeiculo();
+                    $rootScope.getVeiculos();
+                    $rootScope.getCapacitacao();
+                }
             }, function errorCallback(response) {
                 console.log('Error');
             });
@@ -789,7 +804,7 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
             if (response.data.resposta == "SUCCESS") {
                 dataService.abrirModalAcao('veículo', 'editado');
                 dataService.voltarMenuAdminVeiculo();
-                $rootScope.getVeiculo();
+                $rootScope.getVeiculos();
                 $rootScope.getCapacitacao();
 
             } else {
