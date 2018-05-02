@@ -926,43 +926,17 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         }
     });
 
-    $rootScope.getIdCarga = function () {
-        var resultado;
-        $.ajax({
-            type: 'POST',
-            url: '../carga.jsp?action=selectID',
-            async: false,
-            success: function (result) {
-                resultado = result;
-            }
-        });
-        return resultado;
-    };
 
     $scope.insertViagem = function () {
-        //Inserindo Carga
-        var carga = {
+
+        var viagem = {
             "tipocarga": $("#form-incluir-viagem-tipo").val(),
-            "pesocarga": ($("#form-detalhes-viagem-peso").val()) * ($("#form-incluir-viagem-tpeso").val()),
+            "pesocarga": ($("#form-detalhes-viagem-peso").val()) + ($("#form-incluir-viagem-tpeso").val()),
             "alturacarga": $("#form-incluir-viagem-altura").val(),
             "larguracarga": $("#form-incluir-viagem-largura").val(),
             "comprimentocarga": $("#form-incluir-viagem-comprimento").val(),
-            "conteudo": $("#form-incluir-viagem-conteudo").val()
-        };
-        $.ajax({
-            type: 'POST',
-            url: ctx + '/carga.jsp?action=insert',
-            data: carga
-        }).then(function successCallback(response) {
-            alert(response.data);
-        }, function errorCallback(response) {
-            console.log('Error');
-        });
-        //Inserindo Viagem e Endereço
-        var viagem = {
+            "conteudo": $("#form-incluir-viagem-conteudo").val(),
             "prazo": $("#form-incluir-viagem-prazo").val(),
-            "status": "Em Espera",
-            "carga": $rootScope.getIdCarga(),
             "enderecoCepPartida": $("#form-incluir-viagem-cep-partida").val(),
             "enderecoNumeroPartida": $("#form-incluir-viagem-rua-numero-partida").val(),
             "enderecoRuaPartida": $("#form-incluir-viagem-rua-partida").val(),
@@ -970,22 +944,26 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
             "enderecoEstadoPartida": $("#form-incluir-viagem-estado-partida").val(),
             "enderecoPaisPartida": $("#form-incluir-viagem-pais-partida").val(),
             "enderecoComplementoPartida": "-" + $("#form-incluir-viagem-rua-complemento-partida").val(),
-            "enderecoPontoReferenciaPartida": "-",
             "enderecoCepDestino": $("#form-incluir-viagem-cep-destino").val(),
             "enderecoNumeroDestino": $("#form-incluir-viagem-rua-numero-destino").val(),
             "enderecoRuaDestino": $("#form-incluir-viagem-rua-destino").val(),
             "enderecoCidadeDestino": $("#form-incluir-viagem-cidade-destino").val(),
             "enderecoEstadoDestino": $("#form-incluir-viagem-estado-destino").val(),
             "enderecoPaisDestino": $("#form-incluir-viagem-pais-destino").val(),
-            "enderecoComplementoDestino": "-" + $("#form-incluir-viagem-rua-complemento-destino").val(),
-            "enderecoPontoReferenciaDestino": "-"
+            "enderecoComplementoDestino": "-" + $("#form-incluir-viagem-rua-complemento-destino").val()
         };
-        $.ajax({
-            type: 'POST',
+        $http({
+            method: 'POST',
             url: ctx + '/viagem.jsp?action=insert',
             data: viagem
         }).then(function successCallback(response) {
-            dataService.abrirModalAcao('viagem', 'inserida');
+            if(response.data.resposta == "SUCCESS") {
+                dataService.abrirModalAcao('viagem', 'inserida');
+                dataService.voltarMenuAdminViagem();
+            }
+            else {
+                alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte");
+            }
         }, function errorCallback(response) {
             console.log('Error');
         });
@@ -1046,7 +1024,7 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
                 dataService.voltarMenuAdminVeiculo();
                 $rootScope.getViagens();
             } else {
-                alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte")
+                alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte");
             }
 
         }, function errorCallback(response) {

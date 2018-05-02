@@ -4,6 +4,7 @@
     Author     : Henrique
 --%>
 
+<%@page import="java.util.stream.Collectors"%>
 <%@page import="br.com.uhapp.semi.Endereco"%>
 <%@page import="br.com.uhapp.semi.Carga"%>
 <%@page import="br.com.uhapp.semi.Json_encoder"%>
@@ -58,73 +59,122 @@
             ex.printStackTrace();
         }
     } else if (action.equals("insert")) {
-
         try {
-            int idPartida = 0;
-            int idDestino = 0;
             Conexao con = new Conexao();
+            PreparedStatement ps;
+            ResultSet rs;
+            //dados recebidos por JSON
+            String requestData = request.getReader().lines().collect(Collectors.joining());
             
-                       
-            PreparedStatement psEnderecoPartida = con.conexao.prepareStatement("INSERT INTO ENDERECO VALUES(DEFAULT,?, ?, ?, ?, ?, ?, ?, ?)");
-            psEnderecoPartida.setString(1, request.getParameter("enderecoCepPartida"));
-            psEnderecoPartida.setInt(2, Integer.parseInt(request.getParameter("enderecoNumeroPartida")));
-            psEnderecoPartida.setString(3, request.getParameter("enderecoRuaPartida"));
-            psEnderecoPartida.setString(4, request.getParameter("enderecoCidadePartida"));
-            psEnderecoPartida.setString(5, request.getParameter("enderecoEstadoPartida"));
-            psEnderecoPartida.setString(6, request.getParameter("enderecoPaisPartida"));
-            psEnderecoPartida.setString(7, request.getParameter("enderecoComplementoPartida"));
-            psEnderecoPartida.setString(8, request.getParameter("enderecoPontoReferenciaPartida"));
-            psEnderecoPartida.execute();
-            psEnderecoPartida.close();
-
-            try {
-                ResultSet rsPartida = con.conexao.prepareStatement("SELECT cd_id_endereco FROM ENDERECO"
-                        + " WHERE cd_cep_endereco = '" + request.getParameter("enderecoCepPartida")
-                        + "' AND cd_numero_endereco = " + Integer.parseInt(request.getParameter("enderecoNumeroPartida"))).executeQuery();
-                while (rsPartida.next()) {
-                    idPartida = rsPartida.getInt("cd_id_endereco");
-                }
-            } catch (Exception ex) {
-                out.println(ex.getMessage());
+            requestData = requestData.replace("{", "").replace("}", "");
+            //variaveis da carga
+            String tipoCarga = requestData.split(",")[0].split(":")[1].replace("\"", "");
+            
+            String pesoCarga = requestData.split(",")[1].split(":")[1].replace("\"", "");
+            double pesoCargaDouble;
+            if(pesoCarga.substring(pesoCarga.length() - 1, pesoCarga.length() - 1).equals("kg"))
+                pesoCargaDouble = Double.parseDouble(pesoCarga.substring(0, pesoCarga.length() - 3)) / 1000;
+            else
+                pesoCargaDouble = Double.parseDouble(pesoCarga.substring(0, pesoCarga.length() - 4));
+            
+            String alturaCarga = requestData.split(",")[2].split(":")[1].replace("\"", "");
+            String larguraCarga = requestData.split(",")[3].split(":")[1].replace("\"", "");
+            String comprimentoCarga = requestData.split(",")[4].split(":")[1].replace("\"", "");
+            String conteudoCarga = requestData.split(",")[5].split(":")[1].replace("\"", "");
+            
+            //cadastrar carga
+            ps = con.conexao.prepareStatement("INSERT INTO CARGA(nm_tipo_carga, qt_peso_carga, qt_altura_carga, qt_largura_carga, qt_comprimento_carga, ds_conteudo_carga) VALUES(?, ?, ?, ?, ?, ?)");
+            ps.setString(1, tipoCarga);
+            ps.setDouble(2, pesoCargaDouble);
+            ps.setDouble(3, Double.parseDouble(alturaCarga));
+            ps.setDouble(4, Double.parseDouble(larguraCarga));
+            ps.setDouble(5, Double.parseDouble(comprimentoCarga));
+            ps.setString(6, conteudoCarga);
+            ps.execute();
+            rs = con.conexao.prepareStatement("SELECT cd_id_carga FROM CARGA ORDER BY cd_id_carga DESC LIMIT 1").executeQuery();
+            rs.next();
+            int idCarga = rs.getInt("cd_id_carga");
+            //variaveis do endereco de partida
+            String enderecoCepPartida = requestData.split(",")[7].split(":")[1].replace("\"", "");;
+            String enderecoNumeroPartida = requestData.split(",")[8].split(":")[1].replace("\"", "");;
+            String enderecoRuaPartida = requestData.split(",")[9].split(":")[1].replace("\"", "");;
+            String enderecoCidadePartida = requestData.split(",")[10].split(":")[1].replace("\"", "");;
+            String enderecoEstadoPartida = requestData.split(",")[11].split(":")[1].replace("\"", "");;
+            String enderecoPaisPartida = requestData.split(",")[12].split(":")[1].replace("\"", "");;
+            String enderecoComplementoPartida = requestData.split(",")[13].split(":")[1].replace("\"", "");;
+            
+            //checando se endereço ja foi cadastrado
+            rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepPartida + "' AND cd_numero_endereco = '" + enderecoNumeroPartida + "'").executeQuery();
+            int idEnderecoPartida;
+            if(rs.next()) {
+                idEnderecoPartida = rs.getInt("cd_id_endereco");
             }
-
-            PreparedStatement psEnderecoDestino = con.conexao.prepareStatement("INSERT INTO ENDERECO VALUES(DEFAULT,?, ?, ?, ?, ?, ?, ?, ?)");
-            psEnderecoDestino.setString(1, request.getParameter("enderecoCepDestino"));
-            psEnderecoDestino.setInt(2, Integer.parseInt(request.getParameter("enderecoNumeroDestino")));
-            psEnderecoDestino.setString(3, request.getParameter("enderecoRuaDestino"));
-            psEnderecoDestino.setString(4, request.getParameter("enderecoCidadeDestino"));
-            psEnderecoDestino.setString(5, request.getParameter("enderecoEstadoDestino"));
-            psEnderecoDestino.setString(6, request.getParameter("enderecoPaisDestino"));
-            psEnderecoDestino.setString(7, request.getParameter("enderecoComplementoDestino"));
-            psEnderecoDestino.setString(8, request.getParameter("enderecoPontoReferenciaDestino"));
-            psEnderecoDestino.execute();
-            psEnderecoDestino.close();
-
-            try {
-                ResultSet rsDestino = con.conexao.prepareStatement("SELECT cd_id_endereco FROM ENDERECO"
-                        + " WHERE cd_cep_endereco = '" + request.getParameter("enderecoCepDestino")
-                        + "' AND cd_numero_endereco = " + Integer.parseInt(request.getParameter("enderecoNumeroDestino"))).executeQuery();
-                while (rsDestino.next()) {
-                    idDestino = rsDestino.getInt("cd_id_endereco");
-                }
-
-            } catch (Exception ex) {
-                out.println(ex.getMessage());
+            else {
+                //cadastrando endereço
+                ps = con.conexao.prepareStatement("INSERT INTO ENDERECO(cd_cep_endereco, cd_numero_endereco, nm_rua_endereco, nm_cidade_endereco, nm_estado_endereco, nm_pais_endereco, ds_complemento_endereco, ds_ponto_referencia_endereco) VALUES(?, ?, ?, ?, ?, ?, ?, '')");
+                ps.setString(1, enderecoCepPartida);
+                ps.setString(2, enderecoNumeroPartida);
+                ps.setString(3, enderecoRuaPartida);
+                ps.setString(4, enderecoCidadePartida);
+                ps.setString(5, enderecoEstadoPartida);
+                ps.setString(6, enderecoPaisPartida);
+                ps.setString(7, enderecoComplementoPartida);
+                ps.execute();
+                
+                rs = con.conexao.prepareStatement("SELECT cd_id_endereco FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepPartida + "' AND cd_numero_endereco = '" + enderecoNumeroPartida + "'").executeQuery();
+                rs.next();
+                idEnderecoPartida = rs.getInt("cd_id_endereco");
             }
-            //Viagem
-            PreparedStatement psViagem = con.conexao.prepareStatement("INSERT INTO VIAGEM VALUES(DEFAULT, ?, ?, ?, ?, ?)");
-            psViagem.setInt(1, idPartida);
-            psViagem.setInt(2, idDestino);
-            psViagem.setString(3, request.getParameter("prazo"));
-            psViagem.setString(4, request.getParameter("status"));
-            psViagem.setInt(5, Integer.parseInt(request.getParameter("carga")));
-            psViagem.execute();
-
-            out.println("SUCCESS");
-        } catch (Exception ex) {
-            out.println("ERROR");
+            
+            
+            //variaveis endereço de destino
+            String enderecoCepDestino = requestData.split(",")[14].split(":")[1].replace("\"", "");;
+            String enderecoNumeroDestino = requestData.split(",")[15].split(":")[1].replace("\"", "");;
+            String enderecoRuaDestino = requestData.split(",")[16].split(":")[1].replace("\"", "");;
+            String enderecoCidadeDestino = requestData.split(",")[17].split(":")[1].replace("\"", "");;
+            String enderecoEstadoDestino = requestData.split(",")[18].split(":")[1].replace("\"", "");;
+            String enderecoPaisDestino = requestData.split(",")[19].split(":")[1].replace("\"", "");;
+            String enderecoComplementoDestino = requestData.split(",")[20].split(":")[1].replace("\"", "");;
+            
+            //checando se endereço ja foi cadastrado
+            rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepDestino + "' AND cd_numero_endereco = '" + enderecoNumeroDestino + "'").executeQuery();
+            int idEnderecoDestino;
+            if(rs.next()) {
+                idEnderecoDestino = rs.getInt("cd_id_endereco");
+            }
+            else {
+                //cadastrando endereço
+                ps = con.conexao.prepareStatement("INSERT INTO ENDERECO(cd_cep_endereco, cd_numero_endereco, nm_rua_endereco, nm_cidade_endereco, nm_estado_endereco, nm_pais_endereco, ds_complemento_endereco, ds_ponto_referencia_endereco) VALUES(?, ?, ?, ?, ?, ?, ?, '')");
+                ps.setString(1, enderecoCepDestino);
+                ps.setString(2, enderecoNumeroDestino);
+                ps.setString(3, enderecoRuaDestino);
+                ps.setString(4, enderecoCidadeDestino);
+                ps.setString(5, enderecoEstadoDestino);
+                ps.setString(6, enderecoPaisDestino);
+                ps.setString(7, enderecoComplementoDestino);
+                ps.execute();
+                
+                rs = con.conexao.prepareStatement("SELECT cd_id_endereco FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepDestino + "' AND cd_numero_endereco = '" + enderecoNumeroDestino + "'").executeQuery();
+                rs.next();
+                idEnderecoDestino = rs.getInt("cd_id_endereco");
+            }
+            
+            String prazo = requestData.split(",")[6].split(":")[1].replace("\"", "");
+            
+            ps = con.conexao.prepareStatement("INSERT INTO VIAGEM(cd_id_endereco_partida_viagem, cd_id_endereco_final_viagem, dt_prazo_viagem, ds_status_viagem, cd_id_carga, ic_desativado_viagem) VALUES(?, ?, ?, ?, ?, '0')");
+            ps.setInt(1, idEnderecoPartida);
+            ps.setInt(2, idEnderecoDestino);
+            ps.setString(3, prazo);
+            ps.setString(4, "Em espera");
+            ps.setInt(5, idCarga);
+            ps.execute();
+            out.println("{\"resposta\":\"SUCCESS\"}");
+        }
+        catch(Exception ex) {
+            //out.println("{\"resposta\":\"ERROR\"}");
             out.println(ex.getMessage());
         }
+            
     } else if (action.equals("updatePrazo")) {
         try {
             Conexao con = new Conexao();
