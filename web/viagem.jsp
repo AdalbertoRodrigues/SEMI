@@ -72,11 +72,16 @@
             
             String pesoCarga = requestData.split(",")[1].split(":")[1].replace("\"", "");
             double pesoCargaDouble;
-            if(pesoCarga.substring(pesoCarga.length() - 1, pesoCarga.length() - 1).equals("kg"))
-                pesoCargaDouble = Double.parseDouble(pesoCarga.substring(0, pesoCarga.length() - 3)) / 1000;
-            else
-                pesoCargaDouble = Double.parseDouble(pesoCarga.substring(0, pesoCarga.length() - 4));
+            String unidadeMedidaCarga;
             
+            if(pesoCarga.substring(pesoCarga.length() - 3, pesoCarga.length() - 1).equals("kg")) {
+                pesoCargaDouble = Double.parseDouble(pesoCarga.substring(0, pesoCarga.length() - 3));
+                unidadeMedidaCarga = "kg";
+            }
+            else {
+                pesoCargaDouble = Double.parseDouble(pesoCarga.substring(0, pesoCarga.length() - 4));
+                unidadeMedidaCarga = "ton";
+            }
             String alturaCarga = requestData.split(",")[2].split(":")[1].replace("\"", "");
             String larguraCarga = requestData.split(",")[3].split(":")[1].replace("\"", "");
             String comprimentoCarga = requestData.split(",")[4].split(":")[1].replace("\"", "");
