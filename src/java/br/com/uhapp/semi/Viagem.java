@@ -14,12 +14,14 @@ public class Viagem {
     private Endereco destino;
     private String prazo;
     private String status;
+    private Carga carga;
 
-    public Viagem(Endereco partida, Endereco destino, String prazo, String status) {
+    public Viagem(Endereco partida, Endereco destino, String prazo, String status, Carga carga) {
         this.partida = partida;
         this.destino = destino;
         this.prazo = prazo;
         this.status = status;
+        this.carga = carga;
     }
 
     public Endereco getPartida() {
@@ -53,6 +55,15 @@ public class Viagem {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Carga getCarga() {
+        return carga;
+    }
+
+    public void setCarga(Carga carga) {
+        this.carga = carga;
+    }
+    
     
     
 }

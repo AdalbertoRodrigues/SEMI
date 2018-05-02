@@ -843,6 +843,16 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                 $(".secao-admin-viagem-detalhes").removeClass('animated fadeInRight');
             });
         });
+        
+        $("#form-detalhes-viagem-tipo").val(viagem.carga.tipo);
+        $("#form-detalhes-viagem-conteudo").val(viagem.carga.conteudo);
+        $("#form-detalhes-viagem-peso").val(viagem.carga.peso);
+        $("#form-detalhes-viagem-tpeso").val(viagem.carga.unidadeMedida);
+        
+        $("#form-detalhes-viagem-altura").val(viagem.carga.dimensoes.split("x")[0]);
+        $("#form-detalhes-viagem-largura").val(viagem.carga.dimensoes.split("x")[0]);
+        $("#form-detalhes-viagem-comprimento").val(viagem.carga.dimensoes.split("x")[0]);
+        
         $("#form-detalhes-viagem-cep-partida").val(viagem.partida.cep).trigger('input');
         $("#form-detalhes-viagem-rua-partida").val(viagem.partida.rua).trigger('input');
         $("#form-detalhes-viagem-rua-numero-partida").val(viagem.partida.numero).trigger('input');
@@ -858,6 +868,9 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $("#form-detalhes-viagem-rua-complemento-destino").val(viagem.destino.complemento).trigger('input');
         $("#form-detalhes-viagem-pais-destino").val(viagem.destino.pais).trigger('input');
         $("#form-detalhes-viagem-estado-destino").val(viagem.destino.estado).trigger('input');
+        
+        
+        $("#form-detalhes-viagem-prazo").val(viagem.prazo);
 
     };
 
@@ -934,7 +947,7 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
 
         var viagem = {
             "tipocarga": $("#form-incluir-viagem-tipo").val(),
-            "pesocarga": ($("#form-detalhes-viagem-peso").val()) + ($("#form-incluir-viagem-tpeso").val()),
+            "pesocarga": ($("#form-incluir-viagem-peso").val()) + ($("#form-incluir-viagem-tpeso").val()),
             "alturacarga": $("#form-incluir-viagem-altura").val(),
             "larguracarga": $("#form-incluir-viagem-largura").val(),
             "comprimentocarga": $("#form-incluir-viagem-comprimento").val(),

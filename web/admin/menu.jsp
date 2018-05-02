@@ -513,7 +513,7 @@
                     <div class="form-row">
                         <div class="form-group col-2 col-sm-2">
                             <label for="form-incluir-viagem-peso" class="col-form-label-sm">Peso: </label>
-                            <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-peso" value="">
+                            <input type="text" class="form-control form-control-sm medida" id="form-incluir-viagem-peso" value="">
                         </div>
                         <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                             <label for="form-incluir-viagem-tpeso" class="col-form-label-sm">&nbsp;</label>
