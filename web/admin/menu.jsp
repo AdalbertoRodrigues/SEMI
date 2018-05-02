@@ -273,7 +273,6 @@
                                                     </select>
                                                 </div>-->
                     </div>
-
                     <div class="row">
                         <table class="table table-sm table-bordered table-striped" id="table-admin-veiculo">
                             <thead>
@@ -291,13 +290,12 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="veiculo"></dir-pagination-controls>
                     </div>
+                    <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="veiculo"></dir-pagination-controls>
                 </div>
                 <div class="loader-veiculo" id="loader-tabela-veiculo"></div>
                 <div class="alert alert-danger" id="alerta-exibicao-veiculo" role="alert">{{erro_veiculo}}</div>
             </div>
-
             <!-- SEÇÃO ADMIN - INCLUIR VEICULOS -->
             <div ng-controller="incluirVeiculoAdminController" class="secao-admin-veiculo-incluir">
                 <form>
@@ -313,10 +311,9 @@
                         </div>
                         <div class="form-group col-4 col-sm-4">
                             <label id="label-select-marca" class="col-form-label-sm" for="form-incluir-veiculo-marca">Marca</label>
-                            <input required list="form-incluir-veiculo-lista" type="text" ng-model="incluir_veiculo_marca" ng-change="checkValido()" ng-model-options="{debounce: 500}" class="form-control form-control-sm" id="form-incluir-veiculo-marca" value="">
-                            <datalist id="form-incluir-veiculo-lista">
-
-                            </datalist>
+                            <br><select  ng-model="incluir_veiculo_marca" ng-change="checkValido()" ng-model-options="{debounce: 500}" class="form-control" id="form-incluir-veiculo-marca">
+                                <option ng-repeat="marcas in marcas" value="{{marcas.nome}}">{{marcas.nome}}</option>   
+                            </select>
                         </div>
                     </div>
                     <div class="form-row">
@@ -379,10 +376,9 @@
                         </div>
                         <div class="form-group col-4 col-sm-4">
                             <label id="label-select-marca" class="col-form-label-sm" for="form-detalhes-veiculo-marca">Marca</label>
-                            <input list="form-detalhes-veiculo-lista" type="text" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_veiculo_marca" class="form-control form-control-sm" id="form-detalhes-veiculo-marca" value="">
-                            <datalist id="form-detalhes-veiculo-lista">
-
-                            </datalist>
+                            <br><select ng-model="detalhes_veiculo_marca" ng-change="checkVincluir_veiculo_marcaalido()" ng-model-options="{debounce: 500}" class="form-control" id="form-detalhes-veiculo-marca">
+                                <option ng-repeat="marcas in marcas" value="{{marcas.nome}}">{{marcas.nome}}</option>   
+                            </select>
                         </div>
                     </div>
                     <div class="form-row">
@@ -721,7 +717,7 @@
                         <div class="form-group col-6 col-sm-6">
                             <label for="form-detalhes-viagem-tipo" class="col-form-label-sm">Tipo </label>
                             <select class="form-control" id="form-detalhes-viagem-tipo">
-                                
+
                             </select>
                         </div>
                         <div class="form-group col-6 col-sm-6">

@@ -588,12 +588,12 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document,
             method: 'GET',
             url: ctx + '/marca.jsp?action=select'
         }).then(function successCallback(response) {
-            $scope.marcas = response.data.marcas;
+            $rootScope.marcas = response.data.marcas;
 
-            for (i = 0; i < $scope.marcas.length; i++) {
-                $("#form-incluir-veiculo-lista").append($("<option value='" + $scope.marcas[i].nome + "'></option>"))
-                $("#form-detalhes-veiculo-lista").append($("<option value='" + $scope.marcas[i].nome + "'></option>"))
-            }
+//            for (i = 0; i < $scope.marcas.length; i++) {
+//                $("#form-incluir-veiculo-lista").append($("<option value='" + $scope.marcas[i].nome + "'></option>"));
+//                $("#form-detalhes-veiculo-lista").append($("<option value='" + $scope.marcas[i].nome + "'></option>"));
+//            }
 
         }, function errorCallback(response) {
             $(".loader-veiculo").hide();
@@ -705,19 +705,20 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
     };
 
     $scope.insertVeiculo = function () {
-
+        console.log('Entrou');
         $http({
             method: 'POST',
             url: ctx + '/veiculo.jsp?action=insert',
             data: {"placa": $("#form-incluir-veiculo-placa").cleanVal(), "marca": $("#form-incluir-veiculo-marca").val(), "modelo": $("#form-incluir-veiculo-modelo").val(), "ano": $("#form-incluir-veiculo-ano").val(), "motoristaPreferencial": $("#form-incluir-veiculo-motoristaPreferencial").cleanVal(), "eixos": $("#form-incluir-veiculo-eixo").val()}
         }).then(function successCallback(response) {
-
+             console.log('Success');
         }, function errorCallback(response) {
             console.log('Error');
         });
 
 
         $('.checkbox-veiculo:checked').each(function () {
+            console.log("Entrou capa");
             var capacitacao = {
                 "idCapacitacao": $(this).val(),
                 "placa": $("#form-incluir-veiculo-placa").cleanVal()
@@ -732,9 +733,11 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
                     dataService.voltarMenuAdminVeiculo();
                     $rootScope.getVeiculos();
                     $rootScope.getCapacitacao();
+                    console.log("Success Capa");
                 }
             }, function errorCallback(response) {
                 console.log('Error');
+                console.log("Error capa");
             });
         });
     };
