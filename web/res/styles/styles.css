@@ -451,3 +451,11 @@ input::-webkit-inner-spin-button {
 #btn-modal-ok {
     width: 100%;
 }
+
+button:focus {
+    outline: 0 !important;
+}
+
+.page-item.active .page-link {
+    z-index: 0 !important;
+}
