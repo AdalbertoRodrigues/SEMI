@@ -15,13 +15,15 @@ public class Viagem {
     private String prazo;
     private String status;
     private Carga carga;
+    private int id;
 
-    public Viagem(Endereco partida, Endereco destino, String prazo, String status, Carga carga) {
+    public Viagem(Endereco partida, Endereco destino, String prazo, String status, Carga carga, int id) {
         this.partida = partida;
         this.destino = destino;
         this.prazo = prazo;
         this.status = status;
         this.carga = carga;
+        this.id = id;
     }
 
     public Endereco getPartida() {
@@ -62,6 +64,14 @@ public class Viagem {
 
     public void setCarga(Carga carga) {
         this.carga = carga;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

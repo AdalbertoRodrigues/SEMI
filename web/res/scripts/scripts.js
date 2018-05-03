@@ -871,6 +871,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         
         
         $("#form-detalhes-viagem-prazo").val(viagem.prazo);
+        $("#form-detalhes-viagem-id").val(viagem.id);
 
     };
 
@@ -1033,14 +1034,15 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
     $scope.deleteViagem = function () {
         $http({
             method: 'POST',
-            url: ctx + '/veiculo.jsp?action=delete&idViagem=' + $("#form-detalhes-viagem-id").val(),
+            url: ctx + '/viagem.jsp?action=delete&idViagem=' + $("#form-detalhes-viagem-id").val()
         }).then(function successCallback(response) {
             if (response.data.resposta == "SUCCESS") {
                 dataService.abrirModalAcao('viagem', 'removida');
-                dataService.voltarMenuAdminVeiculo();
+                dataService.voltarMenuAdminViagem();
                 $rootScope.getViagens();
             } else {
-                alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte");
+                //alert("Ocorreu um erro ao remover a viagem, se persistirem os erros favor relatar ao suporte");
+                alert(response.data);
             }
 
         }, function errorCallback(response) {

@@ -31,7 +31,7 @@
             ResultSet rs = con.conexao.prepareStatement("SELECT * FROM VIAGEM AS V"
                     + " JOIN ENDERECO AS EP ON V.cd_id_endereco_partida_viagem = EP.cd_id_endereco"
                     + " JOIN ENDERECO AS EF ON V.cd_id_endereco_final_viagem = EF.cd_id_endereco"
-                    + " JOIN CARGA AS C ON V.cd_id_viagem = C.cd_id_carga").executeQuery();
+                    + " JOIN CARGA AS C ON V.cd_id_viagem = C.cd_id_carga WHERE V.ic_desativado_viagem = 0").executeQuery();
             while (rs.next()) {
                 enderecoPartida = new Endereco(rs.getString("EP.cd_cep_endereco"), rs.getInt("EP.cd_numero_endereco"),
                         rs.getString("EP.nm_rua_endereco"), 
@@ -45,7 +45,7 @@
                         rs.getString("EF.ds_ponto_referencia_endereco"));
                 String dimensoes = rs.getDouble("qt_altura_carga") + "x" + rs.getDouble("qt_largura_carga") + "x" + rs.getDouble("qt_comprimento_carga");
                 Carga carga = new Carga(rs.getString("nm_tipo_carga"), rs.getDouble("qt_peso_carga"), rs.getString("ds_conteudo_carga"), dimensoes, rs.getString("sg_unidade_medida"));
-                viagem = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getString("V.ds_status_viagem"), carga);
+                viagem = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getString("V.ds_status_viagem"), carga, rs.getInt("cd_id_viagem"));
                 if (rs.isLast()) {
                     atual = Json_encoder.encode(viagem);
                 } else {
@@ -288,11 +288,10 @@
     } else if (action.equals("delete")) {
         try {
             Conexao con = new Conexao();
-            PreparedStatement ps = con.conexao.prepareStatement("UPDATE VEICULO SET ic_desativado_viagem = 1 WHERE  = '" + request.getParameter("placa") + "'");
+            PreparedStatement ps = con.conexao.prepareStatement("UPDATE VIAGEM SET ic_desativado_viagem = 1 WHERE cd_id_viagem = '" + request.getParameter("idViagem") + "'");
             ps.execute();
             out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
-            out.println("ERROR");
             out.println("{\"resposta\":\"ERROR\"}");
         }
     }
