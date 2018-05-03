@@ -208,8 +208,9 @@
     <div class="row">
         <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
             <!-- BOTÃO UPDATE VIAGEM -->
-            <button class="btn btn-admin-alterar-usuario"  type="submit"><i class="fas fa-edit"></i> Salvar alterações</button>
-            <input id="form-detalhes-viagem-id" type="" style="display: none" value="">
+            <button class="btn btn-admin-alterar-usuario"  type="submit" ng-click="updateViagem()"><i class="fas fa-edit"></i> Salvar alterações</button>
+            <input id="form-detalhes-viagem-id" type="hidden" value="">
+            <input id="form-detalhes-viagem-carga-id" type="hidden" value="">
         </div>
     </div>
     <!-- SEÇÃO DE ADMIN VIAGEM END -->

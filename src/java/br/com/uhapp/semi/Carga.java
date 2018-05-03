@@ -15,13 +15,15 @@ public class Carga {
     private String conteudo;
     private String dimensoes;
     private String unidadeMedida;
+    private int id;
 
-    public Carga(String tipo, double peso, String conteudo, String dimensoes, String unidadeMedida) {
+    public Carga(String tipo, double peso, String conteudo, String dimensoes, String unidadeMedida, int id) {
         this.tipo = tipo;
         this.peso = peso;
         this.conteudo = conteudo;
         this.dimensoes = dimensoes;
         this.unidadeMedida = unidadeMedida;
+        this.id = id;
     }
 
     public String getTipo() {
@@ -63,5 +65,14 @@ public class Carga {
     public void setUnidadeMedida(String unidadeMedida) {
         this.unidadeMedida = unidadeMedida;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     
 }
