@@ -1,0 +1,44 @@
+<div ng-controller="menuAdminUsuarioController" class="secao-admin-usuario secao-ativa">
+    <div class="row row-btn-admin row-crud-admin">
+        <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-crud-admin" id="btn-admin-adicionar-usuario">
+            <div ng-click="mostrarIncluirUsuario()" class="btn-admin-adicionar-usuario btn-crud-usuario"><i class="fas fa-user-plus font-menor"></i> Incluir</div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO ADMIN - VER USUARIOS -->
+    <div class="admin-exibicao-usuario">
+        <div class="row admin-exibicao-filtro-usuario">
+            <div class="form-group col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+                <input type="text" ng-model="pesquisarPor" ng-change="getUsuarios(pesquisarPor, filtrarPor)" ng-model-options="{debounce: 500}" class="form-control" id="form-admin-usuario-filtro" placeholder="Filtrar NOME ou CPF...">
+            </div>
+            <div class="form-group col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                <select ng-change="getUsuarios(pesquisarPor, filtrarPor)" ng-model="filtrarPor" class="form-control" id="form-admin-usuario-tipo">
+                    <option value="">Todos</option>
+                    <option value="0">Funcionários</option>
+                    <option value="1">Motoristas</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-sm table-bordered table-striped" id="table-admin-usuario">
+                <thead>
+                    <tr>
+                        <th scope="col">NOME</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">VER</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="usuarios in usuarios | itemsPerPage: 5" pagination-id="usuario" class="linha-tabela-admin">
+                        <td>{{usuarios.nome}}</td>
+                        <td>{{usuarios.cpf}}</td>
+                        <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario(usuarios)" ><i class="fas fa-eye"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="usuario"></dir-pagination-controls>
+    </div>
+    <div class="loader-usuario" id="loader-tabela-usuario"></div>
+    <div class="alert alert-danger" id="alerta-exibicao-usuario" role="alert">{{erro_usuario}}</div>
+</div>

@@ -1,0 +1,95 @@
+<div ng-controller="detalhesVeiculoAdminController" class="secao-admin-veiculo-detalhes">
+    <form>
+        <div class="form group row align-items-center row-admin-tipo">
+            <div ng-click="voltarMenu()" class="col-2">
+                <i class="fas fa-arrow-left fa-2x" id="seta-voltar"></i>
+            </div>
+            <div class="col-6">
+                &nbsp;
+            </div>
+            <div id="btn-admin-remover-veiculo" ng-click="!placaValida || deleteVeiculo()" class="col-4 btn-admin-remover-usuario">
+                <!-- BOTÃO DELETE CAMINHÃO -->
+                <i class="fas fa-trash"></i> Excluir
+            </div>
+        </div>
+        <div class="form-row"> 
+            <div class="form-group col-8 col-sm-8">
+                <label for="form-detalhes-veiculo-modelo" class="col-form-label-sm">Modelo</label>
+                <input type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_veiculo_modelo" id="form-detalhes-veiculo-modelo" value="">
+            </div>
+            <div class="form-group col-4 col-sm-4">
+                <label id="label-select-marca" class="col-form-label-sm" for="form-detalhes-veiculo-marca">Marca</label>
+                <br><select ng-model="detalhes_veiculo_marca" ng-change="checkVincluir_veiculo_marcaalido()" ng-model-options="{debounce: 500}" class="form-control" id="form-detalhes-veiculo-marca">
+                    <option ng-repeat="marcas in marcas" value="{{marcas.nome}}">{{marcas.nome}}</option>   
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-2 col-sm-2">
+                <label for="form-detalhes-veiculo-ano" class="col-form-label-sm">Ano</label>
+                <input type="text" class="form-control form-control-sm ano" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_veiculo_ano" id="form-detalhes-veiculo-ano" value="">
+            </div>
+            <div class="form-group col-2 col-sm-2">
+                <label for="form-detalhes-veiculo-eixo" class="col-form-label-sm">Eixos</label>
+                <input type="text" class="form-control form-control-sm medida" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_veiculo_eixos" id="form-detalhes-veiculo-eixo" value="">
+            </div>
+            <div class="form-group col-8 col-sm-8">
+                <label for="form-detalhes-veiculo-motoristaPreferencial" class="col-form-label-sm">Motorista Preferencial</label>
+                <input type="text" class="form-control form-control-sm" ng-model="detalhes_veiculo_motorista" id="form-detalhes-veiculo-motoristaPreferencial" value="">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-4 col-sm-4">
+                <label for="form-detalhes-veiculo-placa" class="col-form-label-sm">Placa</label>
+                <input type="text" class="form-control form-control-sm placa" ng-model-options='{debounce: 500}' ng-change="checkPlaca()" ng-model="detalhes_veiculo_placa" id="form-detalhes-veiculo-placa" value="" disabled>
+            </div>  
+        </div>
+        <div class="row">
+            <div class="col-10">
+                Capacitações do veículo:<br><br>
+                <ul class="list-group" id="form-detalhes-veiculo-capacitacao">
+                    <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_a}" class="item-lista-capacitacao">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input id="form-detalhes-capacitacao-1" ng-model="detalhes_veiculo_capacitacao_1" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
+                                Carga Comum
+                            </label>
+                        </div>
+                    </li>
+                    <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_b}" class="item-lista-capacitacao">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input id="form-detalhes-capacitacao-2" ng-model="detalhes_veiculo_capacitacao_2" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
+                                Carga Perigosa
+                            </label>
+                        </div>
+                    </li>
+                    <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_c}" class="item-lista-capacitacao">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input id="form-detalhes-capacitacao-3" ng-model="detalhes_veiculo_capacitacao_3" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
+                                Carga Liquida
+                            </label>
+                        </div>
+                    </li>
+                    <li ng-class="{'item-lista-capacitacao-ativo' : detalhes_veiculo_capacitacao_d}" class="item-lista-capacitacao">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input id="form-detalhes-capacitacao-4" ng-model="detalhes_veiculo_capacitacao_4" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-check-input" type="checkbox" value="">
+                                Carga Liquida Perigosa
+                            </label>
+                        </div>
+                    </li>
+
+                </ul>
+            </div> 
+        </div>
+        <br>
+        <div class="row">
+            <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
+                <!-- BOTÃO UPDATE CAMINHÃO -->
+                <button class="btn btn-admin-alterar-usuario" id="btn-admin-alterar-veiculo" ng-click="updateVeiculo()" type="submit"><i class="fas fa-edit"></i> Salvar Alterações</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,44 @@
+<div class="secao-admin-veiculo" ng-controller="menuAdminVeiculoController">
+    <div class="row row-btn-admin row-crud-admin">
+        <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-crud-admin" id="btn-admin-adicionar-usuario">
+            <div  ng-click="mostrarIncluirVeiculo()" class="btn-admin-adicionar-usuario btn-crud-usuario"><i class="fas fa-truck  font-menor"></i> Incluir</div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO ADMIN - VER VEICULOS -->
+    <div class="admin-exibicao-veiculo">
+        <div class="row">
+            <div class="form-group col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+                <input type="text" ng-model="pesquisarPor" ng-change="getVeiculos(pesquisarPor)" ng-model-options="{debounce: 500}" class="form-control" id="form-admin-veiculo-filtro" placeholder="Digite um modelo ou marca de veículo...">
+            </div>
+            <!--                        <div class="form-group col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                                        <select class="form-control" id="form-admin-veiculo-tipo">
+                                            <option>Todos</option>
+                                            <option>Pequeno Porte</option>
+                                            <option>Grande Porte</option>
+                                        </select>
+                                    </div>-->
+        </div>
+        <div class="row">
+            <table class="table table-sm table-bordered table-striped" id="table-admin-veiculo">
+                <thead>
+                    <tr>
+                        <th scope="col">MODELO</th>
+                        <th scope="col">PLACA</th>
+                        <th scope="col">DETALHES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="veiculos in veiculos | itemsPerPage: 5" class="linha-tabela-admin" pagination-id="veiculo">
+                        <td>{{veiculos.modelo}}</td>
+                        <td>{{veiculos.placa}}</td>
+                        <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesVeiculo(veiculos)" pagination-id="veiculo"><i class="fas fa-eye"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="veiculo"></dir-pagination-controls>
+    </div>
+    <div class="loader-veiculo" id="loader-tabela-veiculo"></div>
+    <div class="alert alert-danger" id="alerta-exibicao-veiculo" role="alert">{{erro_veiculo}}</div>
+</div>

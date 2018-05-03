@@ -1,0 +1,14 @@
+<div class="container secao-admin-abas" ng-controller="abasAdminController">
+    <div class="row row-btn-admin">
+        <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-menu">
+            <button ng-click="irSecaoAdminUsuario()" class="btn-menu-admin btn-usuario-admin btn-admin-active row-btn-menu">Usuário</button>
+        </div>
+        <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-menu">
+            <button ng-click="irSecaoAdminVeiculo()" class="btn-menu-admin btn-usuario-admin row-btn-menu">Veículo</button>
+        </div>
+        <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-menu">
+            <button ng-click="irSecaoAdminViagem()" class="btn-menu-admin btn-usuario-admin row-btn-menu">Viagem</button>
+        </div>
+    </div>
+    <hr>
+</div>
