@@ -10,8 +10,8 @@
             <tr>
                 <th width="3%" scope="col">PARTIDA</th>
                 <th width="3%" scope="col">DESTINO</th>
-                <th scope="col">STATUS</th>
-                <th width="10%" scope="col">DETALHES</th>
+                <th width="3%"scope="col">STATUS</th>
+                <th width="10%" scope="col">VER</th>
             </tr>
         </thead>
         <tbody>

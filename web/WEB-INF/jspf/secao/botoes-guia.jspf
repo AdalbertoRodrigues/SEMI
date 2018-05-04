@@ -10,5 +10,11 @@
             <button ng-click="irSecaoAdminViagem()" class="btn-menu-admin btn-usuario-admin row-btn-menu">Viagem</button>
         </div>
     </div>
+    <br>
+    <div class="row row-btn-admin">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 row-btn-menu">
+            <button ng-click="irSecaoAdminEscala()" class="btn-menu-admin btn-usuario-admin row-btn-menu" id="btn-escala">Escala</button>
+        </div>
+    </div>
     <hr>
 </div>

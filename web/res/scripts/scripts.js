@@ -47,8 +47,8 @@ app.service('dataService', function ($location) {
                     animacaoEntrada = 'fadeInLeft';
                     animacaoSaida = 'fadeOutRight';
                 } else {
-                    animacaoSaida = 'fadeOutRight';
                     animacaoEntrada = 'fadeInLeft';
+                    animacaoSaida = 'fadeOutRight';
                 }
                 ativa.addClass('animated ' + animacaoSaida).one(eventoAnimacao, function () {
                     ativa.removeClass('animated ' + animacaoSaida + ' secao-ativa').hide();
@@ -66,11 +66,11 @@ app.service('dataService', function ($location) {
                     animacaoEntrada = 'fadeInLeft';
                     animacaoSaida = 'fadeOutRight';
                 } else if (ativa.hasClass('secao-admin-usuario') || ativa.hasClass('secao-admin-usuario-incluir') || ativa.hasClass('secao-usuario-detalhes')) {
-                    animacaoSaida = 'fadeOutLeft';
                     animacaoEntrada = 'fadeInRight';
+                    animacaoSaida = 'fadeOutLeft';
                 } else if (ativa.hasClass('secao-admin-viagem') || ativa.hasClass('secao-admin-viagem-incluir') || ativa.hasClass('secao-admin-viagem-detalhes')) {
-                    animacaoSaida = 'fadeOutRight';
                     animacaoEntrada = 'fadeInLeft';
+                    animacaoSaida = 'fadeOutRight';
                 }
                 ativa.addClass('animated ' + animacaoSaida).one(eventoAnimacao, function () {
                     ativa.removeClass('animated ' + animacaoSaida + ' secao-ativa').hide();
@@ -84,16 +84,34 @@ app.service('dataService', function ($location) {
             ativa = $(".body-admin-menu").find(".secao-ativa");
             if (!$(".secao-ativa").hasClass('secao-admin-viagem')) {
                 if (ativa.hasClass('secao-admin-usuario') || ativa.hasClass('secao-admin-veiculo')) {
-                    animacaoSaida = 'fadeOutLeft';
                     animacaoEntrada = 'fadeInRight';
+                    animacaoSaida = 'fadeOutLeft';
                 } else {
-                    animacaoSaida = 'fadeOutRight';
                     animacaoEntrada = 'fadeInLeft';
+                    animacaoSaida = 'fadeOutRight';
                 }
                 ativa.addClass('animated ' + animacaoSaida).one(eventoAnimacao, function () {
                     ativa.removeClass('animated ' + animacaoSaida + ' secao-ativa').hide();
                     $(".secao-admin-viagem").show().addClass('animated ' + animacaoEntrada + ' secao-ativa').one(eventoAnimacao, function () {
                         $(".secao-admin-viagem").removeClass('animated ' + animacaoEntrada);
+                    });
+                });
+            }
+        },
+        voltarMenuAdminEscala: function () {
+            ativa = $(".body-admin-menu").find(".secao-ativa");
+            if (!$(".secao-ativa").hasClass('secao-admin-escala')) {
+                if (ativa.hasClass('secao-admin-usuario') || ativa.hasClass('secao-admin-veiculo')) {
+                    animacaoEntrada = 'fadeInRight';
+                    animacaoSaida = 'fadeOutLeft';
+                } else {
+                    animacaoEntrada = 'fadeInLeft';
+                    animacaoSaida = 'fadeOutRight';
+                }
+                ativa.addClass('animated ' + animacaoSaida).one(eventoAnimacao, function () {
+                    ativa.removeClass('animated ' + animacaoSaida + ' secao-ativa').hide();
+                    $(".secao-admin-escala").show().addClass('animated ' + animacaoEntrada + ' secao-ativa').one(eventoAnimacao, function () {
+                        $(".secao-admin-escala").removeClass('animated ' + animacaoEntrada);
                     });
                 });
             }
@@ -229,7 +247,7 @@ app.controller("navAdminController", function ($scope, dataService, $http) {
         }).then(function successCallback(response) {
             $scope.resposta = response.data;
             if (($scope.resposta).indexOf("Sucesso") >= 0) {
-                $(location).attr('href', ctx + '/index.jsp')
+                $(location).attr('href', ctx + '/index.jsp');
             }
         }, function errorCallback(response) {
             alert('Falha na conexão com o servidor.');
@@ -280,8 +298,6 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
             $(".admin-exibicao-usuario").hide();
             $("#alerta-exibicao-usuario").show();
         });
-
-
     };
 
     //Some a tela de menu e aparece a de INCLUIR usuário
@@ -539,7 +555,7 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
                     dataService.voltarMenuAdminUsuario();
                     $rootScope.getUsuarios();
                 } else {
-                    alert("Ocorreu um erro ao remover o motorista, se persistirem os erros favor relatar ao suporte")
+                    alert("Ocorreu um erro ao remover o motorista, se persistirem os erros favor relatar ao suporte");
                 }
 
             }, function errorCallback(response) {
@@ -686,6 +702,9 @@ app.controller("abasAdminController", function ($scope, dataService) {
     $scope.irSecaoAdminViagem = function () {
         dataService.voltarMenuAdminViagem();
     };
+    $scope.irSecaoAdminEscala = function () {
+        dataService.voltarMenuAdminEscala();
+    };
 });
 app.controller("incluirVeiculoAdminController", function ($scope, dataService, $http, $rootScope) {
     $scope.voltarMenu = function () {
@@ -813,7 +832,7 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
                 $rootScope.getCapacitacao();
 
             } else {
-                alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte")
+                alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte");
             }
 
         }, function errorCallback(response) {
@@ -981,8 +1000,7 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
                 dataService.abrirModalAcao('viagem', 'inserida');
                 dataService.voltarMenuAdminViagem();
                 $rootScope.getViagens();
-            }
-            else {
+            } else {
                 alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte");
             }
         }, function errorCallback(response) {
@@ -1034,10 +1052,10 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
             }
         });
     };
-    
+
     $scope.updateViagem = function () {
-        
-         $scope.viagem = {
+
+        $scope.viagem = {
             "tipocarga": $("#form-detalhes-viagem-tipo").val(),
             "pesocarga": ($("#form-detalhes-viagem-peso").val()) + ($("#form-detalhes-viagem-tpeso").val()),
             "alturacarga": $("#form-detalhes-viagem-altura").val(),
@@ -1060,7 +1078,7 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
             "enderecoPaisDestino": $("#form-detalhes-viagem-pais-destino").val(),
             "enderecoComplementoDestino": "-" + $("#form-detalhes-viagem-rua-complemento-destino").val()
         };
-        
+
         $http({
             method: 'POST',
             url: ctx + '/viagem.jsp?action=update&idViagem=' + $("#form-detalhes-viagem-id").val() + "&idCarga=" + $("#form-detalhes-viagem-carga-id").val(),
@@ -1078,10 +1096,10 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
             console.log('Error');
         });
     };
-    
-    
+
+
     $scope.deleteViagem = function () {
-       
+
         $http({
             method: 'POST',
             url: ctx + '/viagem.jsp?action=delete&idViagem=' + $("#form-detalhes-viagem-id").val() + '&idCarga=' + $("#form-detalhes-viagem-carga-id").val(),
@@ -1101,5 +1119,24 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
         });
     };
 
+});
+
+app.controller("menuAdminEscalaController", function ($scope, dataService) {
+    $(".btn-admin-escala-tipo").click(function () {
+        $(this).addClass('btn-escala-active');
+        $(".row-admin-escala-tipo").children().not($(this)).removeClass('btn-escala-active');
+        if ($("#btn-escala-realizada").hasClass("btn-escala-active")) {
+//            $(".form-motorista").fadeOut();
+            $(".secao-escala-pendente").fadeTo("fast", 0, function () {
+                $(".secao-escala-pendente").hide();
+                $(".secao-escala-realizada").show().fadeTo("fast", 1);
+            });
+        } else {
+            $(".secao-escala-realizada").fadeTo("fast", 0, function () {
+                $(".secao-escala-realizada").hide();
+                $(".secao-escala-pendente").show().fadeTo("fast", 1);
+            });
+        }
+    });
 });
 

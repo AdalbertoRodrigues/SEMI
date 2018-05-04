@@ -1,0 +1,61 @@
+<div ng-controller="menuAdminEscalaController" class="secao-admin-escala">
+    <div class="form group row align-items-center row-admin-escala-tipo">
+        <div class="col-2">
+            &nbsp;
+        </div>
+        <div class="col-4 btn-admin-escala-tipo btn-escala-active" id="btn-escala-pendente">
+            Pendentes
+        </div>
+        <div class="col-4 btn-admin-escala-tipo" id="btn-escala-realizada">
+            Realizadas
+        </div>
+        <div class="col-2">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="secao-escala-pendente">
+        <div class="row" >
+            <table class="table table-sm table-bordered table-striped" id="table-admin-escala-pendente">
+                <thead>
+                    <tr>
+                        <th scope="col">PRAZO</th>
+                        <th class="d-none d-sm-block" scope="col">DESTINO</th>
+                        <th scope="col">CARGA</th>
+                        <th scope="col">VEÍCULO</th>
+                        <th class="d-none d-sm-block" scope="col">MOTORISTA</th>
+                        <th scope="col">AÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>05/05</td>
+                        <td class="d-none d-sm-block">São Vicente/SP</td>
+                        <td>Petróleo</td>
+                        <td class="">AAA-1234</td>
+                        <td class="d-none d-sm-block">Joao Paulo</td>
+                        <td><i class="fas fa-eye icone-escala"></i><i class="fas fa-edit"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="secao-escala-realizada">
+        <div class="row">
+            <table class="table table-sm table-bordered table-striped" id="table-admin-escala-realizada">
+                <thead>
+                    <tr>
+                        <th scope="col">NOME</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">VER</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <td>Teste Teste22</td>
+                <td>Teste Teste22</td>
+                <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario(usuarios)" ><i class="fas fa-eye"></i></td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

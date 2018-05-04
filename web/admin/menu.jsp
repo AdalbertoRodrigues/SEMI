@@ -72,6 +72,11 @@
 
             <!-- DETALHES/DELETAR VIAGEM -->
             <%@include file="../WEB-INF/jspf/secao/viagem/detalhes-viagem.jspf"%>
+            
+            <!--//////////////////// ESCALA ////////////////////  -->
+            
+            <!-- MENU ESCALA -->
+            <%@include file="../WEB-INF/jspf/secao/escala/menu-escala.jspf"%>
         </div>
 
         <br><br>
