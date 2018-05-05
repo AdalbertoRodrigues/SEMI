@@ -1,29 +1,79 @@
 <div class="secao-admin-viagem" ng-controller="viagemAdminController">
-    <div class="row row-btn-admin row-crud-admin">
-        <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-crud-admin" id="btn-admin-adicionar-usuario">
-            <div ng-click="mostrarIncluirViagem()" class="btn-admin-adicionar-usuario btn-crud-usuario"><i class="fas fa-clipboard "></i> Incluir</div>
+    <div class="form group row align-items-center row-admin-escala-tipo">
+        <div class="col-2">
+            &nbsp;
+        </div>
+        <div class="col-4 btn-admin-escala-tipo btn-escala-active" id="btn-escala-pendente">
+            Em espera
+        </div>
+        <div class="col-4 btn-admin-escala-tipo" id="btn-escala-realizada">
+            Escaladas
+        </div>
+        <div class="col-2">
+            &nbsp;
+        </div>
+    </div>
+    <br>
+
+    <div class="secao-viagem-pendente">
+        <div class="row row-btn-admin row-crud-admin">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-crud-admin" id="btn-admin-adicionar-usuario">
+                <div ng-click="mostrarIncluirViagem()" class="btn-admin-adicionar-usuario btn-crud-usuario"><i class="fas fa-clipboard "></i> Incluir</div>
+            </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-crud-admin" id="btn-admin-adicionar-usuario">
+                <div ng-click="" class="btn-admin-adicionar-usuario btn-crud-usuario"><i class="fas fa-clipboard "></i> Incluir</div>
+            </div>
+        </div>
+
+
+        <table class="table table-sm table-bordered table-striped" id="table-admin-viagem">
+            <thead>
+                <tr>
+                    <th width="3%" scope="col"></th>
+                    <th width="3%" scope="col">PARTIDA</th>
+                    <th width="3%" scope="col">DESTINO</th>
+                    <th width="3%"scope="col">CARGA</th>
+                    <th width="10%" scope="col">VER</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="viagens in viagens | itemsPerPage: 5" class="linha-tabela-admin" pagination-id="viagem">
+                    <td>        
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" id="viagem-pendente-{{viagens.id}}" type="checkbox"> &nbsp;
+                            </label>
+                        </div>
+                    </td>
+                    <td width="25%">{{viagens.partida.cidade}}/{{viagens.partida.estado}}</td>
+                    <td width="25%">{{viagens.destino.cidade}}/{{viagens.destino.estado}}</td>
+                    <td width="25%">{{viagens.carga.conteudo}}</td>
+                    <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesViagem(viagens)"><i class="fas fa-eye"></i></td>
+                </tr>
+            </tbody>
+        </table>
+        <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="viagem"></dir-pagination-controls>
+        <div class="loader-viagem" id="loader-tabela-viagem"></div>
+        <div class="alert alert-danger" id="alerta-exibicao-viagem" role="alert">{{erro - viagem}}</div>
+    </div>
+
+    <div class="secao-viagem-escalada">
+        <div class="row">
+            <table class="table table-sm table-bordered table-striped" id="table-admin-escala-realizada">
+                <thead>
+                    <tr>
+                        <th scope="col">NOME</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">VER</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <td>Teste Teste22</td>
+                <td>Teste Teste22</td>
+                <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesUsuario(usuarios)" ><i class="fas fa-eye"></i></td>
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <table class="table table-sm table-bordered table-striped" id="table-admin-viagem">
-        <thead>
-            <tr>
-                <th width="3%" scope="col">PARTIDA</th>
-                <th width="3%" scope="col">DESTINO</th>
-                <th width="3%"scope="col">STATUS</th>
-                <th width="10%" scope="col">VER</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr dir-paginate="viagens in viagens | itemsPerPage: 5" class="linha-tabela-admin" pagination-id="viagem">
-                <td width="25%">{{viagens.partida.cidade}}/{{viagens.partida.estado}}</td>
-                <td width="25%">{{viagens.destino.cidade}}/{{viagens.destino.estado}}</td>
-                <td width="25%">{{viagens.status}}</td>
-                <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesViagem(viagens)"><i class="fas fa-eye"></i></td>
-            </tr>
-        </tbody>
-    </table>
-    <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="viagem"></dir-pagination-controls>
-    <div class="loader-viagem" id="loader-tabela-viagem"></div>
-    <div class="alert alert-danger" id="alerta-exibicao-viagem" role="alert">{{erro - viagem}}</div>
 </div>

@@ -845,6 +845,23 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $rootScope.getTiposCarga();
         $rootScope.getViagens();
     });
+    
+    $(".btn-admin-escala-tipo").click(function () {
+        $(this).addClass('btn-escala-active');
+        $(".row-admin-escala-tipo").children().not($(this)).removeClass('btn-escala-active');
+        if ($("#btn-escala-realizada").hasClass("btn-escala-active")) {
+            $(".secao-viagem-pendente").fadeTo("fast", 0, function () {
+                $(".secao-viagem-pendente").hide();
+                $(".secao-viagem-escalada").show().fadeTo("fast", 1);
+            });
+        } else {
+            $(".secao-viagem-escalada").fadeTo("fast", 0, function () {
+                $(".secao-viagem-escalada").hide();
+                $(".secao-viagem-pendente").show().fadeTo("fast", 1);
+            });
+        }
+    });
+    
     $scope.mostrarIncluirViagem = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
@@ -910,6 +927,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $(".loader-viagem").hide();
             $("#form-admin-veiculo-filtro").focus();
             $(".admin-exibicao-veiculo").show();
+            console.log($scope.viagens);
 
             if ($scope.viagens.length == 0) {
                 $scope.erro_viagem = 'Nenhum veículo encontrado com o respectivo filtro!';
@@ -1122,21 +1140,6 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
 });
 
 app.controller("menuAdminEscalaController", function ($scope, dataService) {
-    $(".btn-admin-escala-tipo").click(function () {
-        $(this).addClass('btn-escala-active');
-        $(".row-admin-escala-tipo").children().not($(this)).removeClass('btn-escala-active');
-        if ($("#btn-escala-realizada").hasClass("btn-escala-active")) {
-//            $(".form-motorista").fadeOut();
-            $(".secao-escala-pendente").fadeTo("fast", 0, function () {
-                $(".secao-escala-pendente").hide();
-                $(".secao-escala-realizada").show().fadeTo("fast", 1);
-            });
-        } else {
-            $(".secao-escala-realizada").fadeTo("fast", 0, function () {
-                $(".secao-escala-realizada").hide();
-                $(".secao-escala-pendente").show().fadeTo("fast", 1);
-            });
-        }
-    });
+    
 });
 
