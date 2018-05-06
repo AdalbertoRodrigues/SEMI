@@ -112,7 +112,7 @@
             String enderecoComplementoPartida = requestData.split(",")[13].split(":")[1].replace("\"", "");;
 
             //checando se endereço ja foi cadastrado
-            rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepPartida + "' AND cd_numero_endereco = '" + enderecoNumeroPartida + "'").executeQuery();
+            rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepPartida + "' AND cd_numero_endereco = '" + enderecoNumeroPartida + "' AND nm_rua_endereco = '" + enderecoRuaPartida + "' AND nm_cidade_endereco = '" + enderecoCidadePartida + "' nm_estado_endereco = '" + enderecoEstadoPartida + "' AND nm_pais_endereco = '" + enderecoPaisPartida + "'").executeQuery();
             int idEnderecoPartida;
             if (rs.next()) {
                 idEnderecoPartida = rs.getInt("cd_id_endereco");
@@ -128,7 +128,7 @@
                 ps.setString(7, enderecoComplementoPartida);
                 ps.execute();
 
-                rs = con.conexao.prepareStatement("SELECT cd_id_endereco FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepPartida + "' AND cd_numero_endereco = '" + enderecoNumeroPartida + "'").executeQuery();
+                rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepPartida + "' AND cd_numero_endereco = '" + enderecoNumeroPartida + "' AND nm_rua_endereco = '" + enderecoRuaPartida + "' AND nm_cidade_endereco = '" + enderecoCidadePartida + "' AND nm_estado_endereco = '" + enderecoEstadoPartida + "' AND nm_pais_endereco = '" + enderecoPaisPartida + "'").executeQuery();
                 rs.next();
                 idEnderecoPartida = rs.getInt("cd_id_endereco");
             }
@@ -143,7 +143,7 @@
             String enderecoComplementoDestino = requestData.split(",")[20].split(":")[1].replace("\"", "");;
 
             //checando se endereço ja foi cadastrado
-            rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepDestino + "' AND cd_numero_endereco = '" + enderecoNumeroDestino + "' AND nm_rua_endereco = '" + enderecoRuaDestino + "' AND nm_cidade_endereco = '" + enderecoCidadeDestino + "'").executeQuery();
+            rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepDestino + "' AND cd_numero_endereco = '" + enderecoNumeroDestino + "' AND nm_rua_endereco = '" + enderecoRuaDestino + "' AND nm_cidade_endereco = '" + enderecoCidadeDestino + "' AND nm_estado_endereco = '" + enderecoEstadoDestino + "' AND nm_pais_endereco = '" + enderecoPaisDestino + "'").executeQuery();
             int idEnderecoDestino;
             if (rs.next()) {
                 idEnderecoDestino = rs.getInt("cd_id_endereco");
@@ -159,7 +159,7 @@
                 ps.setString(7, enderecoComplementoDestino);
                 ps.execute();
 
-                rs = con.conexao.prepareStatement("SELECT cd_id_endereco FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepDestino + "' AND cd_numero_endereco = '" + enderecoNumeroDestino + "'").executeQuery();
+                rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepDestino + "' AND cd_numero_endereco = '" + enderecoNumeroDestino + "' AND nm_rua_endereco = '" + enderecoRuaDestino + "' AND nm_cidade_endereco = '" + enderecoCidadeDestino + "' AND nm_estado_endereco = '" + enderecoEstadoDestino + "' AND nm_pais_endereco = '" + enderecoPaisDestino + "'").executeQuery();
                 rs.next();
                 idEnderecoDestino = rs.getInt("cd_id_endereco");
             }
@@ -228,7 +228,7 @@
             String enderecoComplementoPartida = requestData.split(",")[13].split(":")[1].replace("\"", "");;
 
             //checando se endereço ja foi cadastrado
-            rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepPartida + "' AND cd_numero_endereco = '" + enderecoNumeroPartida + "' AND nm_rua_endereco = '" + enderecoRuaPartida + "' AND nm_cidade_endereco = '" + enderecoCidadePartida + "'").executeQuery();
+            rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepPartida + "' AND cd_numero_endereco = '" + enderecoNumeroPartida + "' AND nm_rua_endereco = '" + enderecoRuaPartida + "' AND nm_cidade_endereco = '" + enderecoCidadePartida + "' AND nm_estado_endereco = '" + enderecoEstadoPartida + "' AND nm_pais_endereco = '" + enderecoPaisPartida + "'").executeQuery();
             int idEnderecoPartida;
             if (rs.next()) {
                 idEnderecoPartida = rs.getInt("cd_id_endereco");
@@ -244,7 +244,7 @@
                 ps.setString(7, enderecoComplementoPartida);
                 ps.execute();
 
-                rs = con.conexao.prepareStatement("SELECT cd_id_endereco FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepPartida + "' AND cd_numero_endereco = '" + enderecoNumeroPartida + "'").executeQuery();
+                rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepPartida + "' AND cd_numero_endereco = '" + enderecoNumeroPartida + "' AND nm_rua_endereco = '" + enderecoRuaPartida + "' AND nm_cidade_endereco = '" + enderecoCidadePartida + "' AND nm_estado_endereco = '" + enderecoEstadoPartida + "' AND nm_pais_endereco = '" + enderecoPaisPartida + "'").executeQuery();
                 rs.next();
                 idEnderecoPartida = rs.getInt("cd_id_endereco");
             }
@@ -259,7 +259,7 @@
             String enderecoComplementoDestino = requestData.split(",")[20].split(":")[1].replace("\"", "");;
 
             //checando se endereço ja foi cadastrado
-            rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepDestino + "' AND cd_numero_endereco = '" + enderecoNumeroDestino + "' AND nm_rua_endereco = '" + enderecoRuaDestino + "' AND nm_cidade_endereco = '" + enderecoCidadeDestino + "'").executeQuery();
+            rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepDestino + "' AND cd_numero_endereco = '" + enderecoNumeroDestino + "' AND nm_rua_endereco = '" + enderecoRuaDestino + "' AND nm_cidade_endereco = '" + enderecoCidadeDestino + "' AND nm_estado_endereco = '" + enderecoEstadoDestino + "' AND nm_pais_endereco = '" + enderecoPaisDestino + "'").executeQuery();
             int idEnderecoDestino;
             if (rs.next()) {
                 idEnderecoDestino = rs.getInt("cd_id_endereco");
@@ -275,7 +275,7 @@
                 ps.setString(7, enderecoComplementoDestino);
                 ps.execute();
 
-                rs = con.conexao.prepareStatement("SELECT cd_id_endereco FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepDestino + "' AND cd_numero_endereco = '" + enderecoNumeroDestino + "'").executeQuery();
+                rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepDestino + "' AND cd_numero_endereco = '" + enderecoNumeroDestino + "' AND nm_rua_endereco = '" + enderecoRuaDestino + "' AND nm_cidade_endereco = '" + enderecoCidadeDestino + "' AND nm_estado_endereco = '" + enderecoEstadoDestino + "' AND nm_pais_endereco = '" + enderecoPaisDestino + "'").executeQuery();
                 rs.next();
                 idEnderecoDestino = rs.getInt("cd_id_endereco");
             }
