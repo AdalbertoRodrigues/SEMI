@@ -32,19 +32,19 @@
         <div class="form-row">
             <div class="form-group col-6 col-sm-6">
                 <label for="form-detalhes-viagem-tipo" class="col-form-label-sm">Tipo </label>
-                <select class="form-control" id="form-detalhes-viagem-tipo">
-
+                <select class="form-control" id="form-detalhes-viagem-tipo" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_tipo">
+                     <option ng-repeat="tiposCarga in tiposCarga" value="{{tiposCarga.categoria}}">{{tiposCarga.categoria}}</option>
                 </select>
             </div>
             <div class="form-group col-6 col-sm-6">
                 <label for="form-detalhes-viagem-conteudo" class="col-form-label-sm">Conteúdo </label>
-                <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-conteudo" value="">
+                <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-conteudo" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_conteudo" ng-change="checkValido()">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-2 col-sm-2">
                 <label for="form-detalhes-viagem-peso" class="col-form-label-sm">Peso </label>
-                <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-peso" value="">
+                <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-peso" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_peso" ng-change="checkValido()">
             </div>
             <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                 <label for="form-detalhes-viagem-tpeso" class="col-form-label-sm">&nbsp;</label>
@@ -58,7 +58,7 @@
             </div>
             <div class="form-group col-2 col-sm-2">
                 <label for="form-detalhes-viagem-altura" class="col-form-label-sm">Dimensões </label>
-                <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-altura" value="">
+                <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-altura" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_altura" ng-change="checkValido()">
             </div>
             <div class="form-group col-2 col-sm-2">
                 <label class="col-form-label-sm">&nbsp; </label>
@@ -70,7 +70,7 @@
                 &nbsp;
             </div>
             <div class="form-group col-2 col-sm-2">
-                <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-largura" value="">
+                <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-largura" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_largura" ng-change="checkValido()">
             </div>
             <div class="form-group col-2 col-sm-2">
                 Largura
@@ -81,7 +81,7 @@
                 &nbsp;
             </div>
             <div class="form-group col-2 col-sm-2">
-                <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-comprimento" value="">
+                <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-comprimento" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_comprimento" ng-change="checkValido()">
             </div>
             <div class="form-group col-2 col-sm-2">
                 Comprimento
@@ -97,17 +97,17 @@
             <div class="form-row align-items-center">
                 <div class="form-group col-4 col-sm-4">
                     <label for="form-detalhes-viagem-cep-partida" class="col-form-label-sm">CEP </label>
-                    <input type="text" class="form-control form-control-sm cep" id="form-detalhes-viagem-cep-partida" value="">
+                    <input type="text" class="form-control form-control-sm cep" id="form-detalhes-viagem-cep-partida" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_cep_partida" ng-change="checkValido()">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-6 col-sm-6">
                     <label for="form-detalhes-viagem-rua-partida" class="col-form-label-sm">Rua/Avenida </label>
-                    <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-partida" value="">
+                    <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-partida" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_rua_partida" ng-change="checkValido()">
                 </div>
                 <div class="form-group col-2 col-sm-2">
                     <label for="form-detalhes-viagem-rua-numero-partida" class="col-form-label-sm">Nº </label>
-                    <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-rua-numero-partida" value="">
+                    <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-rua-numero-partida" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_rua_numero_partida" ng-change="checkValido()">
                 </div>
                 <div class="form-group col-2 col-sm-2">
                     <label for="form-detalhes-viagem-rua-complemento-partida" class="col-form-label-sm">Complemento </label>
@@ -117,7 +117,7 @@
             <div class="form-row">
                 <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                     <label for="form-detalhes-viagem-pais-partida" class="col-form-label-sm">País </label>
-                    <select class="form-control" id="form-detalhes-viagem-pais-partida">
+                    <select class="form-control" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_pais_partida" id="form-detalhes-viagem-pais-partida">
                         <option value="Brasil">Brasil</option>
                         <option value="Paraguai">Paraguai</option>
                         <option value="Argentina">Argentina</option>
@@ -128,14 +128,14 @@
                 </div>
                 <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                     <label for="form-detalhes-viagem-estado-partida" class="col-form-label-sm">Distrito </label>
-                    <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-estado-partida" value="">
+                    <input type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_estado_partida" id="form-detalhes-viagem-estado-partida">
                 </div>
                 <div class="form-group col-1 col-sm-1">
                     &nbsp;
                 </div>
                 <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                     <label for="form-detalhes-viagem-cidade-partida" class="col-form-label-sm">Cidade </label>
-                    <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-cidade-partida" value="">
+                    <input type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_cidade_partida" id="form-detalhes-viagem-cidade-partida">
                 </div>
             </div>
         </div>
@@ -147,17 +147,17 @@
             <div class="form-row align-items-center">
                 <div class="form-group col-4 col-sm-4">
                     <label for="form-detalhes-viagem-cep-destino" class="col-form-label-sm">CEP </label>
-                    <input type="text" class="form-control form-control-sm cep" id="form-detalhes-viagem-cep-destino" value="">
+                    <input type="text" class="form-control form-control-sm cep" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_cep_destino" id="form-detalhes-viagem-cep-destino">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-6 col-sm-6">
                     <label for="form-detalhes-viagem-rua-destino" class="col-form-label-sm">Rua/Avenida </label>
-                    <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-destino" value="">
+                    <input type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_rua_destino" id="form-detalhes-viagem-rua-destino">
                 </div>
                 <div class="form-group col-2 col-sm-2">
                     <label for="form-detalhes-viagem-rua-numero-destino" class="col-form-label-sm">Nº </label>
-                    <input type="text" class="form-control form-control-sm medida" id="form-detalhes-viagem-rua-numero-destino" value="">
+                    <input type="text" class="form-control form-control-sm medida" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_rua_numero_destino" id="form-detalhes-viagem-rua-numero-destino">
                 </div>
                 <div class="form-group col-2 col-sm-2">
                     <label for="form-detalhes-viagem-rua-complemento-destino" class="col-form-label-sm">Complemento </label>
@@ -167,7 +167,7 @@
             <div class="form-row">
                 <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                     <label for="form-detalhes-viagem-pais-destino" class="col-form-label-sm">País </label>
-                    <select class="form-control" id="form-detalhes-viagem-pais-destino">
+                    <select class="form-control" id="form-detalhes-viagem-pais-destino" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_pais_destino" ng-change="checkValido()">
                         <option value="Brasil">Brasil</option>
                         <option value="Paraguai">Paraguai</option>
                         <option value="Argentina">Argentina</option>
@@ -178,14 +178,14 @@
                 </div>
                 <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                     <label for="form-detalhes-viagem-estado-destino" class="col-form-label-sm">Distrito </label>
-                    <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-estado-destino" value="">
+                    <input type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_estado_destino" id="form-detalhes-viagem-estado-destino">
                 </div>
                 <div class="form-group col-1 col-sm-1">
                     &nbsp;
                 </div>
                 <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                     <label for="form-detalhes-viagem-cidade-destino" class="col-form-label-sm">Cidade </label>
-                    <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-cidade-destino" value="">
+                    <input type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_cidade_destino" id="form-detalhes-viagem-cidade-destino">
                     </select>
                 </div>
             </div>
@@ -196,7 +196,7 @@
             </div>
             <div class="form-group col-4 col-sm-4">
                 <label for="form-detalhes-viagem-prazo" class="col-form-label-sm">Prazo de entrega </label>
-                <input type="date" class="form-control form-control-sm" id="form-detalhes-viagem-prazo" value="">
+                <input type="date" class="form-control form-control-sm" id="form-detalhes-viagem-prazo">
             </div>
             <div class="form-group col-4 col-sm-4">
                 &nbsp;
@@ -208,7 +208,7 @@
     <div class="row">
         <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
             <!-- BOTÃO UPDATE VIAGEM -->
-            <button class="btn btn-admin-alterar-usuario"  type="submit" ng-click="updateViagem()"><i class="fas fa-edit"></i> Salvar alterações</button>
+            <button class="btn btn-admin-alterar-usuario-disabled" disabled id="btn-admin-alterar-viagem" type="submit" ng-click="updateViagem()"><i class="fas fa-edit"></i> Salvar alterações</button>
             <input id="form-detalhes-viagem-id" type="hidden" value="">
             <input id="form-detalhes-viagem-carga-id" type="hidden" value="">
         </div>

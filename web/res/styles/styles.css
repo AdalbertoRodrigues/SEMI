@@ -231,27 +231,42 @@ button:focus {
     color: white;
     width: 100%;
     cursor: pointer !important;
+    border: 1px solid #95c48f !important;
+}
+
+.background-checkbox {
+    background-color: #aed1a9 !important;
 }
 
 .btn-admin-adicionar-usuario-disabled {
     background-color: transparent;
     border-radius: 20px;
     border: 1px solid #95c48f !important;
-    color: black;
+    color: #474747;
     width: 100%;
     cursor: not-allowed;
 }
 
-.btn-admin-adicionar-usuario{
-    background-color: #95c48f;
+
+.btn-admin-adicionar-usuario:hover {
+    background-color: #76bc6d;
+}
+
+.btn-admin-escalar-viagem {
+    background-color: #5b1901;
     border-radius: 20px;
     color: white;
     width: 100%;
     cursor: pointer !important;
 }
 
-.btn-admin-adicionar-usuario:hover {
-    background-color: #76bc6d;
+.btn-admin-escalar-viagem-disabled {
+    background-color: transparent;
+    border-radius: 20px;
+    border: 1px solid #5b1901 !important;
+    color: #474747;
+    width: 100%;
+    cursor: not-allowed !important;
 }
 
 .btn-admin-ver-usuario{
