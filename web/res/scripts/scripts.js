@@ -11,7 +11,7 @@ $('.cnh').mask('00000000000');
 $('.placa').mask('AAA-0000');
 $('.ano').mask('0000');
 $('.medida').mask('0#');
-$('cep').mask('00000-000');
+$('.cep').mask('00000-000');
 app.config(function (paginationTemplateProvider) {
     paginationTemplateProvider.setPath(ctx + '/res/scripts/dirPagination.tpl.html');
 });
@@ -845,7 +845,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $rootScope.getTiposCarga();
         $rootScope.getViagens();
     });
-    
+
     $(".btn-admin-escala-tipo").click(function () {
         $(this).addClass('btn-escala-active');
         $(".row-admin-escala-tipo").children().not($(this)).removeClass('btn-escala-active');
@@ -861,7 +861,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             });
         }
     });
-    
+
     $scope.mostrarIncluirViagem = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
@@ -940,25 +940,16 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $("#alerta-exibicao-veiculo").show();
         });
     }
-
-
     $rootScope.getTiposCarga = function () {
-        $.ajax({
-            type: 'POST',
-            url: '../capacitacao.jsp?action=select',
-            async: false,
-            dataType: 'json',
-            success: function (result) {
-                var buffer = "";
-                $.each(result, function (index, val) {
-
-                    for (var i = 0; i < val.length; i++) {
-                        var tipoCarga = val[i];
-                        buffer += "<option value=\"" + tipoCarga.categoria + "\">" + tipoCarga.categoria + "</option>";
-                    }
-                    $("#form-incluir-viagem-tipo").html(buffer);
-                });
-            }
+        $http({
+            method: 'GET',
+            url: ctx + '/capacitacao.jsp?action=select'
+        }).then(function successCallback(response) {
+            $rootScope.tiposCarga = response.data.capacitacao;
+        }, function errorCallback(response) {
+            $(".loader-viagem").hide();
+            $scope.erro_veiculo = 'Ocorreu um erro ao conectar com a base de dados dos veículos. Atualize a página e, se o erro persistir, contate o suporte.';
+            $("#alerta-exibicao-viagem").show();
         });
     };
 });
@@ -983,6 +974,37 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         }
     });
 
+    $scope.checkValido = function () {
+        $scope.incluir_viagem_tipo = $("#form-incluir-viagem-tipo").val();
+        $scope.incluir_viagem_conteudo = $("#form-incluir-viagem-conteudo").val();
+        $scope.incluir_viagem_peso = $("#form-incluir-viagem-peso").val();
+        $scope.incluir_viagem_altura = $("#form-incluir-viagem-altura").val();
+        $scope.incluir_viagem_largura = $("#form-incluir-viagem-largura").val();
+        $scope.incluir_viagem_comprimento = $("#form-incluir-viagem-comprimento").val();
+        $scope.incluir_viagem_prazo = $("#form-incluir-viagem-prazo").val();
+
+        $scope.incluir_viagem_cep_partida = $("#form-incluir-viagem-cep-partida").val();
+        $scope.incluir_viagem_rua_partida = $("#form-incluir-viagem-rua-partida").val();
+        $scope.incluir_viagem_rua_numero_partida = $("#form-incluir-viagem-rua-numero-partida").val();
+        $scope.incluir_viagem_pais_partida = $("#form-incluir-viagem-pais-partida").val();
+        $scope.incluir_viagem_estado_partida = $("#form-incluir-viagem-estado-partida").val();
+        $scope.incluir_viagem_cidade_partida = $("#form-incluir-viagem-cidade-partida").val();
+        
+        $scope.incluir_viagem_cep_destino = $("#form-incluir-viagem-cep-destino").val();
+        $scope.incluir_viagem_rua_destino = $("#form-incluir-viagem-rua-destino").val();
+        $scope.incluir_viagem_rua_numero_destino = $("#form-incluir-viagem-rua-numero-destino").val();
+        $scope.incluir_viagem_pais_destino = $("#form-incluir-viagem-pais-destino").val();
+        $scope.incluir_viagem_estado_destino = $("#form-incluir-viagem-estado-destino").val();
+        $scope.incluir_viagem_cidade_destino = $("#form-incluir-viagem-cidade-destino").val();
+
+        if ($scope.incluir_viagem_tipo == '' || $scope.incluir_viagem_conteudo == '' || $scope.incluir_viagem_peso == '' || $scope.incluir_viagem_altura == '' || $scope.incluir_viagem_largura == '' || $scope.incluir_viagem_comprimento == '' || $scope.incluir_viagem_cep_partida == '' || $scope.incluir_viagem_cep_partida.length < 9 || $scope.incluir_viagem_rua_partida == '' || $scope.incluir_viagem_rua_numero_partida == '' || $scope.incluir_viagem_pais_partida == '' || $scope.incluir_viagem_estado_partida == '' || $scope.incluir_viagem_cidade_partida == '' || $scope.incluir_viagem_cep_destino == '' || $scope.incluir_viagem_cep_destino.length < 9 || $scope.incluir_viagem_rua_destino == '' || $scope.incluir_viagem_rua_numero_destino == '' || $scope.incluir_viagem_pais_destino == '' || $scope.incluir_viagem_estado_destino == '' || $scope.incluir_viagem_cidade_destino == '' || $scope.incluir_viagem_prazo == '') {
+            console.log("desativado");
+            $("#btn-admin-adicionar-viagem").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').prop('disabled', true).css('cursor', 'not-allowed');           
+        } else {
+            console.log("ativado");
+            $("#btn-admin-adicionar-viagem").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
+        }
+    };
 
     $scope.insertViagem = function () {
 
@@ -1050,25 +1072,35 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
             });
         }
     });
+        
+    $scope.checkValido = function () {
+        $scope.detalhes_viagem_tipo = $("#form-detalhes-viagem-tipo").val();
+        $scope.detalhes_viagem_conteudo = $("#form-detalhes-viagem-conteudo").val();
+        $scope.detalhes_viagem_peso = $("#form-detalhes-viagem-peso").val();
+        $scope.detalhes_viagem_altura = $("#form-detalhes-viagem-altura").val();
+        $scope.detalhes_viagem_largura = $("#form-detalhes-viagem-largura").val();
+        $scope.detalhes_viagem_comprimento = $("#form-detalhes-viagem-comprimento").val();
+        $scope.detalhes_viagem_prazo = $("#form-detalhes-viagem-prazo").val();
 
-    $scope.getTiposCarga = function () {
-        $.ajax({
-            type: 'POST',
-            url: '../capacitacao.jsp?action=select',
-            async: false,
-            dataType: 'json',
-            success: function (result) {
-                var buffer = "";
-                $.each(result, function (index, val) {
+        $scope.detalhes_viagem_cep_partida = $("#form-detalhes-viagem-cep-partida").val();
+        $scope.detalhes_viagem_rua_partida = $("#form-detalhes-viagem-rua-partida").val();
+        $scope.detalhes_viagem_rua_numero_partida = $("#form-detalhes-viagem-rua-numero-partida").val();
+        $scope.detalhes_viagem_pais_partida = $("#form-detalhes-viagem-pais-partida").val();
+        $scope.detalhes_viagem_estado_partida = $("#form-detalhes-viagem-estado-partida").val();
+        $scope.detalhes_viagem_cidade_partida = $("#form-detalhes-viagem-cidade-partida").val();
+        
+        $scope.detalhes_viagem_cep_destino = $("#form-detalhes-viagem-cep-destino").val();
+        $scope.detalhes_viagem_rua_destino = $("#form-detalhes-viagem-rua-destino").val();
+        $scope.detalhes_viagem_rua_numero_destino = $("#form-detalhes-viagem-rua-numero-destino").val();
+        $scope.detalhes_viagem_pais_destino = $("#form-detalhes-viagem-pais-destino").val();
+        $scope.detalhes_viagem_estado_destino = $("#form-detalhes-viagem-estado-destino").val();
+        $scope.detalhes_viagem_cidade_destino = $("#form-detalhes-viagem-cidade-destino").val();
 
-                    for (var i = 0; i < val.length; i++) {
-                        var tipoCarga = val[i];
-                        buffer += "<option value=\"" + tipoCarga.categoria + "\">" + tipoCarga.categoria + "</option>";
-                    }
-                    $("#form-detalhes-viagem-tipo").html(buffer);
-                });
-            }
-        });
+        if ($scope.detalhes_viagem_tipo == '' || $scope.detalhes_viagem_conteudo == '' || $scope.detalhes_viagem_peso == '' || $scope.detalhes_viagem_altura == '' || $scope.detalhes_viagem_largura == '' || $scope.detalhes_viagem_comprimento == '' || $scope.detalhes_viagem_cep_partida == '' || $scope.detalhes_viagem_cep_partida.length < 9 || $scope.detalhes_viagem_rua_partida == '' || $scope.detalhes_viagem_rua_numero_partida == '' || $scope.detalhes_viagem_pais_partida == '' || $scope.detalhes_viagem_estado_partida == '' || $scope.detalhes_viagem_cidade_partida == '' || $scope.detalhes_viagem_cep_destino == '' || $scope.detalhes_viagem_cep_destino.length < 9 || $scope.detalhes_viagem_rua_destino == '' || $scope.detalhes_viagem_rua_numero_destino == '' || $scope.detalhes_viagem_pais_destino == '' || $scope.detalhes_viagem_estado_destino == '' || $scope.detalhes_viagem_cidade_destino == '' || $scope.detalhes_viagem_prazo == '') {
+            $("#btn-admin-alterar-viagem").addClass('btn-admin-alterar-usuario-disabled').removeClass('btn-admin-alterar-usuario').prop('disabled', true).css('cursor', 'not-allowed');           
+        } else {
+            $("#btn-admin-alterar-viagem").addClass('btn-admin-alterar-usuario').removeClass('btn-admin-alterar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
+        }
     };
 
     $scope.updateViagem = function () {
@@ -1115,7 +1147,7 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
         });
     };
 
-
+    
     $scope.deleteViagem = function () {
 
         $http({
@@ -1140,6 +1172,6 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
 });
 
 app.controller("menuAdminEscalaController", function ($scope, dataService) {
-    
+
 });
 
