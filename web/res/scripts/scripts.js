@@ -665,7 +665,10 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document,
         $("#form-detalhes-veiculo-ano").val(veiculo.ano).trigger('input');
         $("#form-detalhes-veiculo-eixo").val(veiculo.qtdEixos);
         $("#form-detalhes-veiculo-placa").val(veiculo.placa).trigger('input');
-        $("#form-detalhes-veiculo-motoristaPreferencial").val(veiculo.cnhMotoristaPreferencial);
+        if(veiculo.cnhMotoristaPreferencial == "null")
+            $("#form-detalhes-veiculo-motoristaPreferencial").val("");
+        else
+            $("#form-detalhes-veiculo-motoristaPreferencial").val(veiculo.cnhMotoristaPreferencial);
 
 
         $http({
@@ -832,7 +835,8 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
                 $rootScope.getCapacitacao();
 
             } else {
-                alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte");
+                //alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte");
+                alert("Ocorreu um erro ao alterar o veiculo, se persistirem os erros favor relatar ao suporte");
             }
 
         }, function errorCallback(response) {
@@ -1073,7 +1077,7 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
                 dataService.voltarMenuAdminViagem();
                 $rootScope.getViagens();
             } else {
-                alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte");
+                alert("Ocorreu um erro ao inserir a viagem, se persistirem os erros favor relatar ao suporte");
             }
         }, function errorCallback(response) {
             console.log('Error');

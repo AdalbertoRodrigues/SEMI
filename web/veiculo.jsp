@@ -16,6 +16,7 @@
 <%@page contentType="json" pageEncoding="UTF-8"%>
 
 <%
+    String cnhMotoristaPreferencial = "";
     String action = request.getParameter("action");
     String pesquisarPor = request.getParameter("pesquisarPor");
     if (action.equals("select")) {
@@ -192,8 +193,11 @@
             String marca = requestData.split(",")[1].split(":")[1].replace("\"", "");
             String ano = requestData.split(",")[2].split(":")[1].replace("\"", "");
             String qtdEixos = requestData.split(",")[3].split(":")[1].replace("\"", "");
-            String cnhMotoristaPreferencial = requestData.split(",")[4].split(":")[1].replace("\"", "");
-
+            cnhMotoristaPreferencial = requestData.split(",")[4].split(":")[1].replace("\"", "");
+            
+            if(cnhMotoristaPreferencial.equals(""))
+                cnhMotoristaPreferencial = null;
+            
             ps.setString(1, modelo);
             ps.setString(2, marca);
             ps.setInt(3, Integer.parseInt(ano));
@@ -223,7 +227,6 @@
             out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
             out.println("{\"resposta\":\"ERROR\"}");
-            out.println(ex.getMessage());
         }
 
     } else if (action.equals("delete")) {
