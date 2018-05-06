@@ -845,7 +845,40 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $rootScope.getTiposCarga();
         $rootScope.getViagens();
     });
-    
+
+
+    $scope.checkCheckbox = function (check_id) {
+        if ($(".checkbox-escala-pendente").children().is(":checked")) {
+            $("#btn-escalar-viagem-pendente").removeClass('btn-admin-escalar-viagem-disabled').addClass('btn-admin-escalar-viagem');
+            $(".td-" + check_id).toggleClass('background-checkbox');
+        } else {
+            $("#btn-escalar-viagem-pendente").removeClass('btn-admin-escalar-viagem').addClass('btn-admin-escalar-viagem-disabled');
+            $(".td-" + check_id).toggleClass('background-checkbox');
+        }
+    };
+
+    $scope.escalarViagem = function () {
+        $scope.vet_escala = [];
+        if ($("#btn-escalar-viagem-pendente").hasClass('btn-admin-escalar-viagem')) {
+//            alert('Aqui vai a função para escalar');
+
+            $(".linha-tabela-escala-pendente").each(function (index, value) {
+                $scope.tst = value.children[0];
+                $scope.tst2 = $scope.tst.children[0];
+                $scope.id = $scope.tst2.children[0].children[0].id;
+
+                if ($("#" + $scope.id).is(":checked")) {
+                    $scope.vet_escala.push($scope.id);
+                }
+
+            });
+            //$scope.vet_escala é o vetor com os IDS que serão escalados
+            $(".linha-tabela-escala-pendente").find("input").prop('checked', false);
+            $(".linha-tabela-escala-pendente").find("td").removeClass('background-checkbox');
+            $("#btn-escalar-viagem-pendente").removeClass('btn-admin-escalar-viagem').addClass('btn-admin-escalar-viagem-disabled');
+        }
+    };
+
     $(".btn-admin-escala-tipo").click(function () {
         $(this).addClass('btn-escala-active');
         $(".row-admin-escala-tipo").children().not($(this)).removeClass('btn-escala-active');
@@ -861,7 +894,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             });
         }
     });
-    
+
     $scope.mostrarIncluirViagem = function () {
         ativa = $(".body-admin-menu").find(".secao-ativa");
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
@@ -927,7 +960,6 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $(".loader-viagem").hide();
             $("#form-admin-veiculo-filtro").focus();
             $(".admin-exibicao-veiculo").show();
-            console.log($scope.viagens);
 
             if ($scope.viagens.length == 0) {
                 $scope.erro_viagem = 'Nenhum veículo encontrado com o respectivo filtro!';
@@ -1140,6 +1172,6 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
 });
 
 app.controller("menuAdminEscalaController", function ($scope, dataService) {
-    
+
 });
 
