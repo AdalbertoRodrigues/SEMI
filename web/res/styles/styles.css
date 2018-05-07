@@ -487,3 +487,46 @@ button:focus {
 .icone-escala {
     margin-right: 5px;
 }
+
+#txt-prox-viagem {
+    text-align: center;
+}
+
+.card-viagem-motorista {
+    -webkit-box-shadow: 0px 0px 28px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 28px -6px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 28px -6px rgba(0,0,0,0.75);
+    border-radius: 4px;
+    margin: 50px 0;
+    transition: all .2s ease-in-out;
+}
+
+.card-viagem-motorista:hover{
+    -webkit-box-shadow: 0px 0px 28px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 28px -2px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 28px -2px rgba(0,0,0,0.75);
+    transform: scale(1.01);
+}
+
+.card-viagem-motorista .card-title {
+    text-align: center;
+    font-size: 18px;
+}
+
+@media (max-width: 1140px){
+    #card-informacoes {
+        height: 80%;
+    }
+}
+
+#card-endereco-partida {
+    border-radius: 5px;
+    border: 1px solid #c4c4c4;
+    background-color: rgba(194,188,176, 0.3);
+}
+
+#card-endereco-destino {
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgba(114,114,114, 0.3);
+}

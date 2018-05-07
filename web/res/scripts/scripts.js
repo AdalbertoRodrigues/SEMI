@@ -1213,3 +1213,9 @@ app.controller("menuAdminEscalaController", function ($scope, dataService) {
 
 });
 
+app.controller("menuMotoristaViagemController", function ($scope, dataService) {
+    $scope.abrirModalStatus = function () {
+        $('#modal-status').modal('toggle');
+    };
+});
+

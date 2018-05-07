@@ -22,7 +22,7 @@
         </div>
         <%} else {%>
         <div class="<%="col-" + size%> <%=" col-sm" + size%> <%=" col-md" + size%> <%=" col-lg" + size%> <%=" col-xl" + size%> row-btn-menu">
-            <button ng-click="" class="btn-menu-admin btn-usuario-admin <%=ativo%> row-btn-menu">Inicio</button>
+            <button ng-click="" class="btn-menu-admin btn-usuario-admin <%=ativo%> row-btn-menu">Viagem</button>
         </div>
         <div class="<%="col-" + size%> <%=" col-sm" + size%> <%=" col-md" + size%> <%=" col-lg" + size%> <%=" col-xl" + size%> row-btn-menu">
             <button ng-click="" class="btn-menu-admin btn-usuario-admin row-btn-menu">Histórico</button>
