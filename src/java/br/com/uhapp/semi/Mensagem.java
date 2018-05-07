@@ -9,7 +9,7 @@ package br.com.uhapp.semi;
  *
  * @author adalberto
  */
-class Mensagem {
+public class Mensagem {
     private String texto;
     private Usuario remetente;
 
