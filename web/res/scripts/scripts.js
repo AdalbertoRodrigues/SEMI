@@ -34,7 +34,7 @@ $(".btn-usuario-admin").click(function () {
 //Serviço que pode ser chamado em qualquer controller
 app.service('dataService', function ($location) {
     var url_local = $location.path();
-
+    eventoAnimacao = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
     return {
         getUrl_local: function () {
             //Retorna o url atual
@@ -213,8 +213,10 @@ app.controller("loginController", function ($scope, dataService, $timeout, $http
             }).then(function successCallback(response) {
                 $scope.resposta = response.data;
                 console.log($scope.resposta);
-                if (($scope.resposta).indexOf("Sucesso") >= 0) {
+                if (($scope.resposta).indexOf("Admin") >= 0 || ($scope.resposta).indexOf("Funcionario") >= 0) {
                     $(location).attr('href', ctx + '/admin/menu.jsp');
+                } else if (($scope.resposta).indexOf("Motorista") >= 0) {
+                    $(location).attr('href', ctx + '/menuMotorista.jsp');
                 } else {
                     $scope.erro_login = $scope.resposta;
                     $(".card-body-login").show();
@@ -665,7 +667,7 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document,
         $("#form-detalhes-veiculo-ano").val(veiculo.ano).trigger('input');
         $("#form-detalhes-veiculo-eixo").val(veiculo.qtdEixos);
         $("#form-detalhes-veiculo-placa").val(veiculo.placa).trigger('input');
-        if(veiculo.cnhMotoristaPreferencial == "null")
+        if (veiculo.cnhMotoristaPreferencial == "null")
             $("#form-detalhes-veiculo-motoristaPreferencial").val("");
         else
             $("#form-detalhes-veiculo-motoristaPreferencial").val(veiculo.cnhMotoristaPreferencial);
@@ -1025,7 +1027,7 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         $scope.incluir_viagem_pais_partida = $("#form-incluir-viagem-pais-partida").val();
         $scope.incluir_viagem_estado_partida = $("#form-incluir-viagem-estado-partida").val();
         $scope.incluir_viagem_cidade_partida = $("#form-incluir-viagem-cidade-partida").val();
-        
+
         $scope.incluir_viagem_cep_destino = $("#form-incluir-viagem-cep-destino").val();
         $scope.incluir_viagem_rua_destino = $("#form-incluir-viagem-rua-destino").val();
         $scope.incluir_viagem_rua_numero_destino = $("#form-incluir-viagem-rua-numero-destino").val();
@@ -1035,7 +1037,7 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
 
         if ($scope.incluir_viagem_tipo == '' || $scope.incluir_viagem_conteudo == '' || $scope.incluir_viagem_peso == '' || $scope.incluir_viagem_altura == '' || $scope.incluir_viagem_largura == '' || $scope.incluir_viagem_comprimento == '' || $scope.incluir_viagem_cep_partida == '' || $scope.incluir_viagem_cep_partida.length < 9 || $scope.incluir_viagem_rua_partida == '' || $scope.incluir_viagem_rua_numero_partida == '' || $scope.incluir_viagem_pais_partida == '' || $scope.incluir_viagem_estado_partida == '' || $scope.incluir_viagem_cidade_partida == '' || $scope.incluir_viagem_cep_destino == '' || $scope.incluir_viagem_cep_destino.length < 9 || $scope.incluir_viagem_rua_destino == '' || $scope.incluir_viagem_rua_numero_destino == '' || $scope.incluir_viagem_pais_destino == '' || $scope.incluir_viagem_estado_destino == '' || $scope.incluir_viagem_cidade_destino == '' || $scope.incluir_viagem_prazo == '') {
             console.log("desativado");
-            $("#btn-admin-adicionar-viagem").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').prop('disabled', true).css('cursor', 'not-allowed');           
+            $("#btn-admin-adicionar-viagem").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
         } else {
             console.log("ativado");
             $("#btn-admin-adicionar-viagem").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
@@ -1108,7 +1110,7 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
             });
         }
     });
-        
+
     $scope.checkValido = function () {
         $scope.detalhes_viagem_tipo = $("#form-detalhes-viagem-tipo").val();
         $scope.detalhes_viagem_conteudo = $("#form-detalhes-viagem-conteudo").val();
@@ -1124,7 +1126,7 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
         $scope.detalhes_viagem_pais_partida = $("#form-detalhes-viagem-pais-partida").val();
         $scope.detalhes_viagem_estado_partida = $("#form-detalhes-viagem-estado-partida").val();
         $scope.detalhes_viagem_cidade_partida = $("#form-detalhes-viagem-cidade-partida").val();
-        
+
         $scope.detalhes_viagem_cep_destino = $("#form-detalhes-viagem-cep-destino").val();
         $scope.detalhes_viagem_rua_destino = $("#form-detalhes-viagem-rua-destino").val();
         $scope.detalhes_viagem_rua_numero_destino = $("#form-detalhes-viagem-rua-numero-destino").val();
@@ -1133,7 +1135,7 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
         $scope.detalhes_viagem_cidade_destino = $("#form-detalhes-viagem-cidade-destino").val();
 
         if ($scope.detalhes_viagem_tipo == '' || $scope.detalhes_viagem_conteudo == '' || $scope.detalhes_viagem_peso == '' || $scope.detalhes_viagem_altura == '' || $scope.detalhes_viagem_largura == '' || $scope.detalhes_viagem_comprimento == '' || $scope.detalhes_viagem_cep_partida == '' || $scope.detalhes_viagem_cep_partida.length < 9 || $scope.detalhes_viagem_rua_partida == '' || $scope.detalhes_viagem_rua_numero_partida == '' || $scope.detalhes_viagem_pais_partida == '' || $scope.detalhes_viagem_estado_partida == '' || $scope.detalhes_viagem_cidade_partida == '' || $scope.detalhes_viagem_cep_destino == '' || $scope.detalhes_viagem_cep_destino.length < 9 || $scope.detalhes_viagem_rua_destino == '' || $scope.detalhes_viagem_rua_numero_destino == '' || $scope.detalhes_viagem_pais_destino == '' || $scope.detalhes_viagem_estado_destino == '' || $scope.detalhes_viagem_cidade_destino == '' || $scope.detalhes_viagem_prazo == '') {
-            $("#btn-admin-alterar-viagem").addClass('btn-admin-alterar-usuario-disabled').removeClass('btn-admin-alterar-usuario').prop('disabled', true).css('cursor', 'not-allowed');           
+            $("#btn-admin-alterar-viagem").addClass('btn-admin-alterar-usuario-disabled').removeClass('btn-admin-alterar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
         } else {
             $("#btn-admin-alterar-viagem").addClass('btn-admin-alterar-usuario').removeClass('btn-admin-alterar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
         }
@@ -1183,7 +1185,7 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
         });
     };
 
-    
+
     $scope.deleteViagem = function () {
 
         $http({

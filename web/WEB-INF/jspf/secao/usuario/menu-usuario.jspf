@@ -1,4 +1,8 @@
-<div ng-controller="menuAdminUsuarioController" class="secao-admin-usuario secao-ativa">
+<%
+    String secao = "";
+    if(session.getAttribute("me.type").equals("2")) secao = "secao-ativa";
+%>
+<div ng-controller="menuAdminUsuarioController" class="secao-admin-usuario <%=secao%>">
     <div class="row row-btn-admin row-crud-admin">
         <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-crud-admin" id="btn-admin-adicionar-usuario">
             <div ng-click="mostrarIncluirUsuario()" class="btn-admin-adicionar-usuario btn-crud-usuario"><i class="fas fa-user-plus font-menor"></i> Incluir</div>

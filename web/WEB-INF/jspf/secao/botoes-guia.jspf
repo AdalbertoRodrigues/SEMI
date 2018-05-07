@@ -1,20 +1,34 @@
 <div class="container secao-admin-abas" ng-controller="abasAdminController">
+    <%
+        int size = 6;
+        String ativo = "btn-admin-active";
+    %>
     <div class="row row-btn-admin">
+        <%
+            if (!session.getAttribute("me.type").equals("1")) {
+                if (session.getAttribute("me.type").equals("2")) {
+                    size = 4;
+                    ativo = "";
+        %>
         <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-menu">
             <button ng-click="irSecaoAdminUsuario()" class="btn-menu-admin btn-usuario-admin btn-admin-active row-btn-menu">Usuário</button>
         </div>
-        <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-menu">
-            <button ng-click="irSecaoAdminVeiculo()" class="btn-menu-admin btn-usuario-admin row-btn-menu">Veículo</button>
+        <%}%>
+        <div class="<%="col-" + size%> <%=" col-sm" + size%> <%=" col-md" + size%> <%=" col-lg" + size%> <%=" col-xl" + size%> row-btn-menu">
+            <button ng-click="irSecaoAdminVeiculo()" class="btn-menu-admin btn-usuario-admin <%=ativo%> row-btn-menu">Veículo</button>
         </div>
-        <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-menu">
+        <div class="<%="col-" + size%> <%=" col-sm" + size%> <%=" col-md" + size%> <%=" col-lg" + size%> <%=" col-xl" + size%> row-btn-menu">
             <button ng-click="irSecaoAdminViagem()" class="btn-menu-admin btn-usuario-admin row-btn-menu">Viagem</button>
         </div>
-    </div>
-    <br>
-    <div class="row row-btn-admin">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 row-btn-menu">
-            <button ng-click="irSecaoAdminEscala()" class="btn-menu-admin btn-usuario-admin row-btn-menu" id="btn-escala">Escala</button>
+        <%} else {%>
+        <div class="<%="col-" + size%> <%=" col-sm" + size%> <%=" col-md" + size%> <%=" col-lg" + size%> <%=" col-xl" + size%> row-btn-menu">
+            <button ng-click="" class="btn-menu-admin btn-usuario-admin <%=ativo%> row-btn-menu">Inicio</button>
         </div>
+        <div class="<%="col-" + size%> <%=" col-sm" + size%> <%=" col-md" + size%> <%=" col-lg" + size%> <%=" col-xl" + size%> row-btn-menu">
+            <button ng-click="" class="btn-menu-admin btn-usuario-admin row-btn-menu">Histórico</button>
+        </div>
+        <%}%>
     </div>
+
     <hr>
 </div>

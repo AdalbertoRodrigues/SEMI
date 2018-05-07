@@ -1,7 +1,7 @@
 <%-- 
-    Document   : menu
-    Created on : Mar 30, 2018, 6:27:06 PM
-    Author     : Vinícius
+    Document   : menuMotorista
+    Created on : 06/05/2018, 21:30:52
+    Author     : Henrique
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -19,8 +19,8 @@
 <%
     if (session.getAttribute("me.name") == null) {
         response.sendRedirect(request.getContextPath() + "/erro/erro.jsp?codigoErro=xceNL1001");
-    }else if(!session.getAttribute("me.type").equals("0") && !session.getAttribute("me.type").equals("2")){
-        response.sendRedirect(request.getContextPath() + "/erro/erro.jsp?codigoErro=xceAR1002");
+    } else if (!session.getAttribute("me.type").equals("1")) {
+        response.sendRedirect(request.getContextPath() + "/erro/erro.jsp?codigoErro=xceAR1003");
     }
 %>
 <html ng-app="semi">
@@ -42,47 +42,7 @@
         <%@include file="../WEB-INF/jspf/secao/botoes-guia.jspf"%>
 
         <div class="container">
-            <%if(session.getAttribute("me.type").equals("2")){%>
-            <!--//////////////////// USUÁRIO ////////////////////  -->
-            
-            <!-- MENU USUÁRIO -->
-            <%@include file="../WEB-INF/jspf/secao/usuario/menu-usuario.jspf"%>
-            
-            <!-- ADICIONAR USUARIO -->
-            <%@include file="../WEB-INF/jspf/secao/usuario/adicionar-usuario.jspf"%>
-
-            <!-- DETALHES/DELETAR USUARIO-->
-            <%@include file="../WEB-INF/jspf/secao/usuario/detalhes-usuario.jspf"%>
-            <%}%>
-            
-            <!--//////////////////// VEÍCULO ////////////////////  -->
-            
-            <!-- MENU VEÍCULO -->
-            <%@include file="../WEB-INF/jspf/secao/veiculo/menu-veiculo.jspf"%>
-            
-            <!-- ADICIONAR VEÍCULO -->
-            <%@include file="../WEB-INF/jspf/secao/veiculo/adicionar-veiculo.jspf"%>
-
-            <!-- DETALHES/DELETAR VEÍCULO -->
-            <%@include file="../WEB-INF/jspf/secao/veiculo/detalhes-veiculo.jspf"%>
-
-            <!--//////////////////// VIAGEM ////////////////////  -->
-            
-            <!-- MENU VIAGEM -->
-            <%@include file="../WEB-INF/jspf/secao/viagem/menu-viagem.jspf"%>
-
-            <!-- ADICIONAR VIAGEM -->
-            <%@include file="../WEB-INF/jspf/secao/viagem/incluir-viagem.jspf"%>
-
-            <!-- DETALHES/DELETAR VIAGEM -->
-            <%@include file="../WEB-INF/jspf/secao/viagem/detalhes-viagem.jspf"%>
-            
-            <!--//////////////////// ESCALA ////////////////////  -->
-            
-            <!-- MENU ESCALA -->
-            <%@include file="../WEB-INF/jspf/secao/escala/menu-escala.jspf"%>
-        </div>
-
+        <%@include file="../WEB-INF/jspf/secao/tela-motorista/inicio.jspf"%>    
         <br><br>
         <%@include file="../WEB-INF/jspf/modal_acoes.jspf"%>
         <%@include file="../WEB-INF/jspf/footer.jspf"%>

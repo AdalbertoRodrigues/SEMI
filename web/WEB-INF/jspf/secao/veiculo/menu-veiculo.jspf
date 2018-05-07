@@ -1,7 +1,11 @@
-<div class="secao-admin-veiculo" ng-controller="menuAdminVeiculoController">
+<%
+    String secao = "";
+    if(session.getAttribute("me.type").equals("0")) secao = "secao-ativa";
+%>
+<div ng-controller="menuAdminVeiculoController" class="secao-admin-veiculo <%=secao%>">
     <div class="row row-btn-admin row-crud-admin">
         <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 row-btn-crud-admin" id="btn-admin-adicionar-usuario">
-            <div  ng-click="mostrarIncluirVeiculo()" class="btn-admin-adicionar-usuario btn-crud-usuario"><i class="fas fa-truck  font-menor"></i> Incluir</div>
+            <div ng-click="mostrarIncluirVeiculo()" class="btn-admin-adicionar-usuario btn-crud-usuario"><i class="fas fa-truck  font-menor"></i> Incluir</div>
         </div>
     </div>
 

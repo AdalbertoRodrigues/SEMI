@@ -231,26 +231,26 @@
                         session.setAttribute("me.name", user.getNome());
                         session.setAttribute("me.login", user.getSenha());
                         session.setAttribute("me.type", user.getTipo());
-                        loginErrorMessage = "Sucesso";
+                        loginErrorMessage = "Funcionario";
                         break;
                     case "1":
                         session.setAttribute("me.id", user.getCpf());
                         session.setAttribute("me.name", user.getNome());
                         session.setAttribute("me.login", user.getSenha());
                         session.setAttribute("me.type", user.getTipo());
-                        loginErrorMessage = "Sucesso";
+                        loginErrorMessage = "Motorista";
                         break;
                     case "2":
                         session.setAttribute("me.cpf", user.getCpf());
                         session.setAttribute("me.name", user.getNome());
                         session.setAttribute("me.pass", user.getSenha());
                         session.setAttribute("me.type", user.getTipo());
-                        loginErrorMessage = "Sucesso";
+                        loginErrorMessage = "Admin";
                         break;
-                    case "4":
+                    case "3":
                         loginErrorMessage = "Login e/ou senha não encontrados";
                         break;
-                    case "5":
+                    case "4":
                         loginErrorMessage = "Login e/ou senha não encontrados";
                         break;
                 }
