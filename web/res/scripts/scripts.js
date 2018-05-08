@@ -731,7 +731,6 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
     };
 
     $scope.insertVeiculo = function () {
-        console.log('Entrou');
         $http({
             method: 'POST',
             url: ctx + '/veiculo.jsp?action=insert',
@@ -744,7 +743,6 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
 
 
         $('.checkbox-veiculo:checked').each(function () {
-            console.log("Entrou capa");
             var capacitacao = {
                 "idCapacitacao": $(this).val(),
                 "placa": $("#form-incluir-veiculo-placa").cleanVal()
@@ -828,7 +826,7 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
         $http({
             method: 'POST',
             url: ctx + '/veiculo.jsp?action=update&placa=' + $("#form-detalhes-veiculo-placa").cleanVal(),
-            data: {"modelo": $("#form-detalhes-veiculo-modelo").val(), "marca": $("#form-detalhes-veiculo-marca").val(), "ano": $("#form-detalhes-veiculo-ano").val(), "eixos": $("#form-detalhes-veiculo-eixo").val(), "motoristaPreferencial": $("#form-detalhes-veiculo-motoristaPreferencial").val(), "capacitacao1": $("#form-detalhes-capacitacao-1").is("checked"), "capacitacao2": $("#form-detalhes-capacitacao-2").is("checked"), "capacitacao3": $("#form-detalhes-capacitacao-3").is("checked"), "capacitacao4": $("#form-detalhes-capacitacao-4").is("checked")}
+            data: {"modelo": $("#form-detalhes-veiculo-modelo").val(), "marca": $("#form-detalhes-veiculo-marca").val(), "ano": $("#form-detalhes-veiculo-ano").val(), "eixos": $("#form-detalhes-veiculo-eixo").val(), "motoristaPreferencial": $("#form-detalhes-veiculo-motoristaPreferencial").val(), "capacitacao1": $("#form-detalhes-capacitacao-1").is(":checked"), "capacitacao2": $("#form-detalhes-capacitacao-2").is(":checked"), "capacitacao3": $("#form-detalhes-capacitacao-3").is(":checked"), "capacitacao4": $("#form-detalhes-capacitacao-4").is(":checked")}
         }).then(function successCallback(response) {
             if (response.data.resposta == "SUCCESS") {
                 dataService.abrirModalAcao('veículo', 'editado');
@@ -837,7 +835,6 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
                 $rootScope.getCapacitacao();
 
             } else {
-                //alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte");
                 alert("Ocorreu um erro ao alterar o veiculo, se persistirem os erros favor relatar ao suporte");
             }
 
@@ -876,7 +873,24 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                 if ($("#" + $scope.id).is(":checked")) {
                     $scope.vet_escala.push($scope.id);
                 }
-
+            });
+            $scope.object_escala = {};
+            for (i = 0; i < $scope.vet_escala.length; i++) {
+                $scope.object_escala["\"" + $scope.vet_escala[i] + "\""] = $scope.vet_escala[i];
+            }
+            $http({
+                method: 'POST',
+                url: ctx + '/escala.jsp?action=escalar',
+                data: $scope.object_escala
+            }).then(function successCallback(response) {
+                if (response.data.resposta == "SUCCESS") {
+                    dataService.abrirModalAcao('viagem', 'escalada');
+                    $rootScope.getViagens();
+                } else {
+                    alert(response.data);
+                }
+            }, function errorCallback(response) {
+                console.log('Error');
             });
             //$scope.vet_escala é o vetor com os IDS que serão escalados
             $(".linha-tabela-escala-pendente").find("input").prop('checked', false);
@@ -977,7 +991,34 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados dos veículos. Atualize a página e, se o erro persistir, contate o suporte.';
             $("#alerta-exibicao-veiculo").show();
         });
+    };
+    
+    $rootScope.getViagensEscaladas = function () {
+        $(".loader-viagem").show();
+        $("#alerta-exibicao-viagem").hide();
+
+        $http({
+            method: 'GET',
+            url: ctx + '/viagem.jsp?action=select'
+        }).then(function successCallback(response) {
+
+            $scope.viagens = response.data.viagens;
+            $(".loader-viagem").hide();
+            $("#form-admin-veiculo-filtro").focus();
+            $(".admin-exibicao-veiculo").show();
+
+            if ($scope.viagens.length == 0) {
+                $scope.erro_viagem = 'Nenhum veículo encontrado com o respectivo filtro!';
+                $("#alerta-exibicao-veiculo").show();
+            }
+
+        }, function errorCallback(response) {
+            $(".loader-veiculo").hide();
+            $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados dos veículos. Atualize a página e, se o erro persistir, contate o suporte.';
+            $("#alerta-exibicao-veiculo").show();
+        });
     }
+    
     $rootScope.getTiposCarga = function () {
         $http({
             method: 'GET',
