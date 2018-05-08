@@ -209,24 +209,25 @@
             ps = con.conexao.prepareStatement("DELETE FROM CAPACITACAO_VEICULO WHERE cd_placa_veiculo = '" + request.getParameter("placa") + "'");
             ps.execute();
             if (requestData.split(",")[5].split(":")[1].replace("\"", "").equals("true")) {
-                ps = con.conexao.prepareStatement("INSERT INTO CAPACITACAO_VEICULO(cd_placa_veiculo, cd_id_capacitacao) VALUES('" + request.getParameter("placa") + "', 1");
+                ps = con.conexao.prepareStatement("INSERT INTO CAPACITACAO_VEICULO(cd_placa_veiculo, cd_id_capacitacao) VALUES('" + request.getParameter("placa") + "', 1)");
                 ps.execute();
             }
             if (requestData.split(",")[6].split(":")[1].replace("\"", "").equals("true")) {
-                ps = con.conexao.prepareStatement("INSERT INTO CAPACITACAO_VEICULO(cd_placa_veiculo, cd_id_capacitacao) VALUES('" + request.getParameter("placa") + "', 2");
+                ps = con.conexao.prepareStatement("INSERT INTO CAPACITACAO_VEICULO(cd_placa_veiculo, cd_id_capacitacao) VALUES('" + request.getParameter("placa") + "', 2)");
                 ps.execute();
             }
             if (requestData.split(",")[7].split(":")[1].replace("\"", "").equals("true")) {
-                ps = con.conexao.prepareStatement("INSERT INTO CAPACITACAO_VEICULO(cd_placa_veiculo, cd_id_capacitacao) VALUES('" + request.getParameter("placa") + "', 3");
+                ps = con.conexao.prepareStatement("INSERT INTO CAPACITACAO_VEICULO(cd_placa_veiculo, cd_id_capacitacao) VALUES('" + request.getParameter("placa") + "', 3)");
                 ps.execute();
             }
             if (requestData.split(",")[8].split(":")[1].replace("\"", "").equals("true")) {
-                ps = con.conexao.prepareStatement("INSERT INTO CAPACITACAO_VEICULO(cd_placa_veiculo, cd_id_capacitacao) VALUES('" + request.getParameter("placa") + "', 4");
+                ps = con.conexao.prepareStatement("INSERT INTO CAPACITACAO_VEICULO(cd_placa_veiculo, cd_id_capacitacao) VALUES('" + request.getParameter("placa") + "', 4)");
                 ps.execute();
             }
             out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
-            out.println("{\"resposta\":\"ERROR\"}");
+            //out.println("{\"resposta\":\"ERROR\"}");
+            out.println(ex.getMessage());
         }
 
     } else if (action.equals("delete")) {
@@ -236,7 +237,6 @@
             ps.execute();
             out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
-            out.println("ERROR");
             out.println("{\"resposta\":\"ERROR\"}");
         }
     }
