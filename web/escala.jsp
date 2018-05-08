@@ -132,6 +132,8 @@
                                                     if (rsVeiculo.getString("V.cd_cnh_motorista_preferencial_veiculo") != null) {
                                                         cnhPreferencial = " AND M.cd_cnh_motorista = '" + rsVeiculo.getString("V.cd_cnh_motorista_preferencial_veiculo" + "'");
                                                     }
+                                                }else{
+                                                    placaVeiculoEscalado = null;
                                                 }
                                             } while (rsDataVeiculo.next());
                                             //Se não
@@ -159,6 +161,8 @@
                                                 do {
                                                     if (dataViagem.after(sdf.parse(rsDataMotorista.getString("V.dt_prazo_viagem")))) {
                                                         cnhMotoristaEscalado = rsMotorista.getString("M.cd_cnh_motorista");
+                                                    }else{
+                                                        cnhMotoristaEscalado = null;
                                                     }
                                                 } while (rsDataMotorista.next());
                                             } else {
@@ -168,7 +172,7 @@
                                             cnhPreferencial = null;
                                         }
                                     }
-
+                                    if(cnhMotoristaEscalado == null) cnhPreferencial = null;
                                     //Caso não exista CNH Preferencial
                                     if (cnhPreferencial == null) {
                                         ResultSet rsMotorista = con.conexao.prepareStatement("SELECT M.cd_cnh_motorista FROM MOTORISTA AS M"
@@ -185,6 +189,8 @@
                                                     do {
                                                         if (dataViagem.after(sdf.parse(rsDataMotorista.getString("V.dt_prazo_viagem")))) {
                                                             cnhMotoristaEscalado = rsMotorista.getString("M.cd_cnh_motorista");
+                                                        }else{
+                                                            cnhMotoristaEscalado = null;
                                                         }
                                                     } while (rsDataMotorista.next());
                                                 } else {
