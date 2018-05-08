@@ -561,3 +561,7 @@ button:focus {
 .txt-chat-funcionario {
     padding-left: 20px;
 }
+
+.form-incluir-usuario-super {
+    display: none;  
+}

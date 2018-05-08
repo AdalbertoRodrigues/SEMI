@@ -409,9 +409,13 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
         if ($("#btn-tipo-funcionario").hasClass("btn-admin-tipo-active")) {
             $(".form-motorista").fadeOut();
             $("#form-incluir-usuario-cnh").val('');
+            $(".form-incluir-usuario-super").fadeIn();
             $scope.incluir_usuario_cnh = null;
         } else {
             $(".form-motorista").fadeIn();
+            $("#form-incluir-usuario-super").prop("checked", false);
+            $(".form-incluir-usuario-super").fadeOut();
+
         }
     });
 
@@ -422,10 +426,15 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
     //incluir usuário
     $scope.cadastrarUsuario = function () {
         if ($("#btn-tipo-funcionario").hasClass("btn-admin-tipo-active")) {
+            if ($("#form-incluir-usuario-super").is(":checked")) {
+                $scope.tipo = "2";
+            } else {
+                $scope.tipo = "0";
+            }
             $http({
                 method: 'POST',
                 url: ctx + '/Usuario.jsp?action=insert',
-                data: {"cpf": $("#form-incluir-usuario-cpf").cleanVal(), "nome": $("#form-incluir-usuario-nome").val(), "senha": $("#form-incluir-usuario-senha").val(), "tipo": "0"}
+                data: {"cpf": $("#form-incluir-usuario-cpf").cleanVal(), "nome": $("#form-incluir-usuario-nome").val(), "senha": $("#form-incluir-usuario-senha").val(), "tipo": $scope.tipo}
             }).then(function successCallback(response) {
                 if (response.data.resposta == "SUCCESS") {
                     dataService.abrirModalAcao('funcionário', 'inserido');
@@ -849,7 +858,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $rootScope.getViagens();
         $rootScope.getViagensEscaladas();
     });
-    
+
     $scope.abrirModalChat = function () {
         $('#modal-chat').modal('toggle');
     };
@@ -892,13 +901,13 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                     alert("Escalas realizadas com sucesso!!");
                     $rootScope.getViagens();
                     $rootScope.getViagensEscaladas();
-                } else if(response.data.resposta.indexOf("VIAGEM-NOT-FOUND-ID-") >= 0){
+                } else if (response.data.resposta.indexOf("VIAGEM-NOT-FOUND-ID-") >= 0) {
                     alert(response.data.resposta + "\n\nOps, não encontramos sua viagem na nossa base de dados.\n\nAtualize o SEMI e se o erro persistir, contate o administrador do sistema");
-                } else if(response.data.resposta.indexOf("VEICULO-NOT-FOUND-ID-") >= 0 || response.data.resposta.indexOf("NO-VEICULO-DISPONIVEL-ID-") >= 0){
+                } else if (response.data.resposta.indexOf("VEICULO-NOT-FOUND-ID-") >= 0 || response.data.resposta.indexOf("NO-VEICULO-DISPONIVEL-ID-") >= 0) {
                     alert(response.data.resposta + "\n\nNão foi possivel encontrar um veiculo disponível para sua viagem.\nVerifique se possuem veiculos disponiveis e tente novamente\n\nSe o problema persistir, contate o administrador do sistema");
-                } else if(response.data.resposta.indexOf("MOTORISTA-NOT-FOUND-ID-") >= 0 || response.data.resposta.indexOf("NO-MOTORISTA-DISPONIVEL-ID-") >= 0){
+                } else if (response.data.resposta.indexOf("MOTORISTA-NOT-FOUND-ID-") >= 0 || response.data.resposta.indexOf("NO-MOTORISTA-DISPONIVEL-ID-") >= 0) {
                     alert(response.data.resposta + "\n\nNão foi possivel encontrar um motorista disponível para sua viagem.\nVerifique se possuem motoristas disponiveis e tente novamente\n\nSe o problema persistir, contate o administrador do sistema");
-                }else{
+                } else {
                     alert(response.data.resposta + "\n\nOps, parece que ocorreu um erro com alguma informação na nossa base de dados\n\nAtualize o SEMI e se o erro persistir, contate o administrador do sistema");
                 }
                 console.log(response.data.resposta);
@@ -1005,7 +1014,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $("#alerta-exibicao-veiculo").show();
         });
     };
-    
+
     $rootScope.getViagensEscaladas = function () {
         $(".loader-viagem").show();
         $("#alerta-exibicao-viagem").hide();
@@ -1031,7 +1040,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $("#alerta-exibicao-veiculo").show();
         });
     }
-    
+
     $rootScope.getTiposCarga = function () {
         $http({
             method: 'GET',

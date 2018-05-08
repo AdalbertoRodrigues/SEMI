@@ -1,61 +1,71 @@
-            <div ng-controller="incluirUsuarioAdminController" class="secao-admin-usuario-incluir">
-                <form>
-                    <div class="form group row align-items-center row-admin-tipo">
-                        <div ng-click="voltarMenu()" class="col-2">
-                            <i class="fas fa-arrow-left fa-2x" id="seta-voltar"></i>
-                        </div>
-                        <div class="col-4 btn-admin-incluir-usuario-tipo btn-admin-tipo-active" id="btn-tipo-motorista">
-                            Motorista
-                        </div>
-                        <div class="col-4 btn-admin-incluir-usuario-tipo" id="btn-tipo-funcionario">
-                            Funcionário
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="form-incluir-usuario-nome" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
-                        <div class="col-12 col-sm-12    ">
-                            <input value="" type="text" ng-model="incluir_usuario_nome" ng-model-options='{debounce: 1000}' ng-change="checkValido()" required class="form-control form-control-sm input-incluir-usuario" id="form-incluir-usuario-nome">
-                        </div> 
-                    </div>
-                    <div class="form-group row form-group-cpf">
-                        <label for="form-incluir-usuario-cpf" id="label-usuario-cpf" class="col-sm-2 col-form-label col-form-label-sm">CPF</label>
-                        <div class="col-12 col-sm-12">
-                            <input value="" type="text" ng-model="incluir_usuario_cpf" ng-model-options='{debounce: 500}' ng-change="checkCpf()" required class="form-control form-control-sm cpf input-incluir-usuario" id="form-incluir-usuario-cpf">
-                        </div> 
-                    </div>
-                    <div class="form-motorista">
-                        <div class="form-group row form-group-cnh">
-                            <label for="form-incluir-usuario-cnh" id="label-usuario-cnh" class="col-sm-2 col-form-label col-form-label-sm">CNH</label>
-                            <div class="col-12 col-sm-12">
-                                <input value="" type="text"ng-model="incluir_usuario_cnh" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-control form-control-sm cnh input-incluir-usuario" id="form-incluir-usuario-cnh">
-                            </div> 
-                        </div>
-                        <div class="row">
-                            <div class="form-check">
-                                <div class="col-4 my-auto">
-                                    <label for="form-incluir-usuario-mopp" class="form-check-label">
-                                        <input type="checkbox" class="form-check-input input-incluir-usuario" ng-model="checkMopp" id="form-incluir-usuario-mopp" value="mopp">
-                                        MOPP
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-8 col-mopp">
-                                Validade:
-                                <input class="form-control form-control-sm input-incluir-usuario" ng-model="incluir_usuario_validade" ng-disabled="!checkMopp" type="date" id="form-incluir-usuario-validade">
-                            </div>    
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="form-incluir-usuario-senha" class="col-sm-2 col-form-label col-form-label-sm">Senha</label>
-                        <div class="col-12 col-sm-12">
-                            <input value="" type="text" class="form-control form-control-sm input-incluir-usuario" required ng-model-options='{debounce: 1000}' ng-change="checkValido()" ng-model="incluir_usuario_senha" id="form-incluir-usuario-senha">
-                        </div> 
-                    </div>
-                    <div class="row">
-                        <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
-                            <!-- BOTÃO INSERT USUARIO -->
-                            <button class="btn btn-admin-adicionar-usuario-disabled" disabled id="btn-inserir-usuario" type="submit" ng-click="cadastrarUsuario()"><i class="fas fa-user-plus font-menor"></i> Cadastrar</button>
-                        </div>
-                    </div>
-                </form>
+<div ng-controller="incluirUsuarioAdminController" class="secao-admin-usuario-incluir">
+    <form>
+        <div class="form group row align-items-center row-admin-tipo">
+            <div ng-click="voltarMenu()" class="col-2">
+                <i class="fas fa-arrow-left fa-2x" id="seta-voltar"></i>
             </div>
+            <div class="col-4 btn-admin-incluir-usuario-tipo btn-admin-tipo-active" id="btn-tipo-motorista">
+                Motorista
+            </div>
+            <div class="col-4 btn-admin-incluir-usuario-tipo" id="btn-tipo-funcionario">
+                Funcionário
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="form-incluir-usuario-nome" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
+            <div class="col-12 col-sm-12    ">
+                <input value="" type="text" ng-model="incluir_usuario_nome" ng-model-options='{debounce: 1000}' ng-change="checkValido()" required class="form-control form-control-sm input-incluir-usuario" id="form-incluir-usuario-nome">
+            </div> 
+        </div>
+        <div class="form-group row form-group-cpf">
+            <label for="form-incluir-usuario-cpf" id="label-usuario-cpf" class="col-sm-2 col-form-label col-form-label-sm">CPF</label>
+            <div class="col-12 col-sm-12">
+                <input value="" type="text" ng-model="incluir_usuario_cpf" ng-model-options='{debounce: 500}' ng-change="checkCpf()" required class="form-control form-control-sm cpf input-incluir-usuario" id="form-incluir-usuario-cpf">
+            </div> 
+        </div>
+        <div class="form-motorista">
+            <div class="form-group row form-group-cnh">
+                <label for="form-incluir-usuario-cnh" id="label-usuario-cnh" class="col-sm-2 col-form-label col-form-label-sm">CNH</label>
+                <div class="col-12 col-sm-12">
+                    <input value="" type="text"ng-model="incluir_usuario_cnh" ng-model-options='{debounce: 500}' ng-change="checkValido()" class="form-control form-control-sm cnh input-incluir-usuario" id="form-incluir-usuario-cnh">
+                </div> 
+            </div>
+            <div class="row">
+                <div class="form-check">
+                    <div class="col-4 my-auto">
+                        <label for="form-incluir-usuario-mopp" class="form-check-label">
+                            <input type="checkbox" class="form-check-input input-incluir-usuario" ng-model="checkMopp" id="form-incluir-usuario-mopp" value="mopp">
+                            MOPP
+                        </label>
+                    </div>
+                </div>
+                <div class="col-8 col-mopp">
+                    Validade:
+                    <input class="form-control form-control-sm input-incluir-usuario" ng-model="incluir_usuario_validade" ng-disabled="!checkMopp" type="date" id="form-incluir-usuario-validade">
+                </div>    
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="form-check">
+                <div class="col-6 my-auto form-incluir-usuario-super">
+                    <label for="form-incluir-usuario-super" class="form-check-label">
+                        <input type="checkbox" class="form-check-input input-incluir-usuario" ng-model="incluir_usuario_super" id="form-incluir-usuario-super">
+                        Super usuário
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="form-incluir-usuario-senha" class="col-sm-2 col-form-label col-form-label-sm">Senha</label>
+            <div class="col-12 col-sm-12">
+                <input value="" type="text" class="form-control form-control-sm input-incluir-usuario" required ng-model-options='{debounce: 1000}' ng-change="checkValido()" ng-model="incluir_usuario_senha" id="form-incluir-usuario-senha">
+            </div> 
+        </div>
+        <div class="row">
+            <div style="margin-bottom: 70px;" class="col-12 col-sm-12">
+                <!-- BOTÃO INSERT USUARIO -->
+                <button class="btn btn-admin-adicionar-usuario-disabled" disabled id="btn-inserir-usuario" type="submit" ng-click="cadastrarUsuario()"><i class="fas fa-user-plus font-menor"></i> Cadastrar</button>
+            </div>
+        </div>
+    </form>
+</div>
