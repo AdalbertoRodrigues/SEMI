@@ -10,6 +10,7 @@
                 <option value="descanso">Parado (descanso)</option>
                 <option value="enregue">Entregue</option>
                 <option value="voltando">Voltando</option>
+                <option value="concluida">Concluida</option>
             </select>
         </div>
         <div class="col-4 col-sm-4 col-md-4 col-lg-2 col-xl-3">
