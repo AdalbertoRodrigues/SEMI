@@ -26,9 +26,9 @@
             String requestData = request.getReader().lines().collect(Collectors.joining());
 
             requestData = requestData.replace("{", "").replace("}", "");
-            for(int indexOfData = 0; indexOfData < requestData.split(",").length; indexOfData++) {
+            int count = requestData.split(",").length;
+            for(int indexOfData = 0; indexOfData < count; indexOfData++) {
                 String viagens = requestData.split(",")[indexOfData].split(":")[1].replace("\"", "");
-                out.println(requestData.split(",")[0].split(":")[1].replace("\"", ""));
                 int idViagem = Integer.parseInt(requestData.split(",")[0].split(":")[1].replace("\"", ""));
                 String placaVeiculoEscalado = null;
                 String cnhMotoristaEscalado = null;
@@ -188,9 +188,6 @@
                 ps.setString(2, placaVeiculoEscalado);
                 ps.setInt(3, idViagem);
                 ps.execute();
-                out.println(cnhMotoristaEscalado);
-                out.println(placaVeiculoEscalado);
-                out.println(idViagem);
 
                 //Atualizando status Viagem
                 PreparedStatement psStatus = con.conexao.prepareStatement("UPDATE VIAGEM SET ds_status_viagem = ? WHERE cd_id_viagem = " + idViagem);

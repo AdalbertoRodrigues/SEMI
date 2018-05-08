@@ -884,7 +884,8 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                 data: $scope.object_escala
             }).then(function successCallback(response) {
                 if (response.data.resposta == "SUCCESS") {
-                    dataService.abrirModalAcao('viagem', 'escalada');
+                    alert(response.data.resposta)
+                    //dataService.abrirModalAcao('viagem', 'escalada');
                     $rootScope.getViagens();
                 } else {
                     alert(response.data);
@@ -1095,14 +1096,14 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
             "comprimentocarga": $("#form-incluir-viagem-comprimento").val(),
             "conteudo": $("#form-incluir-viagem-conteudo").val(),
             "prazo": $("#form-incluir-viagem-prazo").val(),
-            "enderecoCepPartida": $("#form-incluir-viagem-cep-partida").val(),
+            "enderecoCepPartida": $("#form-incluir-viagem-cep-partida").cleanVal(),
             "enderecoNumeroPartida": $("#form-incluir-viagem-rua-numero-partida").val(),
             "enderecoRuaPartida": $("#form-incluir-viagem-rua-partida").val(),
             "enderecoCidadePartida": $("#form-incluir-viagem-cidade-partida").val(),
             "enderecoEstadoPartida": $("#form-incluir-viagem-estado-partida").val(),
             "enderecoPaisPartida": $("#form-incluir-viagem-pais-partida").val(),
             "enderecoComplementoPartida": "-" + $("#form-incluir-viagem-rua-complemento-partida").val(),
-            "enderecoCepDestino": $("#form-incluir-viagem-cep-destino").val(),
+            "enderecoCepDestino": $("#form-incluir-viagem-cep-destino").cleanVal(),
             "enderecoNumeroDestino": $("#form-incluir-viagem-rua-numero-destino").val(),
             "enderecoRuaDestino": $("#form-incluir-viagem-rua-destino").val(),
             "enderecoCidadeDestino": $("#form-incluir-viagem-cidade-destino").val(),
@@ -1120,7 +1121,8 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
                 dataService.voltarMenuAdminViagem();
                 $rootScope.getViagens();
             } else {
-                alert("Ocorreu um erro ao inserir a viagem, se persistirem os erros favor relatar ao suporte");
+                //alert("Ocorreu um erro ao inserir a viagem, se persistirem os erros favor relatar ao suporte");
+                alert(response.data);
             }
         }, function errorCallback(response) {
             console.log('Error');

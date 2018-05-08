@@ -123,8 +123,7 @@
             String pesoCarga = requestData.split(",")[1].split(":")[1].replace("\"", "");
             double pesoCargaDouble;
             String unidadeMedidaCarga;
-
-            if (pesoCarga.substring(pesoCarga.length() - 3, pesoCarga.length() - 1).equals("kg")) {
+            if (pesoCarga.substring(pesoCarga.length() - 2, pesoCarga.length()).equals("kg")) {
                 pesoCargaDouble = Double.parseDouble(pesoCarga.substring(0, pesoCarga.length() - 3));
                 unidadeMedidaCarga = "kg";
             } else {
@@ -156,10 +155,11 @@
             String enderecoCidadePartida = requestData.split(",")[10].split(":")[1].replace("\"", "");;
             String enderecoEstadoPartida = requestData.split(",")[11].split(":")[1].replace("\"", "");;
             String enderecoPaisPartida = requestData.split(",")[12].split(":")[1].replace("\"", "");;
-            String enderecoComplementoPartida = requestData.split(",")[13].split(":")[1].replace("\"", "");;
-
+            String enderecoComplementoPartida = requestData.split(",")[13].split(":")[1].replace("\"", "");
+            
             //checando se endereço ja foi cadastrado
-            rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepPartida + "' AND cd_numero_endereco = '" + enderecoNumeroPartida + "' AND nm_rua_endereco = '" + enderecoRuaPartida + "' AND nm_cidade_endereco = '" + enderecoCidadePartida + "' nm_estado_endereco = '" + enderecoEstadoPartida + "' AND nm_pais_endereco = '" + enderecoPaisPartida + "'").executeQuery();
+            rs = con.conexao.prepareStatement("SELECT * FROM ENDERECO WHERE cd_cep_endereco = '" + enderecoCepPartida + "' AND cd_numero_endereco = '" + enderecoNumeroPartida + "' AND nm_rua_endereco = '" + enderecoRuaPartida + "' AND nm_cidade_endereco = '" + enderecoCidadePartida + "' AND nm_estado_endereco = '" + enderecoEstadoPartida + "' AND nm_pais_endereco = '" + enderecoPaisPartida + "'").executeQuery();
+            
             int idEnderecoPartida;
             if (rs.next()) {
                 idEnderecoPartida = rs.getInt("cd_id_endereco");
