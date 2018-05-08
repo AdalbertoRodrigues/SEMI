@@ -849,6 +849,10 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $rootScope.getViagens();
         $rootScope.getViagensEscaladas();
     });
+    
+    $scope.abrirModalChat = function () {
+        $('#modal-chat').modal('toggle');
+    };
 
 
     $scope.checkCheckbox = function (check_id) {

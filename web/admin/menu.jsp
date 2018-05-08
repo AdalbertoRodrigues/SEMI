@@ -85,6 +85,7 @@
 
         <br><br>
         <%@include file="../WEB-INF/jspf/modal_acoes.jspf"%>
+        <%@include file="../WEB-INF/jspf/secao/tela-motorista/modal-status.jspf"%>
         <%@include file="../WEB-INF/jspf/footer.jspf"%>
         <script>var ctx = "<%=request.getContextPath()%>"</script>
     </body>

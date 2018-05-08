@@ -67,6 +67,7 @@
                     <th width="3%"scope="col">CARGA</th>
                     <th width="3%"scope="col">STATUS</th>
                     <th width="10%" scope="col">VER</th>
+                    <th width="10%" scope="col">CHAT</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,7 +77,8 @@
                     <td class="td-{{viagensEscaladas.id}}" width="25%">{{viagensEscaladas.carga.conteudo}}</td>
                     <td class="td-{{viagensEscaladas.id}}" width="25%">{{viagensEscaladas.status}}</td>
                     <td class="td-{{viagensEscaladas.id}}" width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesViagem(viagensEscaladas)"><i class="fas fa-eye"></i></td>
-                </tr>
+                    <td class="td-{{viagensEscaladas.id}}" width="10%"><button type="button" ng-click="abrirModalChat()" class="btn btn-info"><i class="fas fa-comment-alt"></i> Chat</button></td>
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -534,3 +534,30 @@ button:focus {
 .btn-chat {
     margin-top: 15px;
 }
+
+.msg-chat {
+    text-align: center;
+    font-weight: 100;
+}
+
+.msg-chat-motorista {
+    background-color: rgba(0, 133, 153, 0.2);
+    border-radius: 4px;
+}
+
+.msg-chat-motorista u {
+    color: #008599;
+}
+
+.msg-chat-funcionario u {
+    color: #b77c24;
+}
+
+.msg-chat-funcionario {
+    background-color: rgba(249, 174, 45, 0.2);
+    border-radius: 4px;
+}
+
+.txt-chat-funcionario {
+    padding-left: 20px;
+}

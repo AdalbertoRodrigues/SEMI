@@ -2,33 +2,50 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="item-titulo">Chat com o funcionário</h5>
+                <h5 class="modal-title" id="item-titulo">Chat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="modal-acoes-body">
-                <div class="row">
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xs-2 msg-chat-funcionario">
-                        <span><u>Funcionário</u></span><br>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12">
-                        <span>Lorem Ipsum dolor sit amet</span><br>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-8 col-sm-8 col-md-8 col-lg-8">
-                        &nbsp;
-                    </div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xs-2 msg-chat-funcionario">
-                        <span style="float: left;"><u>Motorista</u></span><br>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12">
-                        <span>Lorem Ipsum dolor sit amet</span><br>
+            <div class="modal-body" id="modal-chat-body">
+                <div class="msg-chat-funcionario">
+                    <div class="row">
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xs-2">
+                            <span class="txt-chat-funcionario"><u>Funcionário</u></span><br>
+                        </div>
+                        <div class="msg-chat col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                            <span>Onde você está?</span><br>
+                        </div>
                     </div>
                 </div>
                 <hr>
+                <div class="msg-chat-motorista">
+                    <div class="row">
+                        <div class="col-7 col-sm-9 col-md-9 col-lg-9 col-xs-10">
+                            &nbsp;
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xs-2">
+                            <span><u>Motorista</u></span><br>
+                        </div>
+                        <div class="msg-chat col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                            <span>Parado na marginal. Está muito trânsito.</span><br>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <br>
+                <div class="msg-chat-escrever">
+                    <div class="row">
+                        <div class="form-group col-9 col-sm-10 col-md-10 col-lg-10 col-xs-10">
+                            <input type="text" class="form-control" id="usr">
+                        </div>
+                        <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xs-1">
+                            <button type="button" class="btn btn-info"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                    
+                </div>
+
                 <div class="loader-modal"></div>
             </div>
         </div>
