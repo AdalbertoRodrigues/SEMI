@@ -884,9 +884,10 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                 url: ctx + '/escala.jsp?action=escalar',
                 data: $scope.object_escala
             }).then(function successCallback(response) {
-                if (response.data.resposta.indexOf("SUCCESS") > 0) {
+                if (response.data.resposta.indexOf("SUCCESS") >= 0) {
                     alert("Escalas realizadas com sucesso!!");
                     $rootScope.getViagens();
+                    $rootScope.getViagensEscaladas();
                 } else if(response.data.resposta.indexOf("VIAGEM-NOT-FOUND-ID-") >= 0){
                     alert(response.data.resposta + "\n\nOps, não encontramos sua viagem na nossa base de dados.\n\nAtualize o SEMI e se o erro persistir, contate o administrador do sistema");
                 } else if(response.data.resposta.indexOf("VEICULO-NOT-FOUND-ID-") >= 0 || response.data.resposta.indexOf("NO-VEICULO-DISPONIVEL-ID-") >= 0){
@@ -996,7 +997,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
 
         }, function errorCallback(response) {
             $(".loader-veiculo").hide();
-            $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados dos veículos. Atualize a página e, se o erro persistir, contate o suporte.';
+            $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados de viagens. Atualize a página e, se o erro persistir, contate o suporte.';
             $("#alerta-exibicao-veiculo").show();
         });
     };
@@ -1022,7 +1023,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
 
         }, function errorCallback(response) {
             $(".loader-veiculo").hide();
-            $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados dos veículos. Atualize a página e, se o erro persistir, contate o suporte.';
+            $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados de viagens. Atualize a página e, se o erro persistir, contate o suporte.';
             $("#alerta-exibicao-veiculo").show();
         });
     }

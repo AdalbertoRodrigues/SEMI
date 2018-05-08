@@ -41,7 +41,7 @@
                     <td class="td-{{viagens.id}}">        
                         <div class="form-check">
                             <label class="form-check-label checkbox-escala-pendente">
-                                <input ng-click="checkCheckbox(viagens.id)" class="form-check-input" id="{{viagens.id}}" type="checkbox"> &nbsp;
+                                &nbsp;<input ng-click="checkCheckbox(viagens.id)" class="form-check-input" id="{{viagens.id}}" type="checkbox"> &nbsp;
                             </label>
                         </div>
                     </td>
@@ -70,7 +70,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="viagensEscaladas in viagensEscaladas | itemsPerPage: 5" class="linha-tabela-escala-pendente" pagination-id="viagem">
+                    <tr dir-paginate="viagensEscaladas in viagensEscaladas | itemsPerPage: 5" class="linha-tabela-escala-realizada" pagination-id="viagemEscalada">
                     <td class="td-{{viagensEscaladas.id}}" width="25%">{{viagensEscaladas.partida.cidade}}/{{viagensEscaladas.partida.estado}}</td>
                     <td class="td-{{viagensEscaladas.id}}" width="25%">{{viagensEscaladas.destino.cidade}}/{{viagensEscaladas.destino.estado}}</td>
                     <td class="td-{{viagensEscaladas.id}}" width="25%">{{viagensEscaladas.carga.conteudo}}</td>
