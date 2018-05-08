@@ -1,55 +1,60 @@
 <div ng-controller="menuMotoristaViagemController">
-<div class="row">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <h4 id="txt-prox-viagem">Sua Viagem</h4><br/>
-    </div>
-    <div class="col-8 col-sm-8 col-md-6 col-lg-2 col-xl-3">         
-        <!--        <div ng-click="" class="btn-admin-alterar-usuario"><i class="fas fa-edit font-menor"></i> Alterar Status</div>-->
-        <span id="txt-status-viagem">Status: em andamento</span>
-    </div>
-    <div class="col-4 col-sm-4 col-md-6 col-lg-2 col-xl-2">         
-        <div ng-click="abrirModalStatus()" class="btn-admin-alterar-usuario"><i class="fas fa-sync font-menor"></i> <span class="d-none d-sm-inline">Atualizar</span></div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
-        <div class="card card-viagem-motorista" id="card-informacoes">
-            <div class="card-body">
-                <h6 class="card-title">Informações</h6>
-                <a>Veiculo: Thomas X-11</a><br/>
-                <a>Prazo: 14/06/2018</a><br/>
-            </div>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <h4 id="txt-prox-viagem">Sua Viagem</h4><br/>
+        </div>
+        <div class="col-8 col-sm-8 col-md-6 col-lg-2 col-xl-3"> Status:         
+            <select class="form-control" id="form-admin-usuario-tipo">
+                <option value="andamento">Em andamento</option>
+                <option value="fiscalizacao">Parado (fiscalização)</option>
+                <option value="descanso">Parado (descanso)</option>
+                <option value="enregue">Entregue</option>
+                <option value="voltando">Voltando</option>
+            </select>
+        </div>
+        <div class="col-4 col-sm-4 col-md-4 col-lg-2 col-xl-3">
+            <button type="button" ng-click="abrirModalChat()" class="btn btn-info btn-chat"><i class="fas fa-comment-alt"></i> Chat</button>
         </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-        <div class="card card-viagem-motorista" id="card-endereco-partida">
-            <div class="card-body">
-                <h6 class="card-title">Endereço de Partida</h6>
-                <a>CEP: 111222-33</a><br/>
-                <a>Rua: Rua A</a><br/>
-                <a>Nº: 300</a><br/>
-                <a>Cidade: Cidade A</a><br/>
-                <a>Distrito: SP</a><br/>
-                <a>Pais: Brasil</a>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
+            <div class="card card-viagem-motorista" id="card-informacoes">
+                <div class="card-body">
+                    <h6 class="card-title">Informações</h6>
+                    <a>Veiculo: Thomas X-11</a><br/>
+                    <a>Prazo: 14/06/2018</a><br/>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+            <div class="card card-viagem-motorista" id="card-endereco-partida">
+                <div class="card-body">
+                    <h6 class="card-title">Endereço de Partida</h6>
+                    <a>CEP: 111222-33</a><br/>
+                    <a>Rua: Rua A</a><br/>
+                    <a>Nº: 300</a><br/>
+                    <a>Cidade: Cidade A</a><br/>
+                    <a>Distrito: SP</a><br/>
+                    <a>Pais: Brasil</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+            <div class="card card-viagem-motorista" id="card-endereco-destino">
+                <div class="card-body">
+                    <h6 class="card-title">Endereço de Destino</h6>
+                    <a>CEP: 111222-33</a><br/>
+                    <a>Rua: Rua A</a><br/>
+                    <a>Nº: 300</a><br/>
+                    <a>Cidade: Cidade A</a><br/>
+                    <a>Distrito: SP</a><br/>
+                    <a>Pais: Brasil</a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-        <div class="card card-viagem-motorista" id="card-endereco-destino">
-            <div class="card-body">
-                <h6 class="card-title">Endereço de Destino</h6>
-                <a>CEP: 111222-33</a><br/>
-                <a>Rua: Rua A</a><br/>
-                <a>Nº: 300</a><br/>
-                <a>Cidade: Cidade A</a><br/>
-                <a>Distrito: SP</a><br/>
-                <a>Pais: Brasil</a>
-            </div>
-        </div>
-    </div>
-</div>
-<br/>
+    <br/>
 </div>
 </div>
