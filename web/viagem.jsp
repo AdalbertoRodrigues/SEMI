@@ -17,57 +17,22 @@
 <%
     String action = request.getParameter("action");
 
-    if (action.equals("select")) {
+    if (action.equals("select") || action.equals("selectEscaladas")) {
         try {
             Viagem viagem;
+            Viagem viagemEscalada;
             Endereco enderecoPartida;
             Endereco enderecoDestino;
-
-            String json = "{\"viagens\":[";
-            String atual = "";
-
-            Conexao con = new Conexao();
-
-            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM VIAGEM AS V"
-                    + " JOIN ENDERECO AS EP ON V.cd_id_endereco_partida_viagem = EP.cd_id_endereco"
-                    + " JOIN ENDERECO AS EF ON V.cd_id_endereco_final_viagem = EF.cd_id_endereco"
-                    + " JOIN CARGA AS C ON V.cd_id_carga = C.cd_id_carga WHERE V.ic_desativado_viagem = 0 AND ds_status_viagem = 'Em espera'").executeQuery();
-            while (rs.next()) {
-                enderecoPartida = new Endereco(rs.getString("EP.cd_cep_endereco"), rs.getInt("EP.cd_numero_endereco"),
-                        rs.getString("EP.nm_rua_endereco"),
-                        rs.getString("EP.nm_cidade_endereco"), rs.getString("EP.nm_estado_endereco"),
-                        rs.getString("EP.nm_pais_endereco"), rs.getString("EP.ds_complemento_endereco"),
-                        rs.getString("EP.ds_ponto_referencia_endereco"));
-                enderecoDestino = new Endereco(rs.getString("EF.cd_cep_endereco"), rs.getInt("EF.cd_numero_endereco"),
-                        rs.getString("EF.nm_rua_endereco"),
-                        rs.getString("EF.nm_cidade_endereco"), rs.getString("EF.nm_estado_endereco"),
-                        rs.getString("EF.nm_pais_endereco"), rs.getString("EF.ds_complemento_endereco"),
-                        rs.getString("EF.ds_ponto_referencia_endereco"));
-                String dimensoes = rs.getDouble("qt_altura_carga") + "x" + rs.getDouble("qt_largura_carga") + "x" + rs.getDouble("qt_comprimento_carga");
-                Carga carga = new Carga(rs.getString("nm_tipo_carga"), rs.getDouble("qt_peso_carga"), rs.getString("ds_conteudo_carga"), dimensoes, rs.getString("sg_unidade_medida"), rs.getInt("C.cd_id_carga"));
-                viagem = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getString("V.ds_status_viagem"), carga, rs.getInt("cd_id_viagem"));
-                if (rs.isLast()) {
-                    atual = Json_encoder.encode(viagem);
-                } else {
-                    atual = Json_encoder.encode(viagem) + ",";
-                }
-                json += atual;
+            String status = "";
+            String json = "";
+            if(action.equals("select")){
+                status = "=";
+                json = "{\"viagens\":[";
+            }else if(action.equals("selectEscaladas")){
+                status = "<>";
+                json = "{\"viagensEscaladas\":[";
             }
-
-            con.conexao.close();
-            out.println(json + "]}");
-
-        } catch (Exception ex) {
-            out.println(ex.getMessage());
-            ex.printStackTrace();
-        }
-    } else if (action.equals("selectEscaladas")) {
-        try {
-            Viagem viagem;
-            Endereco enderecoPartida;
-            Endereco enderecoDestino;
-
-            String json = "{\"viagens\":[";
+            
             String atual = "";
 
             Conexao con = new Conexao();
@@ -75,9 +40,7 @@
             ResultSet rs = con.conexao.prepareStatement("SELECT * FROM VIAGEM AS V"
                     + " JOIN ENDERECO AS EP ON V.cd_id_endereco_partida_viagem = EP.cd_id_endereco"
                     + " JOIN ENDERECO AS EF ON V.cd_id_endereco_final_viagem = EF.cd_id_endereco"
-                    + " JOIN CARGA AS C ON V.cd_id_carga = C.cd_id_carga"
-                    + " JOIN VIAGEM_ESCALADA AS VE ON V.cd_id_viagem = VE.cd_id_viagem"
-                    + " WHERE V.ic_desativado_viagem = 0 AND V.cd_id_viagem = VE.cd_id_viagem").executeQuery();
+                    + " JOIN CARGA AS C ON V.cd_id_carga = C.cd_id_carga WHERE V.ic_desativado_viagem = 0 AND ds_status_viagem "+ status + " 'Em espera'").executeQuery();
             while (rs.next()) {
                 enderecoPartida = new Endereco(rs.getString("EP.cd_cep_endereco"), rs.getInt("EP.cd_numero_endereco"),
                         rs.getString("EP.nm_rua_endereco"),
@@ -91,11 +54,20 @@
                         rs.getString("EF.ds_ponto_referencia_endereco"));
                 String dimensoes = rs.getDouble("qt_altura_carga") + "x" + rs.getDouble("qt_largura_carga") + "x" + rs.getDouble("qt_comprimento_carga");
                 Carga carga = new Carga(rs.getString("nm_tipo_carga"), rs.getDouble("qt_peso_carga"), rs.getString("ds_conteudo_carga"), dimensoes, rs.getString("sg_unidade_medida"), rs.getInt("C.cd_id_carga"));
-                viagem = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getString("V.ds_status_viagem"), carga, rs.getInt("cd_id_viagem"));
-                if (rs.isLast()) {
-                    atual = Json_encoder.encode(viagem);
-                } else {
-                    atual = Json_encoder.encode(viagem) + ",";
+                if(status.equals("=")){
+                    viagem = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getString("V.ds_status_viagem"), carga, rs.getInt("cd_id_viagem"));
+                    if (rs.isLast()) {
+                        atual = Json_encoder.encode(viagem);
+                    } else {
+                        atual = Json_encoder.encode(viagem) + ",";
+                    }
+                }else if(status.equals("<>")){
+                    viagemEscalada = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getString("V.ds_status_viagem"), carga, rs.getInt("cd_id_viagem"));
+                    if (rs.isLast()) {
+                        atual = Json_encoder.encode(viagemEscalada);
+                    } else {
+                        atual = Json_encoder.encode(viagemEscalada) + ",";
+                    }
                 }
                 json += atual;
             }

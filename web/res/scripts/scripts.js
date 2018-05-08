@@ -847,6 +847,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
     $document.ready(function () {
         $rootScope.getTiposCarga();
         $rootScope.getViagens();
+        $rootScope.getViagensEscaladas();
     });
 
 
@@ -989,7 +990,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $(".admin-exibicao-veiculo").show();
 
             if ($scope.viagens.length == 0) {
-                $scope.erro_viagem = 'Nenhum veículo encontrado com o respectivo filtro!';
+                $scope.erro_viagem = 'Nenhuma viagem encontrado com o respectivo filtro!';
                 $("#alerta-exibicao-veiculo").show();
             }
 
@@ -1006,16 +1007,16 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
 
         $http({
             method: 'GET',
-            url: ctx + '/viagem.jsp?action=select'
+            url: ctx + '/viagem.jsp?action=selectEscaladas'
         }).then(function successCallback(response) {
 
-            $scope.viagens = response.data.viagens;
+            $scope.viagensEscaladas = response.data.viagensEscaladas;
             $(".loader-viagem").hide();
             $("#form-admin-veiculo-filtro").focus();
             $(".admin-exibicao-veiculo").show();
 
-            if ($scope.viagens.length == 0) {
-                $scope.erro_viagem = 'Nenhum veículo encontrado com o respectivo filtro!';
+            if ($scope.viagensEscaladas.length == 0) {
+                $scope.erro_viagem = 'Nenhuma viagem encontrado com o respectivo filtro!';
                 $("#alerta-exibicao-veiculo").show();
             }
 
