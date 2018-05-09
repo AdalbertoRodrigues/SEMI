@@ -1334,18 +1334,18 @@ app.controller("menuAdminEscalaController", function ($scope, dataService) {
 
 app.controller("menuMotoristaViagemController", function ($scope, $rootScope, dataService, $document, $http) {
     $document.ready(function () {
-        $scope.cpfSession = $("#cnhSession").val();
+        $("#alteracao-concluida").hide();
+        $scope.cpfSession = $("#cnhSession").val();      
         $rootScope.getViagemAtual();
-        $rootScope.getHistoricoViagem();
     });
     $scope.updateStatus = function () {
-        $scope.status_viagem = $("#form-admin-status").val();
+        $scope.status_viagem = $("#form-admin-usuario-status").val();
         $http({
             method: 'POST',
             url: ctx + '/viagem.jsp?action=updateStatus&idViagem=' + $scope.viagemAtual.id + '&status=' + $scope.status_viagem
         }).then(function successCallback(response) {
             if (response.data.resposta == "SUCCESS") {
-                alert($scope.status_viagem);
+                $("#alteracao-concluida").show();
             } else {
                 alert("Ocorreu um erro ao alterar o status");
             }
@@ -1368,6 +1368,8 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
             url: ctx + '/viagem.jsp?action=selectViagemAtualMotorista&cpfMotorista=' + $scope.cpfSession + '&sinal=<>'
         }).then(function successCallback(response) {
             $scope.viagemAtual = response.data.viagemAtualMotorista;
+            $("#form-admin-usuario-status").val($scope.viagemAtual.status);
+            
             $scope.error = response.data.error;
             $(".loader-viagem").hide();
             if ($scope.viagemAtual.viagemAtiva.indexOf("false") >= 0) {
@@ -1414,10 +1416,10 @@ app.controller('menuMotoristaHistoricoController', function ($scope, $rootScope,
             method: 'GET',
             url: ctx + '/viagem.jsp?action=selectViagemAtualMotorista&cpfMotorista=' + $scope.cpfSession + '&sinal=='
         }).then(function successCallback(response) {
-            $scope.historico = response.data.viagemAtualMotorista;
+            $scope.historicos = response.data.viagemAtualMotorista;
             $scope.error = response.data.error;
             $(".loader-viagem").hide();
-            if ($scope.historico.viagemAtiva.indexOf("false") >= 0) {
+            if ($scope.historicos.viagemAtiva.indexOf("false") >= 0) {
                 $scope.erro_historico = 'Você não possui viagens em seu histórico.';
                 $("#table-motorista-historico").hide();
                 $("#alerta-exibicao-historico").show();
