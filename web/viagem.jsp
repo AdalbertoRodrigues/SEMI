@@ -74,11 +74,13 @@
                 } else if (status.equals("<>")) {
                     viagemEscalada = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getString("V.ds_status_viagem"), carga, rs.getInt("cd_id_viagem"));
                     if (rs.isLast()) {
-                        atual = Json_encoder.encode(viagemEscalada);                     
+                        atual = Json_encoder.encode(viagemEscalada);
+                        json += atual.substring(0,atual.length()-1) + ",\"placa\": \"" + rs.getString("VE.cd_placa_veiculo") + "\",\"cnhMotorista\":\""+ rs.getString("VE.cd_cnh_motorista") +"\"}";
                     } else {
                         atual = Json_encoder.encode(viagemEscalada) + ",";
+                        json += atual.substring(0,atual.length()-2) + ",\"placa\": \"" + rs.getString("VE.cd_placa_veiculo") + "\",\"cnhMotorista\":\""+ rs.getString("VE.cd_cnh_motorista") +"\"},";
                     }
-                    json += atual.substring(0,atual.length()-1) + ",\"placa\": \"" + rs.getString("VE.cd_placa_veiculo") + "\",\"cnhMotorista\":\""+ rs.getString("VE.cd_cnh_motorista") +"\"}";
+                    
                 }                              
             }
 

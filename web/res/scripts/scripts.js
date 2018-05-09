@@ -1077,6 +1077,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         }).then(function successCallback(response) {
 
             $scope.viagensEscaladas = response.data.viagensEscaladas;
+            console.log(response.data);
             $(".loader-viagem").hide();
             $("#form-admin-veiculo-filtro").focus();
             $(".admin-exibicao-veiculo").show();
