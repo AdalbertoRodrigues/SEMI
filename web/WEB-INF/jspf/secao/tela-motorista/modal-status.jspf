@@ -36,6 +36,8 @@
                     </div>
                     <hr>
                 </div>
+                <div class="loader-modal-chat"></div>
+                 <div class="alert alert-danger" id="alerta-exibicao-chat" role="alert">Nenhuma mensagem encontrada</div>
                 <br>
                 <div class="msg-chat-escrever">
                     <div class="row">
@@ -46,11 +48,11 @@
                             <button type="button" class="btn btn-info" ng-click="enviarMensagem()"><i class="fas fa-paper-plane"></i></button>
                         </div>
                     </div>
-
                 </div>
 
-                <div class="loader-modal"></div>
+
             </div>
+
         </div>
     </div>
 </div>

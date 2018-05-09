@@ -896,6 +896,8 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
 
     $scope.abrirModalChat = function (viagem) {
         $('#modal-chat').modal('toggle');
+        $("#chat-mensagens").hide();
+        $(".loader-modal-chat").show();
         $("#item-titulo-chat").text("Chat - " + viagem.cnhMotorista + " - " + viagem.placa);
         $("#id-viagem-chat").val(viagem.id);
         $scope.atualizandoChat = setInterval($scope.getMensagensChat, 2000);
@@ -1072,9 +1074,6 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
     };
 
     $rootScope.getViagensEscaladas = function () {
-        $(".loader-viagem").show();
-        $("#alerta-exibicao-viagem").hide();
-
         $http({
             method: 'GET',
             url: ctx + '/viagem.jsp?action=selectEscaladas'
@@ -1102,7 +1101,10 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             method: 'GET',
             url: ctx + '/chat.jsp?action=getMessagesFromViagem&idViagem=' + $("#id-viagem-chat").val()
         }).then(function successCallback(response) {
+            $(".loader-modal-chat").hide();
+            $("#chat-mensagens").show();
             $("#chat-mensagens").html('');
+            $("#usr").prop("disabled", false);
             $.each(response.data.mensagens, function (index, value) {
 
                 if (value.remetente.cpf == $("#cpfSession").val()) {
@@ -1138,7 +1140,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                     divGod.prependTo($("#chat-mensagens"))
 
                 } else {
-                    
+
                     divGod = $("<div>")
                     divMsg = $("<div class='msg-chat-motorista'>");
 
@@ -1169,7 +1171,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                     $("<hr>").appendTo(divGod);
 
                     divGod.prependTo($("#chat-mensagens"))
-                    if (value.remetente.cpf == $("#cpfSession")) {
+                    if (value.remetente.cpf == $("#cpfSession").val()) {
                         $("#usr").prop("disabled", false);
                     } else {
                         $("#usr").prop("disabled", true);

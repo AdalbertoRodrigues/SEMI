@@ -122,7 +122,7 @@ body {
     margin: auto;
 }
 
-.loader, .loader-login, .loader-modal {
+.loader, .loader-login, .loader-modal, .loader-modal-chat {
     border: 10px solid #f3f3f3;
     border-top: 10px solid #886D5C; 
     border-radius: 50%;
@@ -133,11 +133,11 @@ body {
     display: none;
 }
 
-.admin-exibicao-usuario, .admin-exibicao-filtro-usuario, .admin-exibicao-veiculo, #alerta-exibicao-usuario, #alerta-exibicao-veiculo {
+.admin-exibicao-usuario, .admin-exibicao-filtro-usuario, .admin-exibicao-veiculo, #alerta-exibicao-chat, #alerta-exibicao-usuario, #alerta-exibicao-veiculo {
     display: none;
 }
 
-#alerta-exibicao-usuario, #alerta-exibicao-veiculo {
+#alerta-exibicao-usuario, #alerta-exibicao-veiculo, #alerta-exibicao-viagem, #alerta-exibicao-chat {
     text-align: center;
 }
 
@@ -564,4 +564,34 @@ button:focus {
 
 .form-incluir-usuario-super {
     display: none;  
+}
+
+#chat-mensagens {
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.modal-dialog{
+    overflow-y: initial !important
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }
