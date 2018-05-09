@@ -16,7 +16,7 @@ public class Conexao {
     private String host = "200.147.61.75"; //200.147.61.75
     private String dataBase = "semi_database"; //semi_databse
     private String login = "semi_dba"; //semi_dba
-    private String senha = "admin1@"; // admin1@
+    private String senha = "admin2@"; // admin1@
     public Connection conexao;
 
     public Conexao() {
