@@ -234,7 +234,7 @@
                         loginErrorMessage = "Funcionario";
                         break;
                     case "1":
-                        session.setAttribute("me.id", user.getCpf());
+                        session.setAttribute("me.cpf", user.getCpf());
                         session.setAttribute("me.name", user.getNome());
                         session.setAttribute("me.login", user.getSenha());
                         session.setAttribute("me.type", user.getTipo());

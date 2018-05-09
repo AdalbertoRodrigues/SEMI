@@ -1294,9 +1294,35 @@ app.controller("menuAdminEscalaController", function ($scope, dataService) {
 
 });
 
-app.controller("menuMotoristaViagemController", function ($scope, dataService) {
+app.controller("menuMotoristaViagemController", function ($scope, dataService, $document, $http) {
+    $document.ready(function () {
+        $scope.cpfSession = $("#cnhSession").val();
+        $scope.getViagemAtual();
+    });
     $scope.abrirModalChat = function () {
         $('#modal-chat').modal('toggle');
+    };
+    $scope.getViagemAtual = function () {
+        $(".loader-viagem").show();
+        $("#alerta-exibicao-viagem").hide();
+
+        $http({
+            method: 'GET',
+            url: ctx + '/viagem.jsp?action=selectViagemAtualMotorista&cpfMotorista=' + $scope.cpfSession
+        }).then(function successCallback(response) {
+            $scope.viagemAtual = response.data.viagemAtualMotorista;
+            $scope.error = response.data.error;
+            $(".loader-viagem").hide();
+            if($scope.viagemAtual.viagemAtiva.indexOf("false") >= 0){
+                $scope.erro_viagemAtual = 'Você não está escalado em nenhuma viagem no momento :)';
+                $("#alerta-exibicao-viagem").show();
+                $("#cards-viagem-atual").hide();
+            }                
+            
+        }, function errorCallback(response) {
+            $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados de viagens. Atualize a página e, se o erro persistir, contate o suporte.';
+            $("#alerta-exibicao-veiculo").show();
+        });
     };
 });
 
