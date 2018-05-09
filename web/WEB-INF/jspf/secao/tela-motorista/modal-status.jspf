@@ -40,7 +40,7 @@
                             <input type="text" class="form-control" id="usr">
                         </div>
                         <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xs-1">
-                            <button type="button" class="btn btn-info"><i class="fas fa-paper-plane"></i></button>
+                            <button type="button" class="btn btn-info" ng-click="enviarMensagem()"><i class="fas fa-paper-plane"></i></button>
                         </div>
                     </div>
                     

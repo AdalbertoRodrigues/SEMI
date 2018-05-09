@@ -98,17 +98,18 @@
         } catch (Exception ex) {
             out.println(ex.getMessage());
         }
-    } else if (action.equals("insertMessage")) {
+    } else if (action.equals("insertMensagem")) {
         try {
-            int idChat = Integer.parseInt(request.getParameter("idChat"));
+            int idViagem = Integer.parseInt(request.getParameter("idViagem"));
             Conexao con = new Conexao();
-
+            ResultSet rs = con.conexao.prepareStatement("SELECT cd_id_chat FROM CHAT WHERE cd_id_viagem = " + idViagem).executeQuery();
+            rs.next();
+            int idChat = rs.getInt("cd_id_chat");
             String requestData = request.getReader().lines().collect(Collectors.joining());
-
             requestData = requestData.replace("{", "").replace("}", "");
 
             String cpf = session.getAttribute("me.cpf").toString();
-            String mensagem = "";
+            String mensagem = requestData.split(",")[0].split(":")[1].replace("\"", "");
 
             PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO MENSAGEM(ds_mensagem, cd_cpf_remetente_mensagem, cd_id_chat) VALUES(?, ?, ?)");
             ps.setString(1, mensagem);
@@ -118,7 +119,8 @@
             
             out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
-            out.println("{\"resposta\":\"ERROR\"}");
+            //out.println("{\"resposta\":\"ERROR\"}");
+            out.println(ex.getMessage());
         }
     }
 %>

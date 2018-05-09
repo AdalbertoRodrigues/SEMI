@@ -901,8 +901,9 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                     alert("Escalas realizadas com sucesso!!");
                     $rootScope.getViagens();
                     $rootScope.getViagensEscaladas();
-                    for(i = 0; i < $scope.vet_escala.length; i++)
+                    for(i = 0; i < $scope.vet_escala.length; i++) {
                         $scope.inserirChat($scope.vet_escala[i]);
+                    }
                 } else if (response.data.resposta.indexOf("VIAGEM-NOT-FOUND-ID-") >= 0) {
                     alert(response.data.resposta + "\n\nOps, não encontramos sua viagem na nossa base de dados.\n\nAtualize o SEMI e se o erro persistir, contate o administrador do sistema");
                 } else if (response.data.resposta.indexOf("VEICULO-NOT-FOUND-ID-") >= 0 || response.data.resposta.indexOf("NO-VEICULO-DISPONIVEL-ID-") >= 0) {
@@ -1322,6 +1323,23 @@ app.controller("menuMotoristaViagemController", function ($scope, dataService, $
         }, function errorCallback(response) {
             $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados de viagens. Atualize a página e, se o erro persistir, contate o suporte.';
             $("#alerta-exibicao-veiculo").show();
+        });
+    };
+    
+    $scope.enviarMensagem = function () {
+        $http({
+            method: 'POST',
+            url: ctx + '/chat.jsp?action=insertMensagem&idViagem=' + $scope.viagemAtual.id,
+            data: {"mensagem" : $("#usr").val()}
+        }).then(function successCallback(response) {
+            if(response.data.resposta == "SUCCESS") {
+                $("#usr").val("");
+                //$scope.getMensagens()
+            }
+            else
+                console.log(response.data);
+        }, function errorCallback(response) {
+            console.log(response.data);
         });
     };
 });
