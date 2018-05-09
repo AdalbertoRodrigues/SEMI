@@ -898,7 +898,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $('#modal-chat').modal('toggle');
         $("#item-titulo-chat").text("Chat - " + viagem.cnhMotorista + " - " + viagem.placa);
         $("#id-viagem-chat").val(viagem.id);
-        $scope.atualizandoChat = setInterval($scope.getMensagensChat, 1000);
+        $scope.atualizandoChat = setInterval($scope.getMensagensChat, 2000);
     };
 
 
@@ -967,6 +967,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             url: ctx + '/chat.jsp?action=insertChat&idViagem=' + idViagem
         }).then(function successCallback(response) {
             if (response.data.resposta == 'SUCCESS') {
+                console.log(response);
                 console.log("top");
             } else {
                 alert(response.data);
@@ -1103,7 +1104,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         }).then(function successCallback(response) {
             $("#chat-mensagens").html('');
             $.each(response.data.mensagens, function (index, value) {
-                console.log($("#cpfSession").val());
+
                 if (value.remetente.cpf == $("#cpfSession").val()) {
                     divGod = $("<div>")
                     divMsg = $("<div class='msg-chat-funcionario'>");
@@ -1137,6 +1138,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                     divGod.prependTo($("#chat-mensagens"))
 
                 } else {
+                    
                     divGod = $("<div>")
                     divMsg = $("<div class='msg-chat-motorista'>");
 
@@ -1167,6 +1169,11 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                     $("<hr>").appendTo(divGod);
 
                     divGod.prependTo($("#chat-mensagens"))
+                    if (value.remetente.cpf == $("#cpfSession")) {
+                        $("#usr").prop("disabled", false);
+                    } else {
+                        $("#usr").prop("disabled", true);
+                    }
                 }
             });
 
@@ -1515,7 +1522,7 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
     $scope.abrirModalChat = function () {
         $('#modal-chat').modal('toggle');
         $scope.getMensagensChat();
-        $scope.atualizandoChat = setInterval($scope.getMensagensChat, 1000);
+        $scope.atualizandoChat = setInterval($scope.getMensagensChat, 2000);
     };
     $rootScope.getViagemAtual = function () {
         $(".loader-viagem").show();

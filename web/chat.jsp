@@ -18,15 +18,15 @@
 
     if (action.equals("getMessagesFromViagem")) {
         try {
-            
+
             int idViagem = Integer.parseInt(request.getParameter("idViagem"));
-            
+
             Mensagem mensagem;
             String json = "{\"mensagens\":[";
             String atual = "";
-            
+
             Conexao con = new Conexao();
-            
+
             ResultSet rs = con.conexao.prepareStatement("SELECT cd_id_chat FROM CHAT WHERE cd_id_viagem = " + idViagem).executeQuery();
             if (rs.next()) {
                 int idChat = rs.getInt("cd_id_chat");
@@ -51,6 +51,23 @@
         } catch (Exception ex) {
             out.println(ex.getMessage());
         }
+    } else if (action.equals("insertChat")) {
+        try {
+            Conexao con = new Conexao();
+            int idViagem = Integer.parseInt(request.getParameter("idViagem"));
+            String cpfFuncionario = session.getAttribute("me.cpf").toString();
+            ResultSet rs = con.conexao.prepareStatement("SELECT cd_cnh_motorista FROM VIAGEM_ESCALADA WHERE cd_id_viagem = " + idViagem).executeQuery();
+            rs.next();
+            String cnhMotorista = rs.getString("cd_cnh_motorista");
+            PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO CHAT(cd_cpf_funcionario, cd_cnh_motorista, cd_id_viagem) VALUES(?, ?, ?)");
+            ps.setString(1, cpfFuncionario);
+            ps.setString(2, cnhMotorista);
+            ps.setInt(3, idViagem);
+            ps.execute();
+            out.println("{\"resposta\":\"SUCCESS\"}");
+        } catch (Exception ex) {
+            out.println(ex.getMessage());
+        }
     } else if (action.equals("insertMensagem")) {
         try {
             int idViagem = Integer.parseInt(request.getParameter("idViagem"));
@@ -69,7 +86,7 @@
             ps.setString(2, cpf);
             ps.setInt(3, idChat);
             ps.execute();
-            
+
             out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
             //out.println("{\"resposta\":\"ERROR\"}");
