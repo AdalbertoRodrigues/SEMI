@@ -8,7 +8,7 @@
         <div id="cards-viagem-atual">
             <input type="hidden" id="cnhSession" value="<%=session.getAttribute("me.cpf")%>"/>
             <div class="row" >
-                <div class="col-8 col-sm-8 col-md-6 col-lg-2 col-xl-3"> Status:         
+                <div class="col-8 col-sm-8 col-md-6 col-lg-2 col-xl-3"> Status: <span class="text-success" id="alteracao-concluida"><i class="fas fa-check"></i> Atualizado</span>        
                     <select class="form-control" id="form-admin-usuario-status" ng-cloak ng-model-options='{debounce: 500}' ng-change="updateStatus()" ng-model="status_viagem">
                         <option value="Pronta">Pronta</option>
                         <option value="Andamento" >Em andamento</option>
@@ -76,9 +76,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr dir-paginate="historico in historico | itemsPerPage: 5" pagination-id="historico">
-                    <td width="25%">{{historico.enderecoPartida.cidade}}/{{historico.enderecoPartida.estado}}</td>
-                    <td width="25%">{{historico.enderecoDestino.cidade}}/{{historico.enderecoDestino.estado}}</td>
+                <tr dir-paginate="historicos in historicos | itemsPerPage: 5" pagination-id="historico">
+                    <td class="td-{{historicos.id}}" width="25%"> {{historicos.enderecoPartida.cidade}}/{{historicos.enderecoPartida.estado}} </td>
+                    <td class="td-{{historicos.id}}" width="25%"> {{historicos.enderecoDestino.cidade}}/{{historicos.enderecoDestino.estado}} </td>
                 </tr>
             </tbody>
         </table>
