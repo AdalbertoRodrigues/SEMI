@@ -898,6 +898,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $('#modal-chat').modal('toggle');
         $("#item-titulo-chat").text("Chat - " + viagem.cnhMotorista + " - " + viagem.placa);
         $("#id-viagem-chat").val(viagem.id);
+        $scope.atualizandoChat = setInterval($scope.getMensagensChat, 1000);
     };
 
 
@@ -1094,8 +1095,85 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $("#alerta-exibicao-veiculo").show();
         });
     }
-    
 
+    $scope.getMensagensChat = function () {
+        $http({
+            method: 'GET',
+            url: ctx + '/chat.jsp?action=getMessagesFromViagem&idViagem=' + $("#id-viagem-chat").val()
+        }).then(function successCallback(response) {
+            $("#chat-mensagens").html('');
+            $.each(response.data.mensagens, function (index, value) {
+                console.log($("#cpfSession").val());
+                if (value.remetente.cpf == $("#cpfSession").val()) {
+                    divGod = $("<div>")
+                    divMsg = $("<div class='msg-chat-funcionario'>");
+
+                    divRow = $("<div class='row'>");
+
+                    divCol = $("<div class='col-7 col-sm-9 col-md-9 col-lg-9 col-xs-10'>");
+                    divCol.html("&nbsp;");
+
+                    divCol2 = $("<div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xs-2'>");
+
+                    spanNome = $("<span>");
+                    spanNome.html("<u>" + value.remetente.nome + "</u>");
+
+                    divTexto = $("<div class='msg-chat col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12'>");
+                    spanTexto = $("<span>");
+                    spanTexto.html(value.texto);
+
+                    spanTexto.appendTo(divTexto);
+                    spanNome.appendTo(divCol2);
+
+                    divCol.appendTo(divRow);
+                    divCol2.appendTo(divRow);
+                    divTexto.appendTo(divRow);
+
+                    divRow.appendTo(divMsg);
+
+                    divMsg.appendTo($(divGod));
+                    $("<hr>").appendTo(divGod);
+
+                    divGod.prependTo($("#chat-mensagens"))
+
+                } else {
+                    divGod = $("<div>")
+                    divMsg = $("<div class='msg-chat-motorista'>");
+
+                    divRow = $("<div class='row'>");
+
+                    divCol = $("<div class='col-7 col-sm-9 col-md-9 col-lg-9 col-xs-10'>");
+                    divCol.html("&nbsp;");
+
+                    divCol2 = $("<div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xs-2'>");
+
+                    spanNome = $("<span>");
+                    spanNome.html("<u>" + value.remetente.nome + "</u>");
+
+                    divTexto = $("<div class='msg-chat col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12'>");
+                    spanTexto = $("<span>");
+                    spanTexto.html(value.texto);
+
+                    spanTexto.appendTo(divTexto);
+                    spanNome.appendTo(divCol2);
+
+                    divCol.appendTo(divRow);
+                    divCol2.appendTo(divRow);
+                    divTexto.appendTo(divRow);
+
+                    divRow.appendTo(divMsg);
+
+                    divMsg.appendTo($(divGod));
+                    $("<hr>").appendTo(divGod);
+
+                    divGod.prependTo($("#chat-mensagens"))
+                }
+            });
+
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
+    };
     $rootScope.getTiposCarga = function () {
         $http({
             method: 'GET',
@@ -1335,12 +1413,10 @@ app.controller("menuAdminEscalaController", function ($scope, dataService) {
 app.controller("menuMotoristaViagemController", function ($scope, $rootScope, dataService, $document, $http) {
     $document.ready(function () {
         $("#alteracao-concluida").hide();
-        $scope.cpfSession = $("#cnhSession").val();      
+        $scope.cpfSession = $("#cnhSession").val();
         $rootScope.getViagemAtual();
     });
-    $scope.getMensagensChat() = function () {
-        
-    };
+
     $scope.updateStatus = function () {
         $scope.status_viagem = $("#form-admin-usuario-status").val();
         $http({
@@ -1358,9 +1434,88 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
         });
 
     };
-    $scope.abrirModalChat = function (viagem) {
-        viagem = viagem || 0
+    $scope.getMensagensChat = function () {
+        $http({
+            method: 'GET',
+            url: ctx + '/chat.jsp?action=getMessagesFromViagem&idViagem=' + $rootScope.viagemAtual.id
+        }).then(function successCallback(response) {
+            $("#chat-mensagens").html('');
+            $.each(response.data.mensagens, function (index, value) {
+
+                if (value.remetente.cpf == $("#cnhSession").val()) {
+                    divGod = $("<div>")
+                    divMsg = $("<div class='msg-chat-motorista'>");
+
+                    divRow = $("<div class='row'>");
+
+                    divCol = $("<div class='col-7 col-sm-9 col-md-9 col-lg-9 col-xs-10'>");
+                    divCol.html("&nbsp;");
+
+                    divCol2 = $("<div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xs-2'>");
+
+                    spanNome = $("<span>");
+                    spanNome.html("<u>" + value.remetente.nome + "</u>");
+
+                    divTexto = $("<div class='msg-chat col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12'>");
+                    spanTexto = $("<span>");
+                    spanTexto.html(value.texto);
+
+                    spanTexto.appendTo(divTexto);
+                    spanNome.appendTo(divCol2);
+
+                    divCol.appendTo(divRow);
+                    divCol2.appendTo(divRow);
+                    divTexto.appendTo(divRow);
+
+                    divRow.appendTo(divMsg);
+
+                    divMsg.appendTo($(divGod));
+                    $("<hr>").appendTo(divGod);
+
+                    divGod.prependTo($("#chat-mensagens"))
+
+                } else {
+                    divGod = $("<div>")
+                    divMsg = $("<div class='msg-chat-funcionario'>");
+
+                    divRow = $("<div class='row'>");
+
+                    divCol = $("<div class='col-7 col-sm-9 col-md-9 col-lg-9 col-xs-10'>");
+                    divCol.html("&nbsp;");
+
+                    divCol2 = $("<div class='col-2 col-sm-2 col-md-2 col-lg-2 col-xs-2'>");
+
+                    spanNome = $("<span>");
+                    spanNome.html("<u>" + value.remetente.nome + "</u>");
+
+                    divTexto = $("<div class='msg-chat col-12 col-sm-12 col-md-12 col-lg-12 col-xs-12'>");
+                    spanTexto = $("<span>");
+                    spanTexto.html(value.texto);
+
+                    spanTexto.appendTo(divTexto);
+                    spanNome.appendTo(divCol2);
+
+                    divCol.appendTo(divRow);
+                    divCol2.appendTo(divRow);
+                    divTexto.appendTo(divRow);
+
+                    divRow.appendTo(divMsg);
+
+                    divMsg.appendTo($(divGod));
+                    $("<hr>").appendTo(divGod);
+
+                    divGod.prependTo($("#chat-mensagens"))
+                }
+            });
+
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
+    };
+    $scope.abrirModalChat = function () {
         $('#modal-chat').modal('toggle');
+        $scope.getMensagensChat();
+        $scope.atualizandoChat = setInterval($scope.getMensagensChat, 1000);
     };
     $rootScope.getViagemAtual = function () {
         $(".loader-viagem").show();
@@ -1370,10 +1525,10 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
             method: 'GET',
             url: ctx + '/viagem.jsp?action=selectViagemAtualMotorista&cpfMotorista=' + $scope.cpfSession + '&sinal=<>'
         }).then(function successCallback(response) {
-            
+
             $rootScope.viagemAtual = response.data.viagemAtualMotorista;
             $("#form-admin-usuario-status").val($rootScope.viagemAtual.status);
-            
+
             $scope.error = response.data.error;
             $(".loader-viagem").hide();
             if ($rootScope.viagemAtual.viagemAtiva.indexOf("false") >= 0) {
@@ -1410,7 +1565,7 @@ app.controller('menuMotoristaHistoricoController', function ($scope, $rootScope,
         $scope.cpfSession = $("#cnhSession").val();
         $rootScope.getHistoricoViagem();
     });
-    
+
     $rootScope.getHistoricoViagem = function () {
         $(".loader-historico").show();
         $("#alerta-exibicao-historico").hide();
@@ -1439,7 +1594,7 @@ app.controller('menuMotoristaHistoricoController', function ($scope, $rootScope,
 })
 
 app.controller("chatViagemFuncionario", function ($scope, $document, $http) {
-    
+
     $scope.enviarMensagem = function () {
         $scope.idViagem = $("#id-viagem-chat").val();
         $http({

@@ -35,6 +35,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     </head>
     <body class="body-admin-menu">
+        <input type="hidden" id="cpfSession" value="<%=session.getAttribute("me.cpf")%>">
         <!--NAVBAR-->
         <%@include file="../WEB-INF/jspf/header.jspf"%>
         <br>

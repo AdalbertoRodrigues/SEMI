@@ -29,10 +29,11 @@
             
             ResultSet rs = con.conexao.prepareStatement("SELECT cd_id_chat FROM CHAT WHERE cd_id_viagem = " + idViagem).executeQuery();
             if (rs.next()) {
-                int idChat = rs.getInt("cd_id_viagem");
-                rs = con.conexao.prepareStatement("SELECT * FROM MENSAGEM WHERE cd_id_chat = " + idChat).executeQuery();
+                int idChat = rs.getInt("cd_id_chat");
+                rs = con.conexao.prepareStatement("SELECT * FROM MENSAGEM WHERE cd_id_chat = " + idChat + " ORDER BY cd_id_mensagem DESC").executeQuery();
                 while (rs.next()) {
                     ResultSet rs2 = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_cpf_usuario = '" + rs.getString("cd_cpf_remetente_mensagem") + "'").executeQuery();
+                    rs2.next();
                     Usuario usuario = new Usuario(rs2.getString("cd_cpf_usuario"), rs2.getString("nm_nome_usuario"), rs2.getString("cd_senha_usuario"), rs2.getString("cd_tipo_usuario"));
                     mensagem = new Mensagem(rs.getString("ds_mensagem"), usuario);
                     if (rs.isLast()) {
@@ -47,54 +48,6 @@
                 out.println(json + "]}");
 
             }
-        } catch (Exception ex) {
-            out.println(ex.getMessage());
-        }
-    } else if (action.equals("getMessagesByChatId")) {
-        try {
-            int idChat = Integer.parseInt(request.getParameter("idChat"));
-            Mensagem mensagem;
-            String json = "{\"mensagens\":[";
-            String atual = "";
-
-            Conexao con = new Conexao();
-
-            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM MENSAGEM WHERE cd_id_chat = " + idChat).executeQuery();
-
-            while (rs.next()) {
-                ResultSet rs2 = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_cpf_usuario = '" + rs.getString("cd_cpf_remetente_mensagem") + "'").executeQuery();
-                Usuario usuario = new Usuario(rs2.getString("cd_cpf_usuario"), rs2.getString("nm_nome_usuario"), rs2.getString("cd_senha_usuario"), rs2.getString("cd_tipo_usuario"));
-                mensagem = new Mensagem(rs.getString("ds_mensagem"), usuario);
-                if (rs.isLast()) {
-                    atual = Json_encoder.encode(mensagem);
-                } else {
-                    atual = Json_encoder.encode(mensagem) + ",";
-                }
-                json += atual;
-            }
-
-            con.conexao.close();
-            out.println(json + "]}");
-
-        } catch (Exception ex) {
-            out.println(ex.getMessage());
-        }
-    } else if (action.equals("insertChat")) {
-        try {
-            Conexao con = new Conexao();
-            
-            int idViagem = Integer.parseInt(request.getParameter("idViagem"));
-            String cpfFuncionario = session.getAttribute("me.cpf").toString();
-            ResultSet rs = con.conexao.prepareStatement("SELECT cd_cnh_motorista FROM VIAGEM_ESCALADA WHERE cd_id_viagem = " + idViagem).executeQuery();
-            rs.next();
-            String cnhMotorista = rs.getString("cd_cnh_motorista");
-            PreparedStatement ps = con.conexao.prepareStatement("INSERT INTO CHAT(cd_cpf_funcionario, cd_cnh_motorista, cd_id_viagem) VALUES(?, ?, ?)");
-            ps.setString(1, cpfFuncionario);
-            ps.setString(2, cnhMotorista);
-            ps.setInt(3, idViagem);
-            ps.execute();
-            
-            out.println("{\"resposta\":\"SUCCESS\"}");
         } catch (Exception ex) {
             out.println(ex.getMessage());
         }
