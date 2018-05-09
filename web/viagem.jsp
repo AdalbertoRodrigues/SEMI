@@ -25,22 +25,31 @@
             Endereco enderecoDestino;
             String status = "";
             String json = "";
+            String joinViagemEscalada = "";
+            String columnViagemEscalada = "";
             if (action.equals("select")) {
                 status = "=";
                 json = "{\"viagens\":[";
             } else if (action.equals("selectEscaladas")) {
                 status = "<>";
                 json = "{\"viagensEscaladas\":[";
+                joinViagemEscalada = "JOIN VIAGEM_ESCALADA AS VE ON VE.cd_id_viagem = V.cd_id_viagem";
+                columnViagemEscalada = ", VE.cd_cnh_motorista, VE.cd_placa_veiculo";
+            }
+            if (action.equals("selectEscaladas")){
+                
             }
 
             String atual = "";
 
             Conexao con = new Conexao();
 
-            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM VIAGEM AS V"
+            ResultSet rs = con.conexao.prepareStatement("SELECT V.*, EP.*, EF.*, C.*"+ columnViagemEscalada +" FROM VIAGEM AS V"
                     + " JOIN ENDERECO AS EP ON V.cd_id_endereco_partida_viagem = EP.cd_id_endereco"
                     + " JOIN ENDERECO AS EF ON V.cd_id_endereco_final_viagem = EF.cd_id_endereco"
-                    + " JOIN CARGA AS C ON V.cd_id_carga = C.cd_id_carga WHERE V.ic_desativado_viagem = 0 AND ds_status_viagem " + status + " 'Em espera'").executeQuery();
+                    + " JOIN CARGA AS C ON V.cd_id_carga = C.cd_id_carga "
+                    + joinViagemEscalada 
+                    + " WHERE V.ic_desativado_viagem = 0 AND ds_status_viagem " + status + " 'Em espera'").executeQuery();
             while (rs.next()) {
                 enderecoPartida = new Endereco(rs.getString("EP.cd_cep_endereco"), rs.getInt("EP.cd_numero_endereco"),
                         rs.getString("EP.nm_rua_endereco"),
@@ -55,21 +64,22 @@
                 String dimensoes = rs.getDouble("qt_altura_carga") + "x" + rs.getDouble("qt_largura_carga") + "x" + rs.getDouble("qt_comprimento_carga");
                 Carga carga = new Carga(rs.getString("nm_tipo_carga"), rs.getDouble("qt_peso_carga"), rs.getString("ds_conteudo_carga"), dimensoes, rs.getString("sg_unidade_medida"), rs.getInt("C.cd_id_carga"));
                 if (status.equals("=")) {
-                    viagem = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getString("V.ds_status_viagem"), carga, rs.getInt("cd_id_viagem"));
+                    viagem = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getString("V.ds_status_viagem"), carga, rs.getInt("V.cd_id_viagem"));
                     if (rs.isLast()) {
                         atual = Json_encoder.encode(viagem);
                     } else {
                         atual = Json_encoder.encode(viagem) + ",";
                     }
+                    json += atual;
                 } else if (status.equals("<>")) {
                     viagemEscalada = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getString("V.ds_status_viagem"), carga, rs.getInt("cd_id_viagem"));
                     if (rs.isLast()) {
-                        atual = Json_encoder.encode(viagemEscalada);
+                        atual = Json_encoder.encode(viagemEscalada);                     
                     } else {
                         atual = Json_encoder.encode(viagemEscalada) + ",";
                     }
-                }
-                json += atual;
+                    json += atual.substring(0,atual.length()-1) + ",\"placa\": \"" + rs.getString("VE.cd_placa_veiculo") + "\",\"cnhMotorista\":\""+ rs.getString("VE.cd_cnh_motorista") +"\"}";
+                }                              
             }
 
             con.conexao.close();
