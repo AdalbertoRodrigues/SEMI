@@ -8,7 +8,7 @@
         <input type="hidden" id="cnhSession" value="<%=session.getAttribute("me.cpf")%>"/>
         <div class="row" >
             <div class="col-8 col-sm-8 col-md-6 col-lg-2 col-xl-3"> Status:         
-                <select class="form-control" id="form-admin-usuario-tipo" ng-cloak value="{{viagemAtual.status}}">
+                <select class="form-control" id="form-admin-status" ng-model-options='{debounce: 500}' ng-change="updateStatus()" ng-model="status_viagem" ng-cloak value="{{viagemAtual.status}}">
                     <option value="Pronta">Pronta</option>
                     <option value="Andamento" >Em andamento</option>
                     <option value="Fiscalizacao">Parado (fiscalização)</option>
