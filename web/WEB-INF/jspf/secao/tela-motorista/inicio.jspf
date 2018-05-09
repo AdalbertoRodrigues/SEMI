@@ -1,68 +1,73 @@
-<div class="secao-motorista-viagem secao-ativa" ng-controller="menuMotoristaViagemController">
-    <div class="row">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <h4 id="txt-prox-viagem">Sua Viagem</h4><br/>
-        </div>
-    </div>
-    <div id="cards-viagem-atual">
-        <input type="hidden" id="cnhSession" value="<%=session.getAttribute("me.cpf")%>"/>
-        <div class="row" >
-            <div class="col-8 col-sm-8 col-md-6 col-lg-2 col-xl-3"> Status:         
-                <select class="form-control" id="form-admin-usuario-tipo" ng-cloak value="{{viagemAtual.status}}">
-                    <option value="Pronta">Pronta</option>
-                    <option value="Andamento" >Em andamento</option>
-                    <option value="Fiscalizacao">Parado (fiscalização)</option>
-                    <option value="Descanso">Parado (descanso)</option>
-                    <option value="Entregue">Entregue</option>
-                    <option value="Voltando">Voltando</option>
-                    <option value="Concluida">Concluida</option>
-                </select>
-            </div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-2 col-xl-3">
-                <button type="button" ng-click="abrirModalChat()" class="btn btn-info btn-chat"><i class="fas fa-comment-alt"></i> Chat</button>
-            </div>
-        </div>
-
+<div class="container body-motorista-menu">
+    <div class="secao-motorista-viagem secao-ativa" ng-controller="menuMotoristaViagemController">
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
-                <div class="card card-viagem-motorista" id="card-informacoes">
-                    <div class="card-body">
-                        <h6 class="card-title">Informações</h6>
-                        <a ng-cloak >Placa do Veiculo: {{viagemAtual.placa}}</a><br/>
-                        <a ng-cloak >Prazo: {{viagemAtual.prazo}}</a>
-                    </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <h4 id="txt-prox-viagem">Sua Viagem</h4><br/>
+            </div>
+        </div>
+        <div id="cards-viagem-atual">
+            <input type="hidden" id="cnhSession" value="<%=session.getAttribute("me.cpf")%>"/>
+            <div class="row" >
+                <div class="col-8 col-sm-8 col-md-6 col-lg-2 col-xl-3"> Status:         
+                    <select class="form-control" id="form-admin-usuario-tipo" ng-cloak value="{{viagemAtual.status}}">
+                        <option value="Pronta">Pronta</option>
+                        <option value="Andamento" >Em andamento</option>
+                        <option value="Fiscalizacao">Parado (fiscalização)</option>
+                        <option value="Descanso">Parado (descanso)</option>
+                        <option value="Entregue">Entregue</option>
+                        <option value="Voltando">Voltando</option>
+                        <option value="Concluida">Concluida</option>
+                    </select>
+                </div>
+                <div class="col-4 col-sm-4 col-md-4 col-lg-2 col-xl-3">
+                    <button type="button" ng-click="abrirModalChat()" class="btn btn-info btn-chat"><i class="fas fa-comment-alt"></i> Chat</button>
                 </div>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="card card-viagem-motorista" id="card-endereco-partida">
-                    <div class="card-body">
-                        <h6 class="card-title" ng-cloak >Endereço de Partida</h6>
-                        <a ng-cloak >CEP: {{viagemAtual.enderecoPartida.cep}}</a><br/>
-                        <a ng-cloak >Rua: {{viagemAtual.enderecoPartida.rua}}</a><br/>
-                        <a ng-cloak >Nº: {{viagemAtual.enderecoPartida.numero}}</a><br/>
-                        <a ng-cloak >Cidade: {{viagemAtual.enderecoPartida.cidade}}</a><br/>
-                        <a ng-cloak >Distrito: {{viagemAtual.enderecoPartida.estado}}</a><br/>
-                        <a ng-cloak >Pais: {{viagemAtual.enderecoPartida.pais}}</a>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
+                    <div class="card card-viagem-motorista" id="card-informacoes">
+                        <div class="card-body">
+                            <h6 class="card-title">Informações</h6>
+                            <a ng-cloak >Placa do Veiculo: {{viagemAtual.placa}}</a><br/>
+                            <a ng-cloak >Prazo: {{viagemAtual.prazo}}</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                <div class="card card-viagem-motorista" id="card-endereco-destino">
-                    <div class="card-body">
-                        <h6 class="card-title">Endereço de Destino</h6>
-                        <a ng-cloak >CEP: {{viagemAtual.enderecoDestino.cep}}</a><br/>
-                        <a ng-cloak >Rua: {{viagemAtual.enderecoDestino.rua}}</a><br/>
-                        <a ng-cloak >Nº: {{viagemAtual.enderecoDestino.numero}}</a><br/>
-                        <a ng-cloak >Cidade: {{viagemAtual.enderecoDestino.cidade}}</a><br/>
-                        <a ng-cloak >Distrito: {{viagemAtual.enderecoDestino.estado}}</a><br/>
-                        <a ng-cloak >Pais: {{viagemAtual.enderecoDestino.pais}}</a>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div class="card card-viagem-motorista" id="card-endereco-partida">
+                        <div class="card-body">
+                            <h6 class="card-title" ng-cloak >Endereço de Partida</h6>
+                            <a ng-cloak >CEP: {{viagemAtual.enderecoPartida.cep}}</a><br/>
+                            <a ng-cloak >Rua: {{viagemAtual.enderecoPartida.rua}}</a><br/>
+                            <a ng-cloak >Nº: {{viagemAtual.enderecoPartida.numero}}</a><br/>
+                            <a ng-cloak >Cidade: {{viagemAtual.enderecoPartida.cidade}}</a><br/>
+                            <a ng-cloak >Distrito: {{viagemAtual.enderecoPartida.estado}}</a><br/>
+                            <a ng-cloak >Pais: {{viagemAtual.enderecoPartida.pais}}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div class="card card-viagem-motorista" id="card-endereco-destino">
+                        <div class="card-body">
+                            <h6 class="card-title">Endereço de Destino</h6>
+                            <a ng-cloak >CEP: {{viagemAtual.enderecoDestino.cep}}</a><br/>
+                            <a ng-cloak >Rua: {{viagemAtual.enderecoDestino.rua}}</a><br/>
+                            <a ng-cloak >Nº: {{viagemAtual.enderecoDestino.numero}}</a><br/>
+                            <a ng-cloak >Cidade: {{viagemAtual.enderecoDestino.cidade}}</a><br/>
+                            <a ng-cloak >Distrito: {{viagemAtual.enderecoDestino.estado}}</a><br/>
+                            <a ng-cloak >Pais: {{viagemAtual.enderecoDestino.pais}}</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div ng-cloak  class="alert alert-info" id="alerta-exibicao-viagem" role="alert">{{erro_viagemAtual}}</div>
+        <br/>
     </div>
-    <div ng-cloak  class="alert alert-info" id="alerta-exibicao-viagem" role="alert">{{erro_viagemAtual}}</div>
-    <br/>
+</div>
+<div class="secao-motorista-historico">
+    <h2>Teste</h2>
 </div>
 </div>
