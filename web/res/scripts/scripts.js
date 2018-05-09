@@ -1338,11 +1338,14 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
         $scope.cpfSession = $("#cnhSession").val();      
         $rootScope.getViagemAtual();
     });
+    $scope.getMensagensChat() = function () {
+        
+    };
     $scope.updateStatus = function () {
         $scope.status_viagem = $("#form-admin-usuario-status").val();
         $http({
             method: 'POST',
-            url: ctx + '/viagem.jsp?action=updateStatus&idViagem=' + $scope.viagemAtual.id + '&status=' + $scope.status_viagem
+            url: ctx + '/viagem.jsp?action=updateStatus&idViagem=' + $rootScope.viagemAtual.id + '&status=' + $scope.status_viagem
         }).then(function successCallback(response) {
             if (response.data.resposta == "SUCCESS") {
                 $("#alteracao-concluida").show();
@@ -1367,12 +1370,13 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
             method: 'GET',
             url: ctx + '/viagem.jsp?action=selectViagemAtualMotorista&cpfMotorista=' + $scope.cpfSession + '&sinal=<>'
         }).then(function successCallback(response) {
-            $scope.viagemAtual = response.data.viagemAtualMotorista;
-            $("#form-admin-usuario-status").val($scope.viagemAtual.status);
+            
+            $rootScope.viagemAtual = response.data.viagemAtualMotorista;
+            $("#form-admin-usuario-status").val($rootScope.viagemAtual.status);
             
             $scope.error = response.data.error;
             $(".loader-viagem").hide();
-            if ($scope.viagemAtual.viagemAtiva.indexOf("false") >= 0) {
+            if ($rootScope.viagemAtual.viagemAtiva.indexOf("false") >= 0) {
                 $scope.erro_viagemAtual = 'Você não está escalado em nenhuma viagem no momento :)';
                 $("#alerta-exibicao-viagem").show();
                 $("#cards-viagem-atual").hide();
@@ -1385,10 +1389,9 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
     };
 
     $scope.enviarMensagem = function () {
-        console.log($scope.viagemAtual.id);
         $http({
             method: 'POST',
-            url: ctx + '/chat.jsp?action=insertMensagem&idViagem=' + $scope.viagemAtual.id,
+            url: ctx + '/chat.jsp?action=insertMensagem&idViagem=' + $rootScope.viagemAtual.id,
             data: {"mensagem": $("#usr").val()}
         }).then(function successCallback(response) {
             if (response.data.resposta == "SUCCESS") {
@@ -1407,7 +1410,7 @@ app.controller('menuMotoristaHistoricoController', function ($scope, $rootScope,
         $scope.cpfSession = $("#cnhSession").val();
         $rootScope.getHistoricoViagem();
     });
-
+    
     $rootScope.getHistoricoViagem = function () {
         $(".loader-historico").show();
         $("#alerta-exibicao-historico").hide();

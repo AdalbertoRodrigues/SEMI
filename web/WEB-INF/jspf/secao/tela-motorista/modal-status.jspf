@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="item-titulo">Chat</h5>
+                <h5 class="modal-title" id="item-titulo-chat">Chat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -10,6 +10,7 @@
             <div class="modal-body" id="modal-chat-body">
                 <div class="msg-chat-funcionario">
                     <div class="row">
+                        <input type="hidden" id="id-viagem-chat">
                         <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xs-2">
                             <span class="txt-chat-funcionario"><u>Funcionário</u></span><br>
                         </div>

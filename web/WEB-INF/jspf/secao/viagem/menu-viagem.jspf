@@ -81,7 +81,7 @@
                     <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.cnhMotorista}}</td>
                     <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.status}}</td>
                     <td class="td-{{viagensEscaladas.id}}" width="5%" class="col-admin-detalhes" ng-click="mostrarDetalhesViagem(viagensEscaladas)"><i class="fas fa-eye"></i></td>
-                    <td class="td-{{viagensEscaladas.id}}" width="5%"><button type="button" ng-click="abrirModalChat()" class="btn btn-info"><i class="fas fa-comment-alt"></i> Chat</button></td>
+                    <td class="td-{{viagensEscaladas.id}}" width="5%"><button type="button" ng-click="abrirModalChat(viagensEscaladas)" class="btn btn-info"><i class="fas fa-comment-alt"></i> Chat</button></td>
                     </tr>
                 </tbody>
             </table>
