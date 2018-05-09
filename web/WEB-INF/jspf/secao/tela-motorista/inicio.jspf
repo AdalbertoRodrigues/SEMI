@@ -1,5 +1,28 @@
-<div class="container body-motorista-menu">
-    <div class="secao-motorista-viagem secao-ativa" ng-controller="menuMotoristaViagemController">
+<div class="secao-motorista-viagem secao-ativa" ng-controller="menuMotoristaViagemController">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <h4 id="txt-prox-viagem">Sua Viagem</h4><br/>
+        </div>
+    </div>
+    <div id="cards-viagem-atual">
+        <input type="hidden" id="cnhSession" value="<%=session.getAttribute("me.cpf")%>"/>
+        <div class="row" >
+            <div class="col-8 col-sm-8 col-md-6 col-lg-2 col-xl-3"> Status:         
+                <select class="form-control" id="form-admin-status" ng-model-options='{debounce: 500}' ng-change="updateStatus()" ng-model="status_viagem" ng-cloak value="{{viagemAtual.status}}">
+                    <option value="Pronta">Pronta</option>
+                    <option value="Andamento" >Em andamento</option>
+                    <option value="Fiscalizacao">Parado (fiscalização)</option>
+                    <option value="Descanso">Parado (descanso)</option>
+                    <option value="Entregue">Entregue</option>
+                    <option value="Voltando">Voltando</option>
+                    <option value="Concluida">Concluida</option>
+                </select>
+            </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-2 col-xl-3">
+                <button type="button" ng-click="abrirModalChat()" class="btn btn-info btn-chat"><i class="fas fa-comment-alt"></i> Chat</button>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <h4 id="txt-prox-viagem">Sua Viagem</h4><br/>
