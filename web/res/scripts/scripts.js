@@ -1337,7 +1337,7 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
         $rootScope.getHistoricoViagem();
     });
     $scope.updateStatus = function () {
-        $scope.status_viagem = $("#form-admin-status").val();
+        $scope.status_viagem = $("#form-admin-usuario-status").val();
         $http({
             method: 'POST',
             url: ctx + '/viagem.jsp?action=updateStatus&idViagem=' + $scope.viagemAtual.id + '&status=' + $scope.status_viagem
@@ -1365,6 +1365,8 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
             url: ctx + '/viagem.jsp?action=selectViagemAtualMotorista&cpfMotorista=' + $scope.cpfSession + '&sinal=<>'
         }).then(function successCallback(response) {
             $scope.viagemAtual = response.data.viagemAtualMotorista;
+            $("#form-admin-usuario-status").val($scope.viagemAtual.status);
+            
             $scope.error = response.data.error;
             $(".loader-viagem").hide();
             if ($scope.viagemAtual.viagemAtiva.indexOf("false") >= 0) {
