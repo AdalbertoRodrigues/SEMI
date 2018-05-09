@@ -73,12 +73,14 @@
                 <tr>
                     <th width="3%" scope="col">PARTIDA</th>
                     <th width="3%" scope="col">DESTINO</th>
+                    <th width="3%" scope="col">VEÍCULO</th>
                 </tr>
             </thead>
             <tbody>
                 <tr dir-paginate="historicos in historicos | itemsPerPage: 5" pagination-id="historico">
                     <td class="td-{{historicos.id}}" width="25%"> {{historicos.enderecoPartida.cidade}}/{{historicos.enderecoPartida.estado}} </td>
                     <td class="td-{{historicos.id}}" width="25%"> {{historicos.enderecoDestino.cidade}}/{{historicos.enderecoDestino.estado}} </td>
+                    <td class="td-{{historicos.id}}" width="25%"> {{historicos.placa}} </td>
                 </tr>
             </tbody>
         </table>
