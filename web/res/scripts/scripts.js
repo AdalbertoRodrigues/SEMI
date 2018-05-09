@@ -894,8 +894,10 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $rootScope.getViagensEscaladas();
     });
 
-    $scope.abrirModalChat = function () {
+    $scope.abrirModalChat = function (viagem) {
         $('#modal-chat').modal('toggle');
+        $("#item-titulo-chat").text("Chat - " + viagem.cnhMotorista + " - " + viagem.placa);
+        $("#id-viagem-chat").val(viagem.id);
     };
 
 
@@ -1077,7 +1079,6 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         }).then(function successCallback(response) {
 
             $scope.viagensEscaladas = response.data.viagensEscaladas;
-            console.log(response.data);
             $(".loader-viagem").hide();
             $("#form-admin-veiculo-filtro").focus();
             $(".admin-exibicao-veiculo").show();
@@ -1093,6 +1094,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $("#alerta-exibicao-veiculo").show();
         });
     }
+    
 
     $rootScope.getTiposCarga = function () {
         $http({
@@ -1353,7 +1355,8 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
         });
 
     };
-    $scope.abrirModalChat = function () {
+    $scope.abrirModalChat = function (viagem) {
+        viagem = viagem || 0
         $('#modal-chat').modal('toggle');
     };
     $rootScope.getViagemAtual = function () {
@@ -1380,6 +1383,7 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
     };
 
     $scope.enviarMensagem = function () {
+        console.log($scope.viagemAtual.id);
         $http({
             method: 'POST',
             url: ctx + '/chat.jsp?action=insertMensagem&idViagem=' + $scope.viagemAtual.id,
@@ -1429,3 +1433,21 @@ app.controller('menuMotoristaHistoricoController', function ($scope, $rootScope,
     };
 })
 
+app.controller("chatViagemFuncionario", function ($scope, $document, $http) {
+    
+    $scope.enviarMensagem = function () {
+        $scope.idViagem = $("#id-viagem-chat").val();
+        $http({
+            method: 'POST',
+            url: ctx + '/chat.jsp?action=insertMensagem&idViagem=' + $scope.idViagem,
+            data: {"mensagem": $("#usr").val()}
+        }).then(function successCallback(response) {
+            if (response.data.resposta == "SUCCESS") {
+                $("#usr").val("");
+            } else
+                console.log(response.data);
+        }, function errorCallback(response) {
+            console.log(response.data);
+        });
+    };
+});
