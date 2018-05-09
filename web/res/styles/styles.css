@@ -326,7 +326,7 @@ button:focus {
     font-size: 15px;
 }
 
-.secao-admin-usuario-incluir, .secao-admin-escala, .secao-admin-usuario, .secao-admin-usuario-detalhes, .secao-admin-veiculo, .secao-admin-veiculo-incluir, .secao-admin-veiculo-detalhes, .secao-admin-viagem, .secao-admin-viagem-incluir, .secao-admin-viagem-detalhes, .secao-admin-viagem-incluir-endereco, .secao-admin-viagem-detalhes-endereco, .secao-viagem-escalada {
+.secao-admin-usuario-incluir, .secao-motorista-viagem, .secao-admin-escala, .secao-admin-usuario, .secao-admin-usuario-detalhes, .secao-admin-veiculo, .secao-admin-veiculo-incluir, .secao-admin-veiculo-detalhes, .secao-admin-viagem, .secao-admin-viagem-incluir, .secao-admin-viagem-detalhes, .secao-admin-viagem-incluir-endereco, .secao-admin-viagem-detalhes-endereco, .secao-viagem-escalada {
     display: none;
 }
 

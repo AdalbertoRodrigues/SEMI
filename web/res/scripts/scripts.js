@@ -160,6 +160,12 @@ app.service('dataService', function ($location) {
 
             $('#modal-acao').modal('toggle');
 
+        },
+        voltarMenuMotoristaViagem: function () {
+            alert('voltarViagem');
+        },
+        voltarMenuMotoristaHistorico: function () {
+            alert('voltarHistorico');
         }
     };
 });
@@ -719,6 +725,13 @@ app.controller("abasAdminController", function ($scope, dataService) {
     $scope.irSecaoAdminEscala = function () {
         dataService.voltarMenuAdminEscala();
     };
+    $scope.irSecaoMotoristaViagem = function () {
+        dataService.voltarMenuMotoristaViagem();
+    };
+    $scope.irSecaoMotoristaHistorico = function () {
+        dataService.voltarMenuMotoristaHistorico();
+    };
+    
 });
 app.controller("incluirVeiculoAdminController", function ($scope, dataService, $http, $rootScope) {
     $scope.voltarMenu = function () {
