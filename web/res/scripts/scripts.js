@@ -1574,10 +1574,10 @@ app.controller('menuMotoristaHistoricoController', function ($scope, $rootScope,
             method: 'GET',
             url: ctx + '/viagem.jsp?action=selectViagemAtualMotorista&cpfMotorista=' + $scope.cpfSession + '&sinal=='
         }).then(function successCallback(response) {
-            $scope.historicos = response.data.viagemAtualMotorista;
+            $scope.historicos = response.data;
             $scope.error = response.data.error;
             $(".loader-viagem").hide();
-            if ($scope.historicos.viagemAtiva.indexOf("false") >= 0) {
+            if ($scope.historicos.viagemAtualMotorista.viagemAtiva.indexOf("false") >= 0) {
                 $scope.erro_historico = 'Você não possui viagens em seu histórico.';
                 $("#table-motorista-historico").hide();
                 $("#alerta-exibicao-historico").show();
