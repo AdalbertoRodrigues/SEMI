@@ -901,6 +901,8 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                     alert("Escalas realizadas com sucesso!!");
                     $rootScope.getViagens();
                     $rootScope.getViagensEscaladas();
+                    for(i = 0; i < $scope.vet_escala.length; i++)
+                        $scope.inserirChat($scope.vet_escala[i]);
                 } else if (response.data.resposta.indexOf("VIAGEM-NOT-FOUND-ID-") >= 0) {
                     alert(response.data.resposta + "\n\nOps, não encontramos sua viagem na nossa base de dados.\n\nAtualize o SEMI e se o erro persistir, contate o administrador do sistema");
                 } else if (response.data.resposta.indexOf("VEICULO-NOT-FOUND-ID-") >= 0 || response.data.resposta.indexOf("NO-VEICULO-DISPONIVEL-ID-") >= 0) {
@@ -919,6 +921,21 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $(".linha-tabela-escala-pendente").find("td").removeClass('background-checkbox');
             $("#btn-escalar-viagem-pendente").removeClass('btn-admin-escalar-viagem').addClass('btn-admin-escalar-viagem-disabled');
         }
+    };
+    $scope.inserirChat = function(idViagem) {
+        $http({
+            method: 'POST',
+            url: ctx +  '/chat.jsp?action=insertChat&idViagem=' + idViagem
+        }).then(function successCallback(response) {
+            if(response.data.resposta == 'SUCCESS') {
+                console.log("top");
+            }
+            else {
+                alert(response.data);
+            }
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
     };
 
     $(".btn-admin-escala-tipo").click(function () {
