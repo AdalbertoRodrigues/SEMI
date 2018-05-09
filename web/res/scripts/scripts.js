@@ -1338,19 +1338,19 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
     $scope.updateStatus = function () {
         $scope.status_viagem = $("#form-admin-status").val();
         $http({
-                method: 'POST',
-                url: ctx + '/viagem.jsp?action=updateStatus&idViagem=' + $scope.viagemAtual.id + '&status='+ $scope.status_viagem
-            }).then(function successCallback(response) {
-                if (response.data.resposta == "SUCCESS") {
-                    alert($scope.status_viagem);
-                } else {
-                    alert("Ocorreu um erro ao alterar o status");
-                }
+            method: 'POST',
+            url: ctx + '/viagem.jsp?action=updateStatus&idViagem=' + $scope.viagemAtual.id + '&status=' + $scope.status_viagem
+        }).then(function successCallback(response) {
+            if (response.data.resposta == "SUCCESS") {
+                alert($scope.status_viagem);
+            } else {
+                alert("Ocorreu um erro ao alterar o status");
+            }
 
-            }, function errorCallback(response) {
-                console.log('Error');
-            });
-       
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
+
     };
     $scope.abrirModalChat = function () {
         $('#modal-chat').modal('toggle');
