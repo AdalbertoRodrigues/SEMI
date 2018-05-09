@@ -37,7 +37,7 @@
                     <hr>
                 </div>
                 <div class="loader-modal-chat"></div>
-                 <div class="alert alert-danger" id="alerta-exibicao-chat" role="alert">Nenhuma mensagem encontrada</div>
+                 
                 <br>
                 <div class="msg-chat-escrever">
                     <div class="row">
