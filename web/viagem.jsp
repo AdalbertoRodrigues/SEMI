@@ -87,7 +87,7 @@
 
             String viagemAtual = "{\"viagemAtualMotorista\":{";
 
-            ResultSet rs = con.conexao.prepareStatement("SELECT VEIC.cd_placa_veiculo, VIAG.dt_prazo_viagem, VIAG.ds_status_viagem, "
+            ResultSet rs = con.conexao.prepareStatement("SELECT VEIC.cd_placa_veiculo, VIAG.dt_prazo_viagem, VIAG.ds_status_viagem, VIAG.cd_id_viagem, "
                     + " VIES.cd_id_viagem_escalada, ENDP.*, ENDF.* FROM VIAGEM AS VIAG"
                     + " JOIN VIAGEM_ESCALADA AS VIES ON VIES.cd_id_viagem = VIAG.cd_id_viagem"
                     + " JOIN VEICULO AS VEIC ON VEIC.cd_placa_veiculo = VIES.cd_placa_veiculo"
@@ -102,6 +102,7 @@
                 String placa1 = rs.getString("VEIC.cd_placa_veiculo").substring(0, 3);
                 String placa2 = rs.getString("VEIC.cd_placa_veiculo").substring(3, 7);
                 
+                viagemAtual += "\"id\" : \"" + rs.getInt("VIAG.cd_id_viagem") + "\",";//placa
                 viagemAtual += "\"placa\" : \"" + placa1 + "-" + placa2 + "\",";//placa
                 viagemAtual += "\"prazo\" : \"" + rs.getString("VIAG.dt_prazo_viagem") + "\",";//prazo
                 viagemAtual += "\"status\" : \"" + rs.getString("VIAG.ds_status_viagem") + "\",";//status
