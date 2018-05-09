@@ -66,8 +66,25 @@
         <div ng-cloak  class="alert alert-info" id="alerta-exibicao-viagem" role="alert">{{erro_viagemAtual}}</div>
         <br/>
     </div>
-</div>
-<div class="secao-motorista-historico">
-    <h2>Teste</h2>
+
+    <div class="secao-motorista-historico" ng-controller="menuMotoristaHistoricoController">
+        <table class="table table-sm table-bordered table-striped" id="table-motorista-historico">
+            <thead>
+                <tr>
+                    <th width="3%" scope="col">PARTIDA</th>
+                    <th width="3%" scope="col">DESTINO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="historico in historico | itemsPerPage: 5" pagination-id="historico">
+                    <td width="25%">{{historico.enderecoPartida.cidade}}/{{historico.enderecoPartida.estado}}</td>
+                    <td width="25%">{{historico.enderecoDestino.cidade}}/{{historico.enderecoDestino.estado}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="historico"></dir-pagination-controls>
+        <div class="loader-historico" id="loader-tabela-viagem"></div>
+        <div class="alert alert-danger" id="alerta-exibicao-historico" role="alert">{{erro_historico}}</div>
+    </div>
 </div>
 </div>

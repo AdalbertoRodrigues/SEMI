@@ -92,6 +92,7 @@
     } else if (action.equals("selectViagemAtualMotorista")) {
         try {
             String cpfMotorista = request.getParameter("cpfMotorista");
+            String sinal = request.getParameter("sinal");
 
             Conexao con = new Conexao();
 
@@ -106,7 +107,7 @@
                     + " JOIN MOTORISTA AS MOTO ON MOTO.cd_cnh_motorista = VIES.cd_cnh_motorista"
                     + " JOIN USUARIO AS USUA ON USUA.cd_cpf_usuario = MOTO.cd_cpf_usuario"
                     + " WHERE USUA.cd_cpf_usuario = '" + cpfMotorista + "'"
-                    + " AND VIAG.ds_status_viagem <> 'Concluida'"
+                    + " AND VIAG.ds_status_viagem " + sinal + " 'Concluida'"
                     + " ORDER BY dt_prazo_viagem LIMIT 1;").executeQuery();
             if (rs.next()) {
                 String placa1 = rs.getString("VEIC.cd_placa_veiculo").substring(0, 3);

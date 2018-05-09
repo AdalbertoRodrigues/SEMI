@@ -163,9 +163,10 @@ app.service('dataService', function ($location) {
         },
         voltarMenuMotoristaViagem: function () {
             ativa = $(".body-motorista-menu").find(".secao-ativa");
-            animacaoEntrada = 'fadeInRight';
-            animacaoSaida = 'fadeOutLeft';
+            animacaoEntrada = 'fadeInLeft';
+            animacaoSaida = 'fadeOutRight';
             if (!$(".secao-ativa").hasClass('secao-motorista-viagem')) {
+                console.log(ativa);
                 ativa.addClass('animated ' + animacaoSaida).one(eventoAnimacao, function () {
                     ativa.removeClass('animated ' + animacaoSaida + ' secao-ativa').hide();
                     $(".secao-motorista-viagem").show().addClass('animated ' + animacaoEntrada + ' secao-ativa').one(eventoAnimacao, function () {
@@ -179,6 +180,7 @@ app.service('dataService', function ($location) {
             animacaoEntrada = 'fadeInRight';
             animacaoSaida = 'fadeOutLeft';
             if (!$(".secao-ativa").hasClass('secao-motorista-historico')) {
+                console.log(ativa);
                 ativa.addClass('animated ' + animacaoSaida).one(eventoAnimacao, function () {
                     ativa.removeClass('animated ' + animacaoSaida + ' secao-ativa').hide();
                     $(".secao-motorista-historico").show().addClass('animated ' + animacaoEntrada + ' secao-ativa').one(eventoAnimacao, function () {
@@ -1327,21 +1329,22 @@ app.controller("menuAdminEscalaController", function ($scope, dataService) {
 
 });
 
-app.controller("menuMotoristaViagemController", function ($scope, dataService, $document, $http) {
+app.controller("menuMotoristaViagemController", function ($scope, $rootScope, dataService, $document, $http) {
     $document.ready(function () {
         $scope.cpfSession = $("#cnhSession").val();
-        $scope.getViagemAtual();
+        $rootScope.getViagemAtual();
+        $rootScope.getHistoricoViagem();
     });
     $scope.abrirModalChat = function () {
         $('#modal-chat').modal('toggle');
     };
-    $scope.getViagemAtual = function () {
+    $rootScope.getViagemAtual = function () {
         $(".loader-viagem").show();
         $("#alerta-exibicao-viagem").hide();
 
         $http({
             method: 'GET',
-            url: ctx + '/viagem.jsp?action=selectViagemAtualMotorista&cpfMotorista=' + $scope.cpfSession
+            url: ctx + '/viagem.jsp?action=selectViagemAtualMotorista&cpfMotorista=' + $scope.cpfSession + '&sinal=<>'
         }).then(function successCallback(response) {
             $scope.viagemAtual = response.data.viagemAtualMotorista;
             $scope.error = response.data.error;
@@ -1374,4 +1377,37 @@ app.controller("menuMotoristaViagemController", function ($scope, dataService, $
         });
     };
 });
+
+app.controller('menuMotoristaHistoricoController', function ($scope, $rootScope, dataService, $http, $document) {
+    $document.ready(function () {
+        $scope.cpfSession = $("#cnhSession").val();
+        $rootScope.getHistoricoViagem();
+    });
+
+    $rootScope.getHistoricoViagem = function () {
+        $(".loader-historico").show();
+        $("#alerta-exibicao-historico").hide();
+
+        $http({
+            method: 'GET',
+            url: ctx + '/viagem.jsp?action=selectViagemAtualMotorista&cpfMotorista=' + $scope.cpfSession + '&sinal=='
+        }).then(function successCallback(response) {
+            $scope.historico = response.data.viagemAtualMotorista;
+            $scope.error = response.data.error;
+            $(".loader-viagem").hide();
+            if ($scope.historico.viagemAtiva.indexOf("false") >= 0) {
+                $scope.erro_historico = 'Você não possui viagens em seu histórico.';
+                $("#table-motorista-historico").hide();
+                $("#alerta-exibicao-historico").show();
+            } else {
+                $("#table-motorista-historico").show();
+            }
+
+        }, function errorCallback(response) {
+            $scope.erro_historico = 'Ocorreu um erro ao conectar com a base de dados de viagens. Atualize a página e, se o erro persistir, contate o suporte.';
+            $("#table-motorista-historico").hide();
+            $("#alerta-exibicao-historico").show();
+        });
+    };
+})
 
