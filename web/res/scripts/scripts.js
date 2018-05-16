@@ -900,6 +900,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $(".loader-modal-chat").show();
         $("#item-titulo-chat").text("Chat - " + viagem.cnhMotorista + " - " + viagem.placa);
         $("#id-viagem-chat").val(viagem.id);
+        clearInterval($scope.atualizandoChat);
         $scope.atualizandoChat = setInterval($scope.getMensagensChat, 2000);
     };
 
@@ -1083,7 +1084,12 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $(".loader-viagem").hide();
             $("#form-admin-veiculo-filtro").focus();
             $(".admin-exibicao-veiculo").show();
-
+            $(".chat").each($scope.viagensEscaladas, function (index, value) {
+                if ($scope.viagensEscaladas.cpfFuncionario !== $("#cpfSession").val()) {
+                    $(".chat-" + $scope.viagensEscaladas.cpfFuncionario).css("display", "none");
+                    
+                }
+            });
             if ($scope.viagensEscaladas.length == 0) {
                 $scope.erro_viagem = 'Nenhuma viagem encontrado com o respectivo filtro!';
                 $("#alerta-exibicao-veiculo").show();
@@ -1094,6 +1100,14 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados de viagens. Atualize a página e, se o erro persistir, contate o suporte.';
             $("#alerta-exibicao-veiculo").show();
         });
+    };
+
+    $scope.teste = function (id) {
+        if(id !== $("#cpfSession").val()){
+            return false;
+        } else {
+            return true;
+        }
     }
 
     $scope.getMensagensChat = function () {
@@ -1104,7 +1118,6 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $(".loader-modal-chat").hide();
             $("#chat-mensagens").show();
             $("#chat-mensagens").html('');
-            $("#usr").prop("disabled", false);
             $.each(response.data.mensagens, function (index, value) {
 
                 if (value.remetente.cpf == $("#cpfSession").val()) {
@@ -1171,11 +1184,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                     $("<hr>").appendTo(divGod);
 
                     divGod.prependTo($("#chat-mensagens"))
-                    if (value.remetente.cpf == $("#cpfSession").val()) {
-                        $("#usr").prop("disabled", false);
-                    } else {
-                        $("#usr").prop("disabled", true);
-                    }
+                    
                 }
             });
 
@@ -1524,6 +1533,7 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
     $scope.abrirModalChat = function () {
         $('#modal-chat').modal('toggle');
         $scope.getMensagensChat();
+        
         $scope.atualizandoChat = setInterval($scope.getMensagensChat, 2000);
     };
     $rootScope.getViagemAtual = function () {

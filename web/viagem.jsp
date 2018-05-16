@@ -27,6 +27,8 @@
             String json = "";
             String joinViagemEscalada = "";
             String columnViagemEscalada = "";
+            String chatQuery = "";
+            String chatColumn = "";
             if (action.equals("select")) {
                 status = "=";
                 json = "{\"viagens\":[";
@@ -34,7 +36,10 @@
                 status = "<>";
                 json = "{\"viagensEscaladas\":[";
                 joinViagemEscalada = "JOIN VIAGEM_ESCALADA AS VE ON VE.cd_id_viagem = V.cd_id_viagem";
-                columnViagemEscalada = ", VE.cd_cnh_motorista, VE.cd_placa_veiculo";
+                columnViagemEscalada = ", VE.cd_cnh_motorista, VE.cd_placa_veiculo ";
+                chatQuery = ", CH.cd_cpf_funcionario ";
+                chatColumn= " JOIN CHAT AS CH ON CH.cd_id_viagem = V.cd_id_viagem ";
+            
             }
             if (action.equals("selectEscaladas")){
                 
@@ -44,10 +49,11 @@
 
             Conexao con = new Conexao();
 
-            ResultSet rs = con.conexao.prepareStatement("SELECT V.*, EP.*, EF.*, C.*"+ columnViagemEscalada +" FROM VIAGEM AS V"
+            ResultSet rs = con.conexao.prepareStatement("SELECT V.*, EP.*, EF.*, C.*"+ chatQuery + columnViagemEscalada +" FROM VIAGEM AS V"
                     + " JOIN ENDERECO AS EP ON V.cd_id_endereco_partida_viagem = EP.cd_id_endereco"
                     + " JOIN ENDERECO AS EF ON V.cd_id_endereco_final_viagem = EF.cd_id_endereco"
                     + " JOIN CARGA AS C ON V.cd_id_carga = C.cd_id_carga "
+                    + chatColumn
                     + joinViagemEscalada 
                     + " WHERE V.ic_desativado_viagem = 0 AND ds_status_viagem " + status + " 'Em espera'").executeQuery();
             while (rs.next()) {
@@ -75,10 +81,10 @@
                     viagemEscalada = new Viagem(enderecoPartida, enderecoDestino, rs.getString("V.dt_prazo_viagem"), rs.getString("V.ds_status_viagem"), carga, rs.getInt("cd_id_viagem"));
                     if (rs.isLast()) {
                         atual = Json_encoder.encode(viagemEscalada);
-                        json += atual.substring(0,atual.length()-1) + ",\"placa\": \"" + rs.getString("VE.cd_placa_veiculo") + "\",\"cnhMotorista\":\""+ rs.getString("VE.cd_cnh_motorista") +"\"}";
+                        json += atual.substring(0,atual.length()-1) + ",\"placa\": \"" + rs.getString("VE.cd_placa_veiculo") + "\",\"cnhMotorista\":\""+ rs.getString("VE.cd_cnh_motorista") +"\",\"cpfFuncionario\":\""+ rs.getString("CH.cd_cpf_funcionario")+"\"}";
                     } else {
                         atual = Json_encoder.encode(viagemEscalada) + ",";
-                        json += atual.substring(0,atual.length()-2) + ",\"placa\": \"" + rs.getString("VE.cd_placa_veiculo") + "\",\"cnhMotorista\":\""+ rs.getString("VE.cd_cnh_motorista") +"\"},";
+                        json += atual.substring(0,atual.length()-2) + ",\"placa\": \"" + rs.getString("VE.cd_placa_veiculo") + "\",\"cnhMotorista\":\""+ rs.getString("VE.cd_cnh_motorista") +"\",\"cpfFuncionario\":\""+ rs.getString("CH.cd_cpf_funcionario")+"\"},";
                     }
                     
                 }                              
