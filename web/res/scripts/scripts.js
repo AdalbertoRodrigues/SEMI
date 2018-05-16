@@ -901,6 +901,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $("#item-titulo-chat").text("Chat - " + viagem.cnhMotorista + " - " + viagem.placa);
         $("#id-viagem-chat").val(viagem.id);
         clearInterval($scope.atualizandoChat);
+        $scope.getMensagensChat();
         $scope.atualizandoChat = setInterval($scope.getMensagensChat, 2000);
         
         //$scope.checkChat();
@@ -1102,14 +1103,6 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados de viagens. Atualize a página e, se o erro persistir, contate o suporte.';
             $("#alerta-exibicao-veiculo").show();
         });
-    };
-
-    $scope.teste = function (id) {
-        if(id !== $("#cpfSession").val()){
-            return false;
-        } else {
-            return true;
-        }
     }
     $scope.checkChat = function () {
         var cpf1 = "";
@@ -1146,6 +1139,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $(".loader-modal-chat").hide();
             $("#chat-mensagens").show();
             $("#chat-mensagens").html('');
+
             $.each(response.data.mensagens, function (index, value) {
 
                 if (value.remetente.cpf == $("#cpfSession").val()) {
@@ -1212,7 +1206,6 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                     $("<hr>").appendTo(divGod);
 
                     divGod.prependTo($("#chat-mensagens"))
-                    
 
                 }
             });
