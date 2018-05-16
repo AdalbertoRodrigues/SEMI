@@ -902,6 +902,8 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $("#id-viagem-chat").val(viagem.id);
         clearInterval($scope.atualizandoChat);
         $scope.atualizandoChat = setInterval($scope.getMensagensChat, 2000);
+        
+        //$scope.checkChat();
     };
 
 
@@ -1109,7 +1111,33 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             return true;
         }
     }
+    $scope.checkChat = function () {
+        var cpf1 = "";
+        var cpf2 = "";
+        $http({
+            method: 'GET',
+            url: ctx + '/chat.jsp?action=getMessagesFromViagem&idViagem=' + $("#id-viagem-chat").val()
+        }).then(function successCallback(response) {
+            $.each(response.data.mensagens, function (index, value) {
+                if (cpf1 == "")
+                    cpf1 = value.remetente.cpf;
+                else if (cpf2 == "" && cpf1 != value.remetente.cpf) {
+                    cpf2 = value.remetente.cpf;
+                    if ($("#cpfSession").val() == cpf1 || $("#cpfSession").val() == cpf2)
+                        $("#usr").prop("disabled", false);
+                    else
+                        $("#usr").prop("disabled", true);
 
+                    return false;
+                }
+
+            });
+            $scope.getMensagensChat()
+            $scope.atualizandoChat = setInterval($scope.getMensagensChat, 2000);
+        }, function errorCallback(response) {
+            console.log('Error');
+        })
+    };
     $scope.getMensagensChat = function () {
         $http({
             method: 'GET',
