@@ -1213,6 +1213,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
 
                     divGod.prependTo($("#chat-mensagens"))
                     
+
                 }
             });
 
