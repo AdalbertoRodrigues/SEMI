@@ -112,7 +112,7 @@ body {
     background-color: #C2BCB0;
 }
 
-.loader-usuario, .loader-veiculo, .loader-viagem {
+.loader-usuario, .loader-veiculo, .loader-viagem, .loader-motorista {
     border: 10px solid #f3f3f3;
     border-top: 10px solid #886D5C; 
     border-radius: 50%;
@@ -122,7 +122,7 @@ body {
     margin: auto;
 }
 
-.loader, .loader-login, .loader-modal, .loader-modal-chat {
+.loader, .loader-login, .loader-modal, .loader-modal-chat, .loader-status {
     border: 10px solid #f3f3f3;
     border-top: 10px solid #886D5C; 
     border-radius: 50%;
@@ -594,4 +594,33 @@ button:focus {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
+}
+
+.img-status {
+    width: 80px;
+    height: 80px;
+}
+
+.item-status {
+    text-align: center;
+}
+
+.caixa-status {
+    padding: 3px;
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.75);
+    border-radius: 4px;
+}
+
+.status-off {
+    opacity: 0.2;
+}
+
+.status-on {
+    opacity: 1;
+}
+
+#cards-viagem-atual, #alerta-exibicao-viagem {
+    display: none;
 }

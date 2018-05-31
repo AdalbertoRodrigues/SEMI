@@ -1,0 +1,67 @@
+<div class="modal fade" id="modal-status-real" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Qual o status da viagem?</h5>
+                <button id="btn-fechar-modal-status" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 col-sm-6 col-md-6 item-status">
+                        <div id="caixa-status-pronta" class="caixa-status">
+                            <img class="img-status" src="<%=request.getContextPath()%>/res/images/status/pronta.png"><br>
+                            Pronta
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-6 col-md-6 item-status">
+                        <div id="caixa-status-andamento" class="caixa-status">
+                            <img class="img-status" src="<%=request.getContextPath()%>/res/images/status/andamento.png"><br>
+                            Em andamento
+                        </div>
+                    </div>
+                </div>
+                            <br>
+                <div class="row">
+                    <div class="col-6 col-sm-6 col-md-6 item-status">
+                        <div id="caixa-status-fiscalizacao" class="caixa-status">
+                            <img class="img-status" src="<%=request.getContextPath()%>/res/images/status/fiscalizacao.png"><br>
+                            Na fiscalização
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-6 col-md-6 item-status">
+                        <div id="caixa-status-descanso" class="caixa-status">
+                            <img class="img-status" src="<%=request.getContextPath()%>/res/images/status/descanso.png"><br>
+                            Em descanso
+                        </div>
+                    </div>
+                </div>
+                            <br>
+                <div class="row">
+                    <div class="col-6 col-sm-6 col-md-6 item-status">
+                        <div id="caixa-status-entregue" class="caixa-status">
+                            <img class="img-status" src="<%=request.getContextPath()%>/res/images/status/entregue.png"><br>
+                            Entregue
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-6 col-md-6 item-status">
+                        <div id="caixa-status-concluida" class="caixa-status">
+                            <img class="img-status" src="<%=request.getContextPath()%>/res/images/status/retorno.png"><br>
+                            Concluida
+                        </div>
+                    </div>
+                </div>
+            </div>
+                            
+            <div class="loader-status" id="loader-status"></div>                
+
+            <div class="modal-footer">
+                <button type="button" ng-click="updateStatus()" id="btn-alterar-status" class="btn btn-outline-success" disabled>Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>

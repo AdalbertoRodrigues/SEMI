@@ -903,7 +903,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         clearInterval($scope.atualizandoChat);
         $scope.getMensagensChat();
         $scope.atualizandoChat = setInterval($scope.getMensagensChat, 2000);
-        
+
         //$scope.checkChat();
     };
 
@@ -1090,7 +1090,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $(".chat").each($scope.viagensEscaladas, function (index, value) {
                 if ($scope.viagensEscaladas.cpfFuncionario !== $("#cpfSession").val()) {
                     $(".chat-" + $scope.viagensEscaladas.cpfFuncionario).css("display", "none");
-                    
+
                 }
             });
             if ($scope.viagensEscaladas.length == 0) {
@@ -1457,23 +1457,54 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
         $rootScope.getViagemAtual();
     });
 
+
+
     $scope.updateStatus = function () {
-        $scope.status_viagem = $("#form-admin-usuario-status").val();
+        $scope.id = $('.item-status').find('.status-on').attr('id').substring(13, 300);
+        $rootScope.status_viagem = $scope.id.charAt(0).toUpperCase() + $scope.id.slice(1);
+        $(".item-status").hide();
+        $(".loader-status").show();
         $http({
             method: 'POST',
             url: ctx + '/viagem.jsp?action=updateStatus&idViagem=' + $rootScope.viagemAtual.id + '&status=' + $scope.status_viagem
         }).then(function successCallback(response) {
             if (response.data.resposta == "SUCCESS") {
                 $("#alteracao-concluida").show();
+                $('#modal-status-real').modal('toggle');
+                $(".item-status").show();
+                $(".loader-status").hide();
+                if ($rootScope.status_viagem == "Concluida") {
+                    $rootScope.getViagemAtual();
+                }
             } else {
+                $('#modal-status-real').modal('toggle');
+                $(".item-status").show();
+                $(".loader-status").hide();
                 alert("Ocorreu um erro ao alterar o status");
             }
 
         }, function errorCallback(response) {
             console.log('Error');
         });
-
     };
+
+    $scope.abrirModalStatus = function () {
+        $('#modal-status-real').modal('toggle');
+    };
+
+    $(".caixa-status").click(function () {
+        $(this).addClass('status-on');
+        $('.item-status').children().not($(this)).addClass('status-off').removeClass('status-on');
+        $("#btn-alterar-status").removeClass('btn-outline-success').addClass('btn-success').removeAttr('disabled');
+
+    });
+
+    $("#btn-fechar-modal-status").click(function () {
+        $("#caixa-status-" + $rootScope.viagemAtual.status.toLowerCase()).addClass("status-on");
+        $('.item-status').children().not($("#caixa-status-" + $rootScope.viagemAtual.status.toLowerCase())).addClass('status-off').removeClass('status-on');
+        $("#btn-alterar-status").addClass('btn-outline-success').removeClass('btn-success').attr('disabled', 'disabled');
+    });
+
     $scope.getMensagensChat = function () {
         $http({
             method: 'GET',
@@ -1555,12 +1586,11 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
     $scope.abrirModalChat = function () {
         $('#modal-chat').modal('toggle');
         $scope.getMensagensChat();
-        
+
         $scope.atualizandoChat = setInterval($scope.getMensagensChat, 2000);
     };
     $rootScope.getViagemAtual = function () {
         $(".loader-viagem").show();
-        $("#alerta-exibicao-viagem").hide();
 
         $http({
             method: 'GET',
@@ -1569,15 +1599,19 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
 
             $rootScope.viagemAtual = response.data.viagemAtualMotorista;
             $("#form-admin-usuario-status").val($rootScope.viagemAtual.status);
-
             $scope.error = response.data.error;
             $(".loader-viagem").hide();
+
             if ($rootScope.viagemAtual.viagemAtiva.indexOf("false") >= 0) {
                 $scope.erro_viagemAtual = 'Você não está escalado em nenhuma viagem no momento :)';
                 $("#alerta-exibicao-viagem").show();
                 $("#cards-viagem-atual").hide();
+            } else {
+                $rootScope.status_viagem = $rootScope.viagemAtual.status;
+                $("#caixa-status-" + $rootScope.viagemAtual.status.toLowerCase()).addClass("status-on");
+                $('.item-status').children().not($("#caixa-status-" + $rootScope.viagemAtual.status.toLowerCase())).addClass('status-off').removeClass('status-on');
+                $("#cards-viagem-atual").show();
             }
-
         }, function errorCallback(response) {
             $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados de viagens. Atualize a página e, se o erro persistir, contate o suporte.';
             $("#alerta-exibicao-veiculo").show();
