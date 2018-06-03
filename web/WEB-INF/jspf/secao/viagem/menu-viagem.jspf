@@ -30,6 +30,7 @@
             <thead>
                 <tr>
                     <th width="3%" scope="col"></th>
+                    <th width="2%" scope="col">PRAZO (aaaa/mm/dd)</th>
                     <th width="3%" scope="col">PARTIDA</th>
                     <th width="3%" scope="col">DESTINO</th>
                     <th width="3%"scope="col">CARGA</th>
@@ -45,6 +46,7 @@
                             </label>
                         </div>
                     </td>
+                    <td class="td-{{viagens.id}}" width="25%">{{viagens.prazo}}</td>
                     <td class="td-{{viagens.id}}" width="25%">{{viagens.partida.cidade}}/{{viagens.partida.estado}}</td>
                     <td class="td-{{viagens.id}}" width="25%">{{viagens.destino.cidade}}/{{viagens.destino.estado}}</td>
                     <td class="td-{{viagens.id}}" width="25%">{{viagens.carga.conteudo}}</td>
@@ -62,31 +64,34 @@
             <table class="table table-sm table-bordered table-striped" id="table-admin-escala-realizada">
                 <thead>
                     <tr>
-                    <th width="3%" scope="col">PARTIDA</th>
-                    <th width="3%" scope="col">DESTINO</th>
-                    <th width="3%" scope="col">CARGA</th>
-                    <th width="15%" scope="col">PLACA DO VEICULO</th>
-                    <th width="15%" scope="col">CNH DO MOTORISTA</th>
-                    <th width="3%" scope="col">STATUS</th>
-                    <th width="5%" scope="col">VER</th>
-                    <th width="5%" scope="col">CHAT</th>
+                        <th width="2%" scope="col">PRAZO (aaaa/mm/dd)</th>
+                        <th width="3%" scope="col">PARTIDA</th>
+                        <th width="3%" scope="col">DESTINO</th>
+                        <th width="3%" scope="col">CARGA</th>
+                        <th width="15%" scope="col">PLACA DO VEICULO</th>
+                        <th width="15%" scope="col">CNH DO MOTORISTA</th>
+                        <th width="3%" scope="col">STATUS</th>
+                        <th width="5%" scope="col">VER</th>
+                        <th width="5%" scope="col">CHAT</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr dir-paginate="viagensEscaladas in viagensEscaladas | itemsPerPage: 5" class="linha-tabela-escala-realizada" pagination-id="viagemEscalada">
-                    <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.partida.cidade}}/{{viagensEscaladas.partida.estado}}</td>
-                    <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.destino.cidade}}/{{viagensEscaladas.destino.estado}}</td>
-                    <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.carga.conteudo}}</td>
-                    <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.placa}}</td>
-                    <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.cnhMotorista}}</td>
-                    <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.status}}</td>
-                    <td class="td-{{viagensEscaladas.id}}" width="5%" class="col-admin-detalhes" ng-click="mostrarDetalhesViagem(viagensEscaladas)"><i class="fas fa-eye"></i></td>
-                    <td class="td-{{viagensEscaladas.id}}" width="5%"><button id="" type="button" ng-click="abrirModalChat(viagensEscaladas)" ng-if="teste(viagensEscaladas.cpfFuncionario)" class="chat chat-{{viagensEscaladas.cpfFuncionario}} btn btn-info"><i class="fas fa-comment-alt"></i> Chat</button></td>
+                        <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.prazo}}</td>
+                        <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.partida.cidade}}/{{viagensEscaladas.partida.estado}}</td>
+                        <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.destino.cidade}}/{{viagensEscaladas.destino.estado}}</td>
+                        <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.carga.conteudo}}</td>
+                        <td class="td-{{viagensEscaladas.id}} click-hover" width="12%" data-toogle=tooltip title="Ver mais" ng-click="abrirModalVeiculo(viagensEscaladas.placa)" style="cursor: pointer;">{{viagensEscaladas.placa}}</td>
+                        <td class="td-{{viagensEscaladas.id}} click-hover" width="12%" data-toogle=tooltip title="Ver mais" ng-click="abrirModalMotorista(viagensEscaladas.cnhMotorista)" style="cursor: pointer;">{{viagensEscaladas.cnhMotorista}}</td>
+                        <td class="td-{{viagensEscaladas.id}}" width="12%" >{{viagensEscaladas.status}}</td>
+                        <td class="td-{{viagensEscaladas.id}}" width="5%" class="col-admin-detalhes" ng-click="mostrarDetalhesViagem(viagensEscaladas)"><i class="fas fa-eye"></i></td>
+                        <td class="td-{{viagensEscaladas.id}}" width="5%"><button id="" type="button" ng-click="abrirModalChat(viagensEscaladas)" ng-if="teste(viagensEscaladas.cpfFuncionario)" class="chat chat-{{viagensEscaladas.cpfFuncionario}} btn btn-info"><i class="fas fa-comment-alt"></i> Chat</button></td>
                     </tr>
                 </tbody>
             </table>
-            
-        </div>
+            </div>
+        <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="viagemEscalada"></dir-pagination-controls>
+            <div class="loader-viagem" id="loader-tabela-viagem"></div>
+            <div class="alert alert-danger" id="alerta-exibicao-viagem" role="alert">{{erro - viagemEscalada}}</div>
     </div>
-
 </div>

@@ -85,6 +85,8 @@
         </div>
 
         <br><br>
+        <%@include file="../WEB-INF/jspf/modal_veiculo.jspf"%>
+        <%@include file="../WEB-INF/jspf/modal_motorista.jspf"%>
         <%@include file="../WEB-INF/jspf/modal_acoes.jspf"%>
         <div ng-controller="chatViagemFuncionario">
             <%@include file="../WEB-INF/jspf/secao/tela-motorista/modal-status.jspf"%>

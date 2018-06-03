@@ -66,6 +66,35 @@
             ex.printStackTrace();
         }
 
+    } else if (action.equals("selectByPlaca")) {
+        try {
+            Veiculo veiculo;
+
+            String json = "{\"veiculo\":{";
+            String atual = "";
+
+            Conexao con = new Conexao();
+
+            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM VEICULO WHERE cd_placa_veiculo = '" + request.getParameter("placa") + "'").executeQuery();
+            while (rs.next()) {
+                veiculo = new Veiculo(rs.getString("cd_placa_veiculo"), new Marca(rs.getString("nm_marca_veiculo")), rs.getString("nm_modelo_veiculo"), rs.getInt("aa_ano_veiculo"), rs.getString("cd_cnh_motorista_preferencial_veiculo"), rs.getInt("qt_eixos_veiculo"));
+
+                json += "\"placa\" : \"" + rs.getString("cd_placa_veiculo") + "\",";//placa
+                json += "\"marca\" : \"" + rs.getString("nm_marca_veiculo") + "\",";//placa
+                json += "\"modelo\" : \"" + rs.getString("nm_modelo_veiculo") + "\",";//prazo
+                json += "\"ano\" : \"" + rs.getInt("aa_ano_veiculo") + "\",";//prazo
+                json += "\"cnhPreferencial\" : \"" + rs.getString("cd_cnh_motorista_preferencial_veiculo") + "\",";//status
+                json += "\"eixos\" : \"" + rs.getInt("qt_eixos_veiculo") + "\"}";//placa
+            }
+
+            con.conexao.close();
+            out.println(json + "}");
+
+        } catch (Exception ex) {
+            out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+
     } else if (action.equals("insert")) {
         try {
             Conexao con = new Conexao();
@@ -84,7 +113,7 @@
             String ano = requestData.split(",")[3].split(":")[1].replace("\"", "");
 
             String motoristaPreferencial = requestData.split(",")[4].split(":")[1].replace("\"", "");
-            
+
             String eixos = requestData.split(",")[5].split(":")[1].replace("\"", "");
 
             ps.setString(1, placa);
@@ -114,7 +143,7 @@
             requestData = requestData.replace("{", "").replace("}", "");
 
             String idCapacitacao = requestData.split(",")[0].split(":")[1].replace("\"", "");
-            
+
             String placa = requestData.split(",")[1].split(":")[1].replace("\"", "");
 
             ps.setInt(1, Integer.parseInt(idCapacitacao));
@@ -194,10 +223,11 @@
             String ano = requestData.split(",")[2].split(":")[1].replace("\"", "");
             String qtdEixos = requestData.split(",")[3].split(":")[1].replace("\"", "");
             cnhMotoristaPreferencial = requestData.split(",")[4].split(":")[1].replace("\"", "");
-            
-            if(cnhMotoristaPreferencial.equals(""))
+
+            if (cnhMotoristaPreferencial.equals("")) {
                 cnhMotoristaPreferencial = null;
-            
+            }
+
             ps.setString(1, modelo);
             ps.setString(2, marca);
             ps.setInt(3, Integer.parseInt(ano));

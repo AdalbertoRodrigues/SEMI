@@ -1,0 +1,28 @@
+<div class="modal fade" id="modal-veiculo" tabindex="-1" role="dialog" aria-labelledby="modal-veiculo" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Informações do Veiculo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-veiculo-body">
+                <div id="modal-veiculo-infos">
+                    <p id="infos-modal"><b>Modelo: </b><span id="item_modelo_veiculo"></span></p>
+                    <p id="infos-modal"><b>Ano: </b><span id="item_ano_veiculo"></span></p>
+                    <p id="infos-modal"><b>Placa: </b><span id="item_placa_veiculo"></span></p>
+                    <p id="infos-modal"><b>Capacitação: </b><span id="item_capacitacao_veiculo"></span></p>
+                    <p id="infos-modal"><b>Marca: </b><span id="item_marca_veiculo"></span></p>
+                    <p id="infos-modal"><b>Eixos: </b><span id="item_eixos_veiculo"></span></p>
+                    <p id="infos-modal"><b>Motorista Preferencial: </b><span id="item_cnh_motorista_veiculo"></span></p>
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

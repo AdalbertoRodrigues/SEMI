@@ -51,28 +51,26 @@
     } else if (action.equals("selectByCnh")) {
         try {
             Motorista motorista;
-            String json = "{\"motorista\":[";
+            String json = "{\"motorista\":{";
             String atual = "";
 
             Conexao con = new Conexao();
 
-            ResultSet rs = con.conexao.prepareStatement("SELECT * FROM MOTORISTA, USUARIO WHERE MOTORISTA.cd_cpf_usuario = USUARIO.cd_cpf_usuario AND MOTORISTA.cd_cnh_motorista = " + request.getParameter("cnh")).executeQuery();
+            ResultSet rs = con.conexao.prepareStatement("SELECT M.*, U.* FROM MOTORISTA AS M "
+                    + "JOIN USUARIO AS U ON U.cd_cpf_usuario = M.cd_cpf_usuario "
+                    + "WHERE M.cd_cnh_motorista = " + request.getParameter("cnh")
+                    + " LIMIT 1").executeQuery();
 
-            while (rs.next()) {
-                motorista = new Motorista(rs.getString("cd_cnh_motorista"), rs.getBoolean("ic_mopp_possui_naopossui_motorista"), rs.getDate("dt_validade_mopp_motorista"),
-                        rs.getString("cd_cpf_usuario"), rs.getString("USUARIO.nm_nome_usuario"), rs.getString("USUARIO.cd_senha_usuario"),
-                        rs.getString("USUARIO.cd_tipo_usuario"));
-                if (rs.isLast()) {
-                    atual = Json_encoder.encode(motorista);
-                } else {
-                    atual = Json_encoder.encode(motorista) + ",";
-                }
-
-                json += atual;
+            while (rs.next()) {              
+                json += "\"cnh\" : \"" + rs.getString("M.cd_cnh_motorista") + "\",";//placa
+                json += "\"mopp\" : \"" + rs.getBoolean("M.ic_mopp_possui_naopossui_motorista") + "\",";//placa
+                json += "\"validadeMopp\" : \"" + rs.getDate("M.dt_validade_mopp_motorista") + "\",";//prazo
+                json += "\"cpf\" : \"" + rs.getString("M.cd_cpf_usuario") + "\",";//status
+                json += "\"nome\" : \"" + rs.getString("U.nm_nome_usuario") + "\"}";//placa
             }
 
             con.conexao.close();
-            out.println(json + "]}");
+            out.println(json + "}");
 
         } catch (Exception ex) {
             out.println(ex.getMessage());

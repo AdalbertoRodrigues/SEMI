@@ -221,6 +221,12 @@ button:focus {
     text-align: center;
 }
 
+.click-hover:hover{
+    cursor: pointer;
+    background-color: #886D5C;
+    color: white;
+}
+
 .col-admin-detalhes:hover {
     cursor: pointer;
 }

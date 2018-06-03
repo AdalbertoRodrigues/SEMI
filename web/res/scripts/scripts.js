@@ -24,6 +24,7 @@ function corNav() {
     }
 }
 ;
+//Modal Motorista Escalado
 
 //Botões de admin (usuario, caminhão, viagem)
 $(".btn-usuario-admin").click(function () {
@@ -343,7 +344,7 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
     };
 
     //Some a tela de menu e aparece a de DETALHES do usuário
-    $scope.mostrarDetalhesUsuario = function (usuario) {
+    $rootScope.mostrarDetalhesUsuario = function (usuario) {
         ativa = $(".body-admin-menu").find(".secao-ativa");
         ativa.addClass('animated fadeOutLeft').one(eventoAnimacao, function () {
             ativa.removeClass('secao-ativa');
@@ -907,6 +908,81 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         //$scope.checkChat();
     };
 
+    $scope.abrirModalMotorista = function (cnh) {
+        $http({
+            method: 'GET',
+            url: ctx + '/Motorista.jsp?action=selectByCnh&cnh=' + cnh
+
+        }).then(function successCallback(response) {
+            $scope.motorista = response.data.motorista;
+            $('#item_nome_motorista').html($scope.motorista.nome);
+            $('#item_cpf_motorista').html($scope.motorista.cpf);
+            $('#item_cnh_motorista').html($scope.motorista.cnh);
+
+            if ($scope.motorista.mopp == "true") {
+                $('#item_mopp_motorista').html("Sim (Vencimento: " + $scope.motorista.validadeMopp + ")");
+            } else {
+                $('#item_mopp_motorista').html("Não");
+            }
+
+            $('#modal-motorista').modal('toggle');
+
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
+    };
+
+    $scope.abrirModalVeiculo = function (placa) {
+        $http({
+            method: 'GET',
+            url: ctx + '/veiculo.jsp?action=selectByPlaca&placa=' + placa
+
+        }).then(function successCallback(response) {
+            $scope.veiculoModal = response.data.veiculo;
+            console.log($scope.veiculoModal);
+            $('#item_modelo_veiculo').html($scope.veiculoModal.modelo).removeClass();
+            $('#item_ano_veiculo').html($scope.veiculoModal.ano).removeClass();
+            $('#item_placa_veiculo').html($scope.veiculoModal.placa).removeClass();
+            $('#item_marca_veiculo').html($scope.veiculoModal.marca).removeClass();
+            $('#item_eixos_veiculo').html($scope.veiculoModal.eixos).removeClass();
+
+            if ($scope.veiculoModal.cnhPreferencial === "null") {
+                $('#item_cnh_motorista_veiculo').html("Não possui").removeClass();
+            } else {
+                $('#item_cnh_motorista_veiculo').html($scope.veiculoModal.cnhPreferencial).removeClass();
+            }
+
+            $http({
+                method: 'GET',
+                url: ctx + '/capacitacao.jsp?action=selectByVeiculo&placa=' + placa
+                
+            }).then(function successCallback(response) {
+                var capacitacoes = "";
+                $scope.capacitacaoAtual = response.data.capacitacao;
+                for (i = 0; i < $scope.capacitacaoAtual.length; i++) {
+                    if ($scope.capacitacaoAtual[i].id == 1)
+                        capacitacoes += "Carga Simples";
+                    if ($scope.capacitacaoAtual[i].id == 2)
+                        capacitacoes += ", Carga Perigosa";
+                    if ($scope.capacitacaoAtual[i].id == 3)
+                        capacitacoes += ", Carga Liquida";
+                    if ($scope.capacitacaoAtual[i].id == 4)
+                        capacitacoes += ", Carga Liquida Perigosa";
+                }
+
+                $('#item_capacitacao_veiculo').html(capacitacoes).removeClass();
+                console.log($scope.capacitacaoVeiculo);
+                $('#modal-veiculo').modal('toggle');
+
+            }, function errorCallback(response) {
+                console.log('Error');
+            });
+
+
+        }, function errorCallback(response) {
+            console.log('Error');
+        });
+    };
 
     $scope.checkCheckbox = function (check_id) {
         if ($(".checkbox-escala-pendente").children().is(":checked")) {
@@ -1064,6 +1140,7 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             $(".loader-viagem").hide();
             $("#form-admin-veiculo-filtro").focus();
             $(".admin-exibicao-veiculo").show();
+
 
             if ($scope.viagens.length == 0) {
                 $scope.erro_viagem = 'Nenhuma viagem encontrado com o respectivo filtro!';

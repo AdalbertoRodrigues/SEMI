@@ -1,0 +1,25 @@
+<div class="modal fade" id="modal-motorista" tabindex="-1" role="dialog" aria-labelledby="modal-motorista" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Informações do Motorista</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-motorista-body">
+                <div id="modal-motorista-infos">
+                    <p id="infos-modal"><b>Nome: </b><span id="item_nome_motorista"></span></p>
+                    <p id="infos-modal"><b>CPF: </b><span id="item_cpf_motorista"></span></p>
+                    <p id="infos-modal"><b>CNH: </b><span id="item_cnh_motorista"></span></p>
+                    <p id="infos-modal"><b>Possui MOPP? </b><span id="item_mopp_motorista"></span></p>
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
