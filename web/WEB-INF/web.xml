@@ -7,14 +7,14 @@
     </session-config>
     <error-page>
         <exception-type>java.lang.Exception</exception-type>
-        <location>/erro/erro.jsp</location>
+        <location>/erro/erro.jsp?codigoErro=xceNF404</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>
-        <location>/erro/erro.jsp</location>
+        <location>/erro/erro.jsp?codigoErro=xceNF404</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/erro/erro.jsp</location>
+        <location>/erro/erro.jsp?codigoErro=xceEI500</location>
     </error-page>
 </web-app>

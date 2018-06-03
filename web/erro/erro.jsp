@@ -35,7 +35,24 @@
             titleErro = "Pagina não disponivel";
             mensagemErro = "Clique aqui para voltar à sua página";
             linkErro = "/admin/menu.jsp";
+        } else if (request.getParameter("codigoErro").equals("xceEI500")) {
+            titleErro = "Problemas no servidor";
+            mensagemErro = "Tente novamente clicando aqui, ou aguarde até o problema ser resolvido";
+            if (session.getAttribute("me.name") != null) {
+                linkErro = "/admin/menu.jsp";
+            } else {
+                linkErro = "/index.jsp";
+            }
+        } else if (request.getParameter("codigoErro").equals("xceNF404")) {
+            titleErro = "Página não encontrada";
+            mensagemErro = "Essa página não existe, clique aqui para retornar a sua pagina inicial";
+            if (session.getAttribute("me.name") != null) {
+                linkErro = "/admin/menu.jsp";
+            } else {
+                linkErro = "/index.jsp";
+            }
         }
+
     %>
     <body>
         <nav class="navbar" id="nav-login">

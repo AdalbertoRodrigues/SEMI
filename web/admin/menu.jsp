@@ -7,16 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-//    if(session.getAttribute("me.name") == null || !session.getAttribute("me.type").equals("2") || request.getParameter("do-logoff")!= null){
-//        session.removeAttribute("me.cpf");
-//        session.removeAttribute("me.name");
-//        session.removeAttribute("me.pass");
-//        session.removeAttribute("me.type");
-//        response.sendRedirect(request.getContextPath()+"/index.jsp");
-//    }
-%>
-
-<%
     if (session.getAttribute("me.name") == null) {
         response.sendRedirect(request.getContextPath() + "/erro/erro.jsp?codigoErro=xceNL1001");
     }else if(!session.getAttribute("me.type").equals("0") && !session.getAttribute("me.type").equals("2")){

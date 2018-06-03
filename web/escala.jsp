@@ -30,8 +30,7 @@
             int count = requestData.split(",").length;
             for (int indexOfData = 0; indexOfData < count; indexOfData++) {
                 //Variaveis para Escala
-                String viagens = requestData.split(",")[indexOfData].split(":")[1].replace("\"", "");
-                int idViagem = Integer.parseInt(requestData.split(",")[0].split(":")[1].replace("\"", ""));
+                int idViagem = Integer.parseInt(requestData.split(",")[indexOfData].split(":")[1].replace("\"", ""));
                 String placaVeiculoEscalado = null;
                 String cnhMotoristaEscalado = null;
                 Date dataViagem = null;
