@@ -253,6 +253,7 @@ app.controller("loginController", function ($scope, dataService, $timeout, $http
                 }
 
             }, function errorCallback(response) {
+                //$('#modal-erro-con-servidor').modal('show'); Verificarei de tarde
                 alert('Erro ao se conectar com o servidor.');
                 $scope.erro_login = "Usuário inválido.";
                 $(".card-body-login").show();
@@ -281,6 +282,7 @@ app.controller("navAdminController", function ($scope, dataService, $http) {
                 $(location).attr('href', ctx + '/index.jsp');
             }
         }, function errorCallback(response) {
+            //$('#modal-falha-con-servidor').modal('show'); Verificarei de tarde
             alert('Falha na conexão com o servidor.');
         });
     };
@@ -494,6 +496,7 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
                     $rootScope.getUsuarios();
 
                 } else {
+                    //$('#modal-erro-cadastro-func').modal('show'); Verificarei de tarde
                     alert("Ocorreu um erro ao cadastrar o funcionário, se persistirem os erros favor relatar ao suporte")
                 }
 
@@ -511,6 +514,7 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
                     dataService.voltarMenuAdminUsuario();
                     $rootScope.getUsuarios();
                 } else {
+                    //$('#modal-erro-cadastro-mot').modal('show'); Verificarei de tarde
                     alert("Ocorreu um erro ao cadastrar o motorista, se persistirem os erros favor relatar ao suporte")
                 }
 
@@ -564,6 +568,7 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
                     dataService.voltarMenuAdminUsuario();
                     $rootScope.getUsuarios();
                 } else {
+                    //$('#modal-erro-alt-func').modal('show'); Verificarei de tarde
                     alert("Ocorreu um erro ao alterar o funcionário, se persistirem os erros favor relatar ao suporte")
                 }
 
@@ -581,6 +586,7 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
                     dataService.voltarMenuAdminUsuario();
                     $rootScope.getUsuarios();
                 } else {
+                    //$('#modal-erro-alt-mot').modal('show'); Verificarei de tarde
                     alert("Ocorreu um erro ao alterar o motorista, se persistirem os erros favor relatar ao suporte")
                 }
 
@@ -602,6 +608,7 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
                     dataService.voltarMenuAdminUsuario();
                     $rootScope.getUsuarios();
                 } else {
+                    //$('#modal-erro-rem-func').modal('show'); Verificarei de tarde
                     alert("Ocorreu um erro ao remover o funcionário, se persistirem os erros favor relatar ao suporte")
                 }
 
@@ -618,6 +625,7 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
                     dataService.voltarMenuAdminUsuario();
                     $rootScope.getUsuarios();
                 } else {
+                    //$('#modal-erro-rem-mot').modal('show'); Verificarei de tarde
                     alert("Ocorreu um erro ao remover o motorista, se persistirem os erros favor relatar ao suporte");
                 }
 
@@ -906,6 +914,7 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
                 $rootScope.getVeiculos();
                 $rootScope.getCapacitacao();
             } else {
+                //$('#modal-erro-rem-vei').modal('show'); Verificarei de tarde
                 alert("Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte")
             }
 
@@ -927,6 +936,7 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
                 $rootScope.getCapacitacao();
 
             } else {
+                //$('#modal-erro-alt-vei').modal('show'); Verificarei de tarde
                 alert("Ocorreu um erro ao alterar o veiculo, se persistirem os erros favor relatar ao suporte");
             }
 
@@ -1072,12 +1082,16 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
                         $scope.inserirChat($scope.vet_escala[i]);
                     }
                 } else if (response.data.resposta.indexOf("VIAGEM-NOT-FOUND-ID-") >= 0) {
+                    //$('#modal-viagem-nao-encontrada').modal('show'); Verificarei de tarde
                     alert(response.data.resposta + "\n\nOps, não encontramos sua viagem na nossa base de dados.\n\nAtualize o SEMI e se o erro persistir, contate o administrador do sistema");
                 } else if (response.data.resposta.indexOf("VEICULO-NOT-FOUND-ID-") >= 0 || response.data.resposta.indexOf("NO-VEICULO-DISPONIVEL-ID-") >= 0) {
+                    //$('#modal-veiculo-nao-encontrado').modal('show'); Verificarei de tarde
                     alert(response.data.resposta + "\n\nNão foi possivel encontrar um veiculo disponível para sua viagem.\nVerifique se possuem veiculos disponiveis e tente novamente\n\nSe o problema persistir, contate o administrador do sistema");
                 } else if (response.data.resposta.indexOf("MOTORISTA-NOT-FOUND-ID-") >= 0 || response.data.resposta.indexOf("NO-MOTORISTA-DISPONIVEL-ID-") >= 0) {
+                    //$('#modal-motorista-nao-encontrado').modal('show'); Verificarei de tarde
                     alert(response.data.resposta + "\n\nNão foi possivel encontrar um motorista disponível para sua viagem.\nVerifique se possuem motoristas disponiveis e tente novamente\n\nSe o problema persistir, contate o administrador do sistema");
                 } else {
+                    //$('#modal-informacao-nao-encontrada').modal('show'); Verificarei de tarde
                     alert(response.data.resposta + "\n\nOps, parece que ocorreu um erro com alguma informação na nossa base de dados\n\nAtualize o SEMI e se o erro persistir, contate o administrador do sistema");
                 }
                 console.log(response.data.resposta);
@@ -1604,6 +1618,7 @@ app.controller("menuMotoristaViagemController", function ($scope, $rootScope, da
                 $('#modal-status-real').modal('toggle');
                 $(".item-status").show();
                 $(".loader-status").hide();
+                //$('#modal-erro-alt-status').modal('show'); Verificarei de tarde
                 alert("Ocorreu um erro ao alterar o status");
             }
 
