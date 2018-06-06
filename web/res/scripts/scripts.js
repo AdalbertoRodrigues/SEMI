@@ -1248,14 +1248,62 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         $("#form-detalhes-viagem-carga-id").val(viagem.carga.id);
 
     };
-
+    
+    $scope.viagensCount = 0;
+    $scope.page = 1;
+    $scope.getViagensCount = function() {
+        $http({
+            method: 'GET',
+            url: ctx + '/viagem.jsp?action=count&tipo=viagem'
+        }).then(function successCallback(response) {
+            $scope.viagensCount = response.data.count;
+        });
+    };
+    $scope.previousPage = function() {
+        if($scope.page > 1) {
+            $scope.page--;
+            $rootScope.getViagens();
+        }
+    };
+    $scope.nextPage = function() {
+        if($scope.page + 1 <= Math.ceil($scope.viagensCount/5)) {
+            $scope.page++;
+            $rootScope.getViagens();
+        }
+    };
+    
+    $scope.viagensCountE = 0;
+    $scope.pageE = 1;
+    $scope.getViagensCountE = function() {
+        $http({
+            method: 'GET',
+            url: ctx + '/viagem.jsp?action=count&tipo=viagemescalada'
+        }).then(function successCallback(response) {
+            $scope.viagensCountE = response.data.count;
+        });
+    };
+    $scope.previousPageE = function() {
+        if($scope.pageE > 1) {
+            $scope.pageE--;
+            $rootScope.getViagensEscaladas();
+        }
+    };
+    $scope.nextPageE = function() {
+        if($scope.pageE + 1 <= Math.ceil($scope.viagensCountE/5)) {
+            $scope.pageE++;
+            $rootScope.getViagensEscaladas();
+            console.log(1);
+        }
+    };
+    
+    
     $rootScope.getViagens = function () {
         $(".loader-viagem").show();
         $("#alerta-exibicao-viagem").hide();
-
+        $scope.getViagensCount();
         $http({
             method: 'GET',
-            url: ctx + '/viagem.jsp?action=select'
+            url: ctx + '/viagem.jsp?action=select&page=' + $scope.page
         }).then(function successCallback(response) {
 
             $scope.viagens = response.data.viagens;
@@ -1277,9 +1325,10 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
     };
 
     $rootScope.getViagensEscaladas = function () {
+        $scope.getViagensCountE();
         $http({
             method: 'GET',
-            url: ctx + '/viagem.jsp?action=selectEscaladas'
+            url: ctx + '/viagem.jsp?action=selectEscaladas&page=' + $scope.pageE
         }).then(function successCallback(response) {
 
             $scope.viagensEscaladas = response.data.viagensEscaladas;

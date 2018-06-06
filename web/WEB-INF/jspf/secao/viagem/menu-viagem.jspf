@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr dir-paginate="viagens in viagens | itemsPerPage: 5" class="linha-tabela-escala-pendente" pagination-id="viagem">
+                <tr ng-repeat="viagens in viagens" class="linha-tabela-escala-pendente">
                     <td class="td-{{viagens.id}}">        
                         <div class="form-check">
                             <label class="form-check-label checkbox-escala-pendente">
@@ -54,7 +54,11 @@
                 </tr>
             </tbody>
         </table>
-        <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="viagem"></dir-pagination-controls>
+        <div class="div-btn-pagina">
+            <button class="btn-pagina" ng-click="previousPage()"><</button>
+            <h5 style="display:inline">{{page}}</h5>
+            <button class="btn-pagina" ng-click="nextPage()">></button>
+        </div>
         <div class="loader-viagem" id="loader-tabela-viagem"></div>
         <div class="alert alert-danger" id="alerta-exibicao-viagem" role="alert">{{erro - viagem}}</div>
     </div>
@@ -76,7 +80,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="viagensEscaladas in viagensEscaladas | itemsPerPage: 5" class="linha-tabela-escala-realizada" pagination-id="viagemEscalada">
+                    <tr ng-repeat="viagensEscaladas in viagensEscaladas" class="linha-tabela-escala-realizada">
                         <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.prazo}}</td>
                         <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.partida.cidade}}/{{viagensEscaladas.partida.estado}}</td>
                         <td class="td-{{viagensEscaladas.id}}" width="12%">{{viagensEscaladas.destino.cidade}}/{{viagensEscaladas.destino.estado}}</td>
@@ -89,8 +93,13 @@
                     </tr>
                 </tbody>
             </table>
+                
             </div>
-        <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="viagemEscalada"></dir-pagination-controls>
+            <div class="div-btn-pagina">
+                    <button class="btn-pagina" ng-click="previousPageE()"><</button>
+                    <h5 style="display:inline">{{pageE}}</h5>
+                    <button class="btn-pagina" ng-click="nextPageE()">></button>
+                </div>
             <div class="loader-viagem" id="loader-tabela-viagem"></div>
             <div class="alert alert-danger" id="alerta-exibicao-viagem" role="alert">{{erro - viagemEscalada}}</div>
     </div>

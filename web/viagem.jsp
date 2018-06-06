@@ -16,9 +16,21 @@
 
 <%
     String action = request.getParameter("action");
-
-    if (action.equals("select") || action.equals("selectEscaladas")) {
+    if(action.equals("count")) {
         try {
+            String sinal = (request.getParameter("tipo").equals("viagem")) ? "=" : "<>";
+            Conexao con = new Conexao();
+            ResultSet rs = con.conexao.prepareStatement("SELECT COUNT(dt_prazo_viagem) AS x FROM VIAGEM WHERE ds_status_viagem " + sinal + " 'Em espera'").executeQuery();
+            rs.next();
+            out.println("{\"count\" : \"" + rs.getInt("x") + "\"}");
+            con.conexao.close();
+        }
+        catch(Exception ex) {
+            out.println("{\"status\" : \"ERROR\"}");
+        }
+    } else if (action.equals("select") || action.equals("selectEscaladas")) {
+        try {
+            int pageNumber = Integer.parseInt(request.getParameter("page"));
             Viagem viagem;
             Viagem viagemEscalada;
             Endereco enderecoPartida;
@@ -55,7 +67,7 @@
                     + " JOIN CARGA AS C ON V.cd_id_carga = C.cd_id_carga "
                     + chatColumn
                     + joinViagemEscalada 
-                    + " WHERE V.ic_desativado_viagem = 0 AND ds_status_viagem " + status + " 'Em espera'").executeQuery();
+                    + " WHERE V.ic_desativado_viagem = 0 AND ds_status_viagem " + status + " 'Em espera' LIMIT " + (0 + ((pageNumber - 1) * 5)) + ", 5").executeQuery();
             while (rs.next()) {
                 enderecoPartida = new Endereco(rs.getString("EP.cd_cep_endereco"), rs.getInt("EP.cd_numero_endereco"),
                         rs.getString("EP.nm_rua_endereco"),

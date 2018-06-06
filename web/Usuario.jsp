@@ -46,7 +46,7 @@
         }
         catch(Exception ex) {
             out.println("{\"status\" : \"ERROR\"}");
-            out.println(ex.getMessage());
+            
         }
     } else if (action.equals("select")) {
         try {
