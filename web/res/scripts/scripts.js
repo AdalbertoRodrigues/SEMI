@@ -313,8 +313,7 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
         }
     };
     $scope.nextPage = function() {
-        console.log($scope.usuarioCount);
-        if(5 * ($scope.page + 1) <= $scope.usuarioCount) {
+        if($scope.page + 1 <= Math.ceil($scope.usuarioCount/5)) {
             $scope.page++;
             $rootScope.getUsuarios();
         }
@@ -637,8 +636,32 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document,
         $rootScope.getCapacitacao();
         $rootScope.getMarcas();
     });
-
+    
+    $scope.veiculosCount = 0;
+    $scope.page = 1;
+    $scope.getVeiculosCount = function() {
+        $http({
+            method: 'GET',
+            url: ctx + '/veiculo.jsp?action=count&pesquisarPor='
+        }).then(function successCallback(response) {
+            $scope.veiculosCount = response.data.count;
+        })
+    };
+    
+    $scope.previousPage = function() {
+        if($scope.page > 1) {
+            $scope.page--;
+            $rootScope.getVeiculos();
+        }
+    };
+    $scope.nextPage = function() {
+        if($scope.page + 1 <= Math.ceil($scope.veiculosCount/5)) {
+            $scope.page++;
+            $rootScope.getVeiculos();
+        }
+    };
     $rootScope.getVeiculos = function (pesquisarPor) {
+        $scope.getVeiculosCount();
         $(".loader-veiculo").show();
         $("#alerta-exibicao-veiculo").hide();
         if (pesquisarPor == null)
@@ -646,7 +669,7 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document,
 
         $http({
             method: 'GET',
-            url: ctx + '/veiculo.jsp?action=select&pesquisarPor=' + pesquisarPor
+            url: ctx + '/veiculo.jsp?action=select&pesquisarPor=' + pesquisarPor + "&page=" + $scope.page
         }).then(function successCallback(response) {
             $scope.veiculos = response.data.veiculos;
             $(".loader-veiculo").hide();

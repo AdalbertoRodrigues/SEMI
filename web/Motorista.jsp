@@ -15,13 +15,13 @@
 
 <%
     String action = request.getParameter("action");
-
+    
     if (action.equals("select")) {
         try {
             Motorista motorista;
             String json = "{\"motoristas\":[";
             String atual = "";
-
+            int pageNumber = Integer.parseInt(request.getParameter("page"));
             Conexao con = new Conexao();
 
             ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO, MOTORISTA WHERE MOTORISTA.cd_cpf_usuario = USUARIO.cd_cpf_usuario").executeQuery();

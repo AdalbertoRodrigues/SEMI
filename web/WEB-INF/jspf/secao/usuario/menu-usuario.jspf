@@ -41,9 +41,9 @@
                 </tbody>
             </table>
             <div class="text-center">
-                <button class="fas fa-arrow-left" ng-click="previousPage()"></button>
+                <button class="" ng-click="previousPage()"><</button>
                 <h5 style="display:inline">{{page}}</h5>
-                <button class="fas fa-arrow-right" ng-click="nextPage()"></button>
+                <button class="" ng-click="nextPage()">></button>
             </div>
         </div>
         

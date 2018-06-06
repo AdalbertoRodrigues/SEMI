@@ -33,15 +33,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="veiculos in veiculos | itemsPerPage: 5" class="linha-tabela-admin" pagination-id="veiculo">
-                        <td>{{veiculos.modelo}}</td>
-                        <td>{{veiculos.placa}}</td>
-                        <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesVeiculo(veiculos)" pagination-id="veiculo"><i class="fas fa-eye"></i></td>
+                    <tr ng-repeat="veiculo in veiculos" class="linha-tabela-admin">
+                        <td>{{veiculo.modelo}}</td>
+                        <td>{{veiculo.placa}}</td>
+                        <td width="10%" class="col-admin-detalhes" ng-click="mostrarDetalhesVeiculo(veiculo)"><i class="fas fa-eye"></i></td>
                     </tr>
                 </tbody>
+                
             </table>
+            <div class="text-center">
+                <button class="" ng-click="previousPage()"><</button>
+                <h5 style="display:inline">{{page}}</h5>
+                <button class="" ng-click="nextPage()">></button>
+            </div>
         </div>
-        <dir-pagination-controls max-size="4" boundary-links="false" pagination-id="veiculo"></dir-pagination-controls>
     </div>
     <div class="loader-veiculo" id="loader-tabela-veiculo"></div>
     <div class="alert alert-danger" id="alerta-exibicao-veiculo" role="alert">{{erro_veiculo}}</div>
