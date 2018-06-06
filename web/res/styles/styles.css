@@ -630,3 +630,18 @@ button:focus {
 #cards-viagem-atual, #alerta-exibicao-viagem {
     display: none;
 }
+
+.btn-pagina {
+    text-align: center;
+    background: rgba(194,188, 176, 0.8);
+    border-radius: 4px;
+    border: 1px solid rgba(194,188, 176, 0.8);
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 15px;
+    padding-bottom: 5px;
+}
+
+.div-btn-pagina{
+    text-align: center;
+}

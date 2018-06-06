@@ -40,12 +40,12 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="text-center">
-                <button class="" ng-click="previousPage()"><</button>
+                    </div>
+        <div class="div-btn-pagina">
+                <button class="btn-pagina" ng-click="previousPage()"><</button>
                 <h5 style="display:inline">{{page}}</h5>
-                <button class="" ng-click="nextPage()">></button>
+                <button class="btn-pagina" ng-click="nextPage()">></button>
             </div>
-        </div>
         
     </div>
     <div class="loader-usuario" id="loader-tabela-usuario"></div>

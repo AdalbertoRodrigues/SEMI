@@ -38,7 +38,7 @@
             </div>
             <div class="form-group col-6 col-sm-6">
                 <label for="form-detalhes-viagem-conteudo" class="col-form-label-sm">Conteúdo </label>
-                <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-conteudo" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_conteudo" ng-change="checkValido()">
+                <input maxlength="40" type="text" class="form-control form-control-sm" id="form-detalhes-viagem-conteudo" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_conteudo" ng-change="checkValido()">
             </div>
         </div>
         <div class="form-row">
@@ -103,7 +103,7 @@
             <div class="form-row">
                 <div class="form-group col-6 col-sm-6">
                     <label for="form-detalhes-viagem-rua-partida" class="col-form-label-sm">Rua/Avenida </label>
-                    <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-partida" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_rua_partida" ng-change="checkValido()">
+                    <input maxlength="50" type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-partida" ng-model-options='{debounce: 500}' ng-model="detalhes_viagem_rua_partida" ng-change="checkValido()">
                 </div>
                 <div class="form-group col-2 col-sm-2">
                     <label for="form-detalhes-viagem-rua-numero-partida" class="col-form-label-sm">Nº </label>
@@ -111,7 +111,7 @@
                 </div>
                 <div class="form-group col-2 col-sm-2">
                     <label for="form-detalhes-viagem-rua-complemento-partida" class="col-form-label-sm">Complemento </label>
-                    <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-complemento-partida" value="">
+                    <input maxlength="20" type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-complemento-partida" value="">
                 </div>
             </div>
             <div class="form-row">
@@ -128,14 +128,14 @@
                 </div>
                 <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                     <label for="form-detalhes-viagem-estado-partida" class="col-form-label-sm">Distrito </label>
-                    <input type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_estado_partida" id="form-detalhes-viagem-estado-partida">
+                    <input maxlength="20" type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_estado_partida" id="form-detalhes-viagem-estado-partida">
                 </div>
                 <div class="form-group col-1 col-sm-1">
                     &nbsp;
                 </div>
                 <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                     <label for="form-detalhes-viagem-cidade-partida" class="col-form-label-sm">Cidade </label>
-                    <input type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_cidade_partida" id="form-detalhes-viagem-cidade-partida">
+                    <input maxlength="20" type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_cidade_partida" id="form-detalhes-viagem-cidade-partida">
                 </div>
             </div>
         </div>
@@ -153,7 +153,7 @@
             <div class="form-row">
                 <div class="form-group col-6 col-sm-6">
                     <label for="form-detalhes-viagem-rua-destino" class="col-form-label-sm">Rua/Avenida </label>
-                    <input type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_rua_destino" id="form-detalhes-viagem-rua-destino">
+                    <input maxlength="50" type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_rua_destino" id="form-detalhes-viagem-rua-destino">
                 </div>
                 <div class="form-group col-2 col-sm-2">
                     <label for="form-detalhes-viagem-rua-numero-destino" class="col-form-label-sm">Nº </label>
@@ -161,7 +161,7 @@
                 </div>
                 <div class="form-group col-2 col-sm-2">
                     <label for="form-detalhes-viagem-rua-complemento-destino" class="col-form-label-sm">Complemento </label>
-                    <input type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-complemento-destino" value="">
+                    <input maxlength="20" type="text" class="form-control form-control-sm" id="form-detalhes-viagem-rua-complemento-destino" value="">
                 </div>
             </div>
             <div class="form-row">
@@ -178,14 +178,14 @@
                 </div>
                 <div class="form-group col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
                     <label for="form-detalhes-viagem-estado-destino" class="col-form-label-sm">Distrito </label>
-                    <input type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_estado_destino" id="form-detalhes-viagem-estado-destino">
+                    <input maxlength="20" type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_estado_destino" id="form-detalhes-viagem-estado-destino">
                 </div>
                 <div class="form-group col-1 col-sm-1">
                     &nbsp;
                 </div>
                 <div class="form-group col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                     <label for="form-detalhes-viagem-cidade-destino" class="col-form-label-sm">Cidade </label>
-                    <input type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_cidade_destino" id="form-detalhes-viagem-cidade-destino">
+                    <input maxlength="20" type="text" class="form-control form-control-sm" ng-model-options='{debounce: 500}' ng-change="checkValido()" ng-model="detalhes_viagem_cidade_destino" id="form-detalhes-viagem-cidade-destino">
                     </select>
                 </div>
             </div>

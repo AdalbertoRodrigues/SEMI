@@ -41,12 +41,13 @@
                 </tbody>
                 
             </table>
-            <div class="text-center">
-                <button class="" ng-click="previousPage()"><</button>
-                <h5 style="display:inline">{{page}}</h5>
-                <button class="" ng-click="nextPage()">></button>
-            </div>
+            
         </div>
+        <div class="div-btn-pagina">
+                <button class="btn-pagina" ng-click="previousPage()"><</button>
+                <h5 style="display:inline">{{page}}</h5>
+                <button class="btn-pagina" ng-click="nextPage()">></button>
+            </div>
     </div>
     <div class="loader-veiculo" id="loader-tabela-veiculo"></div>
     <div class="alert alert-danger" id="alerta-exibicao-veiculo" role="alert">{{erro_veiculo}}</div>
