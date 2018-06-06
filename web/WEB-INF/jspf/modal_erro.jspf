@@ -1,0 +1,334 @@
+<div class="modal fade" id="modal-erro-con-servidor" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Ocorreu um erro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Erro ao se conectar com o servidor.</b><span id="item_modelo_veiculo"></span></p>
+                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-falha-con-servidor" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Ocorreu um erro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Falha na conexão com o servidor.</b><span id="item_modelo_veiculo"></span></p>
+                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-erro-cadastro-func" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Erro no cadastro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Ocorreu um erro ao cadastrar o funcionário, se persistirem os erros favor relatar ao suporte</b><span id="item_modelo_veiculo"></span></p>
+                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-erro-cadastro-mot" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Erro no cadastro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Ocorreu um erro ao cadastrar o motorista, se persistirem os erros favor relatar ao suporte</b><span id="item_modelo_veiculo"></span></p>
+                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-erro-alt-func" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Erro na alteração</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Ocorreu um erro ao alterar o funcionário, se persistirem os erros favor relatar ao suporte</b><span id="item_modelo_veiculo"></span></p>
+                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-erro-alt-mot" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Erro na alteração</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Ocorreu um erro ao alterar o motorista, se persistirem os erros favor relatar ao suporte</b><span id="item_modelo_veiculo"></span></p>
+                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-erro-rem-mot" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Erro ao remover</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Ocorreu um erro ao remover o motorista, se persistirem os erros favor relatar ao suporte</b><span id="item_modelo_veiculo"></span></p>
+                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-erro-rem-vei" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Erro ao remover</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Ocorreu um erro ao remover o veiculo, se persistirem os erros favor relatar ao suporte</b><span id="item_modelo_veiculo"></span></p>
+                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-erro-alt-vei" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Erro ao alterar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Ocorreu um erro ao alterar o veiculo, se persistirem os erros favor relatar ao suporte</b><span id="item_modelo_veiculo"></span></p>
+                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-viagem-nao-encontrada" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Viagem não encontrada</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Ops, não encontramos sua viagem na nossa base de dados.</b><span id="item_modelo_veiculo"></span></p>
+                    <p id="infos-modal"><b>Atualize o SEMI e se o erro persistir, contate o administrador do sistema.</b><span id="item_modelo_veiculo"></span></p>                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-veiculo-nao-encontrado" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Veiculo não encontrado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Não foi possivel encontrar um veiculo disponível para sua viagem.</b><span id="item_modelo_veiculo"></span></p>
+                    <p id="infos-modal"><b>Verifique se possuem veiculos disponiveis e tente novamente\n\nSe o problema persistir, contate o administrador do sistema.</b><span id="item_modelo_veiculo"></span></p>                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-motorista-nao-encontrado" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Motorista não encontrado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Não foi possivel encontrar um motorista disponível para sua viagem.</b><span id="item_modelo_veiculo"></span></p>
+                    <p id="infos-modal"><b>Verifique se possuem motoristas disponiveis e tente novamente\n\nSe o problema persistir, contate o administrador do sistema.</b><span id="item_modelo_veiculo"></span></p>                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-informacao-nao-encontrada" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Informação não encontrada</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Ops, parece que ocorreu um erro com alguma informação na nossa base de dados.</b><span id="item_modelo_veiculo"></span></p>
+                    <p id="infos-modal"><b>Atualize o SEMI e se o erro persistir, contate o administrador do sistema.</b><span id="item_modelo_veiculo"></span></p>                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-erro-alt-status" tabindex="-1" role="dialog" aria-labelledby="modal-erro" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="item-titulo">Ocorreu um erro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-erro-body">
+                <div id="modal-erro-infos">
+                    <p id="infos-modal"><b>Ocorreu um erro ao alterar o status</b><span id="item_modelo_veiculo"></span></p>                   
+                </div>
+                <div class="loader-modal"></div>
+            </div>
+
+            <div class="modal-footer">   
+                <button type="button" data-dismiss="modal" id="btn-modal-ok" aria-label="Close" class="btn btn-login">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
