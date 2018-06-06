@@ -17,17 +17,48 @@
     String action = request.getParameter("action");
     String pesquisarPor = request.getParameter("pesquisarPor");
     String filtrarPor = request.getParameter("filtrarPor");
-
-    if (action.equals("select")) {
+    if(action.equals("count")) {
+        try {
+            Conexao con = new Conexao();
+            if(!pesquisarPor.equals("") && !filtrarPor.equals("")) {
+                pesquisarPor = "'%" + pesquisarPor + "%'";
+                ResultSet rs = con.conexao.prepareStatement("SELECT COUNT(cd_cpf_usuario) AS x FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ") AND cd_tipo_usuario = " + filtrarPor + ";").executeQuery();
+                rs.next();
+                out.println("{\"count\" : \"" + rs.getInt("x") + "\"}");
+                con.conexao.close();
+            } else if (!pesquisarPor.equals("")) {
+                pesquisarPor = "'%" + pesquisarPor + "%'";
+                ResultSet rs = con.conexao.prepareStatement("SELECT COUNT(cd_cpf_usuario) AS x FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ");").executeQuery();
+                rs.next();
+                out.println("{\"count\" : \"" + rs.getInt("x") + "\"}");
+                con.conexao.close();
+            } else if (filtrarPor.equals("") && pesquisarPor.equals("")) {
+                ResultSet rs = con.conexao.prepareStatement("SELECT COUNT(cd_cpf_usuario) AS x FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 ;").executeQuery();
+                rs.next();
+                out.println("{\"count\" : \"" + rs.getInt("x") + "\"}");
+                con.conexao.close();
+            } else if (!filtrarPor.equals("")) {
+                ResultSet rs = con.conexao.prepareStatement("SELECT COUNT(cd_cpf_usuario) AS x FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND cd_tipo_usuario = " + filtrarPor + ";").executeQuery();
+                rs.next();
+                out.println("{\"count\" : \"" + rs.getInt("x") + "\"}");
+                con.conexao.close();
+            }
+        }
+        catch(Exception ex) {
+            out.println("{\"status\" : \"ERROR\"}");
+            out.println(ex.getMessage());
+        }
+    } else if (action.equals("select")) {
         try {
             Usuario usuario;
             String json = "{\"usuarios\":[";
             String atual = "";
+            int pageNumber = Integer.parseInt(request.getParameter("page"));
 
             Conexao con = new Conexao();
             if (!pesquisarPor.equals("") && !filtrarPor.equals("")) {
                 pesquisarPor = "'%" + pesquisarPor + "%'";
-                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ") AND cd_tipo_usuario = " + filtrarPor + ";").executeQuery();
+                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ") AND cd_tipo_usuario = " + filtrarPor + " LIMIT " + (0 + ((pageNumber - 1) * 5)) + ", 5").executeQuery();
                 while (rs.next()) {
                     usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
                     if (rs.isLast()) {
@@ -43,7 +74,7 @@
                 out.println(json + "]}");
             } else if (!pesquisarPor.equals("")) {
                 pesquisarPor = "'%" + pesquisarPor + "%'";
-                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ");").executeQuery();
+                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND (LOWER(nm_nome_usuario) LIKE LOWER(" + pesquisarPor + ") OR cd_cpf_usuario LIKE " + pesquisarPor + ") LIMIT " + (0 + ((pageNumber - 1) * 5)) + ", 5").executeQuery();
                 while (rs.next()) {
                     usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
                     if (rs.isLast()) {
@@ -58,7 +89,7 @@
                 con.conexao.close();
                 out.println(json + "]}");
             } else if (filtrarPor.equals("") && pesquisarPor.equals("")) {
-                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 ;").executeQuery();
+                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 LIMIT " + (0 + ((pageNumber - 1) * 5)) + ", 5").executeQuery();
                 while (rs.next()) {
                     usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
                     if (rs.isLast()) {
@@ -73,7 +104,7 @@
                 con.conexao.close();
                 out.println(json + "]}");
             } else if (!filtrarPor.equals("")) {
-                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND cd_tipo_usuario = " + filtrarPor + ";").executeQuery();
+                ResultSet rs = con.conexao.prepareStatement("SELECT * FROM USUARIO WHERE cd_tipo_usuario BETWEEN 0 AND 2 AND cd_tipo_usuario = " + filtrarPor + " LIMIT " + (0 + ((pageNumber - 1) * 5)) + ", 5").executeQuery();
                 while (rs.next()) {
                     usuario = new Usuario(rs.getString("cd_cpf_usuario"), rs.getString("nm_nome_usuario"), rs.getString("cd_senha_usuario"), rs.getString("cd_tipo_usuario"));
                     if (rs.isLast()) {

@@ -294,9 +294,33 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
 
     $(".card-body-login").show();
     $(".loader-login").hide();
-
-
+    
+    $scope.usuarioCount = 0;
+    $scope.users = [];
+    $scope.page = 1;
+    $scope.getUsuariosCount = function() {
+        $http({
+            method: 'GET',
+            url: ctx + '/Usuario.jsp?action=count&=&pesquisarPor=&filtrarPor='
+        }).then(function successCallback(response) {
+            $scope.usuarioCount = response.data.count;
+        });
+    };
+    $scope.previousPage = function() {
+        if($scope.page > 1) {
+            $scope.page--;
+            $rootScope.getUsuarios();
+        }
+    };
+    $scope.nextPage = function() {
+        console.log($scope.usuarioCount);
+        if(5 * ($scope.page + 1) <= $scope.usuarioCount) {
+            $scope.page++;
+            $rootScope.getUsuarios();
+        }
+    };
     $rootScope.getUsuarios = function (pesquisarPor, filtrarPor) {
+        $scope.getUsuariosCount();
         $(".admin-exibicao-usuario").hide();
         $(".loader-usuario").show();
 
@@ -307,13 +331,13 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
             pesquisarPor = '';
         $http({
             method: 'GET',
-            url: ctx + '/Usuario.jsp?action=select&pesquisarPor=' + pesquisarPor + '&filtrarPor=' + filtrarPor
+            url: ctx + '/Usuario.jsp?action=select&pesquisarPor=' + pesquisarPor + '&filtrarPor=' + filtrarPor + "&page=" + $scope.page
         }).then(function successCallback(response) {
-            $scope.usuarios = response.data.usuarios;
+            $scope.users = response.data.usuarios;
             $(".loader-usuario").hide();
             $("#form-admin-usuario-filtro").focus();
             $(".admin-exibicao-usuario").show();
-            if ($scope.usuarios.length !== 0 && $scope.usuarios !== null) {
+            if ($scope.users.length !== 0 && $scope.usuarios !== null) {
                 $("#alerta-exibicao-usuario").hide();
                 $("#form-admin-usuario-filtro").focus();
             } else {
