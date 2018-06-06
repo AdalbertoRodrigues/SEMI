@@ -438,16 +438,32 @@ app.controller("incluirUsuarioAdminController", function ($scope, dataService, $
             $scope.checkValido();
         }
     };
+    
+    $scope.checkNome = function () {
+        $scope.input = $("#form-incluir-usuario-nome").val(); 
+        
+        if ($scope.input.length > 50 || ($scope.input.indexOf("?") > -1)  || ($scope.input.indexOf("/") > -1) || ($scope.input.indexOf(":") > -1) || ($scope.input.indexOf("@") > -1) || ($scope.input.indexOf("-") > -1) || ($scope.input.indexOf("'") > -1) || ($scope.input.indexOf("|") > -1) || ($scope.input.indexOf("*") > -1) || ($scope.input.indexOf("-") > -1) || ($scope.input.indexOf("+") > -1) || ($scope.input.indexOf("=") > -1) || ($scope.input.indexOf("&") > -1) || ($scope.input.indexOf("#") > -1) || ($scope.input.indexOf("!") > -1) || ($scope.input.indexOf("{") > -1) || ($scope.input.indexOf("}") > -1) || ($scope.input.indexOf("[") > -1) || $scope.input.indexOf("]") > -1 || $scope.input.indexOf("(") > -1 || $scope.input.indexOf(")") > -1 || $scope.input.indexOf("$") > -1 || $scope.input.indexOf(";") > -1 || $scope.input.indexOf(">") > -1 || $scope.input.indexOf("<") > -1 || $scope.input.indexOf("0") > -1 || $scope.input.indexOf("1") > -1 || $scope.input.indexOf("2") > -1 || $scope.input.indexOf("3") > -1 || $scope.input.indexOf("4") > -1 || $scope.input.indexOf("5") > -1 ||  $scope.input.indexOf("6") > -1 || $scope.input.indexOf("7") > -1 || $scope.input.indexOf("8") > -1 || $scope.input.indexOf("9") > -1){
+            $("#form-incluir-usuario-nome").addClass('error-input');
+            
+            return false;
+            $scope.checkValido();
+        } else {
+            $("#form-incluir-usuario-nome").removeClass('error-input');
+            return true;
+            $scope.checkValido();
+        }
+    };
 
     $scope.checkValido = function () {
+        
         if ($("#btn-tipo-motorista").hasClass('btn-admin-tipo-active')) {
-            if (!$scope.cpfValido || $scope.incluir_usuario_nome == null || $scope.incluir_usuario_cpf == null || $scope.incluir_usuario_cnh == null || $scope.incluir_usuario_senha == null) {
+            if (!$scope.cpfValido || !$scope.checkNome() || $scope.incluir_usuario_nome == null || $scope.incluir_usuario_cpf == null || $scope.incluir_usuario_cnh == null || $scope.incluir_usuario_senha == null) {
                 $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
             } else {
                 $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
             }
         } else {
-            if (!$scope.cpfValido || $scope.incluir_usuario_nome == null || $scope.incluir_usuario_cpf == null || $scope.incluir_usuario_senha == null) {
+            if (!$scope.cpfValido || !$scope.checkNome() || $scope.incluir_usuario_nome == null || $scope.incluir_usuario_cpf == null || $scope.incluir_usuario_senha == null) {
                 $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
             } else {
                 $("#btn-inserir-usuario").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
@@ -540,12 +556,28 @@ app.controller("detalhesUsuarioAdminController", function ($scope, dataService, 
             $scope.checkValido();
         }
     };
+    
+     $scope.checkNome = function () {
+        $scope.input = $("#form-detalhes-usuario-nome").val(); 
+        
+        if ($scope.input.length > 50 || ($scope.input.indexOf("?") > -1)  || ($scope.input.indexOf("/") > -1) || ($scope.input.indexOf(":") > -1) || ($scope.input.indexOf("@") > -1) || ($scope.input.indexOf("-") > -1) || ($scope.input.indexOf("'") > -1) || ($scope.input.indexOf("|") > -1) || ($scope.input.indexOf("*") > -1) || ($scope.input.indexOf("-") > -1) || ($scope.input.indexOf("+") > -1) || ($scope.input.indexOf("=") > -1) || ($scope.input.indexOf("&") > -1) || ($scope.input.indexOf("#") > -1) || ($scope.input.indexOf("!") > -1) || ($scope.input.indexOf("{") > -1) || ($scope.input.indexOf("}") > -1) || ($scope.input.indexOf("[") > -1) || $scope.input.indexOf("]") > -1 || $scope.input.indexOf("(") > -1 || $scope.input.indexOf(")") > -1 || $scope.input.indexOf("$") > -1 || $scope.input.indexOf(";") > -1 || $scope.input.indexOf(">") > -1 || $scope.input.indexOf("<") > -1 || $scope.input.indexOf("0") > -1 || $scope.input.indexOf("1") > -1 || $scope.input.indexOf("2") > -1 || $scope.input.indexOf("3") > -1 || $scope.input.indexOf("4") > -1 || $scope.input.indexOf("5") > -1 ||  $scope.input.indexOf("6") > -1 || $scope.input.indexOf("7") > -1 || $scope.input.indexOf("8") > -1 || $scope.input.indexOf("9") > -1){
+            $("#form-detalhes-usuario-nome").addClass('error-input');
+            
+            return false;
+            $scope.checkValido();
+        } else {
+            $("#form-detalhes-usuario-nome").removeClass('error-input');
+            return true;
+            $scope.checkValido();
+        }
+    };
+    
     $scope.checkValido = function () {
         $scope.detalhes_usuario_nome = $("#form-detalhes-usuario-nome").val();
         $scope.detalhes_usuario_cpf = $("#form-detalhes-usuario-cpf").val();
         $scope.detalhes_usuario_senha = $("#form-detalhes-usuario-senha").val();
         $scope.detalhes_usuario_cnh = $("#form-detalhes-usuario-cnh").val();
-        if ($scope.cpfValido == false || $scope.detalhes_usuario_nome == '' || $scope.detalhes_usuario_cpf == '' || $scope.detalhes_usuario_senha == '') {
+        if ($scope.cpfValido == false || !$scope.checkNome() ||$scope.detalhes_usuario_nome == '' || $scope.detalhes_usuario_cpf == '' || $scope.detalhes_usuario_senha == '') {
             $("#btn-admin-alterar-usuario").addClass('btn-admin-alterar-usuario-disabled').removeClass('btn-admin-alterar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
         } else {
             $("#btn-admin-alterar-usuario").addClass('btn-admin-alterar-usuario').removeClass('btn-admin-alterar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
@@ -814,8 +846,23 @@ app.controller("incluirVeiculoAdminController", function ($scope, dataService, $
         dataService.voltarMenuAdminVeiculo();
     };
 
+    $scope.checkNome = function () {
+        $scope.input = $("#form-incluir-veiculo-modelo").val(); 
+        
+        if ($scope.input.length > 50 || ($scope.input.indexOf("?") > -1)  || ($scope.input.indexOf(":") > -1) || ($scope.input.indexOf("@") > -1) || ($scope.input.indexOf("+") > -1) || ($scope.input.indexOf("=") > -1) || ($scope.input.indexOf("#") > -1) || ($scope.input.indexOf("!") > -1) || ($scope.input.indexOf("{") > -1) || ($scope.input.indexOf("}") > -1) || ($scope.input.indexOf("[") > -1) || $scope.input.indexOf("]") > -1 || $scope.input.indexOf("(") > -1 || $scope.input.indexOf(")") > -1 || $scope.input.indexOf("$") > -1 || $scope.input.indexOf(";") > -1 || $scope.input.indexOf(">") > -1 || $scope.input.indexOf("<") > -1){
+            $("#form-incluir-veiculo-modelo").addClass('error-input');
+            
+            return false;
+            $scope.checkValido();
+        } else {
+            $("#form-incluir-veiculo-modelo").removeClass('error-input');
+            return true;
+            $scope.checkValido();
+        }
+    };
+
     $scope.checkValido = function () {
-        if ($scope.incluir_veiculo_modelo == null || $scope.incluir_veiculo_marca == null || $scope.incluir_veiculo_placa == null || $scope.incluir_veiculo_placa.length < 8 || $scope.incluir_veiculo_eixos == null || $scope.incluir_veiculo_ano == null) {
+        if ($scope.incluir_veiculo_modelo == null || !$scope.checkNome() || $scope.incluir_veiculo_marca == null || $scope.incluir_veiculo_placa == null || $scope.incluir_veiculo_placa.length < 8 || $scope.incluir_veiculo_eixos == null || $scope.incluir_veiculo_ano == null) {
             $("#btn-admin-incluir-veiculo").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
         } else {
             $("#btn-admin-incluir-veiculo").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
@@ -879,6 +926,20 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
             $scope.checkValido();
         }
     };
+    
+    $scope.checkNome = function () {
+        $scope.input = $("#form-detalhes-veiculo-modelo").val(); 
+        
+        if ($scope.input.length > 50 || ($scope.input.indexOf("?") > -1)  || ($scope.input.indexOf(":") > -1) || ($scope.input.indexOf("@") > -1) || ($scope.input.indexOf("+") > -1) || ($scope.input.indexOf("=") > -1) || ($scope.input.indexOf("#") > -1) || ($scope.input.indexOf("!") > -1) || ($scope.input.indexOf("{") > -1) || ($scope.input.indexOf("}") > -1) || ($scope.input.indexOf("[") > -1) || $scope.input.indexOf("]") > -1 || $scope.input.indexOf("(") > -1 || $scope.input.indexOf(")") > -1 || $scope.input.indexOf("$") > -1 || $scope.input.indexOf(";") > -1 || $scope.input.indexOf(">") > -1 || $scope.input.indexOf("<") > -1){
+            $("#form-detalhes-veiculo-modelo").addClass('error-input');
+            return false;
+            $scope.checkValido();
+        } else {
+            $("#form-detalhes-veiculo-modelo").removeClass('error-input');
+            return true;
+            $scope.checkValido();
+        }
+    };
 
     $scope.checkValido = function () {
         $scope.detalhes_veiculo_modelo = $("#form-detalhes-veiculo-modelo").val();
@@ -888,7 +949,7 @@ app.controller("detalhesVeiculoAdminController", function ($scope, dataService, 
         $scope.detalhes_veiculo_motorista = $("#form-detalhes-veiculo-motoristaPreferencial").val();
         $scope.detalhes_veiculo_placa = $("#form-detalhes-veiculo-placa").val();
 
-        if ($scope.detalhes_veiculo_modelo == '' || $scope.detalhes_veiculo_marca == '' || $scope.detalhes_veiculo_placa == '' || $scope.detalhes_veiculo_ano == '' || $scope.detalhes_veiculo_eixos == '' || $scope.placaValida == false || $scope.detalhes_veiculo_placa.length < 8) {
+        if ($scope.detalhes_veiculo_modelo == '' || !$scope.checkNome() || $scope.detalhes_veiculo_marca == '' || $scope.detalhes_veiculo_placa == '' || $scope.detalhes_veiculo_ano == '' || $scope.detalhes_veiculo_eixos == '' || $scope.placaValida == false || $scope.detalhes_veiculo_placa.length < 8) {
             $("#btn-admin-alterar-veiculo").addClass('btn-admin-alterar-usuario-disabled').removeClass('btn-admin-alterar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
         } else {
             $("#btn-admin-alterar-veiculo").addClass('btn-admin-alterar-usuario').removeClass('btn-admin-alterar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
@@ -1372,6 +1433,22 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         }
     });
 
+      $scope.checkNome = function () {
+        $scope.input = $("#form-incluir-viagem-conteudo").val(); 
+        
+        if ($scope.input.length > 50 || ($scope.input.indexOf("?") > -1)  || ($scope.input.indexOf("@") > -1) || ($scope.input.indexOf("-") > -1) || ($scope.input.indexOf("'") > -1) || ($scope.input.indexOf("|") > -1) || ($scope.input.indexOf("*") > -1) || ($scope.input.indexOf("-") > -1) || ($scope.input.indexOf("+") > -1) || ($scope.input.indexOf("=") > -1) || ($scope.input.indexOf("&") > -1) || ($scope.input.indexOf("#") > -1) || ($scope.input.indexOf("!") > -1) || ($scope.input.indexOf("{") > -1) || ($scope.input.indexOf("}") > -1) || ($scope.input.indexOf("[") > -1) || $scope.input.indexOf("]") > -1 || $scope.input.indexOf("(") > -1 || $scope.input.indexOf(")") > -1 || $scope.input.indexOf("$") > -1 || $scope.input.indexOf(";") > -1 || $scope.input.indexOf(">") > -1 || $scope.input.indexOf("<") > -1 || $scope.input.indexOf("0") > -1 || $scope.input.indexOf("1") > -1 || $scope.input.indexOf("2") > -1 || $scope.input.indexOf("3") > -1 || $scope.input.indexOf("4") > -1 || $scope.input.indexOf("5") > -1 ||  $scope.input.indexOf("6") > -1 || $scope.input.indexOf("7") > -1 || $scope.input.indexOf("8") > -1 || $scope.input.indexOf("9") > -1){
+            $("#form-incluir-viagem-conteudo").addClass('error-input');
+            
+            return false;
+            $scope.checkValido();
+        } else {
+            $("#form-incluir-viagem-conteudo").removeClass('error-input');
+            return true;
+            $scope.checkValido();
+        }
+    };
+    
+
     $scope.checkValido = function () {
         $scope.incluir_viagem_tipo = $("#form-incluir-viagem-tipo").val();
         $scope.incluir_viagem_conteudo = $("#form-incluir-viagem-conteudo").val();
@@ -1395,11 +1472,9 @@ app.controller("incluirViagemAdminController", function ($scope, dataService, $h
         $scope.incluir_viagem_estado_destino = $("#form-incluir-viagem-estado-destino").val();
         $scope.incluir_viagem_cidade_destino = $("#form-incluir-viagem-cidade-destino").val();
 
-        if ($scope.incluir_viagem_tipo == '' || $scope.incluir_viagem_conteudo == '' || $scope.incluir_viagem_peso == '' || $scope.incluir_viagem_altura == '' || $scope.incluir_viagem_largura == '' || $scope.incluir_viagem_comprimento == '' || $scope.incluir_viagem_cep_partida == '' || $scope.incluir_viagem_cep_partida.length < 9 || $scope.incluir_viagem_rua_partida == '' || $scope.incluir_viagem_rua_numero_partida == '' || $scope.incluir_viagem_pais_partida == '' || $scope.incluir_viagem_estado_partida == '' || $scope.incluir_viagem_cidade_partida == '' || $scope.incluir_viagem_cep_destino == '' || $scope.incluir_viagem_cep_destino.length < 9 || $scope.incluir_viagem_rua_destino == '' || $scope.incluir_viagem_rua_numero_destino == '' || $scope.incluir_viagem_pais_destino == '' || $scope.incluir_viagem_estado_destino == '' || $scope.incluir_viagem_cidade_destino == '' || $scope.incluir_viagem_prazo == '') {
-            console.log("desativado");
+        if ($scope.incluir_viagem_tipo == '' || !$scope.checkNome() ||$scope.incluir_viagem_conteudo == '' || $scope.incluir_viagem_peso == '' || $scope.incluir_viagem_altura == '' || $scope.incluir_viagem_largura == '' || $scope.incluir_viagem_comprimento == '' || $scope.incluir_viagem_cep_partida == '' || $scope.incluir_viagem_cep_partida.length < 9 || $scope.incluir_viagem_rua_partida == '' || $scope.incluir_viagem_rua_numero_partida == '' || $scope.incluir_viagem_pais_partida == '' || $scope.incluir_viagem_estado_partida == '' || $scope.incluir_viagem_cidade_partida == '' || $scope.incluir_viagem_cep_destino == '' || $scope.incluir_viagem_cep_destino.length < 9 || $scope.incluir_viagem_rua_destino == '' || $scope.incluir_viagem_rua_numero_destino == '' || $scope.incluir_viagem_pais_destino == '' || $scope.incluir_viagem_estado_destino == '' || $scope.incluir_viagem_cidade_destino == '' || $scope.incluir_viagem_prazo == '') {
             $("#btn-admin-adicionar-viagem").addClass('btn-admin-adicionar-usuario-disabled').removeClass('btn-admin-adicionar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
         } else {
-            console.log("ativado");
             $("#btn-admin-adicionar-viagem").addClass('btn-admin-adicionar-usuario').removeClass('btn-admin-adicionar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
         }
     };
@@ -1471,6 +1546,22 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
             });
         }
     });
+    
+      $scope.checkNome = function () {
+        $scope.input = $("#form-detalhes-viagem-conteudo").val(); 
+        
+        if ($scope.input.length > 50 || ($scope.input.indexOf("?") > -1)  || ($scope.input.indexOf("@") > -1) || ($scope.input.indexOf("-") > -1) || ($scope.input.indexOf("'") > -1) || ($scope.input.indexOf("|") > -1) || ($scope.input.indexOf("*") > -1) || ($scope.input.indexOf("-") > -1) || ($scope.input.indexOf("+") > -1) || ($scope.input.indexOf("=") > -1) || ($scope.input.indexOf("&") > -1) || ($scope.input.indexOf("#") > -1) || ($scope.input.indexOf("!") > -1) || ($scope.input.indexOf("{") > -1) || ($scope.input.indexOf("}") > -1) || ($scope.input.indexOf("[") > -1) || $scope.input.indexOf("]") > -1 || $scope.input.indexOf("(") > -1 || $scope.input.indexOf(")") > -1 || $scope.input.indexOf("$") > -1 || $scope.input.indexOf(";") > -1 || $scope.input.indexOf(">") > -1 || $scope.input.indexOf("<") > -1 || $scope.input.indexOf("0") > -1 || $scope.input.indexOf("1") > -1 || $scope.input.indexOf("2") > -1 || $scope.input.indexOf("3") > -1 || $scope.input.indexOf("4") > -1 || $scope.input.indexOf("5") > -1 ||  $scope.input.indexOf("6") > -1 || $scope.input.indexOf("7") > -1 || $scope.input.indexOf("8") > -1 || $scope.input.indexOf("9") > -1){
+            $("#form-detalhes-viagem-conteudo").addClass('error-input');
+            
+            return false;
+            $scope.checkValido();
+        } else {
+            $("#form-detalhes-viagem-conteudo").removeClass('error-input');
+            return true;
+            $scope.checkValido();
+        }
+    };
+    
 
     $scope.checkValido = function () {
         $scope.detalhes_viagem_tipo = $("#form-detalhes-viagem-tipo").val();
@@ -1495,7 +1586,7 @@ app.controller("detalhesViagemAdminController", function ($scope, dataService, $
         $scope.detalhes_viagem_estado_destino = $("#form-detalhes-viagem-estado-destino").val();
         $scope.detalhes_viagem_cidade_destino = $("#form-detalhes-viagem-cidade-destino").val();
 
-        if ($scope.detalhes_viagem_tipo == '' || $scope.detalhes_viagem_conteudo == '' || $scope.detalhes_viagem_peso == '' || $scope.detalhes_viagem_altura == '' || $scope.detalhes_viagem_largura == '' || $scope.detalhes_viagem_comprimento == '' || $scope.detalhes_viagem_cep_partida == '' || $scope.detalhes_viagem_cep_partida.length < 9 || $scope.detalhes_viagem_rua_partida == '' || $scope.detalhes_viagem_rua_numero_partida == '' || $scope.detalhes_viagem_pais_partida == '' || $scope.detalhes_viagem_estado_partida == '' || $scope.detalhes_viagem_cidade_partida == '' || $scope.detalhes_viagem_cep_destino == '' || $scope.detalhes_viagem_cep_destino.length < 9 || $scope.detalhes_viagem_rua_destino == '' || $scope.detalhes_viagem_rua_numero_destino == '' || $scope.detalhes_viagem_pais_destino == '' || $scope.detalhes_viagem_estado_destino == '' || $scope.detalhes_viagem_cidade_destino == '' || $scope.detalhes_viagem_prazo == '') {
+        if ($scope.detalhes_viagem_tipo == '' || $scope.checkNome() || $scope.detalhes_viagem_conteudo == '' || $scope.detalhes_viagem_peso == '' || $scope.detalhes_viagem_altura == '' || $scope.detalhes_viagem_largura == '' || $scope.detalhes_viagem_comprimento == '' || $scope.detalhes_viagem_cep_partida == '' || $scope.detalhes_viagem_cep_partida.length < 9 || $scope.detalhes_viagem_rua_partida == '' || $scope.detalhes_viagem_rua_numero_partida == '' || $scope.detalhes_viagem_pais_partida == '' || $scope.detalhes_viagem_estado_partida == '' || $scope.detalhes_viagem_cidade_partida == '' || $scope.detalhes_viagem_cep_destino == '' || $scope.detalhes_viagem_cep_destino.length < 9 || $scope.detalhes_viagem_rua_destino == '' || $scope.detalhes_viagem_rua_numero_destino == '' || $scope.detalhes_viagem_pais_destino == '' || $scope.detalhes_viagem_estado_destino == '' || $scope.detalhes_viagem_cidade_destino == '' || $scope.detalhes_viagem_prazo == '') {
             $("#btn-admin-alterar-viagem").addClass('btn-admin-alterar-usuario-disabled').removeClass('btn-admin-alterar-usuario').prop('disabled', true).css('cursor', 'not-allowed');
         } else {
             $("#btn-admin-alterar-viagem").addClass('btn-admin-alterar-usuario').removeClass('btn-admin-alterar-usuario-disabled').prop('disabled', false).css('cursor', 'pointer');
