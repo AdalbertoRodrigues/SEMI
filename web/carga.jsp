@@ -10,7 +10,7 @@
 <%@page import="br.com.uhapp.semi.Carga"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="br.com.uhapp.semi.Conexao"%>
-<%@page contentType="json" pageEncoding="UTF-8"%>
+<%@page contentType="text/json" pageEncoding="UTF-8"%>
 
 <%
     String action = request.getParameter("action");

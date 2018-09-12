@@ -9,7 +9,7 @@
 <%@page import="br.com.uhapp.semi.Json_encoder"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="br.com.uhapp.semi.Conexao"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/json" pageEncoding="UTF-8"%>
 
 <%
     String action = request.getParameter("action");
