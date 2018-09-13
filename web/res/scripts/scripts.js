@@ -323,6 +323,7 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
     $rootScope.getUsuarios = function (pesquisarPor, filtrarPor) {
         $scope.getUsuariosCount();
         $(".admin-exibicao-usuario").hide();
+        $(".div-btn-pagina").hide();
         $(".loader-usuario").show();
 
         if (filtrarPor == null)
@@ -345,6 +346,7 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
                 $scope.erro_usuario = 'Nenhum usuário encontrado com o respectivo filtro!';
                 $("#alerta-exibicao-usuario").show();
                 $(".admin-exibicao-filtro-usuario").show();
+                $(".div-btn-pagina").show();
                 $("#form-admin-usuario-filtro").focus();
             }
 
@@ -352,6 +354,7 @@ app.controller("menuAdminUsuarioController", function ($scope, dataService, $doc
             $scope.erro_usuario = 'Ocorreu um erro ao conectar com a base de dados dos usuários. Atualize a página e, se o erro persistir, contate o suporte.';
             $(".loader-usuario").hide();
             $(".admin-exibicao-usuario").hide();
+            $(".div-btn-pagina").hide();
             $("#alerta-exibicao-usuario").show();
         });
     };
@@ -703,6 +706,8 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document,
     $rootScope.getVeiculos = function (pesquisarPor) {
         $scope.getVeiculosCount();
         $(".loader-veiculo").show();
+        $(".admin-exibicao-veiculo").hide();
+        $(".div-btn-pagina").hide();
         $("#alerta-exibicao-veiculo").hide();
         if (pesquisarPor == null)
             pesquisarPor = '';
@@ -714,15 +719,20 @@ app.controller("menuAdminVeiculoController", function ($scope, $http, $document,
             $scope.veiculos = response.data.veiculos;
             $(".loader-veiculo").hide();
             $("#form-admin-veiculo-filtro").focus();
-            $(".admin-exibicao-veiculo").show();
-
+            
             if ($scope.veiculos.length == 0) {
                 $scope.erro_veiculo = 'Nenhum veículo encontrado com o respectivo filtro!';
                 $("#alerta-exibicao-veiculo").show();
             }
+            else {
+                $(".admin-exibicao-veiculo").show();
+                $(".div-btn-pagina").show();
+            }
 
         }, function errorCallback(response) {
             $(".loader-veiculo").hide();
+            $(".admin-exibicao-veiculo").hide();
+            $(".div-btn-pagina").hide();
             $scope.erro_veiculo = 'Ocorreu um erro ao conectar com a base de dados dos veículos. Atualize a página e, se o erro persistir, contate o suporte.';
             $("#alerta-exibicao-veiculo").show();
         });
