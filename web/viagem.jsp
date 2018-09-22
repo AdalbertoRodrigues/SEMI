@@ -20,7 +20,7 @@
         try {
             String sinal = (request.getParameter("tipo").equals("viagem")) ? "=" : "<>";
             Conexao con = new Conexao();
-            ResultSet rs = con.conexao.prepareStatement("SELECT COUNT(dt_prazo_viagem) AS x FROM VIAGEM WHERE ds_status_viagem " + sinal + " 'Em espera'").executeQuery();
+            ResultSet rs = con.conexao.prepareStatement("SELECT COUNT(dt_prazo_viagem) AS x FROM VIAGEM WHERE ds_status_viagem " + sinal + " 'Em espera' AND ic_desativado_viagem = 0").executeQuery();
             rs.next();
             out.println("{\"count\" : \"" + rs.getInt("x") + "\"}");
             con.conexao.close();

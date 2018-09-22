@@ -1182,7 +1182,6 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
         }).then(function successCallback(response) {
             if (response.data.resposta == 'SUCCESS') {
                 console.log(response);
-                console.log("top");
             } else {
                 alert(response.data);
             }
@@ -1309,8 +1308,12 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
     
     $rootScope.getViagens = function () {
         $(".loader-viagem").show();
+        $("#table-admin-viagem").hide();
+        $(".div-btn-pagina").hide();
         $("#alerta-exibicao-viagem").hide();
         $scope.getViagensCount();
+        
+        
         $http({
             method: 'GET',
             url: ctx + '/viagem.jsp?action=select&page=' + $scope.page
@@ -1318,12 +1321,13 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
 
             $scope.viagens = response.data.viagens;
             $(".loader-viagem").hide();
-            $("#form-admin-veiculo-filtro").focus();
-            $(".admin-exibicao-veiculo").show();
+            $("#table-admin-viagem").show();
+            $(".div-btn-pagina").show();
 
 
             if ($scope.viagens.length == 0) {
                 $scope.erro_viagem = 'Nenhuma viagem encontrado com o respectivo filtro!';
+                $(".loader-viagem").hide();
                 $("#alerta-exibicao-veiculo").show();
             }
 
@@ -1335,6 +1339,11 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
     };
 
     $rootScope.getViagensEscaladas = function () {
+        $(".loader-viagem").show();
+        $("#table-admin-escala-realizada").hide();
+        $(".div-btn-pagina").hide();
+        $("#alerta-exibicao-viagem").hide();
+        
         $scope.getViagensCountE();
         $http({
             method: 'GET',
@@ -1343,8 +1352,9 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
 
             $scope.viagensEscaladas = response.data.viagensEscaladas;
             $(".loader-viagem").hide();
-            $("#form-admin-veiculo-filtro").focus();
-            $(".admin-exibicao-veiculo").show();
+            $("#table-admin-escala-realizada").show();
+            $(".div-btn-pagina").show();
+            
             $(".chat").each($scope.viagensEscaladas, function (index, value) {
                 if ($scope.viagensEscaladas.cpfFuncionario !== $("#cpfSession").val()) {
                     $(".chat-" + $scope.viagensEscaladas.cpfFuncionario).css("display", "none");
@@ -1353,12 +1363,14 @@ app.controller("viagemAdminController", function ($scope, $rootScope, $document,
             });
             if ($scope.viagensEscaladas.length == 0) {
                 $scope.erro_viagem = 'Nenhuma viagem encontrado com o respectivo filtro!';
+                $(".loader-viagem").hide();
                 $("#alerta-exibicao-veiculo").show();
             }
 
         }, function errorCallback(response) {
             $(".loader-veiculo").hide();
             $scope.erro_viagem = 'Ocorreu um erro ao conectar com a base de dados de viagens. Atualize a página e, se o erro persistir, contate o suporte.';
+            $(".loader-viagem").hide();
             $("#alerta-exibicao-veiculo").show();
         });
     }
